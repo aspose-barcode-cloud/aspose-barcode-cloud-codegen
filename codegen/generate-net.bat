@@ -1,0 +1,14 @@
+cls
+set tempDir=.generated
+set targetDir=..\..\aspose-barcode-cloud-dotnet\src
+
+if exist %tempDir% del /s /q %tempDir% || goto :error
+java -jar Tools\swagger-codegen-cli.jar generate -i ..\spec\aspose-barcode-cloud.json -l csharp -t Templates\csharp -o %tempDir% -c config.json || goto :error
+
+Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarCodeApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
+
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\Model\" /e /i /y || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api" "%targetDir%\Api\" /e /i /y || goto :error
+
+del /s /q %tempDir% || goto :error
+rmdir /s /q  %tempDir% || goto :error

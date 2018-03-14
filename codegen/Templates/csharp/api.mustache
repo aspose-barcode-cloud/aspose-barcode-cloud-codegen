@@ -1,0 +1,153 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Aspose" file="{{classname}}.cs">
+//   Copyright (c) 2018 Aspose.BarCode for Cloud
+// </copyright>
+// <summary>
+//   Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+// 
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+// 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace {{packageName}}
+{
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using {{packageName}}.Model;
+    using {{packageName}}.Model.Requests;
+    using {{packageName}}.RequestHandlers;
+    
+    {{#operations}}
+    /// <summary>
+    /// Aspose.BarCode for Cloud API.
+    /// </summary>
+    public class {{classname}}
+    {        
+        private readonly ApiInvoker apiInvoker;
+        private readonly Configuration configuration;     
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api Key.
+        /// </param>
+        /// <param name="appSid">
+        /// The app Sid.
+        /// </param>
+        public {{classname}}(string apiKey, string appSid)
+            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
+        /// </summary>    
+        /// <param name="configuration">Configuration settings</param>
+        public {{classname}}(Configuration configuration)
+        {
+            this.configuration = configuration;
+            
+            var requestHandlers = new List<IRequestHandler>();
+            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new ApiExceptionRequestHandler());
+            requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
+            this.apiInvoker = new ApiInvoker(requestHandlers);
+        }                            
+        {{#operation}}
+
+        /// <summary>
+        /// {{summary}} {{notes}}
+        /// </summary>
+        /// <param name="request">Request. <see cref="{{nickname}}Request" /></param> 
+        /// <returns><see cref="{{#returnType}}{{{returnType}}}{{/returnType}}"/></returns>            
+        public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}}({{nickname}}Request request)
+        {
+{{#allParams}}{{#required}}            // verify the required parameter '{{paramName}}' is set
+            if (request.{{baseName}} == null) 
+            {
+                throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
+            }
+
+{{/required}}{{/allParams}}            // create path and map variables
+            var resourcePath = this.configuration.GetApiRootUrl() + "{{path}}";
+            resourcePath = Regex
+                        .Replace(resourcePath, "\\*", string.Empty)
+                        .Replace("&amp;", "&")
+                        .Replace("/?", "?");
+            {{#headerParams}}
+            {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
+            {{/headerParams}}
+            {{#formParams}}            
+            {{#-first}}var formParams = new Dictionary<string, object>();{{/-first}}
+            {{/formParams}}
+            {{#pathParams}}
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            {{/pathParams}}
+            {{#queryParams}}
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
+            {{/queryParams}}
+            {{#headerParams}}
+            if ({{paramName}} != null) 
+            {
+                headerParams.Add("{{paramName}}", this.apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
+            }
+            {{/headerParams}}
+            {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
+            {{#formParams}}
+            if (request.{{baseName}} != null) 
+            {
+                {{#isFile}}formParams.Add("{{paramName}}", this.apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
+            }
+            
+            {{/formParams}}
+            try 
+            {                               
+{{#vendorExtensions}}{{#x-binary-result}}                    return this.apiInvoker.InvokeBinaryApi(
+                        resourcePath, 
+                        "{{httpMethod}}", 
+                        {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 
+                        {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}}, 
+                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
+                    resourcePath, 
+                    "{{httpMethod}}", 
+                    {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 
+                    {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}}, 
+                    {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+                if (response != null)
+                {
+                    return ({{returnType}})SerializationHelper.Deserialize(response, typeof({{returnType}}));
+                }
+                    
+                return null;{{/x-binary-result}}{{/vendorExtensions}}
+            } 
+            catch (ApiException ex) 
+            {
+                if (ex.ErrorCode == 404) 
+                {
+                    return null;
+                }
+                
+                throw;                
+            }
+        }
+        {{/operation}}        
+    }
+    {{/operations}}
+}
+{{>requestModel}}

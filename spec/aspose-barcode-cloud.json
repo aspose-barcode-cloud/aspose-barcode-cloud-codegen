@@ -1,0 +1,1376 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Aspose.BarCode for Cloud API Reference",
+    "version": "1"
+  },
+  "host": "api.aspose.cloud",
+  "basePath": "/v1",
+  "schemes": [],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/barcode/generate": {
+      "get": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Generate barcode.",
+        "operationId": "BarCode_GetBarCodeGenerate",
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "text",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The code text."
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "x-nullable": true,
+            "description": "BarCode type."
+          },
+          {
+            "type": "string",
+            "name": "format",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Result format."
+          },
+          {
+            "type": "number",
+            "name": "resolutionX",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Horizontal resolution.",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "resolutionY",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Vertical resolution.",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "dimensionX",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Smallest width of barcode unit (bar or space).",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "dimensionY",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Smallest height of barcode unit (for 2D barcodes).",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "string",
+            "name": "enableChecksum",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Sets if checksum will be generated."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Generated barcode image.",
+            "schema": {
+              "type": "file"
+            },
+            "x-nullable": true
+          }
+        },		
+        "x-binary-result": "true"
+      }
+    },
+    "/barcode/{name}/generate": {
+      "put": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Generate barcode and save on server.",
+        "operationId": "BarCode_PutBarCodeGenerateFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "x-nullable": false,
+            "description": "The image name."
+          },
+          {
+            "type": "string",
+            "name": "text",
+            "in": "query",
+            "x-nullable": true,
+            "description": "BarCode's text."
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The barcode type."
+          },
+          {
+            "type": "string",
+            "name": "format",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The image format."
+          },
+          {
+            "type": "number",
+            "name": "resolutionX",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Horizontal resolution.",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "resolutionY",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Vertical resolution.",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "dimensionX",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Smallest width of barcode unit (bar or space).",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "dimensionY",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Smallest height of barcode unit (for 2D barcodes).",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "string",
+            "name": "codeLocation",
+            "in": "query",
+            "x-nullable": true,
+            "description": "property of the barcode. "
+          },
+          {
+            "type": "string",
+            "name": "grUnit",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Measurement of barcode properties. "
+          },
+          {
+            "type": "string",
+            "name": "autoSize",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Sets if barcode size will be updated automatically. "
+          },
+          {
+            "type": "number",
+            "name": "barHeight",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Height of the bar. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "imageHeight",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Height of the image. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "imageWidth",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Width of the image. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "string",
+            "name": "imageQuality",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Detepmines  of the barcode image. "
+          },
+          {
+            "type": "number",
+            "name": "rotAngle",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Angle of barcode orientation. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "topMargin",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Top margin. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "bottomMargin",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Bottom margin. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "leftMargin",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Left margin. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "number",
+            "name": "rightMargin",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Right margin. ",
+            "format": "double",
+            "default": 0.0
+          },
+          {
+            "type": "string",
+            "name": "enableChecksum",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Sets if checksum will be generated."
+          },
+          {
+            "type": "string",
+            "name": "storage",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Image's storage."
+          },
+          {
+            "type": "string",
+            "name": "folder",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Image's folder."
+          },
+          {
+            "type": "file",
+            "name": "File",
+            "in": "formData",
+            "required": true,
+            "description": "File to upload"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "with the operation status.",
+            "schema": {
+              "$ref": "#/definitions/AsposeResponse"
+            },
+            "x-nullable": true
+          }
+        }
+      }
+    },
+    "/barcode/{name}/recognize": {
+	
+      "get": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Recognize barcode from a file on server.",
+        "operationId": "BarCode_GetBarCodeRecognize",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "x-nullable": false,
+            "description": "The image name."
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The barcode type."
+          },
+          {
+            "type": "string",
+            "name": "checksumValidation",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Checksum validation parameter."
+          },
+          {
+            "type": "boolean",
+            "name": "stripFnc",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Allows to strip FNC symbol in recognition results.",
+            "default": false
+          },
+          {
+            "type": "integer",
+            "name": "rotationAngle",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Allows to correct angle of barcode.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "integer",
+            "name": "barcodesCount",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Count of barcodes to recognize.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "integer",
+            "name": "rectX",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Top left point X coordinate of  to recognize barcode inside.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "integer",
+            "name": "rectY",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Top left point Y coordinate of  to recognize barcode inside.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "integer",
+            "name": "rectWidth",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Width of  to recognize barcode inside.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "integer",
+            "name": "rectHeight",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Height of  to recognize barcode inside.",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "string",
+            "name": "storage",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The image storage."
+          },
+          {
+            "type": "string",
+            "name": "folder",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The image folder."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "with bascodes info.",
+            "schema": {
+              "$ref": "#/definitions/BarCodeResponseList"
+            },
+            "x-nullable": true
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Recognition of a barcode from file on server with parameters in body.",
+        "operationId": "BarCode_PutBarCodeRecognizeFromBody",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "x-nullable": false,
+            "description": "The image name."
+          },
+          {
+            "name": "barcodeReader",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BarCodeReader"
+            },
+            "x-nullable": true,
+            "description": "BarCodeReader object with parameters."
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The barcode type."
+          },
+          {
+            "type": "string",
+            "name": "folder",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The image folder."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "with bascodes info.",
+            "schema": {
+              "$ref": "#/definitions/BarCodeResponseList"
+            },
+            "x-nullable": true
+          }
+        }
+      }
+    },
+    "/barcode/recognize": {
+      "post": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded with base64.",
+        "operationId": "BarCode_PostBarCodeRecognizeFromUrlorContent",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "x-nullable": true,
+            "description": "BarCode type."
+          },
+          {
+            "type": "string",
+            "name": "checksumValidation",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Checksum validation parameter."
+          },
+          {
+            "type": "boolean",
+            "name": "stripFnc",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Allows to strip FNC symbol in recognition results.",
+            "default": false
+          },
+          {
+            "type": "integer",
+            "name": "rotationAngle",
+            "in": "query",
+            "x-nullable": false,
+            "description": "Recognition of rotated barcode. Possible angles are 90, 180, 270, default is 0",
+            "format": "int32",
+            "default": 0
+          },
+          {
+            "type": "string",
+            "name": "url",
+            "in": "query",
+            "x-nullable": true,
+            "description": "The image file url."
+          },
+		  {
+            "type": "file",
+            "name": "imageData",
+            "in": "formData",
+            "required": false,
+            "description": "Image data with image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "with barcode data.",
+            "schema": {
+              "$ref": "#/definitions/BarCodeResponseList"
+            },
+            "x-nullable": true
+          }
+        }
+      }
+    },
+    "/barcode/generateMultiple": {
+      "post": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Generate multiple barcodes and return in response stream",
+        "operationId": "BarCode_PostGenerateMultiple",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "dto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BarCodeBuildersList"
+            },
+            "x-nullable": true,
+            "description": "List of barcodes"
+          },
+          {
+            "type": "string",
+            "name": "format",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Format to return stream in",
+            "default": "png"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response with streamed imags",
+            "schema": {
+              "type": "file"
+            },
+            "x-nullable": true
+          }
+        },
+		"x-binary-result": "true"
+      }
+    },
+    "/barcode/{name}/generateMultiple": {
+      "put": {
+        "tags": [
+          "BarCode"
+        ],
+        "summary": "Generate image with multiple barcodes and put new file on server",
+        "operationId": "BarCode_PutGenerateMultiple",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "x-nullable": false,
+            "description": "New filename"
+          },
+          {
+            "name": "dto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BarCodeBuildersList"
+            },
+            "x-nullable": true,
+            "description": "List of barcodes"
+          },
+          {
+            "type": "string",
+            "name": "format",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Format of file",
+            "default": "png"
+          },
+          {
+            "type": "string",
+            "name": "folder",
+            "in": "query",
+            "x-nullable": true,
+            "description": "Folder to place file to"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response with result of operation",
+            "schema": {
+              "$ref": "#/definitions/AsposeResponse"
+            },
+            "x-nullable": true
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AsposeResponse": {
+      "type": "object",
+      "discriminator": "Type",
+      "additionalProperties": false,
+      "required": [
+        "Code"
+      ],
+      "properties": {
+        "Code": {
+          "$ref": "#/definitions/HttpStatusCode"
+        },
+        "Status": {
+          "type": "string"
+        }
+      },
+      "description": "Represents the basic response class from Aspose for Cloud."
+    },
+    "HttpStatusCode": {
+      "type": "integer",
+      "x-enumNames": [
+        "Continue",
+        "SwitchingProtocols",
+        "OK",
+        "Created",
+        "Accepted",
+        "NonAuthoritativeInformation",
+        "NoContent",
+        "ResetContent",
+        "PartialContent",
+        "MultipleChoices",
+        "Ambiguous",
+        "MovedPermanently",
+        "Moved",
+        "Found",
+        "Redirect",
+        "SeeOther",
+        "RedirectMethod",
+        "NotModified",
+        "UseProxy",
+        "Unused",
+        "TemporaryRedirect",
+        "RedirectKeepVerb",
+        "BadRequest",
+        "Unauthorized",
+        "PaymentRequired",
+        "Forbidden",
+        "NotFound",
+        "MethodNotAllowed",
+        "NotAcceptable",
+        "ProxyAuthenticationRequired",
+        "RequestTimeout",
+        "Conflict",
+        "Gone",
+        "LengthRequired",
+        "PreconditionFailed",
+        "RequestEntityTooLarge",
+        "RequestUriTooLong",
+        "UnsupportedMediaType",
+        "RequestedRangeNotSatisfiable",
+        "ExpectationFailed",
+        "UpgradeRequired",
+        "InternalServerError",
+        "NotImplemented",
+        "BadGateway",
+        "ServiceUnavailable",
+        "GatewayTimeout",
+        "HttpVersionNotSupported"
+      ],
+      "enum": [
+        100,
+        101,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        300,
+        300,
+        301,
+        301,
+        302,
+        302,
+        303,
+        303,
+        304,
+        305,
+        306,
+        307,
+        307,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        426,
+        500,
+        501,
+        502,
+        503,
+        504,
+        505
+      ],
+      "description": ""
+    },
+    "BarCodeResponseList": {
+      "type": "null",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/definitions/AsposeResponse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "BarCodes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BarCodeResponse"
+              },
+              "description": "List of barcodes which are present in image."
+            }
+          }
+        }
+      ],
+      "description": "Represents information about barcode list."
+    },
+    "BarCodeResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "BarCodeValue": {
+          "type": "string",
+          "description": "Gets or sets barcode data."
+        },
+        "BarCodeType": {
+          "type": "string",
+          "description": "Gets or sets type of the barcode."
+        },
+        "Region": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Point"
+          },
+          "description": "Gets or sets region with barcode."
+        },
+        "Checksum": {
+          "type": "string",
+          "description": "Gets or sets checksum of barcode."
+        }
+      },
+      "description": "Represents information about barcode."
+    },
+    "Point": {
+      "type": "null",
+      "additionalProperties": false,
+      "required": [
+        "IsEmpty",
+        "X",
+        "Y"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValueType"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "IsEmpty": {
+              "type": "boolean"
+            },
+            "X": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "Y": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ]
+    },
+    "ValueType": {
+      "type": "object",
+      "discriminator": "Type",
+      "additionalProperties": false
+    },
+    "BarCodeReader": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ChecksumValidation",
+        "StripFNC",
+        "BarCodesCount",
+        "RotationAngle",
+        "RecognitionMode",
+        "ManualHints"
+      ],
+      "properties": {
+        "ChecksumValidation": {
+          "description": "Gets or sets ChecksumValidation property.",
+          "$ref": "#/definitions/ChecksumValidation"
+        },
+        "StripFNC": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether FNC symbol strip must be done."
+        },
+        "BarCodesCount": {
+          "type": "integer",
+          "description": "Gets or sets count of barcodes to recognize.",
+          "format": "int32"
+        },
+        "RotationAngle": {
+          "type": "integer",
+          "description": "Gets or sets rotation correction angle.",
+          "format": "int32"
+        },
+        "RecognitionMode": {
+          "description": "Gets or sets recognition mode.",
+          "$ref": "#/definitions/RecognitionMode"
+        },
+        "ManualHints": {
+          "description": "Gets or sets manual hints.",
+          "$ref": "#/definitions/ManualHints"
+        }
+      },
+      "description": "Represents BarCodeReader object."
+    },
+    "ChecksumValidation": {
+      "type": "integer",
+      "x-enumNames": [
+        "Default",
+        "On",
+        "Off"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "description": "Represents checksum validation property."
+    },
+    "RecognitionMode": {
+      "type": "integer",
+      "x-enumNames": [
+        "MaxPerformance",
+        "MaxBarCodes",
+        "MaxQuality",
+        "ManualHints"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "description": "Represents the usage of recognition modes"
+    },
+    "ManualHints": {
+      "type": "integer",
+      "x-enumNames": [
+        "None",
+        "InvertImage",
+        "IncorrectBarCodes",
+        "ComplexBackground",
+        "MedianSmoothing",
+        "SpecialFormOfCells",
+        "UseRegular",
+        "UseRestoration",
+        "SkipRotatedBarCodes"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128
+      ],
+      "description": "Represents the usage of manual hints."
+    },
+    "BarCodeBuildersList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "XStep",
+        "YStep"
+      ],
+      "properties": {
+        "BarCodeBuilders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BarCodeBuilder"
+          },
+          "description": "List of barcode builders"
+        },
+        "XStep": {
+          "type": "integer",
+          "description": "Shift step according to X axis",
+          "format": "int32"
+        },
+        "YStep": {
+          "type": "integer",
+          "description": "Shift step according to Y axis",
+          "format": "int32"
+        }
+      },
+      "description": "Represents list of barcode builders"
+    },
+    "BarCodeBuilder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TypeOfBarCode",
+        "DimensionX",
+        "DimensionY",
+        "CodeLocation",
+        "GraphicsUnit",
+        "AutoSize",
+        "BarHeight",
+        "ImageHeight",
+        "ImageWidth",
+        "ImageQuality",
+        "RotationAngle",
+        "BorderVisible",
+        "EnableChecksum"
+      ],
+      "properties": {
+        "TypeOfBarCode": {
+          "description": "Gets or sets type of barcode to generate.",
+          "$ref": "#/definitions/BarCodeType"
+        },
+        "Text": {
+          "type": "string",
+          "description": "Gets or sets text to encode."
+        },
+        "Resolution": {
+          "description": "Gets or sets  parameters.>",
+          "$ref": "#/definitions/Resolution"
+        },
+        "DimensionX": {
+          "type": "number",
+          "description": "Gets or sets smallest width unit of barcode.",
+          "format": "double"
+        },
+        "DimensionY": {
+          "type": "number",
+          "description": "Gets or sets smallest height unit of barcode.",
+          "format": "double"
+        },
+        "CodeLocation": {
+          "description": "Gets or sets  of barcode.",
+          "$ref": "#/definitions/CodeLocation"
+        },
+        "GraphicsUnit": {
+          "description": "Gets or sets  for barcode dimension parameers.",
+          "$ref": "#/definitions/GraphicsUnit"
+        },
+        "AutoSize": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether size of barcode changes automatically."
+        },
+        "BarHeight": {
+          "type": "number",
+          "description": "Gets or sets height of the barcode.",
+          "format": "double"
+        },
+        "ImageHeight": {
+          "type": "number",
+          "description": "Gets or sets height of the barcode image.",
+          "format": "double"
+        },
+        "ImageWidth": {
+          "type": "number",
+          "description": "Gets or sets width of the barcode image.",
+          "format": "double"
+        },
+        "ImageQuality": {
+          "description": "Gets or sets  of the image.",
+          "$ref": "#/definitions/ImageQualityMode"
+        },
+        "RotationAngle": {
+          "type": "number",
+          "description": "Gets or sets angle of barcode orientation.",
+          "format": "double"
+        },
+        "Margins": {
+          "description": "Gets or sets  around barcode.",
+          "$ref": "#/definitions/Margins"
+        },
+        "BackColor": {
+          "type": "string",
+          "description": "Gets or sets background color."
+        },
+        "ForeColor": {
+          "type": "string",
+          "description": "Gets or sets foreground color."
+        },
+        "CodeTextColor": {
+          "type": "string",
+          "description": "Gets or sets color of the code text."
+        },
+        "BorderColor": {
+          "type": "string",
+          "description": "Gets or sets color of the border."
+        },
+        "BorderVisible": {
+          "type": "boolean",
+          "description": "Gets or sets a value indicating whether border is visible."
+        },
+        "EnableChecksum": {
+          "description": "Gets or sets a value indicating whether checksum is enabled.",
+          "$ref": "#/definitions/EnableChecksum"
+        }
+      },
+      "description": "Represents BarCodeBuilder."
+    },
+    "BarCodeType": {
+      "type": "integer",
+      "x-enumNames": [
+        "AustraliaPost",
+        "AustralianPosteParcel",
+        "Aztec",
+        "BooklandEAN",
+        "Codabar",
+        "Code11",
+        "Code16K",
+        "Code128",
+        "CodablockF",
+        "Code39Extended",
+        "Code39Standard",
+        "Code93Extended",
+        "Code93Standard",
+        "CompactPdf417",
+        "DatabarOmniDirectional",
+        "DatabarTruncated",
+        "DatabarLimited",
+        "DatabarExpanded",
+        "DatabarExpandedStacked",
+        "DatabarStacked",
+        "DatabarStackedOmniDirectional",
+        "DataMatrix",
+        "DeutschePostIdentcode",
+        "DeutschePostLeitcode",
+        "EAN128",
+        "EAN13",
+        "EAN14",
+        "EAN8",
+        "GS1Code128",
+        "GS1CodablockF",
+        "GS1DataMatrix",
+        "GS1QR",
+        "IATA2of5",
+        "ISBN",
+        "ISMN",
+        "ISSN",
+        "ITF14",
+        "ITF6",
+        "Interleaved2of5",
+        "ItalianPost25",
+        "MaxiCode",
+        "MSI",
+        "MicroPdf417",
+        "MacroPdf417",
+        "Matrix2of5",
+        "MicroQR",
+        "OPC",
+        "OneCode",
+        "PZN",
+        "PatchCode",
+        "Pharmacode",
+        "Pdf417",
+        "Planet",
+        "Postnet",
+        "QR",
+        "RM4SCC",
+        "SingaporePost",
+        "SCC14",
+        "SSCC18",
+        "Standard2of5",
+        "SwissPostParcel",
+        "UPCA",
+        "UPCE",
+        "VIN",
+        "Code32",
+        "Datalogic2of5",
+        "DotCode",
+        "DutchKIX"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "description": "Supported types of barcode for generation."
+    },
+    "Resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ResolutionX",
+        "ResolutionY"
+      ],
+      "properties": {
+        "ResolutionX": {
+          "type": "number",
+          "description": "Gets or sets resolution along X axis.",
+          "format": "double"
+        },
+        "ResolutionY": {
+          "type": "number",
+          "description": "Gets or sets resolution along Y axis.",
+          "format": "double"
+        }
+      },
+      "description": "Represents resolutions of barcode."
+    },
+    "CodeLocation": {
+      "type": "integer",
+      "x-enumNames": [
+        "Above",
+        "Below",
+        "None"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "description": "Represents states of code location."
+    },
+    "GraphicsUnit": {
+      "type": "integer",
+      "x-enumNames": [
+        "World",
+        "Display",
+        "Pixel",
+        "Point",
+        "Inch",
+        "Document",
+        "Millimeter"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "description": ""
+    },
+    "ImageQualityMode": {
+      "type": "integer",
+      "x-enumNames": [
+        "Default",
+        "AntiAlias"
+      ],
+      "enum": [
+        0,
+        1
+      ],
+      "description": "Represents type of image quality."
+    },
+    "Margins": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Left",
+        "Right",
+        "Top",
+        "Bottom"
+      ],
+      "properties": {
+        "Left": {
+          "type": "number",
+          "description": "Gets or sets left margin.",
+          "format": "double"
+        },
+        "Right": {
+          "type": "number",
+          "description": "Gets or sets Right margin.",
+          "format": "double"
+        },
+        "Top": {
+          "type": "number",
+          "description": "Gets or sets top margin.",
+          "format": "double"
+        },
+        "Bottom": {
+          "type": "number",
+          "description": "Gets or sets bottom margin.",
+          "format": "double"
+        }
+      },
+      "description": "Represents margins around barcode."
+    },
+    "EnableChecksum": {
+      "type": "integer",
+      "x-enumNames": [
+        "Default",
+        "Yes",
+        "No"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "description": "Represents checksum property."
+    }
+  },
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "appsid": {
+      "type": "apiKey",
+      "name": "appsid",
+      "in": "query"
+    },
+    "signature": {
+      "type": "apiKey",
+      "name": "signature",
+      "in": "query"
+    },
+    "oauth": {
+      "type": "oauth2",
+      "flow": "application",
+      "authorizationUrl": "api.aspose.cloud/oauth2/token"
+    }
+  }
+}
