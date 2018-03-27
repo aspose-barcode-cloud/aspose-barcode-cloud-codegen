@@ -10,6 +10,7 @@ The following SDKs are currently available:
 Directory | Description
 --------- | -----------
 [.NET SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet) | Cloud SDK for .NET Standard 2.0, .NET Framework 2.0 and higher
+[Node JS SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-node) | Cloud SDK for Node JS
 
 To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
 

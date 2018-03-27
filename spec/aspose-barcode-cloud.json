@@ -864,12 +864,6 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "ChecksumValidation",
-        "StripFNC",
-        "BarCodesCount",
-        "RotationAngle",
-        "RecognitionMode",
-        "ManualHints"
       ],
       "properties": {
         "ChecksumValidation": {
@@ -989,19 +983,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "TypeOfBarCode",
-        "DimensionX",
-        "DimensionY",
-        "CodeLocation",
-        "GraphicsUnit",
-        "AutoSize",
-        "BarHeight",
-        "ImageHeight",
-        "ImageWidth",
-        "ImageQuality",
-        "RotationAngle",
-        "BorderVisible",
-        "EnableChecksum"
+        "TypeOfBarCode"
       ],
       "properties": {
         "TypeOfBarCode": {
