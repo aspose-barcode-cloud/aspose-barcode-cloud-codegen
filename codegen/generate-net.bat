@@ -11,4 +11,4 @@ xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\Model\" /e /i 
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api" "%targetDir%\Api\" /e /i /y || goto :error
 
 del /s /q %tempDir% || goto :error
-rmdir /s /q  %tempDir% || goto :error
+rmdir /s /q %tempDir% || goto :error
