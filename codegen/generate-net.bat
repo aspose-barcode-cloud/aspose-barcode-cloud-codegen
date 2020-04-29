@@ -13,12 +13,12 @@ java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t 
 Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarCodeApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
 
 
-del /s /q "%targetDir%\Model\" || goto :error
-xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\Model\" /e /i /y || goto :error
+del /s /q "%targetDir%\Model\" > NUL || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\Model\" /e /i /y > NUL || goto :error
 
-del /s /q "%targetDir%\Api\*Api.cs" || goto :error
-xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarcodeApi.cs" "%targetDir%\Api\" /e /i /y || goto :error
+del /s /q "%targetDir%\Api\*Api.cs" > NUL || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*Api.cs" "%targetDir%\Api\" /e /i /y > NUL || goto :error
 
 
-del /s /q %tempDir% || goto :error
-rmdir /s /q %tempDir% || goto :error
+del /s /q %tempDir% > NUL || goto :error
+rmdir /s /q %tempDir% > NUL || goto :error
