@@ -41,7 +41,7 @@ namespace {{packageName}}.Model
   /// {{description}}
   /// </summary>
   [JsonConverter(typeof(StringEnumConverter))]
-  public  enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
+  public enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
   {  	{{#vendorExtensions}}{{#x-enumNames}}
 		/// <summary>
         /// Enum value {{.}}
@@ -70,7 +70,6 @@ namespace {{packageName}}.Model
         {{#description}}
         {{/description}}
         public {{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}?{{/isContainer}}{{/isEnum}} {{name}} { get; set; }
-
         {{/isEnum}}
 		{{/vars}}
         {{#vars}}
@@ -79,7 +78,6 @@ namespace {{packageName}}.Model
         /// {{^description}}Gets or sets {{{name}}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>
         public {{{datatype}}} {{name}} { get; set; }
-
 		{{/isEnum}}
         {{/vars}}
         /// <summary>

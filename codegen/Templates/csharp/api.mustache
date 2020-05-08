@@ -29,6 +29,7 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Aspose.BarCode.Cloud.Sdk.Interfaces;
 
 namespace {{packageName}}.Api
 {
@@ -45,25 +46,6 @@ namespace {{packageName}}.Api
     {
         private readonly ApiInvoker apiInvoker;
         private readonly Configuration configuration;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api Key.
-        /// </param>
-        /// <param name="appSid">
-        /// The app Sid.
-        /// </param>
-        public {{classname}}(string apiKey, string appSid)
-            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
-        {
-        }
-
-        // public {{classname}}(string jwtToken)
-        //     : this(new Configuration { JwtToken = jwtToken, ApiVersion = ApiVersion.V3, AuthType = AuthType.ExternalAuth })
-        // {
-        // }
 
 
         /// <summary>
@@ -91,6 +73,25 @@ namespace {{packageName}}.Api
             requestHandlers.Add(new ApiExceptionRequestHandler());
             this.apiInvoker = new ApiInvoker(configuration, requestHandlers);
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api Key.
+        /// </param>
+        /// <param name="appSid">
+        /// The app Sid.
+        /// </param>
+        public {{classname}}(string apiKey, string appSid)
+            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
+        {
+        }
+
+        // public {{classname}}(string jwtToken)
+        //     : this(new Configuration { JwtToken = jwtToken, ApiVersion = ApiVersion.V3, AuthType = AuthType.ExternalAuth })
+        // {
+        // }
         {{#operation}}
 
         /// <summary>
@@ -136,7 +137,6 @@ namespace {{packageName}}.Api
             {
                 {{#isFile}}formParams.Add("{{paramName}}", this.apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
-
             {{/formParams}}
             //try
             //{
@@ -145,18 +145,27 @@ namespace {{packageName}}.Api
                         "{{httpMethod}}",
                         {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                         {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
+                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}}                var response = this.apiInvoker.InvokeApi(
                     resourcePath,
                     "{{httpMethod}}",
                     {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                     {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
                     {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+
                 if (response != null)
                 {
                     return ({{returnType}})SerializationHelper.Deserialize(response, typeof({{returnType}}));
                 }
 
-                return null;{{/x-binary-result}}{{/vendorExtensions}}
+                return null;
+                {{/returnType}}
+                {{^returnType}}
+            this.apiInvoker.InvokeApi(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
             //}
             //catch (ApiException ex)
             //{
