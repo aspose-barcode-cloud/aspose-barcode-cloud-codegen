@@ -7,5 +7,5 @@ java -jar Tools\swagger-codegen-cli.jar generate -i ..\spec\aspose-barcode-cloud
 
 xcopy "%tempDir%\api.ts" "%targetDir%\api.ts" /e /i /y || goto :error
 
-del /s /q %tempDir% || goto :error
-rmdir /s /q  %tempDir% || goto :error
+del /s /q %tempDir% > NUL || goto :error
+rmdir /s /q  %tempDir% > NUL || goto :error

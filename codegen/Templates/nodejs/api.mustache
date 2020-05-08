@@ -132,12 +132,12 @@ class ObjectSerializer {
 * {{{description}}}
 */
 {{/description}}
-{{#isEnum}}  
+{{#isEnum}}
 export enum {{classname}}	{
 	{{#vendorExtensions}}{{#x-enumNames}}{{.}}{{^-last}},
 	{{/-last}}{{/x-enumNames}}{{/vendorExtensions}}
   }
-{{/isEnum}} 
+{{/isEnum}}
 {{^isEnum}}
 export class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
 {{#vars}}
@@ -170,7 +170,7 @@ export class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
         {{/parent}}
     }
 }
-{{/isEnum}} 
+{{/isEnum}}
 {{/model}}
 {{/models}}
 
@@ -187,7 +187,7 @@ let enumsMap: {[index: string]: any} = {
 let typeMap: {[index: string]: any} = {
     {{#models}}
         {{#model}}
-		{{^isEnum}} 
+		{{^isEnum}}
 		"{{classname}}": {{classname}},
 		{{/isEnum}}
         {{/model}}
@@ -211,16 +211,16 @@ export enum {{classname}}ApiKeys {
 }
 
 export class {{classname}} {
-	
+
 	protected defaultHeaders : any = {};
     protected _configuration : Configuration;
 
 
-    constructor(appSID: string, appKey: string, version?: ApiVersion)
-	{
-		this._configuration = new Configuration(appSID, appKey, version);
+    constructor(configuration: Configuration)
+    {
+        this._configuration = configuration;
 	}
-	
+
 {{#operation}}
     /**
      * {{&notes}}
@@ -286,7 +286,7 @@ export class {{classname}} {
             body: ObjectSerializer.serialize({{paramName}}, "{{{dataType}}}")
 {{/bodyParam}}
         };
-		
+
         await this._configuration.authentication.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -306,7 +306,7 @@ export class {{classname}} {
                     {{/returnType}}
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
-                    } 
+                    }
 					else if (allowRepeat && response.statusCode && response.statusCode === 401){
 						await this._configuration.authentication.applyUnauthorized();
 						await handler(error, response, body, false);
