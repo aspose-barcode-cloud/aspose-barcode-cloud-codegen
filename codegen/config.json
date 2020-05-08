@@ -1,4 +1,5 @@
 {
   "packageName":"Aspose.BarCode.Cloud.Sdk",
-  "packageVersion": "20.5"
+  "packageVersion": "20.5",
+  "invokerPackage":"Aspose\\BarCode"
 }
