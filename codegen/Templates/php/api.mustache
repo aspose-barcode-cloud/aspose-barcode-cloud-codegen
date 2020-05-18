@@ -16,6 +16,7 @@ use Aspose\BarCode\Requests;
 /*
  * Aspose.BarCode for Cloud API.
  */
+
 {{#operations}}class {{classname}}
 {
     /*
@@ -79,12 +80,11 @@ use Aspose\BarCode\Requests;
     public function {{operationId}}(Requests\{{operationId}}Request $request)
     {
         try {
-             {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
-             return $response;{{/returnType}}
-        }
-        catch(RepeatRequestException $e) {
-             {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
-             return $response;{{/returnType}}
+            {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
+            return $response;{{/returnType}}
+        } catch (RepeatRequestException $e) {
+            {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
+            return $response;{{/returnType}}
         }
     }
 
@@ -122,8 +122,8 @@ use Aspose\BarCode\Requests;
 
             if ($statusCode < 200 || $statusCode > 299) {
                 if ($statusCode === 401) {
-                    $this->_refreshToken();
-                    throw new RepeatRequestException("Request must be retried", $statusCode, $response->getHeaders(), $response->getBody());
+                    $this->_requestToken();
+                    throw new RepeatRequestException('Request must be retried', $statusCode, $response->getHeaders(), $response->getBody());
                 }
 
                 throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
@@ -158,10 +158,10 @@ use Aspose\BarCode\Requests;
             switch ($e->getCode()) {
         {{#responses}}
             {{#dataType}}
-            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
                     $data = ObjectSerializer::deserialize($e->getResponseBody(), '{{dataType}}', $e->getResponseHeaders());
                     $e->setResponseObject($data);
-                break;
+                    break;
             {{/dataType}}
         {{/responses}}
             }
@@ -246,8 +246,8 @@ use Aspose\BarCode\Requests;
                     $statusCode = $response->getStatusCode();
 
                     if ($exception instanceof RepeatRequestException) {
-                        $this->_refreshToken();
-                        throw new RepeatRequestException("Request must be retried", $statusCode, $response->getHeaders(), $response->getBody());
+                        //$this->_refreshToken();
+                        throw new RepeatRequestException('Request must be retried', $statusCode, $response->getHeaders(), $response->getBody());
                     }
 
                     throw new ApiException(
@@ -270,44 +270,44 @@ use Aspose\BarCode\Requests;
         {{#allParams}}
         {{#required}}
         // verify the required parameter '{{paramName}}' is set
-        if ($request->{{paramName}} === null) {
+        if (!isset($request->{{paramName}})) {
             throw new \InvalidArgumentException('Missing the required parameter ${{paramName}} when calling {{operationId}}');
         }
         {{/required}}
         {{#hasValidation}}
         {{#maxLength}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}strlen($request->{{paramName}}) > {{maxLength}}) {
-            throw new \InvalidArgumentException('invalid length for "$request->{{paramName}}" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.');
+        if (isset({{^required}}$request->{{paramName}) && {{/required}}strlen($request->{{paramName}}) > {{maxLength}}) {
+            throw new \InvalidArgumentException("invalid length for \"$request->{{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
         }
         {{/maxLength}}
         {{#minLength}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}strlen($request->{{paramName}}) < {{minLength}}) {
-            throw new \InvalidArgumentException('invalid length for "${{paramName}}" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.');
+        if (isset({{^required}}$request->{{paramName}}) && {{/required}}strlen($request->{{paramName}}) < {{minLength}}) {
+            throw new \InvalidArgumentException("invalid length for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
         }
         {{/minLength}}
         {{#maximum}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}$request->{{paramName}} >{{#exclusiveMaximum}}={{/exclusiveMaximum}} {{maximum}}) {
-            throw new \InvalidArgumentException('invalid value for "${{paramName}}" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.');
+        if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} >{{#exclusiveMaximum}}={{/exclusiveMaximum}} {{maximum}}) {
+            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
         }
         {{/maximum}}
         {{#minimum}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}$request->{{paramName}} <{{#exclusiveMinimum}}={{/exclusiveMinimum}} {{minimum}}) {
-            throw new \InvalidArgumentException('invalid value for "${{paramName}}" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.');
+        if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} <{{#exclusiveMinimum}}={{/exclusiveMinimum}} {{minimum}}) {
+            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
         }
         {{/minimum}}
         {{#pattern}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}!preg_match("{{{pattern}}}", $request->{{paramName}})) {
+        if (isset({{^required}}$request->{{paramName}}) && {{/required}}!preg_match('{{{pattern}}}', $request->{{paramName}})) {
             throw new \InvalidArgumentException("invalid value for \"{{paramName}}\" when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
         }
         {{/pattern}}
         {{#maxItems}}
-        if ({{^required}}${{paramName}} !== null && {{/required}}count(${{paramName}}) > {{maxItems}}) {
-            throw new \InvalidArgumentException('invalid value for "${{paramName}}" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.');
+        if (isset({{^required}}${{paramName}}) && {{/required}}count(${{paramName}}) > {{maxItems}}) {
+            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
         }
         {{/maxItems}}
         {{#minItems}}
-        if ({{^required}}$request->{{paramName}} !== null && {{/required}}count($request->{{paramName}}) < {{minItems}}) {
-            throw new \InvalidArgumentException('invalid value for "${{paramName}}" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.');
+        if (isset({{^required}}$request->{{paramName}}) && {{/required}}count($request->{{paramName}}) < {{minItems}}) {
+            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
         }
         {{/minItems}}
 
@@ -318,7 +318,7 @@ use Aspose\BarCode\Requests;
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = "";
+        $httpBody = '';
         $multipart = false;
 
     {{#pathParams}}
@@ -328,7 +328,7 @@ use Aspose\BarCode\Requests;
             $request->{{paramName}} = ObjectSerializer::serializeCollection($request->{{paramName}}, '{{collectionFormat}}');
         }
         {{/collectionFormat}}
-        if ($request->{{paramName}} !== null) {
+        if (isset($request->{{paramName}})) {
             $localName = lcfirst('{{baseName}}');
             $resourcePath = str_replace('{' . $localName . '}', ObjectSerializer::toPathValue($request->{{paramName}}), $resourcePath);
         }
@@ -341,7 +341,7 @@ use Aspose\BarCode\Requests;
             $request->{{paramName}} = ObjectSerializer::serializeCollection($request->{{paramName}}, '{{collectionFormat}}', true);
         }
         {{/collectionFormat}}
-        if ($request->{{paramName}} !== null) {
+        if (isset($request->{{paramName}})) {
             $localName = lcfirst('{{baseName}}');
             $localValue = is_bool($request->{{paramName}}) ? ($request->{{paramName}} ? 'true' : 'false') : $request->{{paramName}};
             if (strpos($resourcePath, '{' . $localName . '}') !== false) {
@@ -359,7 +359,7 @@ use Aspose\BarCode\Requests;
             $request->{{paramName}} = ObjectSerializer::serializeCollection($request->{{paramName}}, '{{collectionFormat}}');
         }
         {{/collectionFormat}}
-        if ($request->{{paramName}} !== null) {
+        if (isset($request->{{paramName}})) {
             $headerParams['{{paramName}}'] = ObjectSerializer::toHeaderValue($request->{{paramName}});
         }
         {{/headerParams}}
@@ -368,11 +368,11 @@ use Aspose\BarCode\Requests;
 
         {{#formParams}}
         // form params
-        if ($request->{{paramName}} !== null) {
+        if (isset($request->{{paramName}})) {
             {{#isFile}}
             //$multipart = true;
             $filename = ObjectSerializer::toFormValue($request->{{paramName}});
-            $handle = fopen($filename, "rb");
+            $handle = fopen($filename, 'rb');
             $fsize = filesize($filename);
             $contents = fread($handle, $fsize);
             $formParams['{{paramName}}'] = $contents;
@@ -395,7 +395,7 @@ use Aspose\BarCode\Requests;
         {{/bodyParams}}
 
         if ($multipart) {
-            $headers= $this->headerSelector->selectHeadersForMultipart(
+            $headers = $this->headerSelector->selectHeadersForMultipart(
                 [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}]
             );
         } else {
@@ -428,17 +428,13 @@ use Aspose\BarCode\Requests;
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
 
-            } else {
+            }{{#formParams}}{{#isFile}} else {
                 // for HTTP post (form)
-                {{#formParams}}
-                {{#isFile}}
-                $httpBody = $formParams["{{paramName}}"];
-                {{/isFile}}
-                {{/formParams}}
-            }
+                $httpBody = $formParams['{{paramName}}'];
+            }{{/isFile}}{{/formParams}}
         }
 
-        if ($this->config->getAccessToken() === null) {
+        if (!$this->config->getAccessToken()) {
             $this->_requestToken();
         }
         $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
@@ -513,10 +509,10 @@ use Aspose\BarCode\Requests;
     private function _writeHeadersAndBody($logInfo, $headers, $body)
     {
         foreach ($headers as $name => $value) {
-            $logInfo .= $name . ': ' . $value . "\n";
+            $logInfo .= $name . ': ' . $value . '\n';
         }
 
-        return $logInfo .= "Body: " . $body . "\n";
+        return $logInfo .= 'Body: ' . $body . '\n';
     }
 
     /*
@@ -525,10 +521,10 @@ use Aspose\BarCode\Requests;
     private function _parseURL($url, $queryParams)
     {
         // parse the url
-         $UrlToSign = trim($url, "/");
-         $urlQuery = http_build_query($queryParams);
+        $UrlToSign = trim($url, '/');
+        $urlQuery = http_build_query($queryParams);
 
-         $urlPartToSign = $this->config->getBasePath() .  "/" . parse_url($UrlToSign, PHP_URL_HOST) . parse_url($UrlToSign, PHP_URL_PATH) . "?" . $urlQuery;
+        $urlPartToSign = $this->config->getBasePath() . '/' . parse_url($UrlToSign, PHP_URL_HOST) . parse_url($UrlToSign, PHP_URL_PATH) . '?' . $urlQuery;
 
         return $urlPartToSign;
     }
@@ -538,25 +534,17 @@ use Aspose\BarCode\Requests;
      */
     private function _requestToken()
     {
-        $requestUrl = $this->config->getHost() . "/oauth2/token";
-        $postData = "grant_type=client_credentials" . "&client_id=" . $this->config->getAppSid() . "&client_secret=" . $this->config->getAppKey();
-        $response = $this->client->send(new Request('POST', $requestUrl, [], $postData));
-        $result = json_decode($response->getBody()->getContents(), true);
-        $this->config->setAccessToken($result["access_token"]);
-        $this->config->setRefreshToken($result["refresh_token"]);
-    }
+        $requestUrl = $this->config->getHost() . '/connect/token';
 
-    /*
-     * Refresh token
-     */
-    private function _refreshToken()
-    {
-        $requestUrl = $this->config->getHost() . "/oauth2/token";
-        $postData = "grant_type=refresh_token&refresh_token=" . $this->config->getRefreshToken();
-        $response = $this->client->send(new Request('POST', $requestUrl, [], $postData));
+        $response = $this->client->request('POST', $requestUrl, [
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->config->getAppSid(),
+                'client_secret' => $this->config->getAppKey(),
+            ]
+        ]);
         $result = json_decode($response->getBody()->getContents(), true);
-        $this->config->setAccessToken($result["access_token"]);
-        $this->config->setRefreshToken($result["refresh_token"]);
+        $this->config->setAccessToken($result['access_token']);
     }
 }
 {{/operations}}
