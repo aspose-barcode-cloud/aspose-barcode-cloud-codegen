@@ -5,7 +5,7 @@
     "title": "Aspose.Barcode Cloud API Reference",
     "version": "3.0"
   },
-  "host": "localhost:47972",
+  "host": "api.aspose.cloud",
   "basePath": "/v3.0",
   "consumes": [
     "application/json"
@@ -158,7 +158,7 @@
             "type": "string",
             "name": "TextColor",
             "in": "query",
-            "description": "Color of the code text.\n            ",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
@@ -185,9 +185,25 @@
           },
           {
             "type": "number",
-            "name": "XDimension",
+            "name": "ResolutionX",
             "in": "query",
-            "description": "Smallest width unit of barcode.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
+            "type": "number",
+            "name": "ResolutionY",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
+            "type": "number",
+            "name": "DimensionX",
+            "in": "query",
+            "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
             "format": "double",
             "x-nullable": true
           },
@@ -203,7 +219,7 @@
             "type": "string",
             "name": "Units",
             "in": "query",
-            "description": "Common Units for all measuring in query.\n            ",
+            "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
             "x-schema": {
               "$ref": "#/definitions/AvailableGraphicsUnit"
             },
@@ -219,7 +235,7 @@
             "type": "string",
             "name": "SizeMode",
             "in": "query",
-            "description": "Value indicating whether size of barcode changes automatically.\n            ",
+            "description": "Specifies the different types of automatic sizing modes.\nDefault value: AutoSizeMode.None.",
             "x-schema": {
               "$ref": "#/definitions/AutoSizeMode"
             },
@@ -234,7 +250,7 @@
             "type": "number",
             "name": "BarHeight",
             "in": "query",
-            "description": "Height of the barcode.\n            ",
+            "description": "Height of the barcode in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -242,7 +258,7 @@
             "type": "number",
             "name": "ImageHeight",
             "in": "query",
-            "description": "Height of the barcode image.\n            ",
+            "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -250,7 +266,7 @@
             "type": "number",
             "name": "ImageWidth",
             "in": "query",
-            "description": "Width of the barcode image.\n            ",
+            "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -258,7 +274,7 @@
             "type": "number",
             "name": "RotationAngle",
             "in": "query",
-            "description": "Angle of barcode orientation.\n            ",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "format": "double",
             "x-nullable": true
           },
@@ -266,21 +282,21 @@
             "type": "string",
             "name": "BackColor",
             "in": "query",
-            "description": "Background color.\n            ",
+            "description": "Background color of the barcode image.\nDefault value: Color.White.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BarColor",
             "in": "query",
-            "description": "Bar color.\n            ",
+            "description": "Bars color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BorderColor",
             "in": "query",
-            "description": "Color of the border.\n            ",
+            "description": "Border color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
@@ -312,14 +328,14 @@
             "type": "boolean",
             "name": "BorderVisible",
             "in": "query",
-            "description": "Value indicating whether border is visible.\n            ",
+            "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "EnableChecksum",
             "in": "query",
-            "description": "Value indicating whether checksum is enabled.\n            ",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
             "x-schema": {
               "$ref": "#/definitions/EnableChecksum"
             },
@@ -421,7 +437,8 @@
         "summary": "Generate barcode and save on server (from query params or from file with json or xml content)\n            ",
         "operationId": "PutBarcodeGenerateFile",
         "consumes": [
-          "multipart/form-data"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -560,7 +577,7 @@
             "type": "string",
             "name": "TextColor",
             "in": "query",
-            "description": "Color of the code text.\n            ",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
@@ -587,9 +604,25 @@
           },
           {
             "type": "number",
-            "name": "XDimension",
+            "name": "ResolutionX",
             "in": "query",
-            "description": "Smallest width unit of barcode.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
+            "type": "number",
+            "name": "ResolutionY",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
+            "type": "number",
+            "name": "DimensionX",
+            "in": "query",
+            "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
             "format": "double",
             "x-nullable": true
           },
@@ -605,7 +638,7 @@
             "type": "string",
             "name": "Units",
             "in": "query",
-            "description": "Common Units for all measuring in query.\n            ",
+            "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
             "x-schema": {
               "$ref": "#/definitions/AvailableGraphicsUnit"
             },
@@ -621,7 +654,7 @@
             "type": "string",
             "name": "SizeMode",
             "in": "query",
-            "description": "Value indicating whether size of barcode changes automatically.\n            ",
+            "description": "Specifies the different types of automatic sizing modes.\nDefault value: AutoSizeMode.None.",
             "x-schema": {
               "$ref": "#/definitions/AutoSizeMode"
             },
@@ -636,7 +669,7 @@
             "type": "number",
             "name": "BarHeight",
             "in": "query",
-            "description": "Height of the barcode.\n            ",
+            "description": "Height of the barcode in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -644,7 +677,7 @@
             "type": "number",
             "name": "ImageHeight",
             "in": "query",
-            "description": "Height of the barcode image.\n            ",
+            "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -652,7 +685,7 @@
             "type": "number",
             "name": "ImageWidth",
             "in": "query",
-            "description": "Width of the barcode image.\n            ",
+            "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
             "format": "double",
             "x-nullable": true
           },
@@ -660,7 +693,7 @@
             "type": "number",
             "name": "RotationAngle",
             "in": "query",
-            "description": "Angle of barcode orientation.\n            ",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "format": "double",
             "x-nullable": true
           },
@@ -668,21 +701,21 @@
             "type": "string",
             "name": "BackColor",
             "in": "query",
-            "description": "Background color.\n            ",
+            "description": "Background color of the barcode image.\nDefault value: Color.White.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BarColor",
             "in": "query",
-            "description": "Bar color.\n            ",
+            "description": "Bars color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BorderColor",
             "in": "query",
-            "description": "Color of the border.\n            ",
+            "description": "Border color.\nDefault value: Color.Black.",
             "x-nullable": true
           },
           {
@@ -714,14 +747,14 @@
             "type": "boolean",
             "name": "BorderVisible",
             "in": "query",
-            "description": "Value indicating whether border is visible.\n            ",
+            "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false.",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "EnableChecksum",
             "in": "query",
-            "description": "Value indicating whether checksum is enabled.\n            ",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
             "x-schema": {
               "$ref": "#/definitions/EnableChecksum"
             },
@@ -836,7 +869,8 @@
         "summary": "Generate multiple barcodes and return in response stream\n            ",
         "operationId": "PostGenerateMultiple",
         "consumes": [
-          "multipart/form-data"
+          "application/json",
+          "application/xml"
         ],
         "produces": [
           "image/png",
@@ -891,7 +925,8 @@
         "summary": "Generate image with multiple barcodes and put new file on server\n            ",
         "operationId": "PutGenerateMultiple",
         "consumes": [
-          "multipart/form-data"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -1474,7 +1509,7 @@
         "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.\n            ",
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
-          "multipart/form-data"
+          "application/octet-stream"
         ],
         "parameters": [
           {
@@ -1834,48 +1869,741 @@
           }
         ]
       }
+    },
+    "/barcode/storage/file/{path}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Download file",
+        "operationId": "DownloadFile",
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "File path e.g. '/folder/file.ext'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to download",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "The raw data of the file.",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          },
+          "404": {
+            "description": "File for given path not found."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-binary-result": true
+      },
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Upload file",
+        "operationId": "UploadFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext\n            If the content is multipart and path does not contains the file name it tries to get them from filename parameter\n            from Content-Disposition header.\n            ",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "file",
+            "name": "File",
+            "in": "formData",
+            "required": true,
+            "description": "File to upload"
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "Empty error list if the upload is successful.",
+            "schema": {
+              "$ref": "#/definitions/FilesUploadResult"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Delete file",
+        "operationId": "DeleteFile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "File path e.g. '/folder/file.ext'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to delete",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the delete is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/file/copy/{srcPath}": {
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Copy file",
+        "operationId": "CopyFile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "srcPath",
+            "in": "path",
+            "required": true,
+            "description": "Source file path e.g. '/folder/file.ext'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "destPath",
+            "in": "query",
+            "required": true,
+            "description": "Destination file path",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to copy",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the copy is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/file/move/{srcPath}": {
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Move file",
+        "operationId": "MoveFile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "srcPath",
+            "in": "path",
+            "required": true,
+            "description": "Source file path e.g. '/src.ext'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "destPath",
+            "in": "query",
+            "required": true,
+            "description": "Destination file path e.g. '/dest.ext'",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to move",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the move is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          },
+          "404": {
+            "description": "File for given path not found."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/{path}": {
+      "get": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Get all files and folders within a folder",
+        "operationId": "GetFilesList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "Folder path e.g. '/folder'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "Returns all files and folders contained by the folder.",
+            "schema": {
+              "$ref": "#/definitions/FilesList"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          },
+          "404": {
+            "description": "Can't find folder for given path."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Create the folder",
+        "operationId": "CreateFolder",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "Folder path to create e.g. 'folder_1/folder_2/'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the create is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          },
+          "400": {
+            "description": "Storage not found or it is not associated with the application."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Delete folder",
+        "operationId": "DeleteFolder",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "Folder path e.g. '/folder'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "boolean",
+            "name": "recursive",
+            "in": "query",
+            "description": "Enable to delete folders, subfolders and files",
+            "default": false,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the delete is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/copy/{srcPath}": {
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Copy folder",
+        "operationId": "CopyFolder",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "srcPath",
+            "in": "path",
+            "required": true,
+            "description": "Source folder path e.g. '/src'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "destPath",
+            "in": "query",
+            "required": true,
+            "description": "Destination folder path e.g. '/dst'",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the copy is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/move/{srcPath}": {
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Move folder",
+        "operationId": "MoveFolder",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "srcPath",
+            "in": "path",
+            "required": true,
+            "description": "Folder path to move e.g. '/folder'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "destPath",
+            "in": "query",
+            "required": true,
+            "description": "Destination folder path to move to e.g '/dst'",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the move is successful."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/{storageName}/exist": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Check if storage exists",
+        "operationId": "StorageExists",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "path",
+            "required": true,
+            "description": "Storage name",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "Storage exist result.",
+            "schema": {
+              "$ref": "#/definitions/StorageExist"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/exist/{path}": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Check if file or folder exists",
+        "operationId": "ObjectExists",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "File or folder path e.g. '/file.ext' or '/folder'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "Object exist result.",
+            "schema": {
+              "$ref": "#/definitions/ObjectExist"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/disc": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Get disc usage",
+        "operationId": "GetDiscUsage",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "Disc usage.",
+            "schema": {
+              "$ref": "#/definitions/DiscUsage"
+            }
+          },
+          "400": {
+            "description": "Storage not found or it is not associated with an application."
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/version/{path}": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Get file versions",
+        "operationId": "GetFileVersions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "description": "File path e.g. '/file.ext'",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "File versions.",
+            "schema": {
+              "$ref": "#/definitions/FileVersions"
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired."
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
     "BarCodeErrorResponse": {
       "type": "object",
+      "description": "BarCodeErrorResponse\n            ",
       "additionalProperties": false,
       "properties": {
         "Error": {
+          "description": "Error\n            ",
           "$ref": "#/definitions/Error"
         }
       }
     },
     "Error": {
       "type": "object",
+      "description": "Error",
       "additionalProperties": false,
       "properties": {
         "Code": {
-          "type": "string"
+          "type": "string",
+          "description": "Code\n            "
         },
         "Message": {
-          "type": "string"
+          "type": "string",
+          "description": "Message\n            "
         },
         "Description": {
-          "type": "string"
+          "type": "string",
+          "description": "Description\n            "
         },
         "InnerError": {
-          "$ref": "#/definitions/InnerError"
+          "description": "Inner Error\n            ",
+          "$ref": "#/definitions/ErrorDetails"
         }
       }
     },
-    "InnerError": {
+    "ErrorDetails": {
       "type": "object",
+      "description": "The error details",
       "additionalProperties": false,
       "required": [
         "Date"
       ],
       "properties": {
         "RequestId": {
-          "type": "string"
+          "type": "string",
+          "description": "The request id"
         },
         "Date": {
           "type": "string",
+          "description": "Date",
           "format": "date-time"
         }
       }
@@ -2206,7 +2934,7 @@
         },
         "TextColor": {
           "type": "string",
-          "description": "Color of the code text.\n            "
+          "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black."
         },
         "Font": {
           "description": "Specify the displaying Text's font.\nDefault value: Arial 5pt regular.\nIgnored if FontSizeMode is set to FontSizeMode.Auto.",
@@ -2221,9 +2949,19 @@
           "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.",
           "format": "double"
         },
-        "XDimension": {
+        "ResolutionX": {
           "type": "number",
-          "description": "Smallest width unit of barcode.\n            ",
+          "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+          "format": "double"
+        },
+        "ResolutionY": {
+          "type": "number",
+          "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+          "format": "double"
+        },
+        "DimensionX": {
+          "type": "number",
+          "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
           "format": "double"
         },
         "TextSpace": {
@@ -2232,31 +2970,31 @@
           "format": "double"
         },
         "Units": {
-          "description": "Common Units for all measuring in query.\n            ",
+          "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
           "$ref": "#/definitions/AvailableGraphicsUnit"
         },
         "SizeMode": {
-          "description": "Value indicating whether size of barcode changes automatically.\n            ",
+          "description": "Specifies the different types of automatic sizing modes.\nDefault value: AutoSizeMode.None.",
           "$ref": "#/definitions/AutoSizeMode"
         },
         "BarHeight": {
           "type": "number",
-          "description": "Height of the barcode.\n            ",
+          "description": "Height of the barcode in given units. Default units: pixel.\n            ",
           "format": "double"
         },
         "ImageHeight": {
           "type": "number",
-          "description": "Height of the barcode image.\n            ",
+          "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
           "format": "double"
         },
         "ImageWidth": {
           "type": "number",
-          "description": "Width of the barcode image.\n            ",
+          "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
           "format": "double"
         },
         "RotationAngle": {
           "type": "number",
-          "description": "Angle of barcode orientation.\n            ",
+          "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
           "format": "double"
         },
         "Padding": {
@@ -2273,15 +3011,15 @@
         },
         "BackColor": {
           "type": "string",
-          "description": "Background color.\n            "
+          "description": "Background color of the barcode image.\nDefault value: Color.White."
         },
         "BarColor": {
           "type": "string",
-          "description": "Bar color.\n            "
+          "description": "Bars color.\nDefault value: Color.Black."
         },
         "BorderColor": {
           "type": "string",
-          "description": "Color of the border.\n            "
+          "description": "Border color.\nDefault value: Color.Black."
         },
         "BorderWidth": {
           "type": "number",
@@ -2294,10 +3032,10 @@
         },
         "BorderVisible": {
           "type": "boolean",
-          "description": "Value indicating whether border is visible.\n            "
+          "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false."
         },
         "EnableChecksum": {
-          "description": "Value indicating whether checksum is enabled.\n            ",
+          "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
           "$ref": "#/definitions/EnableChecksum"
         },
         "EnableEscape": {
@@ -3556,13 +4294,174 @@
           "$ref": "#/definitions/CustomerInformationInterpretingType"
         }
       }
+    },
+    "FilesUploadResult": {
+      "type": "object",
+      "description": "File upload result",
+      "additionalProperties": false,
+      "properties": {
+        "Uploaded": {
+          "type": "array",
+          "description": "List of uploaded file names",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Errors": {
+          "type": "array",
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "FilesList": {
+      "type": "object",
+      "description": "Files list",
+      "additionalProperties": false,
+      "properties": {
+        "Value": {
+          "type": "array",
+          "description": "Files and folders contained by folder StorageFile.",
+          "items": {
+            "$ref": "#/definitions/StorageFile"
+          }
+        }
+      }
+    },
+    "StorageFile": {
+      "type": "object",
+      "description": "File or folder information",
+      "additionalProperties": false,
+      "required": [
+        "IsFolder",
+        "Size"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "File or folder name."
+        },
+        "IsFolder": {
+          "type": "boolean",
+          "description": "True if it is a folder."
+        },
+        "ModifiedDate": {
+          "type": "string",
+          "description": "File or folder last modified DateTime.",
+          "format": "date-time"
+        },
+        "Size": {
+          "type": "integer",
+          "description": "File or folder size.",
+          "format": "int64"
+        },
+        "Path": {
+          "type": "string",
+          "description": "File or folder path."
+        }
+      }
+    },
+    "StorageExist": {
+      "type": "object",
+      "description": "Storage exists",
+      "additionalProperties": false,
+      "required": [
+        "Exists"
+      ],
+      "properties": {
+        "Exists": {
+          "type": "boolean",
+          "description": "Shows that the storage exists.\n            "
+        }
+      }
+    },
+    "ObjectExist": {
+      "type": "object",
+      "description": "Object exists",
+      "additionalProperties": false,
+      "required": [
+        "Exists",
+        "IsFolder"
+      ],
+      "properties": {
+        "Exists": {
+          "type": "boolean",
+          "description": "Indicates that the file or folder exists."
+        },
+        "IsFolder": {
+          "type": "boolean",
+          "description": "True if it is a folder, false if it is a file."
+        }
+      }
+    },
+    "DiscUsage": {
+      "type": "object",
+      "description": "Class for disc space information.",
+      "additionalProperties": false,
+      "required": [
+        "UsedSize",
+        "TotalSize"
+      ],
+      "properties": {
+        "UsedSize": {
+          "type": "integer",
+          "description": "Application used disc space.",
+          "format": "int64"
+        },
+        "TotalSize": {
+          "type": "integer",
+          "description": "Total disc space.",
+          "format": "int64"
+        }
+      }
+    },
+    "FileVersions": {
+      "type": "object",
+      "description": "File versions FileVersion.",
+      "additionalProperties": false,
+      "properties": {
+        "Value": {
+          "type": "array",
+          "description": "File versions FileVersion.",
+          "items": {
+            "$ref": "#/definitions/FileVersion"
+          }
+        }
+      }
+    },
+    "FileVersion": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageFile"
+        },
+        {
+          "type": "object",
+          "description": "File Version",
+          "additionalProperties": false,
+          "required": [
+            "IsLatest"
+          ],
+          "properties": {
+            "VersionId": {
+              "type": "string",
+              "description": "File Version ID."
+            },
+            "IsLatest": {
+              "type": "boolean",
+              "description": "Specifies whether the file is (true) or is not (false) the latest version of an file."
+            }
+          }
+        }
+      ]
     }
   },
   "securityDefinitions": {
     "JWT": {
       "type": "oauth2",
       "flow": "application",
-      "tokenUrl": "http://localhost:47972/connect/token"
+      "tokenUrl": "https://api.aspose.cloud/connect/token"
     }
   }
 }
