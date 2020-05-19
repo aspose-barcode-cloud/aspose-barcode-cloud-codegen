@@ -33,21 +33,12 @@ using System.Collections.Generic;
 
 namespace {{packageName}}.Model.Requests
 {
-  using Model;
-
-  /// <summary>
-  /// Request model for <see cref="Aspose.BarCode.Cloud.Sdk.Api.BarCodeApi.{{nickname}}" /> operation.
-  /// </summary>
-  public class {{nickname}}Request{{#vendorExtensions}}{{#x-csharp-implements}} : {{x-csharp-implements}} {{/x-csharp-implements}}  {{/vendorExtensions}}
-  {
+    /// <summary>
+    /// Request model for <see cref="{{packageName}}.Api.{{classname}}.{{nickname}}" /> operation.
+    /// </summary>
+    public class {{nickname}}Request{{#vendorExtensions}}{{#x-csharp-implements}} : {{x-csharp-implements}}{{/x-csharp-implements}}{{/vendorExtensions}}
+    {
         {{#hasParams}}
-        /// <summary>
-        /// Initializes a new instance of the <see cref="{{nickname}}Request"/> class.
-        /// </summary>
-        // public {{nickname}}Request()
-        // {
-        // }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="{{nickname}}Request"/> class.
         /// </summary>
@@ -71,7 +62,7 @@ namespace {{packageName}}.Model.Requests
         {{/hasMore}}
         {{/allParams}}
         {{/hasParams}}
-  }
+    }
 }
 {{/operation}}
 {{/operations}}

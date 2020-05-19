@@ -33,69 +33,69 @@ using System;
 
 namespace {{packageName}}.Model
 {
-  {{#isEnum}}
-  using Newtonsoft.Json;
-  using Newtonsoft.Json.Converters;
+    {{#isEnum}}
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
-  /// <summary>
-  /// {{description}}
-  /// </summary>
-  [JsonConverter(typeof(StringEnumConverter))]
-  public enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
-  {  	{{#vendorExtensions}}{{#x-enumNames}}
-		/// <summary>
+    /// <summary>
+    ///     {{description}}
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
+    { {{#vendorExtensions}}{{#x-enumNames}}
+        /// <summary>
         /// Enum value {{.}}
         /// </summary>
         {{.}}{{^-last}},{{/-last}}
-		{{/x-enumNames}}{{/vendorExtensions}}
-  }
-  {{/isEnum}}
-  {{^isEnum}}
-  using System.Collections;
-  using System.Collections.Generic;
-  using System.Net;
-  using System.Runtime.Serialization;
-  using System.Text;
+      {{/x-enumNames}}{{/vendorExtensions}}
+    }
+    {{/isEnum}}
+    {{^isEnum}}
+    using System.Collections.Generic;
+    using System.Text;
 
-  /// <summary>
-  /// {{description}}
-  /// </summary>
-  public class {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
-  {
-        {{#vars}}
-        {{#isEnum}}
+    /// <summary>
+    ///     {{description}}
+    /// </summary>
+    public class {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
+    {
+    {{#vars}}
+      {{#isEnum}}
         /// <summary>
-        /// {{^description}}Gets or sets {{{name}}}{{/description}}{{#description}}{{description}}{{/description}}
+        ///     {{^description}}Gets or sets {{{name}}}{{/description}}{{#description}}{{description}}{{/description}}
         /// </summary>
         {{#description}}
         {{/description}}
         public {{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}?{{/isContainer}}{{/isEnum}} {{name}} { get; set; }
-        {{/isEnum}}
-		{{/vars}}
-        {{#vars}}
-        {{^isEnum}}
+
+      {{/isEnum}}
+    {{/vars}}
+    {{#vars}}
+      {{^isEnum}}
         /// <summary>
-        /// {{^description}}Gets or sets {{{name}}}{{/description}}{{#description}}{{{description}}}{{/description}}
+        ///     {{^description}}Gets or sets {{{name}}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>
         public {{{datatype}}} {{name}} { get; set; }
-		{{/isEnum}}
-        {{/vars}}
+
+      {{/isEnum}}
+    {{/vars}}
         /// <summary>
-        /// Get the string presentation of the object
+        ///     Get the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-          var sb = new StringBuilder();
-          sb.Append("class {{classname}} {\n");
-          {{#vars}}
-          sb.Append("  {{name}}: ").Append(this.{{name}}).Append("\n");
-          {{/vars}}
-          sb.Append("}\n");
-          return sb.ToString();
+            var sb = new StringBuilder();
+            sb.Append("class {{classname}} {\n");
+            {{#vars}}
+            sb.Append("  {{name}}: ").Append({{name}}).Append("\n");
+            {{/vars}}
+            sb.Append("}\n");
+
+            return sb.ToString();
         }
     }
-	{{/isEnum}}
-{{/model}}
+    {{/isEnum}}
+  {{/model}}
 {{/models}}
 }

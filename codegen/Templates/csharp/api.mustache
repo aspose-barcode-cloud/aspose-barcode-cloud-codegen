@@ -44,8 +44,8 @@ namespace {{packageName}}.Api
     /// </summary>
     public class {{classname}} : I{{classname}}
     {
-        private readonly ApiInvoker apiInvoker;
-        private readonly Configuration configuration;
+        private readonly ApiInvoker _apiInvoker;
+        private readonly Configuration _configuration;
 
 
         /// <summary>
@@ -54,24 +54,28 @@ namespace {{packageName}}.Api
         /// <param name="configuration">Configuration settings</param>
         public {{classname}}(Configuration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
 
             var requestHandlers = new List<IRequestHandler>();
-            switch (this.configuration.AuthType)
+            switch (_configuration.AuthType)
             {
-                case AuthType.RequestSignature: requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
+                case AuthType.RequestSignature:
+                    requestHandlers.Add(new AuthWithSignatureRequestHandler(_configuration));
                     break;
-                case AuthType.OAuth2: requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+                case AuthType.OAuth2:
+                    requestHandlers.Add(new OAuthRequestHandler(_configuration));
                     break;
-                case AuthType.ExternalAuth: requestHandlers.Add(new ExternalAuthorizationRequestHandler(this.configuration));
+                case AuthType.ExternalAuth:
+                    requestHandlers.Add(new ExternalAuthorizationRequestHandler(_configuration));
                     break;
-                case AuthType.JWT: requestHandlers.Add(new JWTRequestHandler(this.configuration));
+                case AuthType.JWT:
+                    requestHandlers.Add(new JwtRequestHandler(_configuration));
                     break;
             }
 
-            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(_configuration));
             requestHandlers.Add(new ApiExceptionRequestHandler());
-            this.apiInvoker = new ApiInvoker(configuration, requestHandlers);
+            _apiInvoker = new ApiInvoker(configuration, requestHandlers);
         }
 
         /// <summary>
@@ -108,11 +112,11 @@ namespace {{packageName}}.Api
             }
 
 {{/required}}{{/allParams}}            // create path and map variables
-            var resourcePath = this.configuration.GetApiRootUrl() + "{{path}}";
+            var resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
             resourcePath = Regex
-                        .Replace(resourcePath, "\\*", string.Empty)
-                        .Replace("&amp;", "&")
-                        .Replace("/?", "?");
+                .Replace(resourcePath, "\\*", string.Empty)
+                .Replace("&amp;", "&")
+                .Replace("/?", "?");
             {{#headerParams}}
             {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
             {{/headerParams}}
@@ -128,54 +132,42 @@ namespace {{packageName}}.Api
             {{#headerParams}}
             if ({{paramName}} != null)
             {
-                headerParams.Add("{{paramName}}", this.apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
+                headerParams.Add("{{paramName}}", _apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
             }
             {{/headerParams}}
             {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null)
             {
-                {{#isFile}}formParams.Add("{{paramName}}", this.apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
+                {{#isFile}}formParams.Add("{{paramName}}", _apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
             {{/formParams}}
-            //try
-            //{
-{{#vendorExtensions}}{{#x-binary-result}}                    return this.apiInvoker.InvokeBinaryApi(
-                        resourcePath,
-                        "{{httpMethod}}",
-                        {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
-                        {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}}                var response = this.apiInvoker.InvokeApi(
-                    resourcePath,
-                    "{{httpMethod}}",
-                    {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
-                    {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                    {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+{{#vendorExtensions}}{{#x-binary-result}}            return _apiInvoker.InvokeBinaryApi(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}}            var response = _apiInvoker.InvokeApi(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
-                if (response != null)
-                {
-                    return ({{returnType}})SerializationHelper.Deserialize(response, typeof({{returnType}}));
-                }
+            if (response != null)
+            {
+                return ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}}));
+            }
 
-                return null;
-                {{/returnType}}
-                {{^returnType}}
-            this.apiInvoker.InvokeApi(
+            return null;
+            {{/returnType}}
+            {{^returnType}}
+            _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
-            //}
-            //catch (ApiException ex)
-            //{
-            //    if (ex.ErrorCode == 404)
-            //    {
-            //        return null;
-            //    }
-            //
-            //    throw;
-            //}
         }
         {{/operation}}
     }
