@@ -10,8 +10,8 @@ if exist %tempDir% del /s /q %tempDir% || goto :error
 
 
 REM Generate Operations and Models for Debug purposes
-rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugOperationsCsharp.json || goto :error
-rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugModelsCsharp.json || goto :error
+rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugOperations.cs.json || goto :error
+rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugModels.cs.json || goto :error
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json || goto :error
 
 Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarCodeApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
@@ -28,6 +28,8 @@ xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*Api.cs" "%targetDir%\src\Api\
 
 del /s /q "%targetDir%\docs" > NUL || goto :error
 xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
+
+xcopy "%tempDir%\README.md" "%targetDir%\" /e /i /y > NUL || goto :error
 
 
 del /s /q %tempDir% > NUL || goto :error
