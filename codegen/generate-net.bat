@@ -29,7 +29,8 @@ xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*Api.cs" "%targetDir%\src\Api\
 del /s /q "%targetDir%\docs" > NUL || goto :error
 xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
 
-xcopy "%tempDir%\README.md" "%targetDir%\" /e /i /y > NUL || goto :error
+xcopy "%tempDir%\README.md" "%targetDir%\" /y > NUL || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Aspose.BarCode.Cloud.Sdk.csproj" "%targetDir%\src\Aspose.BarCode.Cloud.Sdk.csproj" /y > NUL || goto :error
 
 
 del /s /q %tempDir% > NUL || goto :error
