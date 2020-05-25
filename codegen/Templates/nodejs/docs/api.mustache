@@ -1,0 +1,34 @@
+{{! Used as index.md}}
+# Documentation for API Endpoints
+{{#apiInfo}}
+{{#apis}}
+
+## class {{classname}}
+
+{{#operations}}
+{{#operation}}
+### {{nickname}}
+
+{{&summary}}
+
+```ts
+{{nickname}}({{#requiredParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/requiredParams}}): {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}void{{/returnType}};
+```
+
+#### Parameters
+
+Name | Type | Description  | Notes
+---- | ---- | ------------ | -----
+{{#allParams}} **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}{{#isEnum}} {{#allowableValues}}{{#enumVars}}{{value}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}} {{/isEnum}}{{^isEnum}}**{{dataType}}**{{/isEnum}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{#isListContainer}}**{{dataType}}**{{/isListContainer}}{{^isListContainer}}[**{{dataType}}**](models.md#{{baseType}}){{/isListContainer}}{{/isFile}}{{/isPrimitiveType}}| {{description}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to '{{defaultValue}}']{{/defaultValue}}
+{{/allParams}}
+
+#### Return type
+
+{{#returnType}}{{#isResponseFile}}**{{returnType}}**{{/isResponseFile}}{{^isResponseFile}}[**{{returnType}}**](models.md#{{returnType}}){{/isResponseFile}}{{/returnType}}{{^returnType}}**undefined**{{/returnType}}
+
+---
+
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}

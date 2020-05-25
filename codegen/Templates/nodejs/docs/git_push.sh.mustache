@@ -1,0 +1,34 @@
+{{! Used as models.md}}
+# Models
+{{#models}}
+{{#model}}
+## {{{ classname }}}
+{{#description}}
+
+{{& description}}
+{{/description}}
+
+```ts
+{{#isEnum}}
+enum {{classname}} {
+    {{#allowableValues}}{{#enumVars}}{{{name}}} = {{{value}}}{{^-last}},
+    {{/-last}}{{/enumVars}}{{/allowableValues}}
+}
+{{/isEnum}}
+{{^isEnum}}
+interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
+{{#vars}}
+{{#description}}
+
+    /**
+     * {{{description}}}
+     */
+{{/description}}
+    {{name}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}};
+{{/vars}}
+}
+{{/isEnum}}
+```
+
+{{/model}}
+{{/models}}
