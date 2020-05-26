@@ -23,8 +23,9 @@ Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\Storage
 del /s /q "%targetDir%\src\Model\" > NUL || goto :error
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\src\Model\" /e /i /y > NUL || goto :error
 
-del /s /q "%targetDir%\src\Api\*Api.cs" > NUL || goto :error
-xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*Api.cs" "%targetDir%\src\Api\" /e /i /y > NUL || goto :error
+del /s /q "%targetDir%\src\Api\" > NUL || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*.cs" "%targetDir%\src\Api\" /e /i /y > NUL || goto :error
+xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Client\Configuration.cs" "%targetDir%\src\Api\" /y > NUL || goto :error
 
 del /s /q "%targetDir%\docs" > NUL || goto :error
 xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
