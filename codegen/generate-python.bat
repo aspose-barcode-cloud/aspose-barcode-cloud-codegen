@@ -24,6 +24,7 @@ xcopy "%tempDir%\docs\*" "%targetDir%\docs\" /e /i /y > NUL || goto :error
 copy "%tempDir%\setup.py" "%targetDir%\setup.py" /y > NUL || goto :error
 copy "%tempDir%\requirements.txt" "%targetDir%\requirements.txt" /y > NUL || goto :error
 copy "%tempDir%\test-requirements.txt" "%targetDir%\test-requirements.txt" /y > NUL || goto :error
+copy "%tempDir%\tox.ini" "%targetDir%\tox.ini" /y > NUL || goto :error
 copy "%tempDir%\README.md" "%targetDir%\README.md" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error

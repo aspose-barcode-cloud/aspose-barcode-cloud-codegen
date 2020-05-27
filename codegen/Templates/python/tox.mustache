@@ -1,0 +1,19 @@
+[tox]
+{{^asyncio}}
+envlist = py27, py3
+{{/asyncio}}
+{{#asyncio}}
+envlist = py3
+{{/asyncio}}
+
+[testenv]
+deps=-r{toxinidir}/requirements.txt
+     -r{toxinidir}/test-requirements.txt
+
+commands=
+{{^asyncio}}
+   python -m unittest -v
+{{/asyncio}}
+{{#asyncio}}
+   pytest -v --cov petstore_api
+{{/asyncio}}
