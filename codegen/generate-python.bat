@@ -26,5 +26,5 @@ copy "%tempDir%\requirements.txt" "%targetDir%\requirements.txt" /y > NUL || got
 copy "%tempDir%\test-requirements.txt" "%targetDir%\test-requirements.txt" /y > NUL || goto :error
 copy "%tempDir%\README.md" "%targetDir%\README.md" /y > NUL || goto :error
 
-rem del /s /q %tempDir% > NUL || goto :error
-rem rmdir /s /q  %tempDir% > NUL || goto :error
+del /s /q %tempDir% > NUL || goto :error
+rmdir /s /q  %tempDir% > NUL || goto :error
