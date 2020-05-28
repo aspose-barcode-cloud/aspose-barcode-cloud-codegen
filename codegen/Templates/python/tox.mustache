@@ -12,7 +12,7 @@ deps=-r{toxinidir}/requirements.txt
 
 commands=
 {{^asyncio}}
-   python -m unittest -v
+   python -m unittest discover -v
 {{/asyncio}}
 {{#asyncio}}
    pytest -v --cov petstore_api
