@@ -25,7 +25,7 @@ class Configuration(object):
 
     _default = None
 
-    def __init__(self, access_token=None, host=None, app_sid=None, app_key=None,
+    def __init__(self, app_sid=None, app_key=None, access_token=None, host=None,
                  token_url='{{hostWithoutBasePath}}/connect/token'):
         """Constructor"""
         if self._default:
