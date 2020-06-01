@@ -1,0 +1,70 @@
+# coding: utf-8
+
+{{>partial_header}}
+import os
+
+from setuptools import setup, find_packages
+
+NAME = "{{{projectName}}}"
+VERSION = "{{packageVersion}}"
+{{#apiInfo}}
+{{#apis}}
+{{^hasMore}}
+# To install the library, run the following
+#
+# python setup.py install
+#
+# prerequisite: setuptools
+# http://pypi.python.org/pypi/setuptools
+
+REQUIRES = [
+    "certifi>=2017.4.17",
+    "python-dateutil>=2.1",
+    "six>=1.10",
+    "urllib3>=1.23"
+]
+
+{{#asyncio}}
+REQUIRES.append("aiohttp")
+{{/asyncio}}
+{{#tornado}}
+REQUIRES.append("tornado")
+{{/tornado}}
+here = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+    name=NAME,
+    version=VERSION,
+    description="{{appName}}",
+    author='Aspose Barcode Cloud',
+    url="{{packageUrl}}",
+    license='MIT',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+    ],
+    keywords=["Aspose", "Barcode", "Cloud"],
+    install_requires=REQUIRES,
+    packages=find_packages(exclude=['tests']),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    project_urls={
+        'Source With Tests': 'https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-python',
+        'Website': 'https://www.aspose.cloud',
+        'Product Home': 'https://products.aspose.cloud/barcode/cloud',
+        'Documentation': 'https://docs.aspose.cloud/display/barcodecloud/Home',
+        'Free Support Forum': 'https://forum.aspose.cloud/c/barcode',
+        'Paid Support Helpdesk': 'https://helpdesk.aspose.cloud/',
+        'Blog': 'https://blog.aspose.cloud/category/barcode/',
+    },
+)
+{{/hasMore}}
+{{/apis}}
+{{/apiInfo}}
