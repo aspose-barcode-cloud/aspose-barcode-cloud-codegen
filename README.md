@@ -12,7 +12,7 @@ Directory | Description
 [.NET SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet) | Cloud SDK for .NET Standard 2.0, .NET Framework 2.0 and higher
 [Node JS SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-node) | Cloud SDK for Node JS
 [PHP SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-php) | Cloud SDK for PHP
-[Python SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-python) | Cloud SDK for Python
+[Python SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-python) | Cloud SDK for Python 2.7 and Python 3.4+
 
 To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
 
