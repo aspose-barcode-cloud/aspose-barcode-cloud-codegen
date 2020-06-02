@@ -1,0 +1,9 @@
+{{^asyncio}}
+coverage>=4.0.3
+{{/asyncio}}
+{{#asyncio}}
+pytest>=3.3.1
+pytest-cov>=2.5.1
+{{/asyncio}}
+mock; python_version < "3"
+black; python_version > "3"
