@@ -163,10 +163,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	}
 {{/required}}
 	if requestFile != nil {
-		fbs, _ := ioutil.ReadAll(requestFile)
-		fileBytes = fbs
-		fileName = requestFile.Name()
-		requestFile.Close()
+		postBody, _ = ioutil.ReadAll(requestFile)
 	}
 {{/isFile}}
 {{^isFile}}
