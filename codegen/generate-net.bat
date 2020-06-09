@@ -23,7 +23,7 @@ Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\Storage
 del /s /q "%targetDir%\src\Model\" > NUL || goto :error
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model" "%targetDir%\src\Model\" /e /i /y > NUL || goto :error
 
-del /s /q "%targetDir%\src\Api\" > NUL || goto :error
+del /s /q "%targetDir%\src\Api\*Api.cs" > NUL || goto :error
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\*.cs" "%targetDir%\src\Api\" /e /i /y > NUL || goto :error
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Client\Configuration.cs" "%targetDir%\src\Api\" /y > NUL || goto :error
 
@@ -33,6 +33,8 @@ xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
 xcopy "%tempDir%\README.md" "%targetDir%\" /y > NUL || goto :error
 xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Aspose.BarCode.Cloud.Sdk.csproj" "%targetDir%\src\Aspose.BarCode.Cloud.Sdk.csproj" /y > NUL || goto :error
 
+copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
+copy Templates\LICENSE "%targetDir%\src\LICENSE.txt" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q %tempDir% > NUL || goto :error
