@@ -1,9 +1,9 @@
-
 {{>partial_header}}
 package {{packageName}}
 
 {{#operations}}
 import (
+	. "github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode/models"
 	"context"
 	"io/ioutil"
 	"net/http"
@@ -239,9 +239,9 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	{{/returnType}}
 
 	if httpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: responseBody,
+		newErr := GenericApiError{
 			error: httpResponse.Status,
+			text:  string(responseBody),
 		}
 		{{#responses}}{{#dataType}}
 		if httpResponse.StatusCode == {{{code}}} {
