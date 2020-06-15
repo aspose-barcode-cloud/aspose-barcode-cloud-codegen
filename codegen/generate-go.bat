@@ -20,7 +20,7 @@ rmdir /s /q  "%targetDir%\barcode" > NUL || goto :error
 mkdir "%targetDir%\barcode\models" > NUL || goto :error
 move /y "%tempDir%\model_*.go" "%targetDir%\barcode\models\" > NUL || goto :error
 mkdir "%targetDir%\barcode\jwt" > NUL || goto :error
-copy /y "%tempDir%\git_push.sh" "%targetDir%\barcode\jwt\jwt.go" > NUL || goto :error
+move /y "%tempDir%\response.go" "%targetDir%\barcode\jwt\jwt.go" > NUL || goto :error
 copy "%tempDir%\*.go" "%targetDir%\barcode\" /y > NUL || goto :error
 
 del /s /q "%targetDir%\docs\" > NUL || goto :error
