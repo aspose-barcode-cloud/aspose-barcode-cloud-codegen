@@ -16,8 +16,8 @@ const (
 	{{{classname}}}{{value}} {{{classname}}} = "{{{value}}}"
 	{{/enumVars}}
 	{{/allowableValues}}
-){{/isEnum}}{{^isEnum}}{{#description}}
-// {{{description}}}{{/description}}
+){{/isEnum}}{{^isEnum}}
+//{{classname}} -{{#description}} {{{description}}}{{/description}}
 type {{classname}} struct {
 {{#vars}}
 {{^-first}}

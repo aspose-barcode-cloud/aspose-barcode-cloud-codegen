@@ -131,7 +131,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	return c.cfg.HTTPClient.Do(request)
 }
 
-// Change base path to allow switching to mocks
+// ChangeBasePath to allow switching to mocks
 func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.BasePath = path
 }
@@ -179,7 +179,10 @@ func (c *APIClient) prepareRequest(
 						return nil, err
 					}
 				} else { // form value
-					w.WriteField(k, iv)
+					err = w.WriteField(k, iv)
+					if err != nil {
+						return nil, err
+					}
 				}
 			}
 		}
@@ -200,7 +203,10 @@ func (c *APIClient) prepareRequest(
 
 		// Set Content-Length
 		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
-		w.Close()
+		err := w.Close()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
@@ -368,7 +374,7 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 	}
 
 	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("Invalid body type %s\n", contentType)
+		err = fmt.Errorf("invalid body type %s", contentType)
 		return nil, err
 	}
 	return bodyBuf, nil
@@ -395,25 +401,24 @@ func detectContentType(body interface{}) string {
 	return contentType
 }
 
-// GenericApiError Provides access to the body, error and model on returned errors.
-type GenericApiError struct {
+// GenericAPIError Provides access to the body, error and model on returned errors.
+type GenericAPIError struct {
 	error string
-	text string
+	text  string
 	model interface{}
 }
 
 // Error returns non-empty string if there was an error.
-func (e GenericApiError) Error() string {
+func (e GenericAPIError) Error() string {
 	return e.error
 }
 
 // Text returns the text of the response
-func (e GenericApiError) Text() string {
+func (e GenericAPIError) Text() string {
 	return e.text
 }
 
-
 // Model returns the unpacked model of the error
-func (e GenericApiError) Model() interface{} {
+func (e GenericAPIError) Model() interface{} {
 	return e.model
 }
