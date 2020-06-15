@@ -379,7 +379,7 @@
             "type": "boolean",
             "name": "ValidateText",
             "in": "query",
-            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
             "x-nullable": true
           },
           {
@@ -798,7 +798,7 @@
             "type": "boolean",
             "name": "ValidateText",
             "in": "query",
-            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
             "x-nullable": true
           },
           {
@@ -3057,7 +3057,7 @@
         },
         "ValidateText": {
           "type": "boolean",
-          "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect."
+          "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect."
         },
         "SupplementData": {
           "type": "string",
