@@ -8,64 +8,11 @@ using System.Collections.Generic;
 namespace Aspose.BarCode.Cloud.Sdk.Api
 {
     /// <summary>
-    /// Represents a set of configuration settings
+    ///     Represents a set of configuration settings
     /// </summary>
     public class Configuration
     {
         private string _jwtToken;
-
-        /// <summary>
-        /// Aspose Cloud API base URL.
-        /// </summary>
-        public string ApiBaseUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app key.
-        /// </summary>
-        public string AppKey { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app sid.
-        /// </summary>
-        public string AppSid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Jwt token.
-        /// If set the library would handle auth internally
-        /// </summary>
-        public string JwtToken
-        {
-            get => _jwtToken;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    return;
-
-                AuthType = AuthType.ExternalAuth;
-                _jwtToken = value;
-            }
-        }
-
-
-        /// <summary>
-        /// Gets or sets a value indicating whether debug mode.
-        /// </summary>
-        public bool DebugMode { get; set; }
-
-        /// <summary>
-        /// Authentication type.
-        /// </summary>
-        public AuthType AuthType { get; private set; }
-
-        /// <summary>
-        /// Get or sets Cloud API Version.
-        /// </summary>
-        private string ApiVersion { get; }
-
-        /// <summary>
-        /// Gets or sets HTTP headers
-        /// </summary>
-        public Dictionary<string, string> DefaultHeaders { get; }
 
         public Configuration()
         {
@@ -75,6 +22,61 @@ namespace Aspose.BarCode.Cloud.Sdk.Api
             AuthType = AuthType.JWT;
             DefaultHeaders = new Dictionary<string, string>();
         }
+
+        /// <summary>
+        ///     Aspose Cloud API base URL.
+        /// </summary>
+        public string ApiBaseUrl { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the app key.
+        /// </summary>
+        public string AppKey { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the app sid.
+        /// </summary>
+        public string AppSid { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the Jwt token.
+        ///     If set the library would handle auth internally
+        /// </summary>
+        public string JwtToken
+        {
+            get => _jwtToken;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+
+                AuthType = AuthType.ExternalAuth;
+                _jwtToken = value;
+            }
+        }
+
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether debug mode.
+        /// </summary>
+        public bool DebugMode { get; set; }
+
+        /// <summary>
+        ///     Authentication type.
+        /// </summary>
+        public AuthType AuthType { get; private set; }
+
+        /// <summary>
+        ///     Get or sets Cloud API Version.
+        /// </summary>
+        public string ApiVersion { get; }
+
+        /// <summary>
+        ///     Gets or sets HTTP headers
+        /// </summary>
+        public Dictionary<string, string> DefaultHeaders { get; set; }
 
         public string GetApiRootUrl()
         {

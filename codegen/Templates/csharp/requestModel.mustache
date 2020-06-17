@@ -34,13 +34,13 @@ using System.Collections.Generic;
 namespace {{packageName}}.Model.Requests
 {
     /// <summary>
-    /// Request model for <see cref="{{packageName}}.Api.{{classname}}.{{nickname}}" /> operation.
+    ///     Request model for <see cref="{{packageName}}.Api.{{classname}}.{{nickname}}" /> operation.
     /// </summary>
     public class {{nickname}}Request{{#vendorExtensions}}{{#x-csharp-implements}} : {{x-csharp-implements}}{{/x-csharp-implements}}{{/vendorExtensions}}
     {
         {{#hasParams}}
         /// <summary>
-        /// Initializes a new instance of the <see cref="{{nickname}}Request"/> class.
+        ///     Initializes a new instance of the <see cref="{{nickname}}Request"/> class.
         /// </summary>
         {{#allParams}}
         /// <param name="{{paramName}}">{{description}}</param>
@@ -54,7 +54,7 @@ namespace {{packageName}}.Model.Requests
 
         {{#allParams}}
         /// <summary>
-        /// {{^description}}Gets or sets {{baseName}}{{/description}}{{#description}}{{{description}}}{{/description}}
+        ///     {{^description}}Gets or sets {{baseName}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>
         public {{{dataType}}} {{baseName}} { get; set; }
         {{#hasMore}}
