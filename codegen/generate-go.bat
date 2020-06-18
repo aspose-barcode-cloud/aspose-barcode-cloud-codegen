@@ -26,6 +26,7 @@ copy "%tempDir%\*.go" "%targetDir%\barcode\" /y > NUL || goto :error
 del /s /q "%targetDir%\docs\" > NUL || goto :error
 xcopy "%tempDir%\docs\*" "%targetDir%\docs\" /e /i /y > NUL || goto :error
 
+copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
 copy "%tempDir%\README.md" "%targetDir%\README.md" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error
