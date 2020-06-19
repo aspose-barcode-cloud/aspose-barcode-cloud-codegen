@@ -17,10 +17,10 @@ rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%spec
 
 del /s /q "%targetDir%\barcode" > NUL || goto :error
 rmdir /s /q  "%targetDir%\barcode" > NUL || goto :error
-mkdir "%targetDir%\barcode\models" > NUL || goto :error
-move /y "%tempDir%\model_*.go" "%targetDir%\barcode\models\" > NUL || goto :error
+
 mkdir "%targetDir%\barcode\jwt" > NUL || goto :error
 move /y "%tempDir%\response.go" "%targetDir%\barcode\jwt\jwt.go" > NUL || goto :error
+
 copy "%tempDir%\*.go" "%targetDir%\barcode\" /y > NUL || goto :error
 
 del /s /q "%targetDir%\docs\" > NUL || goto :error
