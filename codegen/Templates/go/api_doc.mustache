@@ -34,10 +34,6 @@ Name | Type | Description  | Notes
 
 {{#returnType}}{{#returnTypeIsPrimitive}}**{{{returnType}}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}{{^isResponseFile}}[**{{{returnType}}}**]({{returnBaseType}}.md){{/isResponseFile}}{{#isResponseFile}}**byte[]**{{/isResponseFile}}{{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}} (empty response body){{/returnType}}
 
-### {{{operationId}}} Authorization
-
-{{^authMethods}}No authorization required{{/authMethods}}{{#authMethods}}[{{{name}}}](../README.md#{{{name}}}){{^-last}}, {{/-last}}{{/authMethods}}
-
 [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 {{/operation}}
 {{/operations}}
