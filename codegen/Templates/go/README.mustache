@@ -1,0 +1,174 @@
+# Aspose.BarCode Cloud SDK for Go
+
+- API version: {{appVersion}}
+- SDK version: {{packageVersion}}
+
+[Aspose.BarCode for Cloud](https://products.aspose.cloud/barcode/cloud) is a REST API for Linear, 2D and postal barcode generation and recognition in the cloud. API recognizes and generates barcode images in a variety of formats. Barcode REST API allows to specify barcode image attributes like image width, height, border style and output image format in order to customize the generation process. Developers can also specify the barcode type and text attributes such as text location and font styles in order to suit the application requirements.
+
+This repository contains Aspose.BarCode Cloud SDK for Go source code. This SDK allows you to work with Aspose.BarCode for Cloud REST APIs in your Go applications quickly and easily.
+
+To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
+
+## Prerequisites
+
+To use Aspose.BarCode Cloud SDK for Go you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create App Key and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps). There is a free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+
+## Installation
+
+### Using Go Modules (recommended)
+
+1. Go to existing module directory, or create a new module (see <https://blog.golang.org/using-go-modules>)
+1. Run `go get` command
+
+    ```shell script
+    go get -u github.com/aspose-barcode-cloud/aspose-barcode-cloud-go@v{{packageVersion}}
+    ```
+
+### Using GOPATH (for Go < 1.11 )
+
+1. Run `go get` command outside module directory
+
+    ```shell script
+   go get -u github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode
+   ```
+
+## Sample usage
+
+### Generate an image with barcode
+
+The examples below show how you can generate QR barcode and save it into a local file using **{{packageName}}**:
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode"
+    "github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode/jwt"
+    "os"
+)
+
+func main() {
+    jwtConf := jwt.NewConfig(
+        "App SID from https://dashboard.aspose.cloud/#/apps",
+        "App Key from https://dashboard.aspose.cloud/#/apps",
+    )
+    fileName := "testdata/generated.png"
+
+    authCtx := context.WithValue(context.Background(),
+        barcode.ContextJWT,
+        jwtConf.TokenSource(context.Background()))
+
+    client := barcode.NewAPIClient(barcode.NewConfiguration())
+
+    data, _, err := client.BarcodeApi.GetBarcodeGenerate(authCtx,
+        string(barcode.EncodeBarcodeTypeQR),
+        "Go SDK example",
+        nil)
+    if err != nil {
+        panic(err)
+    }
+
+    out, err := os.Create(fileName)
+    if err != nil {
+        panic(err)
+    }
+    defer out.Close()
+
+    written, err := out.Write(data)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Printf("Written %d bytes to file %s\n", written, fileName)
+}
+```
+
+### Recognize a barcode on image
+
+The examples below show how you can recognize barcode text and type on the image using **{{packageName}}**:
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "github.com/antihax/optional"
+    "github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode"
+    "github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/barcode/jwt"
+    "os"
+)
+
+func main() {
+    jwtConf := jwt.NewConfig(
+        "App SID from https://dashboard.aspose.cloud/#/apps",
+        "App Key from https://dashboard.aspose.cloud/#/apps",
+    )
+    fileName := "testdata/pdf417Sample.png"
+
+    file, err := os.Open(fileName)
+    if err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    client := barcode.NewAPIClient(barcode.NewConfiguration())
+    authCtx := context.WithValue(context.Background(),
+        barcode.ContextJWT,
+        jwtConf.TokenSource(context.Background()))
+
+    optionals := barcode.BarcodeApiPostBarcodeRecognizeFromUrlOrContentOpts{
+        Preset: optional.NewString(string(barcode.PresetTypeHighPerformance)),
+        Image:  optional.NewInterface(file),
+    }
+
+    recognized, _, err := client.BarcodeApi.PostBarcodeRecognizeFromUrlOrContent(
+        authCtx,
+        &optionals)
+    if err != nil {
+        panic(err)
+    }
+
+    if len(recognized.Barcodes) == 0 {
+        fmt.Printf("No barcodes in %s", fileName)
+    }
+
+    for i, oneBarcode := range recognized.Barcodes {
+        fmt.Printf("Recognized #%d: %s %s", i+1, oneBarcode.Type, oneBarcode.BarcodeValue)
+    }
+}
+```
+
+## Dependencies
+
+- github.com/antihax/optional
+- github.com/google/uuid
+- golang.org/x/oauth2
+
+## Licensing
+
+All Aspose.BarCode for Cloud SDKs, helper scripts and templates are licensed under [MIT License](LICENSE).
+
+## Resources
+
+- [**Website**](https://www.aspose.cloud)
+- [**Product Home**](https://products.aspose.cloud/barcode/cloud)
+- [**Documentation**](https://docs.aspose.cloud/display/barcodecloud/Home)
+- [**Free Support Forum**](https://forum.aspose.cloud/c/barcode)
+- [**Paid Support Helpdesk**](https://helpdesk.aspose.cloud/)
+- [**Blog**](https://blog.aspose.cloud/category/aspose-products/aspose-barcode-product-family/)
+
+## Documentation for API Endpoints
+
+All URIs are relative to *<{{{basePath}}}>*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+## Documentation For Models
+
+{{#models}}{{#model}}- [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
