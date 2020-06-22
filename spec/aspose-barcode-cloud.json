@@ -19,7 +19,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Generate barcode.\n            ",
+        "summary": "Generate barcode.\n",
         "operationId": "GetBarcodeGenerate",
         "produces": [
           "image/png",
@@ -35,7 +35,7 @@
             "name": "Type",
             "in": "query",
             "required": true,
-            "description": "Type of barcode to generate.\n            ",
+            "description": "Type of barcode to generate.\n",
             "x-schema": {
               "$ref": "#/definitions/EncodeBarcodeType"
             },
@@ -114,7 +114,7 @@
             "name": "Text",
             "in": "query",
             "required": true,
-            "description": "Text to encode.\n            ",
+            "description": "Text to encode.\n",
             "x-nullable": false
           },
           {
@@ -143,7 +143,7 @@
             "type": "string",
             "name": "TextAlignment",
             "in": "query",
-            "description": "Text alignment.\n            ",
+            "description": "Text alignment.\n",
             "x-schema": {
               "$ref": "#/definitions/TextAlignment"
             },
@@ -187,7 +187,7 @@
             "type": "number",
             "name": "ResolutionX",
             "in": "query",
-            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -195,7 +195,7 @@
             "type": "number",
             "name": "ResolutionY",
             "in": "query",
-            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -219,7 +219,7 @@
             "type": "string",
             "name": "Units",
             "in": "query",
-            "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
+            "description": "Common Units for all measuring in query. Default units: pixel.\n",
             "x-schema": {
               "$ref": "#/definitions/AvailableGraphicsUnit"
             },
@@ -250,7 +250,7 @@
             "type": "number",
             "name": "BarHeight",
             "in": "query",
-            "description": "Height of the barcode in given units. Default units: pixel.\n            ",
+            "description": "Height of the barcode in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -258,7 +258,7 @@
             "type": "number",
             "name": "ImageHeight",
             "in": "query",
-            "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
+            "description": "Height of the barcode image in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -266,7 +266,7 @@
             "type": "number",
             "name": "ImageWidth",
             "in": "query",
-            "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
+            "description": "Width of the barcode image in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -335,7 +335,7 @@
             "type": "string",
             "name": "EnableChecksum",
             "in": "query",
-            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n",
             "x-schema": {
               "$ref": "#/definitions/EnableChecksum"
             },
@@ -364,7 +364,7 @@
             "type": "boolean",
             "name": "AlwaysShowChecksum",
             "in": "query",
-            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n            ",
+            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n",
             "x-nullable": true
           },
           {
@@ -379,7 +379,7 @@
             "type": "boolean",
             "name": "ValidateText",
             "in": "query",
-            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
             "x-nullable": true
           },
           {
@@ -434,7 +434,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Generate barcode and save on server (from query params or from file with json or xml content)\n            ",
+        "summary": "Generate barcode and save on server (from query params or from file with json or xml content)\n",
         "operationId": "PutBarcodeGenerateFile",
         "consumes": [
           "application/json",
@@ -454,7 +454,7 @@
             "name": "Type",
             "in": "query",
             "required": true,
-            "description": "Type of barcode to generate.\n            ",
+            "description": "Type of barcode to generate.\n",
             "x-schema": {
               "$ref": "#/definitions/EncodeBarcodeType"
             },
@@ -533,7 +533,7 @@
             "name": "Text",
             "in": "query",
             "required": true,
-            "description": "Text to encode.\n            ",
+            "description": "Text to encode.\n",
             "x-nullable": false
           },
           {
@@ -562,7 +562,7 @@
             "type": "string",
             "name": "TextAlignment",
             "in": "query",
-            "description": "Text alignment.\n            ",
+            "description": "Text alignment.\n",
             "x-schema": {
               "$ref": "#/definitions/TextAlignment"
             },
@@ -606,7 +606,7 @@
             "type": "number",
             "name": "ResolutionX",
             "in": "query",
-            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -614,7 +614,7 @@
             "type": "number",
             "name": "ResolutionY",
             "in": "query",
-            "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+            "description": "DEPRECATED: Use 'Resolution' instead.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -638,7 +638,7 @@
             "type": "string",
             "name": "Units",
             "in": "query",
-            "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
+            "description": "Common Units for all measuring in query. Default units: pixel.\n",
             "x-schema": {
               "$ref": "#/definitions/AvailableGraphicsUnit"
             },
@@ -669,7 +669,7 @@
             "type": "number",
             "name": "BarHeight",
             "in": "query",
-            "description": "Height of the barcode in given units. Default units: pixel.\n            ",
+            "description": "Height of the barcode in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -677,7 +677,7 @@
             "type": "number",
             "name": "ImageHeight",
             "in": "query",
-            "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
+            "description": "Height of the barcode image in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -685,7 +685,7 @@
             "type": "number",
             "name": "ImageWidth",
             "in": "query",
-            "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
+            "description": "Width of the barcode image in given units. Default units: pixel.\n",
             "format": "double",
             "x-nullable": true
           },
@@ -754,7 +754,7 @@
             "type": "string",
             "name": "EnableChecksum",
             "in": "query",
-            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n",
             "x-schema": {
               "$ref": "#/definitions/EnableChecksum"
             },
@@ -783,7 +783,7 @@
             "type": "boolean",
             "name": "AlwaysShowChecksum",
             "in": "query",
-            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n            ",
+            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n",
             "x-nullable": true
           },
           {
@@ -798,7 +798,7 @@
             "type": "boolean",
             "name": "ValidateText",
             "in": "query",
-            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
             "x-nullable": true
           },
           {
@@ -866,7 +866,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Generate multiple barcodes and return in response stream\n            ",
+        "summary": "Generate multiple barcodes and return in response stream\n",
         "operationId": "PostGenerateMultiple",
         "consumes": [
           "application/json",
@@ -922,7 +922,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Generate image with multiple barcodes and put new file on server\n            ",
+        "summary": "Generate image with multiple barcodes and put new file on server\n",
         "operationId": "PutGenerateMultiple",
         "consumes": [
           "application/json",
@@ -998,7 +998,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Recognize barcode from a file on server.\n            ",
+        "summary": "Recognize barcode from a file on server.\n",
         "operationId": "GetBarcodeRecognize",
         "parameters": [
           {
@@ -1013,7 +1013,7 @@
             "type": "string",
             "name": "Type",
             "in": "query",
-            "description": "The type of barcode to read.\n            ",
+            "description": "The type of barcode to read.\n",
             "x-schema": {
               "$ref": "#/definitions/DecodeBarcodeType"
             },
@@ -1092,7 +1092,7 @@
             "type": "string",
             "name": "ChecksumValidation",
             "in": "query",
-            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n            ",
+            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n",
             "x-schema": {
               "$ref": "#/definitions/ChecksumValidation"
             },
@@ -1132,7 +1132,7 @@
             "type": "integer",
             "name": "RectX",
             "in": "query",
-            "description": "Set X for area for recognition.\n            ",
+            "description": "Set X for area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1140,7 +1140,7 @@
             "type": "integer",
             "name": "RectY",
             "in": "query",
-            "description": "Set Y for area for recognition.\n            ",
+            "description": "Set Y for area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1148,7 +1148,7 @@
             "type": "integer",
             "name": "RectWidth",
             "in": "query",
-            "description": "Set Width of area for recognition.\n            ",
+            "description": "Set Width of area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1156,7 +1156,7 @@
             "type": "integer",
             "name": "RectHeight",
             "in": "query",
-            "description": "Set Height of area for recognition.\n            ",
+            "description": "Set Height of area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1164,14 +1164,14 @@
             "type": "boolean",
             "name": "StripFNC",
             "in": "query",
-            "description": "Value indicating whether FNC symbol strip must be done.\n            ",
+            "description": "Value indicating whether FNC symbol strip must be done.\n",
             "x-nullable": true
           },
           {
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process.\n            ",
+            "description": "Timeout of recognition process.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1371,7 +1371,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Recognition of a barcode from file on server with parameters in body.\n            ",
+        "summary": "Recognition of a barcode from file on server with parameters in body.\n",
         "operationId": "PutBarcodeRecognizeFromBody",
         "parameters": [
           {
@@ -1506,7 +1506,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.\n            ",
+        "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.\n",
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
           "application/octet-stream"
@@ -1516,7 +1516,7 @@
             "type": "string",
             "name": "Type",
             "in": "query",
-            "description": "The type of barcode to read.\n            ",
+            "description": "The type of barcode to read.\n",
             "x-schema": {
               "$ref": "#/definitions/DecodeBarcodeType"
             },
@@ -1595,7 +1595,7 @@
             "type": "string",
             "name": "ChecksumValidation",
             "in": "query",
-            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n            ",
+            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n",
             "x-schema": {
               "$ref": "#/definitions/ChecksumValidation"
             },
@@ -1635,7 +1635,7 @@
             "type": "integer",
             "name": "RectX",
             "in": "query",
-            "description": "Set X for area for recognition.\n            ",
+            "description": "Set X for area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1643,7 +1643,7 @@
             "type": "integer",
             "name": "RectY",
             "in": "query",
-            "description": "Set Y for area for recognition.\n            ",
+            "description": "Set Y for area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1651,7 +1651,7 @@
             "type": "integer",
             "name": "RectWidth",
             "in": "query",
-            "description": "Set Width of area for recognition.\n            ",
+            "description": "Set Width of area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1659,7 +1659,7 @@
             "type": "integer",
             "name": "RectHeight",
             "in": "query",
-            "description": "Set Height of area for recognition.\n            ",
+            "description": "Set Height of area for recognition.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1667,14 +1667,14 @@
             "type": "boolean",
             "name": "StripFNC",
             "in": "query",
-            "description": "Value indicating whether FNC symbol strip must be done.\n            ",
+            "description": "Value indicating whether FNC symbol strip must be done.\n",
             "x-nullable": true
           },
           {
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process.\n            ",
+            "description": "Timeout of recognition process.\n",
             "format": "int32",
             "x-nullable": true
           },
@@ -1941,7 +1941,7 @@
             "name": "path",
             "in": "path",
             "required": true,
-            "description": "Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext\n            If the content is multipart and path does not contains the file name it tries to get them from filename parameter\n            from Content-Disposition header.\n            ",
+            "description": "Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext\n            If the content is multipart and path does not contains the file name it tries to get them from filename parameter\n            from Content-Disposition header.\n",
             "x-nullable": false
           },
           {
@@ -2557,11 +2557,11 @@
   "definitions": {
     "BarCodeErrorResponse": {
       "type": "object",
-      "description": "BarCodeErrorResponse\n            ",
+      "description": "BarCodeErrorResponse\n",
       "additionalProperties": false,
       "properties": {
         "Error": {
-          "description": "Error\n            ",
+          "description": "Error\n",
           "$ref": "#/definitions/Error"
         }
       }
@@ -2573,18 +2573,18 @@
       "properties": {
         "Code": {
           "type": "string",
-          "description": "Code\n            "
+          "description": "Code\n"
         },
         "Message": {
           "type": "string",
-          "description": "Message\n            "
+          "description": "Message\n"
         },
         "Description": {
           "type": "string",
-          "description": "Description\n            "
+          "description": "Description\n"
         },
         "InnerError": {
-          "description": "Inner Error\n            ",
+          "description": "Inner Error\n",
           "$ref": "#/definitions/ErrorDetails"
         }
       }
@@ -2610,7 +2610,7 @@
     },
     "EncodeBarcodeType": {
       "type": "string",
-      "description": "See EncodeTypes\n            ",
+      "description": "See EncodeTypes\n",
       "x-enumNames": [
         "Codabar",
         "Code11",
@@ -2790,7 +2790,7 @@
     },
     "AvailableGraphicsUnit": {
       "type": "string",
-      "description": "Subset of GraphicsUnit.\n            ",
+      "description": "Subset of GraphicsUnit.\n",
       "x-enumNames": [
         "Pixel",
         "Point",
@@ -2852,7 +2852,7 @@
     },
     "ResultImageInfo": {
       "type": "object",
-      "description": "Created image info.\n            ",
+      "description": "Created image info.\n",
       "additionalProperties": false,
       "required": [
         "FileSize"
@@ -2860,24 +2860,24 @@
       "properties": {
         "FileSize": {
           "type": "integer",
-          "description": "Result file size.\n            ",
+          "description": "Result file size.\n",
           "format": "int64"
         },
         "ImageWidth": {
           "type": "integer",
-          "description": "Result image width.\n            ",
+          "description": "Result image width.\n",
           "format": "int32"
         },
         "ImageHeight": {
           "type": "integer",
-          "description": "Result image height.\n            ",
+          "description": "Result image height.\n",
           "format": "int32"
         }
       }
     },
     "GeneratorParamsList": {
       "type": "object",
-      "description": "Represents list of barcode generators\n            ",
+      "description": "Represents list of barcode generators\n",
       "additionalProperties": false,
       "required": [
         "XStep",
@@ -2886,26 +2886,26 @@
       "properties": {
         "BarcodeBuilders": {
           "type": "array",
-          "description": "List of barcode generators\n            ",
+          "description": "List of barcode generators\n",
           "items": {
             "$ref": "#/definitions/GeneratorParams"
           }
         },
         "XStep": {
           "type": "integer",
-          "description": "Shift step according to X axis\n            ",
+          "description": "Shift step according to X axis\n",
           "format": "int32"
         },
         "YStep": {
           "type": "integer",
-          "description": "Shift step according to Y axis\n            ",
+          "description": "Shift step according to Y axis\n",
           "format": "int32"
         }
       }
     },
     "GeneratorParams": {
       "type": "object",
-      "description": "Represents extended BarcodeGenerator params.\n            ",
+      "description": "Represents extended BarcodeGenerator params.\n",
       "additionalProperties": false,
       "required": [
         "TypeOfBarcode",
@@ -2913,12 +2913,12 @@
       ],
       "properties": {
         "TypeOfBarcode": {
-          "description": "Type of barcode to generate.\n            ",
+          "description": "Type of barcode to generate.\n",
           "$ref": "#/definitions/EncodeBarcodeType"
         },
         "Text": {
           "type": "string",
-          "description": "Text to encode.\n            "
+          "description": "Text to encode.\n"
         },
         "TwoDDisplayText": {
           "type": "string",
@@ -2929,7 +2929,7 @@
           "$ref": "#/definitions/CodeLocation"
         },
         "TextAlignment": {
-          "description": "Text alignment.\n            ",
+          "description": "Text alignment.\n",
           "$ref": "#/definitions/TextAlignment"
         },
         "TextColor": {
@@ -2951,12 +2951,12 @@
         },
         "ResolutionX": {
           "type": "number",
-          "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+          "description": "DEPRECATED: Use 'Resolution' instead.\n",
           "format": "double"
         },
         "ResolutionY": {
           "type": "number",
-          "description": "DEPRECATED: Use 'Resolution' instead.\n            ",
+          "description": "DEPRECATED: Use 'Resolution' instead.\n",
           "format": "double"
         },
         "DimensionX": {
@@ -2970,7 +2970,7 @@
           "format": "double"
         },
         "Units": {
-          "description": "Common Units for all measuring in query. Default units: pixel.\n            ",
+          "description": "Common Units for all measuring in query. Default units: pixel.\n",
           "$ref": "#/definitions/AvailableGraphicsUnit"
         },
         "SizeMode": {
@@ -2979,17 +2979,17 @@
         },
         "BarHeight": {
           "type": "number",
-          "description": "Height of the barcode in given units. Default units: pixel.\n            ",
+          "description": "Height of the barcode in given units. Default units: pixel.\n",
           "format": "double"
         },
         "ImageHeight": {
           "type": "number",
-          "description": "Height of the barcode image in given units. Default units: pixel.\n            ",
+          "description": "Height of the barcode image in given units. Default units: pixel.\n",
           "format": "double"
         },
         "ImageWidth": {
           "type": "number",
-          "description": "Width of the barcode image in given units. Default units: pixel.\n            ",
+          "description": "Width of the barcode image in given units. Default units: pixel.\n",
           "format": "double"
         },
         "RotationAngle": {
@@ -3002,11 +3002,11 @@
           "$ref": "#/definitions/Padding"
         },
         "CaptionAbove": {
-          "description": "Additional caption above barcode.\n            ",
+          "description": "Additional caption above barcode.\n",
           "$ref": "#/definitions/CaptionParams"
         },
         "CaptionBelow": {
-          "description": "Additional caption below barcode.\n            ",
+          "description": "Additional caption below barcode.\n",
           "$ref": "#/definitions/CaptionParams"
         },
         "BackColor": {
@@ -3035,7 +3035,7 @@
           "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false."
         },
         "EnableChecksum": {
-          "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n            ",
+          "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology\n",
           "$ref": "#/definitions/EnableChecksum"
         },
         "EnableEscape": {
@@ -3048,7 +3048,7 @@
         },
         "AlwaysShowChecksum": {
           "type": "boolean",
-          "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n            "
+          "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.\n"
         },
         "WideNarrowRatio": {
           "type": "number",
@@ -3057,7 +3057,7 @@
         },
         "ValidateText": {
           "type": "boolean",
-          "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingapurePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect."
+          "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect."
         },
         "SupplementData": {
           "type": "string",
@@ -3128,20 +3128,20 @@
     },
     "FontParams": {
       "type": "object",
-      "description": "Font.\n            ",
+      "description": "Font.\n",
       "additionalProperties": false,
       "properties": {
         "Family": {
           "type": "string",
-          "description": "Font family.\n            "
+          "description": "Font family.\n"
         },
         "Size": {
           "type": "number",
-          "description": "Font size in units.\n            ",
+          "description": "Font size in units.\n",
           "format": "double"
         },
         "Style": {
-          "description": "Font style.\n            ",
+          "description": "Font style.\n",
           "$ref": "#/definitions/FontStyle"
         }
       }
@@ -3167,65 +3167,65 @@
     },
     "Padding": {
       "type": "object",
-      "description": "Padding around barcode.\n            ",
+      "description": "Padding around barcode.\n",
       "additionalProperties": false,
       "properties": {
         "Left": {
           "type": "number",
-          "description": "Left padding.\n            ",
+          "description": "Left padding.\n",
           "format": "double"
         },
         "Right": {
           "type": "number",
-          "description": "Right padding.\n            ",
+          "description": "Right padding.\n",
           "format": "double"
         },
         "Top": {
           "type": "number",
-          "description": "Top padding.\n            ",
+          "description": "Top padding.\n",
           "format": "double"
         },
         "Bottom": {
           "type": "number",
-          "description": "Bottom padding.\n            ",
+          "description": "Bottom padding.\n",
           "format": "double"
         }
       }
     },
     "CaptionParams": {
       "type": "object",
-      "description": "Caption\n            ",
+      "description": "Caption\n",
       "additionalProperties": false,
       "properties": {
         "Text": {
           "type": "string",
-          "description": "Caption text.\n            "
+          "description": "Caption text.\n"
         },
         "Alignment": {
-          "description": "Text alignment.\n            ",
+          "description": "Text alignment.\n",
           "$ref": "#/definitions/TextAlignment"
         },
         "Color": {
           "type": "string",
-          "description": "Text color.\n            "
+          "description": "Text color.\n"
         },
         "Visible": {
           "type": "boolean",
-          "description": "Is caption visible.\n            "
+          "description": "Is caption visible.\n"
         },
         "Font": {
-          "description": "Font.\n            ",
+          "description": "Font.\n",
           "$ref": "#/definitions/FontParams"
         },
         "Padding": {
-          "description": "Padding.\n            ",
+          "description": "Padding.\n",
           "$ref": "#/definitions/Padding"
         }
       }
     },
     "AustralianPostParams": {
       "type": "object",
-      "description": "AustralianPost barcode parameters.\n            ",
+      "description": "AustralianPost barcode parameters.\n",
       "additionalProperties": false,
       "properties": {
         "EncodingTable": {
@@ -3255,12 +3255,12 @@
     },
     "AztecParams": {
       "type": "object",
-      "description": "Aztec parameters.\n            ",
+      "description": "Aztec parameters.\n",
       "additionalProperties": false,
       "properties": {
         "AspectRatio": {
           "type": "number",
-          "description": "Height/Width ratio of 2D BarCode module.\n            ",
+          "description": "Height/Width ratio of 2D BarCode module.\n",
           "format": "double"
         },
         "ErrorLevel": {
@@ -3274,7 +3274,7 @@
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Sets the encoding of codetext.\n            "
+          "description": "Sets the encoding of codetext.\n"
         }
       }
     },
@@ -3514,7 +3514,7 @@
     },
     "ITFParams": {
       "type": "object",
-      "description": "ITF parameters.\n            ",
+      "description": "ITF parameters.\n",
       "additionalProperties": false,
       "properties": {
         "BorderThickness": {
@@ -3570,21 +3570,21 @@
     },
     "Pdf417Params": {
       "type": "object",
-      "description": "PDF417 parameters.\n            ",
+      "description": "PDF417 parameters.\n",
       "additionalProperties": false,
       "properties": {
         "AspectRatio": {
           "type": "number",
-          "description": "Height/Width ratio of 2D BarCode module.\n            ",
+          "description": "Height/Width ratio of 2D BarCode module.\n",
           "format": "double"
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Encoding of codetext.\n            "
+          "description": "Encoding of codetext.\n"
         },
         "Columns": {
           "type": "integer",
-          "description": "Columns count.\n            ",
+          "description": "Columns count.\n",
           "format": "int32"
         },
         "CompactionMode": {
@@ -3665,19 +3665,19 @@
     },
     "PostalParams": {
       "type": "object",
-      "description": "Postal parameters. Used for Postnet, Planet.\n            ",
+      "description": "Postal parameters. Used for Postnet, Planet.\n",
       "additionalProperties": false,
       "properties": {
         "ShortBarHeight": {
           "type": "number",
-          "description": "Short bar's height of Postal barcodes.\n            ",
+          "description": "Short bar's height of Postal barcodes.\n",
           "format": "double"
         }
       }
     },
     "QrParams": {
       "type": "object",
-      "description": "QR parameters.\n            ",
+      "description": "QR parameters.\n",
       "additionalProperties": false,
       "properties": {
         "AspectRatio": {
@@ -3702,7 +3702,7 @@
           "$ref": "#/definitions/QREncodeMode"
         },
         "ErrorLevel": {
-          "description": "Level of Reed-Solomon error correction for QR barcode.\nFrom low to high: LevelL, LevelM, LevelQ, LevelH. see QRErrorLevel.\n            ",
+          "description": "Level of Reed-Solomon error correction for QR barcode.\nFrom low to high: LevelL, LevelM, LevelQ, LevelH. see QRErrorLevel.\n",
           "$ref": "#/definitions/QRErrorLevel"
         },
         "Version": {
@@ -3921,12 +3921,12 @@
     },
     "BarcodeResponseList": {
       "type": "object",
-      "description": "Represents information about barcode list.\n            ",
+      "description": "Represents information about barcode list.\n",
       "additionalProperties": false,
       "properties": {
         "Barcodes": {
           "type": "array",
-          "description": "List of barcodes which are present in image.\n            ",
+          "description": "List of barcodes which are present in image.\n",
           "items": {
             "$ref": "#/definitions/BarcodeResponse"
           }
@@ -3935,33 +3935,33 @@
     },
     "BarcodeResponse": {
       "type": "object",
-      "description": "Represents information about barcode.\n            ",
+      "description": "Represents information about barcode.\n",
       "additionalProperties": false,
       "properties": {
         "BarcodeValue": {
           "type": "string",
-          "description": "Barcode data.\n            "
+          "description": "Barcode data.\n"
         },
         "Type": {
           "type": "string",
-          "description": "Type of the barcode.\n            "
+          "description": "Type of the barcode.\n"
         },
         "Region": {
           "type": "array",
-          "description": "Region with barcode.\n            ",
+          "description": "Region with barcode.\n",
           "items": {
             "$ref": "#/definitions/RegionPoint"
           }
         },
         "Checksum": {
           "type": "string",
-          "description": "Checksum of barcode.\n            "
+          "description": "Checksum of barcode.\n"
         }
       }
     },
     "RegionPoint": {
       "type": "object",
-      "description": "Wrapper around Drawing.Point for proper specification.\n            ",
+      "description": "Wrapper around Drawing.Point for proper specification.\n",
       "additionalProperties": false,
       "required": [
         "X",
@@ -3970,19 +3970,19 @@
       "properties": {
         "X": {
           "type": "integer",
-          "description": "X-coordinate\n            ",
+          "description": "X-coordinate\n",
           "format": "int32"
         },
         "Y": {
           "type": "integer",
-          "description": "Y-coordinate\n            ",
+          "description": "Y-coordinate\n",
           "format": "int32"
         }
       }
     },
     "DecodeBarcodeType": {
       "type": "string",
-      "description": "See DecodeType\n            ",
+      "description": "See DecodeType\n",
       "x-enumNames": [
         "all",
         "AustraliaPost",
@@ -4158,15 +4158,15 @@
     },
     "ReaderParams": {
       "type": "object",
-      "description": "Represents BarcodeReader object.\n            ",
+      "description": "Represents BarcodeReader object.\n",
       "additionalProperties": false,
       "properties": {
         "Type": {
-          "description": "The type of barcode to read.\n            ",
+          "description": "The type of barcode to read.\n",
           "$ref": "#/definitions/DecodeBarcodeType"
         },
         "ChecksumValidation": {
-          "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n            ",
+          "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies\n",
           "$ref": "#/definitions/ChecksumValidation"
         },
         "DetectEncoding": {
@@ -4179,31 +4179,31 @@
         },
         "RectX": {
           "type": "integer",
-          "description": "Set X for area for recognition.\n            ",
+          "description": "Set X for area for recognition.\n",
           "format": "int32"
         },
         "RectY": {
           "type": "integer",
-          "description": "Set Y for area for recognition.\n            ",
+          "description": "Set Y for area for recognition.\n",
           "format": "int32"
         },
         "RectWidth": {
           "type": "integer",
-          "description": "Set Width of area for recognition.\n            ",
+          "description": "Set Width of area for recognition.\n",
           "format": "int32"
         },
         "RectHeight": {
           "type": "integer",
-          "description": "Set Height of area for recognition.\n            ",
+          "description": "Set Height of area for recognition.\n",
           "format": "int32"
         },
         "StripFNC": {
           "type": "boolean",
-          "description": "Value indicating whether FNC symbol strip must be done.\n            "
+          "description": "Value indicating whether FNC symbol strip must be done.\n"
         },
         "Timeout": {
           "type": "integer",
-          "description": "Timeout of recognition process.\n            ",
+          "description": "Timeout of recognition process.\n",
           "format": "int32"
         },
         "MedianSmoothingWindowSize": {
@@ -4373,7 +4373,7 @@
       "properties": {
         "Exists": {
           "type": "boolean",
-          "description": "Shows that the storage exists.\n            "
+          "description": "Shows that the storage exists.\n"
         }
       }
     },
