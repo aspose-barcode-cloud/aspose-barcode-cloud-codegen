@@ -1,0 +1,118 @@
+# Aspose.BarCode Cloud SDK for Python
+
+- API version: {{appVersion}}
+- Package version: {{packageVersion}}
+
+[Aspose.BarCode for Cloud](https://products.aspose.cloud/barcode/cloud) is a REST API for Linear, 2D and postal barcode generation and recognition in the cloud. API recognizes and generates barcode images in a variety of formats. Barcode REST API allows to specify barcode image attributes like image width, height, border style and output image format in order to customize the generation process. Developers can also specify the barcode type and text attributes such as text location and font styles in order to suit the application requirements.
+
+This repository contains Aspose.BarCode Cloud SDK for Python source code. This SDK allows you to work with Aspose.BarCode for Cloud REST APIs in your Python 2 or Python 3 applications quickly and easily.
+
+Supported Python versions:
+
+- Python 2.7
+- Python 3.4+
+
+To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
+
+## How to use the SDK
+
+The complete source code is available in this repository folder. You can either directly use it in your project via source code or get [from PyPi](https://pypi.org/project/{{projectName}}/) (recommended).
+
+## Prerequisites
+
+To use Aspose.BarCode Cloud SDK for Python you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create App Key and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps). There is free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+
+## Installation
+
+### Install {{projectName}} via pip
+
+From the command line:
+
+```sh
+pip install {{projectName}}
+```
+
+Then import the package:
+
+```python
+import aspose_barcode_cloud
+```
+
+## Sample usage
+
+The examples below show how you can generate and recognize Code128 barcode and save it into local file using {{projectName}}:
+
+```python
+from __future__ import print_function
+
+from pprint import pprint
+
+import {{{packageName}}}
+from {{{packageName}}}.rest import ApiException
+{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
+# Configure HTTP basic authorization: {{{name}}}
+configuration = {{{packageName}}}.Configuration()
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'{{/isBasic}}{{#isApiKey}}
+# Configure API key authorization: {{{name}}}
+configuration = {{{packageName}}}.Configuration()
+configuration.api_key['{{{keyParamName}}}'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['{{{keyParamName}}}'] = 'Bearer'{{/isApiKey}}{{#isOAuth}}
+# Configure OAuth2 access token for authorization: {{{name}}}
+configuration = {{{packageName}}}.Configuration(
+    app_sid="App SID from https://dashboard.aspose.cloud/#/apps",
+    app_key="App Key from https://dashboard.aspose.cloud/#/apps",
+){{/isOAuth}}{{/authMethods}}
+{{/hasAuthMethods}}
+
+# create an instance of the API class
+api = {{{packageName}}}.{{{classname}}}({{{packageName}}}.ApiClient(configuration))
+{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}} = {{#-first}}aspose_barcode_cloud.EncodeBarcodeType.CODE128{{/-first}}{{^-first}}{{{example}}}{{/-first}}  # {{{dataType}}} | {{{description}}}
+{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}
+try:
+{{#summary}}    # {{{.}}}
+{{/summary}}    {{#returnType}}response = {{/returnType}}api.{{{operationId}}}({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{^-first}}, {{/-first}}{{paramName}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}})
+    with open('example.png', 'wb') as f:
+        f.write(response.data)
+    print("Barcode saved to file 'example.png'")
+except ApiException as e:
+    print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
+{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+
+# Recognize barcode
+response = api.post_barcode_recognize_from_url_or_content(image='example.png',
+                                                          preset=aspose_barcode_cloud.PresetType.HIGHPERFORMANCE)
+pprint(response)
+```
+
+## Requirements
+
+- six >= 1.10
+- urllib3 >= 1.15.1
+
+## Licensing
+
+All Aspose.BarCode for Cloud SDKs, helper scripts and templates are licensed under [MIT License](LICENSE).
+
+## Resources
+
+- [**Website**](https://www.aspose.cloud)
+- [**Product Home**](https://products.aspose.cloud/barcode/cloud)
+- [**Documentation**](https://docs.aspose.cloud/display/barcodecloud/Home)
+- [**Free Support Forum**](https://forum.aspose.cloud/c/barcode)
+- [**Paid Support Helpdesk**](https://helpdesk.aspose.cloud/)
+- [**Blog**](https://blog.aspose.cloud/category/aspose-products/aspose-barcode-product-family/)
+
+## Documentation for API Endpoints
+
+All URIs are relative to *<{{basePath}}>*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+## Documentation For Models
+
+{{#models}}{{#model}}- [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
