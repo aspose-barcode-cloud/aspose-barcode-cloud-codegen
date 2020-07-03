@@ -14,8 +14,8 @@ java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json > debugModels.ts.json || goto :error
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json > debugOperations.ts.json || goto :error
 
-copy "%tempDir%\api.ts" "%targetDir%\src\api.ts" /y || goto :error
-copy "%tempDir%\package.json" "%targetDir%\package.json" /y || goto :error
+copy "%tempDir%\api.ts" "%targetDir%\src\" /y || goto :error
+copy "%tempDir%\package.json" "%targetDir%\" /y || goto :error
 
 REM Use typescript-node one more time because typescript-node does not generate docs
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs\docs -o %tempDir%\docs -c config.json || goto :error

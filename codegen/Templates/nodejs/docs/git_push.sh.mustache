@@ -1,13 +1,14 @@
 {{! Used as models.md}}
 # Models
+
 {{#models}}
 {{#model}}
 ## {{{ classname }}}
 {{#description}}
 
 {{& description}}
-{{/description}}
 
+{{/description}}
 ```ts
 {{#isEnum}}
 enum {{classname}} {
