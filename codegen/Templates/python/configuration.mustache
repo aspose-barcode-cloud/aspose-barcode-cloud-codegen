@@ -1,7 +1,7 @@
 # coding: utf-8
 
 {{>partial_header}}
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 
 import copy
 import json
@@ -26,7 +26,7 @@ class Configuration(object):
     _default = None
 
     def __init__(self, app_sid=None, app_key=None, access_token=None, host=None,
-                 token_url='{{hostWithoutBasePath}}/connect/token'):
+                 token_url="{{hostWithoutBasePath}}/connect/token"):
         """Constructor"""
         if self._default:
             for key in self._default.__dict__.keys():
@@ -58,11 +58,11 @@ class Configuration(object):
 {{/isOAuth}}{{/authMethods}}
         # Logging Settings
         self.logger = {
-            'package_logger': logging.getLogger('aspose_barcode_cloud'),
-            'urllib3_logger': logging.getLogger('urllib3')
+            "package_logger": logging.getLogger("aspose_barcode_cloud"),
+            "urllib3_logger": logging.getLogger("urllib3")
         }
         # Log format
-        self.logger_format = '%(asctime)s %(levelname)s %(message)s'
+        self.logger_format = "%(asctime)s %(levelname)s %(message)s"
         # Log stream handler
         self.logger_stream_handler = None
         # Log file handler
@@ -95,7 +95,7 @@ class Configuration(object):
         # Proxy URL
         self.proxy = None
         # Safe chars for path_param
-        self.safe_chars_for_path_param = ''
+        self.safe_chars_for_path_param = "/"
 
     @property
     def access_token(self):
@@ -106,7 +106,7 @@ class Configuration(object):
             self._access_token = self.fetch_token(self._app_sid, self._app_key, self._token_url)
             return self._access_token
 
-        raise ValueError("No access token or app_sid and app_key specified")
+        raise ValueError("No access_token or app_sid and app_key specified")
 
     @property
     def token_url(self):
@@ -236,8 +236,8 @@ class Configuration(object):
         :return: The token for basic HTTP authentication.
         """
         return urllib3.util.make_headers(
-            basic_auth=self.username + ':' + self.password
-        ).get('authorization')
+            basic_auth=self.username + ":" + self.password
+        ).get("authorization")
 
     def auth_settings(self):
         """Gets Auth Settings dict for api client.
@@ -247,29 +247,29 @@ class Configuration(object):
         return {
 {{#authMethods}}
 {{#isApiKey}}
-            '{{name}}':
+            "{{name}}":
                 {
-                    'type': 'api_key',
-                    'in': {{#isKeyInHeader}}'header'{{/isKeyInHeader}}{{#isKeyInQuery}}'query'{{/isKeyInQuery}},
-                    'key': '{{keyParamName}}',
-                    'value': self.get_api_key_with_prefix('{{keyParamName}}')
+                    "type": "api_key",
+                    "in": {{#isKeyInHeader}}"header"{{/isKeyInHeader}}{{#isKeyInQuery}}"query"{{/isKeyInQuery}},
+                    "key": "{{keyParamName}}",
+                    "value": self.get_api_key_with_prefix("{{keyParamName}}")
                 },
 {{/isApiKey}}
 {{#isBasic}}
-            '{{name}}':
+            "{{name}}":
                 {
-                    'type': 'basic',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': self.get_basic_auth_token()
+                    "type": "basic",
+                    "in": "header",
+                    "key": "Authorization",
+                    "value": self.get_basic_auth_token()
                 },
 {{/isBasic}}{{#isOAuth}}
-            '{{name}}':
+            "{{name}}":
                 {
-                    'type': 'oauth2',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': 'Bearer ' + self.access_token
+                    "type": "oauth2",
+                    "in": "header",
+                    "key": "Authorization",
+                    "value": "Bearer " + self.access_token
                 },
 {{/isOAuth}}{{/authMethods}}
         }
@@ -286,26 +286,19 @@ class Configuration(object):
                "SDK Package Version: {{packageVersion}}". \
             format(env=sys.platform, pyversion=sys.version)
 
-    @classmethod
-    def from_file(cls, filename):
-        with open(filename, 'rb') as json_file:
-            js = json.load(json_file)
-
-        return Configuration(**js)
-
     @staticmethod
     def fetch_token(app_sid, app_key, token_url):
         from aspose_barcode_cloud import ApiClient
         client = RESTClientObject(Configuration(app_sid=app_sid, app_key=app_key, token_url=token_url))
         response = client.POST(token_url,
                                headers={
-                                   'Content-Type': 'application/x-www-form-urlencoded'
+                                   "Content-Type": "application/x-www-form-urlencoded"
                                },
                                post_params={
-                                   'grant_type': 'client_credentials',
-                                   'client_id': app_sid,
-                                   'client_secret': app_key
+                                   "grant_type": "client_credentials",
+                                   "client_id": app_sid,
+                                   "client_secret": app_key
                                })
         js_data = json.loads(response.data)
-        access_token = js_data['access_token']
+        access_token = js_data["access_token"]
         return access_token
