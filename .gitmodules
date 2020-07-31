@@ -1,0 +1,15 @@
+[submodule "submodules/dotnet"]
+	path = submodules/dotnet
+	url = ../aspose-barcode-cloud-dotnet
+[submodule "submodules/go"]
+	path = submodules/go
+	url = ../aspose-barcode-cloud-go
+[submodule "submodules/node"]
+	path = submodules/node
+	url = ../aspose-barcode-cloud-node
+[submodule "submodules/php"]
+	path = submodules/php
+	url = ../aspose-barcode-cloud-php
+[submodule "submodules/python"]
+	path = submodules/python
+	url = ../aspose-barcode-cloud-python
