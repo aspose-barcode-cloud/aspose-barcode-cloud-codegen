@@ -1,0 +1,3 @@
+[submodule "submodules/dotnet"]
+	path = submodules/dotnet
+	url = ../aspose-barcode-cloud-dotnet
