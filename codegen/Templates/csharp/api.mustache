@@ -6,18 +6,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Aspose.BarCode.Cloud.Sdk.Interfaces;
+using {{packageName}}.Interfaces;
+using {{packageName}}.Internal;
+using {{packageName}}.Internal.RequestHandlers;
+using {{packageName}}.Model;
+using {{packageName}}.Model.Requests;
 
 namespace {{packageName}}.Api
 {
-    using Internal;
-    using Internal.RequestHandlers;
-    using Model;
-    using Model.Requests;
-
     {{#operations}}
     /// <summary>
-    /// Aspose.BarCode for Cloud API.
+    ///     {{classname}}
     /// </summary>
     public class {{classname}} : I{{classname}}
     {
@@ -26,7 +25,7 @@ namespace {{packageName}}.Api
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
+        ///     Initializes a new instance of the <see cref="{{classname}}" /> class.
         /// </summary>
         /// <param name="configuration">Configuration settings</param>
         public {{classname}}(Configuration configuration)
@@ -52,30 +51,27 @@ namespace {{packageName}}.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
+        ///     Initializes a new instance of the <see cref="{{classname}}" /> class.
         /// </summary>
         /// <param name="apiKey">
-        /// The api Key.
+        ///     The api Key.
         /// </param>
         /// <param name="appSid">
-        /// The app Sid.
+        ///     The app Sid.
         /// </param>
         public {{classname}}(string apiKey, string appSid)
             : this(new Configuration { AppKey = apiKey, AppSid = appSid })
         {
         }
-
-        // public {{classname}}(string jwtToken)
-        //     : this(new Configuration { JwtToken = jwtToken, ApiVersion = ApiVersion.V3, AuthType = AuthType.ExternalAuth })
-        // {
-        // }
         {{#operation}}
 
         /// <summary>
-        /// {{summary}} {{notes}}
+        ///     {{summary}} {{notes}}
         /// </summary>
         /// <param name="request">Request. <see cref="{{nickname}}Request" /></param>
-        /// <returns><see cref="{{#returnType}}{{{returnType}}}{{/returnType}}"/></returns>
+        {{#returnType}}/// <returns>
+        ///     <see cref="{{{returnType}}}" />
+        /// </returns>{{/returnType}}
         public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}}({{nickname}}Request request)
         {
 {{#allParams}}{{#required}}            // verify the required parameter '{{paramName}}' is set
@@ -83,7 +79,6 @@ namespace {{packageName}}.Api
             {
                 throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
             }
-
 {{/required}}{{/allParams}}            // create path and map variables
             var resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
             resourcePath = Regex
