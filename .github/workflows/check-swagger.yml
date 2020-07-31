@@ -24,7 +24,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Check existing swagger specification is up-to-date
-      run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff spec/aspose-barcode-cloud.json -
+      run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff -y --suppress-common-lines spec/aspose-barcode-cloud.json -
 
     # Runs a set of commands using the runners shell
     - name: Check all commits in git submodules available
