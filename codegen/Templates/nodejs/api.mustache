@@ -253,7 +253,7 @@ export class {{classname}} {
             this._configuration.getApiBaseUrl() +
             '{{{path}}}'{{#pathParams}}.replace(
                 '{' + '{{baseName}}' + '}',
-                encodeURIComponent(String({{paramName}}))
+                String({{paramName}})
             ){{/pathParams}};
         let requestQueryParameters: any = {};
         let requestHeaderParams: any = (Object as any).assign({}, this.defaultHeaders);
@@ -323,7 +323,7 @@ export class {{classname}} {
             }
         }{{/isFile}}{{/formParams}}
         return await new Promise<{ response: http.{{#supportsES6}}IncomingMessage{{/supportsES6}}{{^supportsES6}}ClientResponse{{/supportsES6}}; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}>((resolve, reject) => {
-            const handler = async (error, response, body, allowRepeat) => {
+            const handler = async (error: any, response: Request.Response, body: {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}any{{/returnType}}, allowRepeat: boolean) => {
                 if (error) {
                     reject(error);
                 } else {
