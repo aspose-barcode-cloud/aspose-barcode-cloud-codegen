@@ -29,5 +29,6 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Check all commits in git submodules available
       run: |
-        git submodule init && git submodule update --recursive --remote
-        git status --porcelain && exit 1
+        git submodule init
+        git submodule update --recursive --remote
+        git status --porcelain || exit 1
