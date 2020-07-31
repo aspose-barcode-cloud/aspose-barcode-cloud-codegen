@@ -30,4 +30,5 @@ jobs:
     - name: Check all commits in git submodules available
       run: |
         git submodule init
-        git submodule update
+        git submodule update --recursive --remote
+        git status --porcelain
