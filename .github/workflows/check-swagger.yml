@@ -22,12 +22,11 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
     - name: Check existing swagger specification is up-to-date
       run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
 
-    # Runs a set of commands using the runners shell
     - name: Check all commits in git submodules available
-      run: |
-        git submodule init
-        git submodule update
+      run: git submodule init && git submodule update --recursive --remote
+
+    - name: Check all submodules up-to-date
+      run: git diff --exit-code
