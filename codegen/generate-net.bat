@@ -1,4 +1,5 @@
 cls
+
 set tempDir=.generated
 set targetDir=..\submodules\dotnet
 

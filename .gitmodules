@@ -4,3 +4,6 @@
 [submodule "submodules/go"]
 	path = submodules/go
 	url = ../aspose-barcode-cloud-go
+[submodule "submodules/node"]
+	path = submodules/node
+	url = ../aspose-barcode-cloud-node
