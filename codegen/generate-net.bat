@@ -1,6 +1,6 @@
 cls
 set tempDir=.generated
-set targetDir=..\..\aspose-barcode-cloud-dotnet
+set targetDir=..\submodules\dotnet
 
 rem set specSource=http://localhost:47972/v3.0/barcode/swagger/spec
 rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
