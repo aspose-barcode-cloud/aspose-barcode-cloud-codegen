@@ -7,3 +7,6 @@
 [submodule "submodules/node"]
 	path = submodules/node
 	url = ../aspose-barcode-cloud-node
+[submodule "submodules/php"]
+	path = submodules/php
+	url = ../aspose-barcode-cloud-php

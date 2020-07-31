@@ -1,6 +1,6 @@
 cls
 set tempDir=.generated
-set targetDir=..\..\aspose-barcode-cloud-php
+set targetDir=..\submodules\php
 
 rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
 set specSource=..\spec\aspose-barcode-cloud.json
