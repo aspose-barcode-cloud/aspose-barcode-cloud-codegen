@@ -31,5 +31,4 @@ jobs:
       run: |
         git submodule init
         git submodule update --recursive --remote
-        git status --porcelain
-        exit 1
+        git status --porcelain && exit 1
