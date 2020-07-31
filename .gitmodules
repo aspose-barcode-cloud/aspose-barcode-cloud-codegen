@@ -1,3 +1,6 @@
 [submodule "submodules/dotnet"]
 	path = submodules/dotnet
 	url = ../aspose-barcode-cloud-dotnet
+[submodule "submodules/go"]
+	path = submodules/go
+	url = ../aspose-barcode-cloud-go
