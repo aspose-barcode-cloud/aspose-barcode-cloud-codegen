@@ -10,3 +10,6 @@
 [submodule "submodules/php"]
 	path = submodules/php
 	url = ../aspose-barcode-cloud-php
+[submodule "submodules/python"]
+	path = submodules/python
+	url = ../aspose-barcode-cloud-python
