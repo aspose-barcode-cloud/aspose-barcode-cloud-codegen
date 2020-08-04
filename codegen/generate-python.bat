@@ -27,3 +27,5 @@ copy "%tempDir%\README.md" "%targetDir%\README.md" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q  %tempDir% > NUL || goto :error
+
+pushd "%targetDir%" && wsl make format & popd
