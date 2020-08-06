@@ -16,6 +16,9 @@ rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%spec
 del /s /q "%targetDir%\src\main\" > NUL || goto :error
 xcopy "%tempDir%\src\main" "%targetDir%\src\main" /e /i /y > NUL || goto :error
 
+del /s /q "%targetDir%\docs\" > NUL || goto :error
+xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
+
 xcopy "%tempDir%\README.md" "%targetDir%\" /y > NUL || goto :error
 copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
 xcopy "%tempDir%\pom.xml" "%targetDir%\" /y > NUL || goto :error
