@@ -1510,8 +1510,8 @@
         "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.",
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
-          "application/octet-stream",
-          "multipart/form-data"
+          "multipart/form-data",
+          "application/octet-stream"
         ],
         "parameters": [
           {
