@@ -60,7 +60,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{/isXmlAttribute}}
   {{/withXml}}
   {{#gson}}
-  @SerializedName(value = "{{name}}", alternate = "{{baseName}}")
+  @SerializedName(value = "{{name}}")
   {{/gson}}
   {{#isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}}{{^required}} = null{{/required}};
