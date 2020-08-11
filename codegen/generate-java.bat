@@ -14,7 +14,9 @@ rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSour
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l java -t Templates\java -o %tempDir% -c config-java.json > debugOperations.java.json || goto :error
 
 del /s /q "%targetDir%\src\main\" > NUL || goto :error
-xcopy "%tempDir%\src\main" "%targetDir%\src\main" /e /i /y > NUL || goto :error
+xcopy "%tempDir%\src\main\java\com\aspose\barcode\cloud\api" "%targetDir%\src\main\java\com\aspose\barcode\cloud\api" /e /i /y > NUL || goto :error
+xcopy "%tempDir%\src\main\java\com\aspose\barcode\cloud\model" "%targetDir%\src\main\java\com\aspose\barcode\cloud\model" /e /i /y > NUL || goto :error
+copy "%tempDir%\src\main\java\com\aspose\barcode\cloud\*.java" "%targetDir%\src\main\java\com\aspose\barcode\cloud" /y > NUL || goto :error
 
 del /s /q "%targetDir%\docs\" > NUL || goto :error
 xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
