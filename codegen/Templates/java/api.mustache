@@ -86,7 +86,7 @@ public class {{classname}} {
 
         // create path and map variables
         String {{localVariablePrefix}}localVarPath = "{{{path}}}"{{#pathParams}}
-            .replaceAll("\\{" + "{{baseName}}" + "\\}", {{{paramName}}}){{/pathParams}};
+            .replaceAll("\\{" + "{{baseName}}" + "}", {{{paramName}}}){{/pathParams}};
 
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}localVarQueryParams = new {{javaUtilPrefix}}ArrayList<Pair>();
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}localVarCollectionQueryParams = new {{javaUtilPrefix}}ArrayList<Pair>();{{#queryParams}}
@@ -131,7 +131,6 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call {{operationId}}ValidateBeforeCall({{#allParams}}{{{dataType}}} {{paramName}}, {{/allParams}}final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         {{^performBeanValidation}}
         {{#allParams}}{{#required}}

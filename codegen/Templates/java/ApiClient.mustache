@@ -31,7 +31,6 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
@@ -412,7 +411,7 @@ public class ApiClient {
                 if (b.length() > 0) {
                     b.append(",");
                 }
-                b.append(String.valueOf(o));
+                b.append(o);
             }
             return b.toString();
         } else {
@@ -787,10 +786,10 @@ public class ApiClient {
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
+            public void onResponse(Response response) {
                 T result;
                 try {
-                    result = (T) handleResponse(response, returnType);
+                    result = handleResponse(response, returnType);
                 } catch (ApiException e) {
                     callback.onFailure(e, response.code(), response.headers().toMultimap());
                     return;
@@ -880,7 +879,7 @@ public class ApiClient {
         final Request.Builder reqBuilder = new Request.Builder().url(url);
         processHeaderParams(headerParams, reqBuilder);
 
-        String contentType = (String) headerParams.get("Content-Type");
+        String contentType = headerParams.get("Content-Type");
         // ensuring a default content type
         if (contentType == null) {
             contentType = "application/json";
@@ -1046,9 +1045,9 @@ public class ApiClient {
             if (!verifyingSsl) {
                 TrustManager trustAll = new X509TrustManager() {
                     @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) {}
                     @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) {}
                     @Override
                     public X509Certificate[] getAcceptedIssuers() { return null; }
                 };
@@ -1068,7 +1067,7 @@ public class ApiClient {
                 KeyStore caKeyStore = newEmptyKeyStore(password);
                 int index = 0;
                 for (Certificate certificate : certificates) {
-                    String certificateAlias = "ca" + Integer.toString(index++);
+                    String certificateAlias = "ca" + index++;
                     caKeyStore.setCertificateEntry(certificateAlias, certificate);
                 }
                 TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -1143,6 +1142,7 @@ public class ApiClient {
     }
 
     /** GetAccessTokenResult class */
+    @SuppressWarnings({"unused", "InnerClassMayBeStatic"})
     private class GetAccessTokenResult {
         public String access_token;
     }
