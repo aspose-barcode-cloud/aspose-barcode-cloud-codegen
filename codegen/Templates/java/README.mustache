@@ -103,6 +103,19 @@ public class {{{classname}}}Example {
 }
 {{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}```
 
+## Licensing
+
+All Aspose.BarCode for Cloud SDKs, helper scripts and templates are licensed under [MIT License](LICENSE).
+
+## Resources
+
+- [**Website**](https://www.aspose.cloud)
+- [**Product Home**](https://products.aspose.cloud/barcode/cloud)
+- [**Documentation**](https://docs.aspose.cloud/display/barcodecloud/Home)
+- [**Free Support Forum**](https://forum.aspose.cloud/c/barcode)
+- [**Paid Support Helpdesk**](https://helpdesk.aspose.cloud/)
+- [**Blog**](https://blog.aspose.cloud/category/aspose-products/aspose-barcode-product-family/)
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *<{{basePath}}>*
@@ -129,11 +142,8 @@ Class | Method | HTTP request | Description
 {{#isBasic}}- **Type**: HTTP basic authentication
 {{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
-- **Flow**: {{flow}}
-- **Authorization URL**: {{authorizationUrl}}
-- **Scopes**: {{^scopes}}N/A{{/scopes}}
-{{#scopes}}  - {{scope}}: {{description}}
-{{/scopes}}
+- **Flow**: {{flow}}{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#authMethods}}{{#-first}}
+- **Authorization URL**: <{{tokenUrl}}>{{/-first}}{{/authMethods}}{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
 {{/isOAuth}}
 
 {{/authMethods}}

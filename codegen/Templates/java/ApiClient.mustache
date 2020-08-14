@@ -2,6 +2,7 @@
 
 package {{invokerPackage}};
 
+import com.aspose.barcode.cloud.model.BarCodeErrorResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
@@ -777,7 +778,6 @@ public class ApiClient {
      * @param returnType Return type
      * @param callback ApiCallback
      */
-    @SuppressWarnings("unchecked")
     public <T> void executeAsync(Call call, final Type returnType, final ApiCallback<T> callback) {
         call.enqueue(new Callback() {
             @Override
@@ -822,20 +822,21 @@ public class ApiClient {
                     }
                 }
                 return null;
-            } else {
-                return deserialize(response, returnType);
             }
-        } else {
-            String respBody = null;
-            if (response.body() != null) {
-                try {
-                    respBody = response.body().string();
-                } catch (IOException e) {
-                    throw new ApiException(response.message(), e, response.code(), response.headers().toMultimap());
-                }
-            }
-            throw new ApiException(response.message(), response.code(), response.headers().toMultimap(), respBody);
+            return deserialize(response, returnType);
         }
+        if (response.body() == null) {
+            throw new ApiException(response.message(), response.code());
+        }
+        BarCodeErrorResponse errorResponse;
+        try {
+            errorResponse = deserialize(response, BarCodeErrorResponse.class);
+        } catch (Exception e) {
+            throw new ApiException(
+                response.message(), e, response.code(), response.headers().toMultimap());
+        }
+
+        throw new ApiException(response.message(), response.code(), errorResponse);
     }
 
     /**
