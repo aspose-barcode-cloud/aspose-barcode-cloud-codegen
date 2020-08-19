@@ -4,7 +4,7 @@ rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
 set specSource=..\spec\aspose-barcode-cloud.json
 
 set tempDir=.generated
-set targetDir=C:\Users\Denex\aspose\aspose-barcode-cloud-java
+set targetDir=..\submodules\java
 
 if exist %tempDir% del /s /q %tempDir% || goto :error
 
