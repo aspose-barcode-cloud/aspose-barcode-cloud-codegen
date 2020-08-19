@@ -14,7 +14,25 @@ Building the API client library requires:
 1. Java 1.7+
 2. Maven
 
+## Prerequisites
+
+To use Aspose.BarCode Cloud SDK for Java you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create App Key and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps). There is free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+
 ## Installation
+
+### Install Aspose.BarCode-Cloud from Maven
+
+Add Aspose Cloud repository to your application pom.xml
+
+```xml
+<repository>
+    <id>aspose-cloud</id>
+    <name>Aspose Cloud Repository</name>
+    <url>https://repository.aspose.cloud/repo/</url>
+</repository>
+```
+
+### Install from source
 
 To install the API client library to your local Maven repository, simply execute:
 

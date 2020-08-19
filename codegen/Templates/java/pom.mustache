@@ -10,7 +10,9 @@
     <description>{{artifactDescription}}</description>
     <scm>
         <connection>{{scmConnection}}</connection>
-        <developerConnection>{{scmDeveloperConnection}}</developerConnection>
+        <developerConnection>
+            {{scmDeveloperConnection}}
+        </developerConnection>
         <url>{{scmUrl}}</url>
     </scm>
 
@@ -30,6 +32,14 @@
             <organizationUrl>{{developerOrganizationUrl}}</organizationUrl>
         </developer>
     </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>aspose-cloud</id>
+            <name>Aspose Cloud Repository</name>
+            <url>https://repository.aspose.cloud/repo/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
