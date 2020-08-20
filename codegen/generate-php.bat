@@ -33,3 +33,5 @@ xcopy "%tempDir%\SwaggerClient-php\README.md" "%targetDir%" /i /y || goto :error
 
 del /s /q "%tempDir%" > NUL || goto :error
 rmdir /s /q  "%tempDir%" > NUL || goto :error
+
+pushd "%targetDir%" && wsl make format & popd

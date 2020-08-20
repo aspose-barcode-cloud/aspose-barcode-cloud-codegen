@@ -1,0 +1,102 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}};
+
+import com.aspose.barcode.cloud.model.BarCodeErrorResponse;
+import com.aspose.barcode.cloud.model.Error;
+
+import java.util.Map;
+import java.util.List;
+
+{{>generatedAnnotation}}
+public class ApiException extends{{#useRuntimeException}} RuntimeException {{/useRuntimeException}}{{^useRuntimeException}} Exception {{/useRuntimeException}}{
+    private int code = 0;
+    private Map<String, List<String>> responseHeaders = null;
+    private String responseBody = null;
+    private BarCodeErrorResponse response = null;
+
+        public ApiException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public ApiException(String message) {
+        super(message);
+    }
+
+    public ApiException(String httpMessage, int httpCode) {
+        super(httpMessage);
+        this.code = httpCode;
+    }
+
+    public ApiException(
+            String message,
+            int code,
+            Map<String, List<String>> responseHeaders,
+            String responseBody) {
+        this(message, code);
+        this.responseHeaders = responseHeaders;
+        this.responseBody = responseBody;
+    }
+
+    public ApiException(
+            String message,
+            Throwable throwable,
+            int code,
+            Map<String, List<String>> responseHeaders) {
+        super(message, throwable);
+        this.code = code;
+        this.responseHeaders = responseHeaders;
+    }
+
+    public ApiException(String httpMessage, int httpCode, BarCodeErrorResponse errorResponse) {
+        this(httpMessage, httpCode);
+        this.response = errorResponse;
+    }
+
+    /**
+     * Get the HTTP status code.
+     *
+     * @return HTTP status code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * Get the HTTP response headers.
+     *
+     * @return A map of list of string
+     */
+    public Map<String, List<String>> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    /**
+     * Get the error details
+     *
+     * @return Response body in the form of string
+     */
+    public String getDetails() {
+        if (response != null) {
+            Error err = response.getError();
+            if (err != null) {
+                StringBuilder sb = new StringBuilder();
+                if (err.getCode() != null) {
+                    sb.append(err.getCode()).append(": ");
+                }
+                if (err.getMessage() != null) {
+                    sb.append(err.getMessage());
+                }
+                if (err.getDescription() != null) {
+                    sb.append(err.getDescription());
+                }
+
+                return sb.toString();
+            }
+        }
+        if (responseBody != null) {
+            return responseBody;
+        }
+        return "";
+    }
+}

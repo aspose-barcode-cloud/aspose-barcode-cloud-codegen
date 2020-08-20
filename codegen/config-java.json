@@ -1,0 +1,20 @@
+{
+    "artifactVersion": "20.8.0",
+    "groupId": "com.aspose",
+    "artifactId": "aspose-barcode-cloud",
+    "artifactUrl": "https://www.aspose.cloud/",
+    "scmUrl": "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-java",
+    "scmConnection": "scm:git:git@github.com:aspose-barcode-cloud/aspose-barcode-cloud-java.git",
+    "scmDeveloperConnection": "scm:git:git@github.com:aspose-barcode-cloud/aspose-barcode-cloud-java.git",
+    "artifactDescription": "Aspose.BarCode Cloud SDK for Java",
+    "licenseName": "MIT License",
+    "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+    "developerName": "Denis Averin",
+    "developerEmail": "denis.averin@aspose.com",
+    "developerOrganization": "Aspose",
+    "developerOrganizationUrl": "https://www.aspose.cloud/",
+    "invokerPackage": "com.aspose.barcode.cloud",
+    "apiPackage": "com.aspose.barcode.cloud.api",
+    "modelPackage": "com.aspose.barcode.cloud.model",
+    "hideGenerationTimestamp": true
+}

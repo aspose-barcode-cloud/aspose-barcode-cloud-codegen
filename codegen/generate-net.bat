@@ -39,3 +39,5 @@ copy Templates\LICENSE "%targetDir%\src\LICENSE.txt" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q %tempDir% > NUL || goto :error
+
+pushd "%targetDir%" && .\scripts\format.cmd & popd

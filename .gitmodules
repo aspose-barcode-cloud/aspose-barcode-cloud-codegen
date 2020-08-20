@@ -13,3 +13,6 @@
 [submodule "submodules/python"]
 	path = submodules/python
 	url = ../aspose-barcode-cloud-python
+[submodule "submodules/java"]
+	path = submodules/java
+	url = ../aspose-barcode-cloud-java
