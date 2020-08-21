@@ -8,12 +8,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Size
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.aspose.barcode.cloud.ApiClient
@@ -30,7 +33,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val PERMISSION_REQUEST_CALLBACK_CODE = 1
         const val ACTION_GET_CONTENT_CALLBACK_CODE = 2
-        private fun imageSize(width: Int, height: Int, maxSize: Int = 256): Size {
+        const val ACTION_IMAGE_CAPTURE_CALLBACK_CODE = 3
+
+        private fun imageSize(width: Int, height: Int, maxSize: Int = 384): Size {
             val ratio = width.toFloat() / height
             if (ratio > 1) {
                 // width > height
@@ -52,6 +57,11 @@ class MainActivity : AppCompatActivity() {
             val newWidth = floor(maxSize * ratio).toInt()
             return Size(newWidth, maxSize)
         }
+
+        private fun reduceBitmapSize(image: Bitmap): Bitmap {
+            val newSize = imageSize(image.width, image.height)
+            return Bitmap.createScaledBitmap(image, newSize.width, newSize.height, true)
+        }
     }
 
     private lateinit var barcodeTypeSpinner: Spinner
@@ -65,25 +75,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val client = ApiClient(
+            "App SID from https://dashboard.aspose.cloud/#/apps",
+            "App Key from https://dashboard.aspose.cloud/#/apps"
+        )
+
+        client.writeTimeout = 60_000
+        client.readTimeout = 60_000
+
+        api = BarcodeApi(client)
+
         barcodeTypeSpinner = findViewById(R.id.typeSpinner)
         populateBarcodeTypesSpinner()
 
         barcodeTextEdit = findViewById(R.id.editText)
         barcodeImgView = findViewById(R.id.imageView)
-
-        val client = ApiClient(
-            "App SID from https://dashboard.aspose.cloud/#/apps",
-            "App Key from https://dashboard.aspose.cloud/#/apps"
-        )
-        client.connectTimeout = 100000
-        client.writeTimeout = 100000
-        client.readTimeout = 100000
-
-        api = BarcodeApi(client)
     }
 
-    private fun showErrorMessage(error: String, duration: Int = Snackbar.LENGTH_INDEFINITE) {
-        Snackbar.make(findViewById(android.R.id.content), error, duration).show()
+    private fun showErrorMessage(error: String) {
+        Snackbar.make(findViewById(android.R.id.content), error, Snackbar.LENGTH_LONG).show()
     }
 
     private fun populateBarcodeTypesSpinner() {
@@ -143,25 +153,35 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         when (requestCode) {
             ACTION_GET_CONTENT_CALLBACK_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    recognizeBarcode(data?.data!!)
+                    val bytes = contentResolver.openInputStream(data?.data!!)!!.readBytes()
+                    val bmpImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    recognizeBarcode(bmpImage)
                 }
             }
+
+            ACTION_IMAGE_CAPTURE_CALLBACK_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    val bmpImage = data?.extras?.get("data") as Bitmap
+                    recognizeBarcode(bmpImage)
+                }
+            }
+
             else -> {
                 showErrorMessage("No file selected")
             }
         }
     }
 
-    private fun recognizeBarcode(imageData: Uri) {
+    private fun recognizeBarcode(image: Bitmap) {
         try {
-            val bytes = contentResolver.openInputStream(imageData)!!.readBytes()
-            val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            val newSize = imageSize(bmp.width, bmp.height)
-            val smallerBmp = Bitmap.createScaledBitmap(bmp, newSize.width, newSize.height, true)
-            setBarcodeBitmapAndStartAnimation(smallerBmp)
+            val smallerBmp = reduceBitmapSize(image)
+
+            barcodeImgView.setImageBitmap(smallerBmp)
+            startRecognizeAnimation()
 
             val tmpFile = File.createTempFile("barcode", null)
 
@@ -208,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                     )
 
                     runOnUiThread {
-                        barcodeImgView.clearAnimation()
+                        stopRecognizeAnimation()
                         if (recognized.barcodes.isEmpty()) {
                             barcodeTextEdit.setText("")
                             showErrorMessage("No barcode detected")
@@ -221,12 +241,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 } catch (e: ApiException) {
                     runOnUiThread {
-                        barcodeImgView.clearAnimation()
+                        stopRecognizeAnimation()
                         showErrorMessage(e.message + ": " + e.details)
                     }
                 } catch (e: Exception) {
-                    barcodeImgView.clearAnimation()
                     runOnUiThread {
+                        stopRecognizeAnimation()
                         showErrorMessage("Exception: " + e.message)
                     }
                 }
@@ -237,11 +257,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBarcodeBitmapAndStartAnimation(image: Bitmap) {
-        barcodeImgView.setImageBitmap(image)
+    private fun startRecognizeAnimation() {
         val rotation = AnimationUtils.loadAnimation(this, R.anim.rotate)
         rotation.fillAfter = true
         barcodeImgView.startAnimation(rotation)
+    }
+
+    private fun stopRecognizeAnimation() {
+        barcodeImgView.clearAnimation()
     }
 
     fun onBtnGenerateClick(@Suppress("UNUSED_PARAMETER") view: View) {
@@ -302,13 +325,22 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
-    fun onBtnRecognizeClick(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onBtnTakePhotoClick(@Suppress("UNUSED_PARAMETER") view: View) {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(takePictureIntent, ACTION_IMAGE_CAPTURE_CALLBACK_CODE)
+        }
+    }
+
+    fun onBtnSelectImageClick(@Suppress("UNUSED_PARAMETER") view: View) {
         requestPermissionAndPickFile(this)
     }
 
     private fun pickFile() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent, ACTION_GET_CONTENT_CALLBACK_CODE)
+        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT)
+        getContentIntent.type = "image/*"
+        if (getContentIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(getContentIntent, ACTION_GET_CONTENT_CALLBACK_CODE)
+        }
     }
 }

@@ -25,6 +25,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://repository.aspose.cloud/repo/' }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

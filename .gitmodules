@@ -16,3 +16,6 @@
 [submodule "submodules/java"]
 	path = submodules/java
 	url = ../aspose-barcode-cloud-java
+[submodule "submodules/android"]
+	path = submodules/android
+	url = ../aspose-barcode-cloud-android
