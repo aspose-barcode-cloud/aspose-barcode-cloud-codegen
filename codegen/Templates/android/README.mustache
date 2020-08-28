@@ -17,3 +17,16 @@ To use Aspose Barcode Cloud for Android you need to register an account with [As
 * Go to file *app/src/main/java/com/example/asposebarcodecloud/MainActivity.kt* and set *appSid* and *appKey* to apropriate values from <https://dashboard.aspose.cloud/#/apps>
 
 * Build project and run application on connected device or emulator.
+
+## Licensing
+
+All Aspose.BarCode for Cloud SDKs, helper scripts and templates are licensed under [MIT License](LICENSE).
+
+## Resources
+
+- [**Website**](https://www.aspose.cloud)
+- [**Product Home**](https://products.aspose.cloud/barcode/cloud)
+- [**Documentation**](https://docs.aspose.cloud/display/barcodecloud/Home)
+- [**Free Support Forum**](https://forum.aspose.cloud/c/barcode)
+- [**Paid Support Helpdesk**](https://helpdesk.aspose.cloud/)
+- [**Blog**](https://blog.aspose.cloud/category/aspose-products/aspose-barcode-product-family/)
