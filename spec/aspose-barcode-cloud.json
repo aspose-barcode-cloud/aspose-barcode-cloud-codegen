@@ -7,6 +7,9 @@
   },
   "host": "api.aspose.cloud",
   "basePath": "/v3.0",
+  "schemes": [
+    "https"
+  ],
   "consumes": [
     "application/json"
   ],
@@ -398,6 +401,14 @@
             "x-nullable": true
           },
           {
+            "type": "number",
+            "name": "BarWidthReduction",
+            "in": "query",
+            "description": "Bars reduction value that is used to compensate ink spread while printing.",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
             "type": "string",
             "name": "format",
             "in": "query",
@@ -417,7 +428,7 @@
             "x-nullable": true,
             "description": "Error",
             "schema": {
-              "$ref": "#/definitions/BarCodeErrorResponse"
+              "$ref": "#/definitions/ApiErrorResponse"
             }
           }
         },
@@ -818,6 +829,14 @@
             "x-nullable": true
           },
           {
+            "type": "number",
+            "name": "BarWidthReduction",
+            "in": "query",
+            "description": "Bars reduction value that is used to compensate ink spread while printing.",
+            "format": "double",
+            "x-nullable": true
+          },
+          {
             "type": "string",
             "name": "storage",
             "in": "query",
@@ -851,7 +870,7 @@
             "x-nullable": true,
             "description": "Error",
             "schema": {
-              "$ref": "#/definitions/BarCodeErrorResponse"
+              "$ref": "#/definitions/ApiErrorResponse"
             }
           }
         },
@@ -983,7 +1002,7 @@
             "x-nullable": true,
             "description": "Error",
             "schema": {
-              "$ref": "#/definitions/BarCodeErrorResponse"
+              "$ref": "#/definitions/ApiErrorResponse"
             }
           }
         },
@@ -1318,6 +1337,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "ReadTinyBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False.",
+            "x-nullable": true
+          },
+          {
             "type": "string",
             "name": "AustralianPostEncodingTable",
             "in": "query",
@@ -1510,8 +1536,8 @@
         "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.",
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
-          "application/octet-stream",
-          "multipart/form-data"
+          "multipart/form-data",
+          "application/octet-stream"
         ],
         "parameters": [
           {
@@ -1819,6 +1845,13 @@
             "name": "SkipDiagonalSearch",
             "in": "query",
             "description": "Allows detector to skip search for diagonal barcodes.\nSetting it to false will increase detection time but allow to find diagonal barcodes that can be missed otherwise.\nEnabling of diagonal search leads to a bigger detection time.",
+            "x-nullable": true
+          },
+          {
+            "type": "boolean",
+            "name": "ReadTinyBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False.",
             "x-nullable": true
           },
           {
@@ -2557,56 +2590,37 @@
     }
   },
   "definitions": {
-    "BarCodeErrorResponse": {
+    "ApiErrorResponse": {
       "type": "object",
-      "description": "BarCodeErrorResponse",
       "additionalProperties": false,
       "properties": {
+        "RequestId": {
+          "type": "string"
+        },
         "Error": {
-          "description": "Error",
-          "$ref": "#/definitions/Error"
+          "$ref": "#/definitions/ApiError"
         }
       }
     },
-    "Error": {
+    "ApiError": {
       "type": "object",
-      "description": "Error",
       "additionalProperties": false,
       "properties": {
         "Code": {
-          "type": "string",
-          "description": "Code"
+          "type": "string"
         },
         "Message": {
-          "type": "string",
-          "description": "Message"
+          "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "DateTime": {
           "type": "string",
-          "description": "Description"
+          "format": "date-time"
         },
         "InnerError": {
-          "description": "Inner Error",
-          "$ref": "#/definitions/ErrorDetails"
-        }
-      }
-    },
-    "ErrorDetails": {
-      "type": "object",
-      "description": "The error details",
-      "additionalProperties": false,
-      "required": [
-        "Date"
-      ],
-      "properties": {
-        "RequestId": {
-          "type": "string",
-          "description": "The request id"
-        },
-        "Date": {
-          "type": "string",
-          "description": "Date",
-          "format": "date-time"
+          "$ref": "#/definitions/ApiError"
         }
       }
     },
@@ -3068,6 +3082,11 @@
         "SupplementSpace": {
           "type": "number",
           "description": "Space between main the BarCode and supplement BarCode.",
+          "format": "double"
+        },
+        "BarWidthReduction": {
+          "type": "number",
+          "description": "Bars reduction value that is used to compensate ink spread while printing.",
           "format": "double"
         },
         "AustralianPost": {
@@ -3628,6 +3647,14 @@
         "Truncate": {
           "type": "boolean",
           "description": "Whether Pdf417 symbology type of BarCode is truncated (to reduce space)."
+        },
+        "Pdf417ECIEncoding": {
+          "description": "Extended Channel Interpretation Identifiers. It is used to tell the barcode reader details\nabout the used references for encoding the data in the symbol.\nCurrent implementation consists all well known charset encodings.",
+          "$ref": "#/definitions/ECIEncodings"
+        },
+        "IsReaderInitialization": {
+          "type": "boolean",
+          "description": "Used to instruct the reader to interpret the data contained within the symbol\nas programming for reader initialization"
         }
       }
     },
@@ -3671,6 +3698,68 @@
         "Level6",
         "Level7",
         "Level8"
+      ]
+    },
+    "ECIEncodings": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
+      ],
+      "enum": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
       ]
     },
     "PostalParams": {
@@ -3733,66 +3822,6 @@
         "Auto",
         "ForceQR",
         "ForceMicroQR"
-      ]
-    },
-    "ECIEncodings": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
-      ],
-      "enum": [
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
       ]
     },
     "QREncodeMode": {
@@ -4332,6 +4361,10 @@
           "type": "boolean",
           "description": "Allows detector to skip search for diagonal barcodes.\nSetting it to false will increase detection time but allow to find diagonal barcodes that can be missed otherwise.\nEnabling of diagonal search leads to a bigger detection time."
         },
+        "ReadTinyBarcodes": {
+          "type": "boolean",
+          "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False."
+        },
         "AustralianPostEncodingTable": {
           "description": "Interpreting Type for the Customer Information of AustralianPost BarCode.Default is CustomerInformationInterpretingType.Other.",
           "$ref": "#/definitions/CustomerInformationInterpretingType"
@@ -4356,6 +4389,48 @@
           "items": {
             "$ref": "#/definitions/Error"
           }
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "description": "Error",
+      "additionalProperties": false,
+      "properties": {
+        "Code": {
+          "type": "string",
+          "description": "Code"
+        },
+        "Message": {
+          "type": "string",
+          "description": "Message"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "InnerError": {
+          "description": "Inner Error",
+          "$ref": "#/definitions/ErrorDetails"
+        }
+      }
+    },
+    "ErrorDetails": {
+      "type": "object",
+      "description": "The error details",
+      "additionalProperties": false,
+      "required": [
+        "Date"
+      ],
+      "properties": {
+        "RequestId": {
+          "type": "string",
+          "description": "The request id"
+        },
+        "Date": {
+          "type": "string",
+          "description": "Date",
+          "format": "date-time"
         }
       }
     },
