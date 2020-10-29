@@ -4,8 +4,8 @@
     "invokerPackage": "com.example.asposebarcodecloud",
     "groupId": "com.aspose",
     "artifactId": "Aspose Barcode Cloud Android",
-    "artifactVersion": "20.8.0",
-    "androidGradleVersion": "4.0.1",
+    "artifactVersion": "20.10.0",
+    "androidGradleVersion": "4.1.0",
     "androidSdkVersion": "30",
     "androidBuildToolsVersion": "30.0.1"
 }
