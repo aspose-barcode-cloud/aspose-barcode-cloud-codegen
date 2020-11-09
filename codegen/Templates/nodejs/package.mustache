@@ -29,7 +29,7 @@
     "lint": "tsc --strict",
     "format": "tsdx lint --fix",
     "prepare": "tsdx build --target=node",
-    "clear": "rm dist/* || DEL /S /Q dist",
+    "clean": "rm dist/* ; rm built/* || true",
     "check-updates": "ncu -u"
   },
   "peerDependencies": {},

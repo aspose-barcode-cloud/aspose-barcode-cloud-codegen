@@ -8,7 +8,7 @@ Aspose.BarCode for Cloud is a REST API for Linear, 2D and postal barcode generat
 
 This repository contains Aspose.BarCode Cloud SDK for Node.js source code.
 
-To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/applications) (free registration in Aspose Cloud is required for this).
+To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/applications) (free registration in Aspose Cloud is required for this).
 
 ## How to use the SDK
 
@@ -31,8 +31,8 @@ const fs = require('fs');
 const Barcode = require('aspose-barcode-cloud-node');
 
 const config = new Barcode.Configuration(
-    'App SID from https://dashboard.aspose.cloud/applications',
-    'App Key from https://dashboard.aspose.cloud/applications'
+    'Client Id from https://dashboard.aspose.cloud/applications',
+    'Client Secret from https://dashboard.aspose.cloud/applications'
 );
 
 async function generate(api) {
