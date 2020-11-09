@@ -53,14 +53,14 @@ namespace {{packageName}}.Api
         /// <summary>
         ///     Initializes a new instance of the <see cref="{{classname}}" /> class.
         /// </summary>
-        /// <param name="apiKey">
-        ///     The api Key.
+        /// <param name="clientSecret">
+        ///     The Client Secret.
         /// </param>
-        /// <param name="appSid">
-        ///     The app Sid.
+        /// <param name="clientId">
+        ///     The Client Id.
         /// </param>
-        public {{classname}}(string apiKey, string appSid)
-            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
+        public {{classname}}(string clientSecret, string clientId)
+            : this(new Configuration { ClientSecret = clientSecret, ClientId = clientId })
         {
         }
         {{#operation}}
