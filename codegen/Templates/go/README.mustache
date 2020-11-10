@@ -7,11 +7,11 @@
 
 This repository contains Aspose.BarCode Cloud SDK for Go source code. This SDK allows you to work with Aspose.BarCode for Cloud REST APIs in your Go applications quickly and easily.
 
-To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
+To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/applications) (free registration in Aspose Cloud is required for this).
 
 ## Prerequisites
 
-To use Aspose.BarCode Cloud SDK for Go you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create App Key and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps). There is a free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+To use Aspose.BarCode Cloud SDK for Go you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create Client Secret and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/applications). There is a free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
 
 ## Installation
 
@@ -51,8 +51,8 @@ import (
 
 func main() {
     jwtConf := jwt.NewConfig(
-        "App SID from https://dashboard.aspose.cloud/#/apps",
-        "App Key from https://dashboard.aspose.cloud/#/apps",
+        "Client Id from https://dashboard.aspose.cloud/applications",
+        "Client Secret from https://dashboard.aspose.cloud/applications",
     )
     fileName := "testdata/generated.png"
 
@@ -103,8 +103,8 @@ import (
 
 func main() {
     jwtConf := jwt.NewConfig(
-        "App SID from https://dashboard.aspose.cloud/#/apps",
-        "App Key from https://dashboard.aspose.cloud/#/apps",
+        "Client Id from https://dashboard.aspose.cloud/applications",
+        "Client Secret from https://dashboard.aspose.cloud/applications",
     )
     fileName := "testdata/pdf417Sample.png"
 

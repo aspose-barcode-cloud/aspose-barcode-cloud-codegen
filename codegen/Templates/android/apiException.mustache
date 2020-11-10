@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val client = ApiClient(
-            "App SID from https://dashboard.aspose.cloud/#/apps",
-            "App Key from https://dashboard.aspose.cloud/#/apps"
+            "Client Id from https://dashboard.aspose.cloud/applications",
+            "Client Secret from https://dashboard.aspose.cloud/applications"
         )
 
         client.writeTimeout = 60_000
@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity() {
 
                         var message = e.message + ": " + e.details
                         if (e.code == 0) {
-                            message = "Check AppSid and AppKey in ApiClient $message"
+                            message = "Check ClientId and ClientSecret in ApiClient $message"
                         }
                         showErrorMessage(message)
                     }
@@ -322,7 +322,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     var message = e.message + ": " + e.details
                     if (e.code == 0) {
-                        message = "Check AppSid and AppKey in ApiClient $message"
+                        message = "Check ClientId and ClientSecret in ApiClient $message"
                     }
                     showErrorMessage(message)
                 }

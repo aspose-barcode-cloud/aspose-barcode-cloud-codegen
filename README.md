@@ -18,7 +18,7 @@ Directory                                                                       
 [Java SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-java)                      | Barcode Cloud SDK for Java
 [Android application sample](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-android) | Barcode Cloud Android application sample
 
-To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
+To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
 
 ## Licensing
 

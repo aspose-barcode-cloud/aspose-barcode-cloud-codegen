@@ -9,7 +9,7 @@ Aspose.BarCode for Cloud is a REST API for Linear, 2D and postal barcode generat
 
 This repository contains Aspose.BarCode Cloud SDK for PHP source code.
 
-To use these SDKs, you will need App SID and App Key which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
+To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/applications) (free registration in Aspose Cloud is required for this).
 
 ## How to use the SDK
 
@@ -41,8 +41,8 @@ use Aspose\BarCode\Model\EncodeBarcodeType;
 use Aspose\BarCode\Requests\GetBarcodeGenerateRequest;
 
 $config = new Configuration();
-$config->setAppKey('App Key from https://dashboard.aspose.cloud/#/apps');
-$config->setAppSid('App SID from https://dashboard.aspose.cloud/#/apps');
+$config->setClientId('Client Id from https://dashboard.aspose.cloud/applications');
+$config->setClientSecret('Client Secret from https://dashboard.aspose.cloud/applications');
 
 $request = new GetBarcodeGenerateRequest(EncodeBarcodeType::QR, 'PHP SDK Test');
 $request->format = 'png';
