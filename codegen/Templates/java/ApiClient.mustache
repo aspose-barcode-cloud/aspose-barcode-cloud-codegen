@@ -51,8 +51,8 @@ public class ApiClient {
     public final String apiVersion = "v{{appVersion}}";
     public final String clientVersion = "{{artifactVersion}}";
     private String baseUrl = "{{hostWithoutBasePath}}";
-    private String appSid;
-    private String appKey;
+    private String clientId;
+    private String clientSecret;
     private boolean debugging = false;
     private final Map<String, String> defaultHeaderMap = new HashMap<>();
     private String tempFolderPath = null;
@@ -72,17 +72,17 @@ public class ApiClient {
     private HttpLoggingInterceptor loggingInterceptor;
     private String accessToken;
 
-    public ApiClient(String appSid, String appKey, String baseUrl) {
+    public ApiClient(String clientId, String clientSecret, String baseUrl) {
         this();
-        this.appSid = appSid;
-        this.appKey = appKey;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
         if (baseUrl != null) {
             this.baseUrl = baseUrl;
         }
     }
 
-    public ApiClient(String appSid, String appKey) {
-        this(appSid, appKey, null);
+    public ApiClient(String clientId, String clientSecret) {
+        this(clientId, clientSecret, null);
     }
 
     public ApiClient(String accessToken) {
@@ -1109,8 +1109,8 @@ public class ApiClient {
             RequestBody requestBody =
                     new FormEncodingBuilder()
                             .addEncoded("grant_type", "client_credentials")
-                            .addEncoded("client_id", appSid)
-                            .addEncoded("client_secret", appKey)
+                            .addEncoded("client_id", clientId)
+                            .addEncoded("client_secret", clientSecret)
                             .build();
 
             String url = baseUrl + "/connect/token";
