@@ -179,6 +179,13 @@
             ]
           },
           {
+            "type": "boolean",
+            "name": "NoWrap",
+            "in": "query",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false.",
+            "x-nullable": true
+          },
+          {
             "type": "number",
             "name": "Resolution",
             "in": "query",
@@ -605,6 +612,13 @@
               "Auto",
               "Manual"
             ]
+          },
+          {
+            "type": "boolean",
+            "name": "NoWrap",
+            "in": "query",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false.",
+            "x-nullable": true
           },
           {
             "type": "number",
@@ -2960,6 +2974,10 @@
           "description": "Specify FontSizeMode. If FontSizeMode is set to Auto, font size will be calculated automatically based on xDimension value.\nIt is recommended to use FontSizeMode.Auto especially in AutoSizeMode.Nearest or AutoSizeMode.Interpolation.\nDefault value: FontSizeMode.Auto.",
           "$ref": "#/definitions/FontMode"
         },
+        "NoWrap": {
+          "type": "boolean",
+          "description": "Specify word wraps (line breaks) within text.\nDefault value: false."
+        },
         "Resolution": {
           "type": "number",
           "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.",
@@ -3245,6 +3263,10 @@
         "Padding": {
           "description": "Padding.",
           "$ref": "#/definitions/Padding"
+        },
+        "NoWrap": {
+          "type": "boolean",
+          "description": "Specify word wraps (line breaks) within text.\nDefault value: false."
         }
       }
     },
@@ -3441,6 +3463,14 @@
           "type": "integer",
           "description": "Rows count.",
           "format": "int32"
+        },
+        "Is2DCompositeComponent": {
+          "type": "boolean",
+          "description": "Enables flag of 2D composite component with DataBar barcode"
+        },
+        "IsAllowOnlyGS1Encoding": {
+          "type": "boolean",
+          "description": "If this flag is set, it allows only GS1 encoding standard for Databar barcode types"
         }
       }
     },
@@ -3475,6 +3505,10 @@
           "type": "integer",
           "description": "Rows count.",
           "format": "int32"
+        },
+        "MacroCharacters": {
+          "description": "Macro Characters 05 and 06 values are used to obtain more compact encoding in special modes.\nCan be used only with DataMatrixEccType.Ecc200 or DataMatrixEccType.EccAuto.\nCannot be used with EncodeTypes.GS1DataMatrix\nDefault value: MacroCharacters.None.",
+          "$ref": "#/definitions/MacroCharacter"
         }
       }
     },
@@ -3511,7 +3545,8 @@
         "C40",
         "Text",
         "EDIFACT",
-        "ANSIX12"
+        "ANSIX12",
+        "ExtendedCodetext"
       ],
       "enum": [
         "Auto",
@@ -3521,7 +3556,22 @@
         "C40",
         "Text",
         "EDIFACT",
-        "ANSIX12"
+        "ANSIX12",
+        "ExtendedCodetext"
+      ]
+    },
+    "MacroCharacter": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "None",
+        "Macro05",
+        "Macro06"
+      ],
+      "enum": [
+        "None",
+        "Macro05",
+        "Macro06"
       ]
     },
     "DotCodeParams": {
@@ -3807,6 +3857,10 @@
         "Version": {
           "description": "Version of QR Code.\nFrom Version1 to Version40 for QR code and from M1 to M4 for MicroQr.\nDefault value is QRVersion.Auto.",
           "$ref": "#/definitions/QRVersion"
+        },
+        "StructuredAppend": {
+          "description": "QR structured append parameters.",
+          "$ref": "#/definitions/StructuredAppend"
         }
       }
     },
@@ -3957,6 +4011,28 @@
         "VersionM3",
         "VersionM4"
       ]
+    },
+    "StructuredAppend": {
+      "type": "object",
+      "description": "QR structured append parameters.",
+      "additionalProperties": false,
+      "properties": {
+        "SequenceIndicator": {
+          "type": "integer",
+          "description": "The index of the QR structured append mode barcode. Index starts from 0.",
+          "format": "int32"
+        },
+        "TotalCount": {
+          "type": "integer",
+          "description": "Gets or sets the QR structured append mode barcodes quantity. Max value is 16.",
+          "format": "int32"
+        },
+        "ParityByte": {
+          "type": "integer",
+          "description": "Gets or sets the QR structured append mode parity data.",
+          "format": "byte"
+        }
+      }
     },
     "PatchCodeParams": {
       "type": "object",
