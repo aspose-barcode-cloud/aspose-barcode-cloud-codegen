@@ -1,6 +1,6 @@
 @echo off
 
-pushd codegen
+pushd ..\codegen
 for %%f in (generate-*.bat) do (
     %%f || echo %%f && goto :error
 )
