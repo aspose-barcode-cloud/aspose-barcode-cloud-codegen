@@ -1316,6 +1316,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "CheckMore1DVariants",
+            "in": "query",
+            "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False.",
+            "x-nullable": true
+          },
+          {
             "type": "number",
             "name": "RegionLikelihoodThresholdPercent",
             "in": "query",
@@ -1824,6 +1831,13 @@
             "name": "AllowWhiteSpotsRemoving",
             "in": "query",
             "description": "Allows engine to recognize image without small white spots as additional scan. Mode helps to recognize noised image as well as median smoothing filtering.",
+            "x-nullable": true
+          },
+          {
+            "type": "boolean",
+            "name": "CheckMore1DVariants",
+            "in": "query",
+            "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False.",
             "x-nullable": true
           },
           {
@@ -3705,6 +3719,37 @@
         "IsReaderInitialization": {
           "type": "boolean",
           "description": "Used to instruct the reader to interpret the data contained within the symbol\nas programming for reader initialization"
+        },
+        "MacroTimeStamp": {
+          "type": "string",
+          "description": "Macro Pdf417 barcode time stamp",
+          "format": "date-time"
+        },
+        "MacroSender": {
+          "type": "string",
+          "description": "Macro Pdf417 barcode sender name"
+        },
+        "MacroFileSize": {
+          "type": "integer",
+          "description": "Macro Pdf417 file size.\nThe file size field contains the size in bytes of the entire source file",
+          "format": "int32"
+        },
+        "MacroChecksum": {
+          "type": "integer",
+          "description": "Macro Pdf417 barcode checksum.\nThe checksum field contains the value of the 16-bit (2 bytes) CRC checksum using the CCITT-16 polynomial",
+          "format": "int32"
+        },
+        "MacroFileName": {
+          "type": "string",
+          "description": "Macro Pdf417 barcode file name"
+        },
+        "MacroAddressee": {
+          "type": "string",
+          "description": "Macro Pdf417 barcode addressee name"
+        },
+        "MacroECIEncoding": {
+          "description": "Extended Channel Interpretation Identifiers. Applies for Macro PDF417 text fields.",
+          "$ref": "#/definitions/ECIEncodings"
         }
       }
     },
@@ -4024,12 +4069,12 @@
         },
         "TotalCount": {
           "type": "integer",
-          "description": "Gets or sets the QR structured append mode barcodes quantity. Max value is 16.",
+          "description": "QR structured append mode barcodes quantity. Max value is 16.",
           "format": "int32"
         },
         "ParityByte": {
           "type": "integer",
-          "description": "Gets or sets the QR structured append mode parity data.",
+          "description": "QR structured append mode parity data.",
           "format": "byte"
         }
       }
@@ -4414,6 +4459,10 @@
         "AllowWhiteSpotsRemoving": {
           "type": "boolean",
           "description": "Allows engine to recognize image without small white spots as additional scan. Mode helps to recognize noised image as well as median smoothing filtering."
+        },
+        "CheckMore1DVariants": {
+          "type": "boolean",
+          "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False."
         },
         "RegionLikelihoodThresholdPercent": {
           "type": "number",
