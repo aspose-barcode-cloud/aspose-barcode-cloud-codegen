@@ -6,7 +6,7 @@ import os
 import re
 
 SPLIT_RE = re.compile(
-    r'/\*\s*\n\s\*\s+[-]+\n\s*\*\s+<copyright company="Aspose" file="(?P<filename>.+?\.php)">',
+    r'/\*\s*\n\s\*\s+[-]+\n\s*\*\s+<copyright company="Aspose" file="(?P<file>.+?\.php)">',
     re.MULTILINE)
 
 
@@ -20,7 +20,7 @@ def main(src_file, dst_dir):
             raise
 
     for match in reversed(list(SPLIT_RE.finditer(remaining))[1:]):
-        filename = match.groupdict()['filename']
+        filename = match.groupdict()['file']
         classname = os.path.splitext(filename)[0]
 
         new_filename = filename[0].upper() + filename[1:]

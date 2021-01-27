@@ -5,7 +5,7 @@ import errno
 import os
 import re
 
-SPLIT_RE = re.compile(r'//\s+[-]+\n//\s+<copyright company="Aspose" file="(?P<filename>.+?\.cs)">', re.MULTILINE)
+SPLIT_RE = re.compile(r'//\s+[-]+\n//\s+<copyright company="Aspose" file="(?P<file>.+?\.cs)">', re.MULTILINE)
 
 
 def main(src_file, dst_dir):
@@ -17,17 +17,26 @@ def main(src_file, dst_dir):
         if e.errno != errno.EEXIST:
             raise
 
-    for match in reversed(list(SPLIT_RE.finditer(remaining))[1:]):
+    self_content = None
+    for match in reversed(list(SPLIT_RE.finditer(remaining))):
         start_pos = match.span()[0]
 
-        with open(os.path.join(dst_dir, match.groupdict()['filename']), 'wt') as out_f:
-            out_f.write(remaining[start_pos:])
+        new_filename = match.groupdict()['file']
+        new_content = remaining[start_pos:]
+
+        if new_filename == os.path.split(src_file.name)[-1]:
+            self_content = new_content
+        else:
+            with open(os.path.join(dst_dir, new_filename), 'wt') as out_f:
+                out_f.write(new_content)
 
         remaining = remaining[:start_pos]
 
+    assert len(remaining) == 0, 'Unprocessed part: %s ' % remaining
+
     src_file.seek(0)
     src_file.truncate(0)
-    src_file.write(remaining)
+    src_file.write(self_content)
     src_file.close()
 
 
