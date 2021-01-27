@@ -15,10 +15,10 @@ rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%spec
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugModels.cs.json || goto :error
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json || goto :error
 
-Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarCodeApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
-Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\FileApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
-Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\FolderApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
-Tools\SplitCSharpCodeFile.exe %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\StorageApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
+python Tools\split-cs-file.py %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\BarCodeApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
+python Tools\split-cs-file.py %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\FileApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
+python Tools\split-cs-file.py %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\FolderApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
+python Tools\split-cs-file.py %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Api\StorageApi.cs %tempDir%\src\Aspose.BarCode.Cloud.Sdk\Model\Requests\ || goto :error
 
 
 del /s /q "%targetDir%\src\Model\" > NUL || goto :error
