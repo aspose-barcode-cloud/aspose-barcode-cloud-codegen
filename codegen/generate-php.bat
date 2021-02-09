@@ -10,10 +10,10 @@ rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSour
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l php -t Templates\php -o "%tempDir%" -c config.json > debugOperations.php.json || goto :error
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l php -t Templates\php -o "%tempDir%" -c config.json || goto :error
 
-Tools\SplitPhpCodeFile.exe "%tempDir%\SwaggerClient-php\lib\Api\BarcodeApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
-Tools\SplitPhpCodeFile.exe "%tempDir%\SwaggerClient-php\lib\Api\FileApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
-Tools\SplitPhpCodeFile.exe "%tempDir%\SwaggerClient-php\lib\Api\FolderApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
-Tools\SplitPhpCodeFile.exe "%tempDir%\SwaggerClient-php\lib\Api\StorageApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
+python Tools\split-php-file.py "%tempDir%\SwaggerClient-php\lib\Api\BarcodeApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
+python Tools\split-php-file.py "%tempDir%\SwaggerClient-php\lib\Api\FileApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
+python Tools\split-php-file.py "%tempDir%\SwaggerClient-php\lib\Api\FolderApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
+python Tools\split-php-file.py "%tempDir%\SwaggerClient-php\lib\Api\StorageApi.php" %tempDir%\SwaggerClient-php\lib\Requests\ || goto :error
 
 del /s /q "%targetDir%\src\Aspose\Barcode\*Api.php" > NUL || goto :error
 xcopy "%tempDir%\SwaggerClient-php\lib\Api" "%targetDir%\src\Aspose\Barcode" /i /y || goto :error
