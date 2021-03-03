@@ -17,26 +17,17 @@ def main(src_file, dst_dir):
         if e.errno != errno.EEXIST:
             raise
 
-    self_content = None
-    for match in reversed(list(SPLIT_RE.finditer(remaining))):
+    for match in reversed(list(SPLIT_RE.finditer(remaining))[1:]):
         start_pos = match.span()[0]
 
-        new_filename = match.groupdict()['file']
-        new_content = remaining[start_pos:]
-
-        if new_filename == os.path.split(src_file.name)[-1]:
-            self_content = new_content
-        else:
-            with open(os.path.join(dst_dir, new_filename), 'wt') as out_f:
-                out_f.write(new_content)
+        with open(os.path.join(dst_dir, match.groupdict()['file']), 'wt') as out_f:
+            out_f.write(remaining[start_pos:])
 
         remaining = remaining[:start_pos]
 
-    assert len(remaining) == 0, 'Unprocessed part: %s ' % remaining
-
     src_file.seek(0)
     src_file.truncate(0)
-    src_file.write(self_content)
+    src_file.write(remaining)
     src_file.close()
 
 
