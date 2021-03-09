@@ -11,9 +11,11 @@ rem java -jar Tools\swagger-codegen-cli.jar config-help -l typescript-node
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json || goto :error
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json > debugModels.ts.json || goto :error
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json > debugOperations.ts.json || goto :error
+rem java -DdebugSupportingFiles -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json 2> debugSupportingFiles.ts.txt || goto :error
 
 copy "%tempDir%\api.ts" "%targetDir%\src\" /y || goto :error
 copy "%tempDir%\package.json" "%targetDir%\" /y || goto :error
+copy "%tempDir%\git_push.sh" "%targetDir%\src\models.ts" /y || goto :error
 
 REM Use typescript-node one more time because typescript-node does not generate docs
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs\docs -o %tempDir%\docs -c config.json || goto :error
