@@ -1,0 +1,88 @@
+{{! Used as models.ts}}
+{{>licenseInfo}}
+
+
+{{#models}}
+{{#model}}
+{{#description}}
+
+/**
+ * {{{description}}}
+ */
+{{/description}}
+{{#isEnum}}
+export enum {{classname}} {
+    {{#allowableValues}}{{#enumVars}}{{{name}}} = {{{value}}},
+    {{/enumVars}}{{/allowableValues}}
+}
+{{/isEnum}}
+{{^isEnum}}
+export class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
+{{#vars}}
+{{#description}}
+    /**
+     * {{{description}}}
+     */
+{{/description}}
+    '{{name}}'{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}};
+{{/vars}}
+
+    static attributeTypeMap: Array<{ name: string; baseName: string; type: string }> = [
+        {{#vars}}
+        {
+            name: '{{name}}',
+            baseName: '{{baseName}}',
+            type: '{{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}}',
+        },
+        {{/vars}}
+    ];
+
+    static getAttributeTypeMap() {
+        {{#parent}}
+        return super.getAttributeTypeMap().concat({{classname}}.attributeTypeMap);
+        {{/parent}}
+        {{^parent}}
+        return {{classname}}.attributeTypeMap;
+        {{/parent}}
+    }
+}
+{{/isEnum}}
+{{/model}}
+{{/models}}
+
+
+{{#apiInfo}}
+{{#apis}}
+
+{{#operations}}
+
+// {{classname}}
+
+{{#operation}}
+
+/**
+ * {{{summary}}}
+ */
+export class {{operationIdCamelCase}}Request {
+    {{#allParams}}
+    /**
+     * {{{unescapedDescription}}}
+     */
+    '{{paramName}}'{{^required}}?{{/required}}: {{{dataType}}} {{#defaultValue}}={{#isString}}"{{{.}}}"{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}};
+    {{/allParams}}
+
+    {{#requiredParams.0}}
+    /**{{#requiredParams}}
+     * @param {{paramName}} {{{unescapedDescription}}}
+     {{/requiredParams}}*/
+    constructor({{#requiredParams}} {{paramName}} : {{{dataType}}} {{#hasMore}},{{/hasMore}} {{/requiredParams}}) {
+    {{#requiredParams}}
+        this.{{paramName}} = {{paramName}};
+    {{/requiredParams}}
+    }
+    {{/requiredParams.0}}
+}
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
