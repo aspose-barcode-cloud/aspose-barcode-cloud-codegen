@@ -12,10 +12,17 @@ rem java -jar Tools\swagger-codegen-cli.jar config-help -l java
 java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l java -t Templates\java -o %tempDir% -c config-java.json || goto :error
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l java -t Templates\java -o %tempDir% -c config-java.json > debugModels.java.json || goto :error
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l java -t Templates\java -o %tempDir% -c config-java.json > debugOperations.java.json || goto :error
+rem java -DdebugSupportingFiles -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l java -t Templates\java -o %tempDir% -c config-java.json > DdebugSupportingFiles.java.json || goto :error
+
+python Tools\split-java-file.py %tempDir%\src\main\java\com\aspose\barcode\cloud\api\BarCodeApi.java %tempDir%\src\main\java\com\aspose\barcode\cloud\requests\ || goto :error
+python Tools\split-java-file.py %tempDir%\src\main\java\com\aspose\barcode\cloud\api\FileApi.java %tempDir%\src\main\java\com\aspose\barcode\cloud\requests\ || goto :error
+python Tools\split-java-file.py %tempDir%\src\main\java\com\aspose\barcode\cloud\api\FolderApi.java %tempDir%\src\main\java\com\aspose\barcode\cloud\requests\ || goto :error
+python Tools\split-java-file.py %tempDir%\src\main\java\com\aspose\barcode\cloud\api\StorageApi.java %tempDir%\src\main\java\com\aspose\barcode\cloud\requests\ || goto :error
 
 del /s /q "%targetDir%\src\main\" > NUL || goto :error
 xcopy "%tempDir%\src\main\java\com\aspose\barcode\cloud\api" "%targetDir%\src\main\java\com\aspose\barcode\cloud\api" /e /i /y > NUL || goto :error
 xcopy "%tempDir%\src\main\java\com\aspose\barcode\cloud\model" "%targetDir%\src\main\java\com\aspose\barcode\cloud\model" /e /i /y > NUL || goto :error
+xcopy "%tempDir%\src\main\java\com\aspose\barcode\cloud\requests" "%targetDir%\src\main\java\com\aspose\barcode\cloud\requests" /e /i /y > NUL || goto :error
 copy "%tempDir%\src\main\java\com\aspose\barcode\cloud\*.java" "%targetDir%\src\main\java\com\aspose\barcode\cloud" /y > NUL || goto :error
 
 del /s /q "%targetDir%\docs\" > NUL || goto :error
