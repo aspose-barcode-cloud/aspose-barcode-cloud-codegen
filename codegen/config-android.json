@@ -1,11 +1,11 @@
 {
-    "androidBuildToolsVersion": "30.0.1", 
-    "androidGradleVersion": "4.1.1", 
-    "androidSdkVersion": "30", 
-    "apiPackage": "com.example.asposebarcodecloud.api", 
-    "artifactId": "Aspose Barcode Cloud Android", 
-    "artifactVersion": "21.3.0", 
-    "groupId": "com.aspose", 
-    "invokerPackage": "com.example.asposebarcodecloud", 
+    "androidBuildToolsVersion": "30.0.1",
+    "androidGradleVersion": "4.1.2",
+    "androidSdkVersion": "30",
+    "apiPackage": "com.example.asposebarcodecloud.api",
+    "artifactId": "Aspose Barcode Cloud Android",
+    "artifactVersion": "21.3.0",
+    "groupId": "com.aspose",
+    "invokerPackage": "com.example.asposebarcodecloud",
     "modelPackage": "com.example.asposebarcodecloud.model"
 }
