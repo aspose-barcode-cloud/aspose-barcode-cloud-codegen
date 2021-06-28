@@ -4,7 +4,7 @@
     "androidSdkVersion": "30",
     "apiPackage": "com.example.asposebarcodecloud.api",
     "artifactId": "Aspose Barcode Cloud Android",
-    "artifactVersion": "21.3.0",
+    "artifactVersion": "21.6.0",
     "groupId": "com.aspose",
     "invokerPackage": "com.example.asposebarcodecloud",
     "modelPackage": "com.example.asposebarcodecloud.model"

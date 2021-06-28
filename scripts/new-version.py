@@ -3,6 +3,7 @@ from __future__ import division, print_function
 import argparse
 import json
 import os
+import sys
 
 BASE_CONFIG_DIR = os.path.join('.', 'codegen')
 
@@ -59,13 +60,13 @@ def read_config(filename):
 
 
 def save_config(config, filename):
-    with open(filename, 'wb') as wf:
-        json.dump(config, wf, indent=4, sort_keys=True)
+    with open(filename, 'w') as wf:
+        json.dump(config, wf, indent=4, separators=(',', ': '), sort_keys=True)
 
 
-def main(new_version):
-    assert len(new_version) == 2
-    new_version = tuple(new_version + [0])
+def main(new_versions):
+    assert len(new_versions) == 2
+    new_version = tuple(new_versions + [0])
 
     set_android_version(new_version)
     set_go_version(new_version)
@@ -77,8 +78,8 @@ def main(new_version):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('new_version', type=int, nargs=2)
+    parser = argparse.ArgumentParser(epilog="Example: %s 21 6" % sys.argv[0])
+    parser.add_argument('new_versions', type=int, nargs=2, help="Use separate int values like: 21 6")
     args = parser.parse_args()
     return vars(args)
 
