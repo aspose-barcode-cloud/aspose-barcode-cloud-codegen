@@ -1,6 +1,7 @@
 import re
 import subprocess
 import os
+import sys
 import fileinput
 import collections
 
@@ -12,7 +13,7 @@ BROKEN_URLS = collections.defaultdict(list)
 
 def check_url(url):
     with open(os.devnull, 'w') as devnull:
-        retcode = subprocess.call(['curl', '-sSfI', url], stdout=devnull)
+        retcode = subprocess.call(['curl', '-sSf', url], stdout=devnull)
     return retcode == 0
 
 
@@ -42,7 +43,7 @@ def main():
         check_file(filename.strip())
 
     for url, files in BROKEN_URLS.items():
-        print("BROKEN URL: '%s' in files: %s" % (url, ', '.join(files)))
+        print("BROKEN URL: '%s' in files: %s" % (url, ', '.join(files)), file=sys.stderr)
     if BROKEN_URLS:
         exit(1)
 
