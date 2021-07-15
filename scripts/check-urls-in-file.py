@@ -20,17 +20,14 @@ def check_url(url):
 def check_file(filename):
     with open(filename, 'r') as f:
         urls = frozenset(URL_REGEX.findall(f.read()))
+
     for url in sorted(urls):
-        good_url = False
-
         if url in GOOD_URLS:
-            good_url = True
+            continue
         elif url in BROKEN_URLS:
-            good_url = False
-        else:
-            good_url = check_url(url)
+            continue
 
-        if good_url:
+        if check_url(url):
             print("OK: '%s'" % url)
             GOOD_URLS.add(url)
         else:
