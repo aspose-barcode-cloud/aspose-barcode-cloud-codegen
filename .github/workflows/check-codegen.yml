@@ -30,3 +30,6 @@ jobs:
 
     - name: Check existing swagger specification is up-to-date
       run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
+
+    - name: Check all URLs
+      run: ./scripts/check_all_urls.sh
