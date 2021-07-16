@@ -5,16 +5,16 @@ import sys
 import fileinput
 import collections
 
-
-URL_REGEX=re.compile(r"\]\((http[^{})]+)\)")
+URL_REGEX = re.compile(r"]\((http[^{})]+)\)")
 
 GOOD_URLS = set()
 BROKEN_URLS = collections.defaultdict(list)
 
+
 def check_url(url):
     with open(os.devnull, 'w') as devnull:
-        retcode = subprocess.call(['curl', '-sSf', url], stdout=devnull)
-    return retcode == 0
+        ret_code = subprocess.call(['curl', '-sSf', url], stdout=devnull)
+    return ret_code == 0
 
 
 def check_file(filename):
