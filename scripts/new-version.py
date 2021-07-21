@@ -1,9 +1,12 @@
+#!/bin/env python
+
 from __future__ import division, print_function
 
 import argparse
 import json
 import os
 import sys
+from datetime import datetime
 
 BASE_CONFIG_DIR = os.path.join('.', 'codegen')
 
@@ -60,8 +63,9 @@ def read_config(filename):
 
 
 def save_config(config, filename):
-    with open(filename, 'w') as wf:
-        json.dump(config, wf, indent=4, separators=(',', ': '), sort_keys=True)
+    with open(filename, 'wb') as wf:
+        string = json.dumps(config, indent=4, separators=(',', ': '), sort_keys=True)
+        wf.write(string.replace('\r', '').encode('utf-8'))
 
 
 def main(new_versions):
@@ -78,7 +82,7 @@ def main(new_versions):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(epilog="Example: %s 21 6" % sys.argv[0])
+    parser = argparse.ArgumentParser(usage="%s %s" % (sys.argv[0], datetime.today().strftime('%y %#m')))
     parser.add_argument('new_versions', type=int, nargs=2, help="Use separate int values like: 21 6")
     args = parser.parse_args()
     return vars(args)
