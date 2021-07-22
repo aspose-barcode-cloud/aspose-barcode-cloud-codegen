@@ -7,7 +7,7 @@ import collections
 
 URL_REGEX = re.compile(r"]\((http[^{})]+)\)")
 
-GOOD_URLS = set()
+GOOD_URLS = set(['https://www.aspose.cloud'])
 BROKEN_URLS = collections.defaultdict(list)
 
 
