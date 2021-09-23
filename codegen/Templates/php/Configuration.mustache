@@ -50,6 +50,8 @@ class Configuration implements JsonSerializable
      */
     protected $host = '{{hostWithoutBasePath}}';
 
+    protected $authUrl = '{{hostWithoutBasePath}}/connect/token';
+
     /*
      * Version of API to use, possible values are v1, v1.1, v2, v3
      * default value is v1
@@ -190,6 +192,17 @@ class Configuration implements JsonSerializable
     public function getHost()
     {
         return $this->host;
+    }
+
+    public function setAuthUrl($authUrl)
+    {
+        $this->authUrl = $authUrl;
+        return $this;
+    }
+
+    public function getAuthUrl()
+    {
+        return $this->authUrl;
     }
 
     /*
@@ -353,6 +366,7 @@ class Configuration implements JsonSerializable
             'ClientId' => $this->clientId,
             'ClientSecret' => $this->clientSecret,
             'Host' => $this->host,
+            'AuthUrl' => $this->authUrl,
             'AccessToken' => $this->accessToken,
             'Debug' => $this->debug,
         ];

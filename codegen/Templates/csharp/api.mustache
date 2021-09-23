@@ -97,17 +97,16 @@ namespace {{packageName}}.Api
             {{#queryParams}}
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
-            {{#headerParams}}
-            if ({{paramName}} != null)
-            {
-                headerParams.Add("{{paramName}}", _apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
-            }
-            {{/headerParams}}
+
+            var headerParams = new Dictionary<string, string>();
             {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null)
             {
-                {{#isFile}}formParams.Add("{{paramName}}", _apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
+                {{#isFile}}
+                formParams.Add("{{paramName}}", _apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
+                headerParams["Content-Type"] = "multipart/form-data";
+                {{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
             {{/formParams}}
 {{#vendorExtensions}}{{#x-binary-result}}            return _apiInvoker.InvokeBinaryApi(
@@ -119,7 +118,7 @@ namespace {{packageName}}.Api
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
-                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                headerParams,
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
             if (response != null)

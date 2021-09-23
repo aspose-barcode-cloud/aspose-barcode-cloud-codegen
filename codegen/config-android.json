@@ -4,7 +4,7 @@
     "androidSdkVersion": "30",
     "apiPackage": "com.example.asposebarcodecloud.api",
     "artifactId": "Android Application for Barcode Processing in the Cloud via REST API",
-    "artifactVersion": "21.7.2",
+    "artifactVersion": "21.9.0",
     "groupId": "com.aspose",
     "invokerPackage": "com.example.asposebarcodecloud",
     "modelPackage": "com.example.asposebarcodecloud.model"

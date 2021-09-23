@@ -455,9 +455,10 @@
         "summary": "Generate barcode and save on server (from query params or from file with json or xml content)",
         "operationId": "PutBarcodeGenerateFile",
         "consumes": [
+          "multipart/form-data",
+          "application/x-www-form-urlencoded",
           "application/json",
-          "application/xml",
-          "multipart/form-data"
+          "application/xml"
         ],
         "parameters": [
           {
@@ -1558,6 +1559,7 @@
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
           "multipart/form-data",
+          "application/x-www-form-urlencoded",
           "application/octet-stream"
         ],
         "parameters": [
