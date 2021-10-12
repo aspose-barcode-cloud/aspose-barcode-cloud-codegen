@@ -455,10 +455,9 @@
         "summary": "Generate barcode and save on server (from query params or from file with json or xml content)",
         "operationId": "PutBarcodeGenerateFile",
         "consumes": [
-          "multipart/form-data",
-          "application/x-www-form-urlencoded",
           "application/json",
-          "application/xml"
+          "application/xml",
+          "multipart/form-data"
         ],
         "parameters": [
           {
@@ -1324,6 +1323,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "FastScanOnly",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False.",
+            "x-nullable": true
+          },
+          {
             "type": "number",
             "name": "RegionLikelihoodThresholdPercent",
             "in": "query",
@@ -1379,6 +1385,13 @@
               "NTable",
               "Other"
             ]
+          },
+          {
+            "type": "boolean",
+            "name": "IgnoreEndingFillingPatternsForCTable",
+            "in": "query",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "x-nullable": true
           },
           {
             "type": "string",
@@ -1559,7 +1572,6 @@
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
           "multipart/form-data",
-          "application/x-www-form-urlencoded",
           "application/octet-stream"
         ],
         "parameters": [
@@ -1843,6 +1855,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "FastScanOnly",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False.",
+            "x-nullable": true
+          },
+          {
             "type": "number",
             "name": "RegionLikelihoodThresholdPercent",
             "in": "query",
@@ -1898,6 +1917,13 @@
               "NTable",
               "Other"
             ]
+          },
+          {
+            "type": "boolean",
+            "name": "IgnoreEndingFillingPatternsForCTable",
+            "in": "query",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "x-nullable": true
           },
           {
             "type": "string",
@@ -4486,6 +4512,10 @@
           "type": "boolean",
           "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False."
         },
+        "FastScanOnly": {
+          "type": "boolean",
+          "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False."
+        },
         "RegionLikelihoodThresholdPercent": {
           "type": "number",
           "description": "Sets threshold for detected regions that may contain barcodes.\nValue 0.7 means that bottom 70% of possible regions are filtered out and not processed further.\nRegion likelihood threshold must be between [0.05, 0.9]\nUse high values for clear images with few barcodes.\nUse low values for images with many barcodes or for noisy images.\nLow value may lead to a bigger recognition time.",
@@ -4515,6 +4545,10 @@
         "AustralianPostEncodingTable": {
           "description": "Interpreting Type for the Customer Information of AustralianPost BarCode.Default is CustomerInformationInterpretingType.Other.",
           "$ref": "#/definitions/CustomerInformationInterpretingType"
+        },
+        "IgnoreEndingFillingPatternsForCTable": {
+          "type": "boolean",
+          "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\"."
         }
       }
     },
