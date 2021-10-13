@@ -124,7 +124,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		headerParams["Content-Type"] = httpContentType
 	}
 
-	// to determine the Accept header
+	// to determine Accept header
 {{=<% %>=}}
 	acceptChoices := []string{<%#produces%>"<%&mediaType%>"<%^-last%>, <%/-last%><%/produces%>}
 <%={{ }}=%>
@@ -152,8 +152,9 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 {{#required}}
     requestFile := {{paramName}}
     if requestFile != nil {
+		fileName = requestFile.Name()
 		var err error
-		postBody, err = ioutil.ReadAll(requestFile)
+		fileBytes, err = ioutil.ReadAll(requestFile)
 		if err != nil {
 			return returnValue, nil, err
 		}
@@ -163,13 +164,15 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 
 	if optionals != nil && optionals.{{vendorExtensions.x-exportParamName}}.IsSet() {
 		if requestFile, fileOk := optionals.{{vendorExtensions.x-exportParamName}}.Value().({{dataType}}); fileOk {
+			fileName = requestFile.Name()
 			var err error
-			postBody, err = ioutil.ReadAll(requestFile)
+			fileBytes, err = ioutil.ReadAll(requestFile)
 			if err != nil {
 				return returnValue, nil, err
 			}
 		} else if requestBytes, bytesOK := optionals.{{vendorExtensions.x-exportParamName}}.Value().([]byte); bytesOK {
-			postBody = requestBytes
+			fileName = "{{vendorExtensions.x-exportParamName}}"
+			fileBytes = requestBytes
 		} else {
 			return {{#returnType}}returnValue, {{/returnType}}nil, reportError("{{paramName}} should be {{dataType}} or []byte")
 		}
