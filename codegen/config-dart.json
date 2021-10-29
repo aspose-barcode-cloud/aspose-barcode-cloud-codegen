@@ -1,0 +1,7 @@
+{
+    "browserClient": false,
+    "pubDescription": "Config Pub Description",
+    "pubName": "barcode",
+    "pubVersion": "21.10.0",
+    "useEnumExtension": true
+}
