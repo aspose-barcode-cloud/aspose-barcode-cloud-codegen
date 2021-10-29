@@ -23,4 +23,9 @@ rmdir /s /q  "%targetDir%\barcode\lib\" > NUL || goto :error
 xcopy "%tempDir%\lib\*" "%targetDir%\barcode\lib\" /e /i /y > NUL || goto :error
 
 
-pushd "%targetDir%" && dart fix --apply & popd
+rem Cleanup
+del /s /q %tempDir% > NUL || goto :error
+rmdir /s /q  %tempDir% > NUL || goto :error
+
+rem Format generated code etc.
+pushd "%targetDir%" && dart format . && dart fix --apply & popd

@@ -15,14 +15,14 @@ class {{classname}} {
   {{#isDeprecated}}
   @deprecated
   {{/isDeprecated}}
-  {{#returnType}}Future<{{{returnType}}}?> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
+  {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}?> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // verify required params are set
     {{#allParams}}
       {{#required}}
     if({{paramName}} == null) {
-     throw new ApiException(400, "Missing required param: {{paramName}}");
+     throw new ApiException(0, "Missing required param: {{paramName}}");
     }
       {{/required}}
     {{/allParams}}
@@ -79,7 +79,7 @@ class {{classname}} {
     var response = await apiClient.invokeAPI(requestPath,
                                              '{{httpMethod}}',
                                              queryParams,
-                                             postBody!,
+                                             postBody,
                                              headerParams,
                                              formParams,
                                              contentType,
@@ -97,7 +97,12 @@ class {{classname}} {
           {{#returnType}}new {{{returnType}}}.from(apiClient.deserialize(response.body, '{{{returnType}}}')) {{/returnType}};
         {{/isMapContainer}}
         {{^isMapContainer}}
+        {{#isResponseFile}}
+        response.bodyBytes;
+        {{/isResponseFile}}
+        {{^isResponseFile}}
           {{#returnType}}apiClient.deserialize(response.body, '{{{returnType}}}') as {{{returnType}}} {{/returnType}};
+        {{/isResponseFile}}
         {{/isMapContainer}}
       {{/isListContainer}}
     } else {
