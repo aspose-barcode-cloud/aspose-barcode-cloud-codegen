@@ -67,7 +67,7 @@ class ApiClient {
           }
       }
     } on Exception catch (e, stack) {
-      throw new ApiException.withInner(500, 'Exception during deserialization.', e, stack);
+      throw new ApiException.withInner(0, 'Exception during deserialization.', e, stack);
     }
     throw new ApiException(0, 'Could not find a suitable class for deserialization');
   }
