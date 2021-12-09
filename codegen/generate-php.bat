@@ -29,6 +29,7 @@ del /s /q "%targetDir%\docs\" > NUL || goto :error
 xcopy /s /i /y "%tempDir%\SwaggerClient-php\docs" "%targetDir%\docs" || goto :error
 
 xcopy "%tempDir%\SwaggerClient-php\README.md" "%targetDir%" /i /y || goto :error
+copy /y Templates\LICENSE "%targetDir%\" > NUL || goto :error
 
 
 del /s /q "%tempDir%" > NUL || goto :error

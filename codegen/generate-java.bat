@@ -29,8 +29,9 @@ del /s /q "%targetDir%\docs\" > NUL || goto :error
 xcopy "%tempDir%\docs" "%targetDir%\docs" /e /i /y > NUL || goto :error
 
 xcopy "%tempDir%\README.md" "%targetDir%\" /y > NUL || goto :error
-copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
 xcopy "%tempDir%\pom.xml" "%targetDir%\" /y > NUL || goto :error
+copy /y Templates\LICENSE "%targetDir%\" > NUL || goto :error
+
 
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q %tempDir% > NUL || goto :error
