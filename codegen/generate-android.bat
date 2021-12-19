@@ -13,7 +13,6 @@ java -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l android -t
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l android -t Templates\java -o %tempDir% -c config-android.json > debugModels.android.json || goto :error
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l android -t Templates\java -o %tempDir% -c config-android.json > debugOperations.android.json || goto :error
 
-copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
 copy "%tempDir%\README.md" "%targetDir%" /y > NUL || goto :error
 copy "%tempDir%\.gitignore" "%targetDir%" /y > NUL || goto :error
 copy "%tempDir%\build.gradle" "%targetDir%" /y > NUL || goto :error
@@ -25,6 +24,7 @@ copy "%tempDir%\src\main\AndroidManifest.xml" "%targetDir%\app\src\main\" /y > N
 
 del /s /q "%targetDir%\app\src\main\java\com\example\asposebarcodecloud\" > NUL || goto :error
 copy "%tempDir%\src\main\java\com\example\asposebarcodecloud\ApiException.java" "%targetDir%\app\src\main\java\com\example\asposebarcodecloud\MainActivity.kt" /y > NUL || goto :error
+copy /y Templates\LICENSE "%targetDir%\" > NUL || goto :error
 
 
 del /s /q %tempDir% > NUL || goto :error

@@ -37,6 +37,7 @@ xcopy "%tempDir%\src\Aspose.BarCode.Cloud.Sdk\Aspose.BarCode.Cloud.Sdk.csproj" "
 copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
 copy Templates\LICENSE "%targetDir%\src\LICENSE.txt" /y > NUL || goto :error
 
+
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q %tempDir% > NUL || goto :error
 

@@ -19,13 +19,13 @@ rmdir /s /q  "%targetDir%\barcode" > NUL || goto :error
 mkdir "%targetDir%\barcode\jwt" > NUL || goto :error
 move /y "%tempDir%\response.go" "%targetDir%\barcode\jwt\jwt.go" > NUL || goto :error
 
-copy "%tempDir%\*.go" "%targetDir%\barcode\" /y > NUL || goto :error
+move /y "%tempDir%\*.go" "%targetDir%\barcode\" > NUL || goto :error
 
 del /s /q "%targetDir%\docs\" > NUL || goto :error
-xcopy "%tempDir%\docs\*" "%targetDir%\docs\" /e /i /y > NUL || goto :error
+move /y "%tempDir%\docs\*" "%targetDir%\docs\" > NUL || goto :error
+move /y "%tempDir%\README.md" "%targetDir%\README.md" > NUL || goto :error
+copy /y Templates\LICENSE "%targetDir%\" > NUL || goto :error
 
-copy Templates\LICENSE "%targetDir%\" /y > NUL || goto :error
-copy "%tempDir%\README.md" "%targetDir%\README.md" /y > NUL || goto :error
 
 del /s /q %tempDir% > NUL || goto :error
 rmdir /s /q  %tempDir% > NUL || goto :error

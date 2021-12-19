@@ -109,7 +109,8 @@
               "UpcaGs1Code128Coupon",
               "UpcaGs1DatabarCoupon",
               "CodablockF",
-              "GS1CodablockF"
+              "GS1CodablockF",
+              "Mailmark"
             ]
           },
           {
@@ -544,7 +545,8 @@
               "UpcaGs1Code128Coupon",
               "UpcaGs1DatabarCoupon",
               "CodablockF",
-              "GS1CodablockF"
+              "GS1CodablockF",
+              "Mailmark"
             ]
           },
           {
@@ -1119,7 +1121,8 @@
               "DataLogic2of5",
               "DotCode",
               "DutchKIX",
-              "CodablockF"
+              "CodablockF",
+              "Mailmark"
             ]
           },
           {
@@ -1529,7 +1532,8 @@
               "DataLogic2of5",
               "DotCode",
               "DutchKIX",
-              "CodablockF"
+              "CodablockF",
+              "Mailmark"
             ]
           },
           {
@@ -1651,7 +1655,8 @@
               "DataLogic2of5",
               "DotCode",
               "DutchKIX",
-              "CodablockF"
+              "CodablockF",
+              "Mailmark"
             ]
           },
           {
@@ -2749,7 +2754,8 @@
         "UpcaGs1Code128Coupon",
         "UpcaGs1DatabarCoupon",
         "CodablockF",
-        "GS1CodablockF"
+        "GS1CodablockF",
+        "Mailmark"
       ],
       "enum": [
         "Codabar",
@@ -2817,7 +2823,8 @@
         "UpcaGs1Code128Coupon",
         "UpcaGs1DatabarCoupon",
         "CodablockF",
-        "GS1CodablockF"
+        "GS1CodablockF",
+        "Mailmark"
       ]
     },
     "CodeLocation": {
@@ -4291,7 +4298,8 @@
         "DataLogic2of5",
         "DotCode",
         "DutchKIX",
-        "CodablockF"
+        "CodablockF",
+        "Mailmark"
       ],
       "enum": [
         "all",
@@ -4360,7 +4368,8 @@
         "DataLogic2of5",
         "DotCode",
         "DutchKIX",
-        "CodablockF"
+        "CodablockF",
+        "Mailmark"
       ]
     },
     "ChecksumValidation": {
