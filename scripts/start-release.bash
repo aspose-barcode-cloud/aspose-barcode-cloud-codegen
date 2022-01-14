@@ -2,7 +2,7 @@
 set -euo pipefail
 
 year=$(date +%y)
-month=$(date +%m)
+month=$(date +%-m)
 branch_name="release-${year}.${month}"
 
 pushd "$( dirname -- "${BASH_SOURCE[0]}")"
