@@ -97,15 +97,17 @@ namespace {{packageName}}.Api
             {{#queryParams}}
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
-
+            {{#vendorExtensions}}{{^x-binary-result}}
+            var contentType = "application/json";
             var headerParams = new Dictionary<string, string>();
+            {{/x-binary-result}}{{/vendorExtensions}}
             {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null)
             {
                 {{#isFile}}
                 formParams.Add("{{paramName}}", _apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
-                headerParams["Content-Type"] = "multipart/form-data";
+                contentType = "multipart/form-data";
                 {{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
             {{/formParams}}
@@ -114,9 +116,10 @@ namespace {{packageName}}.Api
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}}            var response = _apiInvoker.InvokeApi(
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} var response = _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
+                contentType,
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 headerParams,
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
