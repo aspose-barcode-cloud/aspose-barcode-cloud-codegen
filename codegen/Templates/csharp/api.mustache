@@ -80,7 +80,7 @@ namespace {{packageName}}.Api
                 throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
             }
 {{/required}}{{/allParams}}            // create path and map variables
-            var resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
+            string resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
             resourcePath = Regex
                 .Replace(resourcePath, "\\*", string.Empty)
                 .Replace("&amp;", "&")
@@ -101,12 +101,12 @@ namespace {{packageName}}.Api
             var contentType = "application/json";
             var headerParams = new Dictionary<string, string>();
             {{/x-binary-result}}{{/vendorExtensions}}
-            {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
+            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null)
             {
                 {{#isFile}}
-                formParams.Add("{{paramName}}", _apiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
+                formParams.Add("{{paramName}}", ApiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
                 contentType = "multipart/form-data";
                 {{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
@@ -116,7 +116,7 @@ namespace {{packageName}}.Api
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} var response = _apiInvoker.InvokeApi(
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
                 contentType,
@@ -135,6 +135,7 @@ namespace {{packageName}}.Api
             _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
+                contentType,
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
