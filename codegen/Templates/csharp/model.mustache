@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Aspose.BarCode.Cloud.Sdk.Interfaces;
 {{/isEnum}}
 {{#isEnum}}
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace {{packageName}}.Model
     /// <summary>
     ///     {{description}}
     /// </summary>
-    public class {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
+    public class {{classname}}{{#parent}} : {{{parent}}}{{/parent}} : IToString
     {
     {{#vars}}
       {{#isEnum}}
@@ -65,14 +66,14 @@ namespace {{packageName}}.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.Append("class {{classname}} {\n");
-            {{#vars}}
-            sb.Append("  {{name}}: ").Append({{name}}).Append("\n");
-            {{/vars}}
-            sb.Append("}\n");
+            return _srcString;
+        }
 
-            return sb.ToString();
+        private string _srcString;
+
+        public void SetSrcString(string value)
+        {
+            _srcString = value;
         }
     }
     {{/isEnum}}

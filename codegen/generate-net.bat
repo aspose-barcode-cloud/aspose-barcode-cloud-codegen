@@ -9,7 +9,6 @@ set specSource=..\spec\aspose-barcode-cloud.json
 
 if exist %tempDir% del /f /s /q %tempDir% || goto :error
 
-
 REM Generate Operations and Models for Debug purposes
 rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugOperations.cs.json & exit
 rem java -DdebugModels -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l csharp -t Templates\csharp -o %tempDir% -c config.json > debugModels.cs.json & exit
