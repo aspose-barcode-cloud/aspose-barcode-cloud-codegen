@@ -456,9 +456,10 @@
         "summary": "Generate barcode and save on server (from query params or from file with json or xml content)",
         "operationId": "PutBarcodeGenerateFile",
         "consumes": [
+          "multipart/form-data",
+          "application/x-www-form-urlencoded",
           "application/json",
-          "application/xml",
-          "multipart/form-data"
+          "application/xml"
         ],
         "parameters": [
           {
@@ -1393,7 +1394,7 @@
             "type": "boolean",
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
-            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
             "x-nullable": true
           },
           {
@@ -1576,6 +1577,7 @@
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
           "multipart/form-data",
+          "application/x-www-form-urlencoded",
           "application/octet-stream"
         ],
         "parameters": [
@@ -1927,7 +1929,7 @@
             "type": "boolean",
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
-            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
             "x-nullable": true
           },
           {
@@ -4557,7 +4559,7 @@
         },
         "IgnoreEndingFillingPatternsForCTable": {
           "type": "boolean",
-          "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method. \nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\"."
+          "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\"."
         }
       }
     },
