@@ -98,8 +98,6 @@ namespace {{packageName}}.Api
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
             {{#vendorExtensions}}{{^x-binary-result}}
-            var contentType = "application/json";
-            var headerParams = new Dictionary<string, string>();
             {{/x-binary-result}}{{/vendorExtensions}}
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
@@ -107,7 +105,6 @@ namespace {{packageName}}.Api
             {
                 {{#isFile}}
                 formParams.Add("{{paramName}}", ApiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
-                contentType = "multipart/form-data";
                 {{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
             }
             {{/formParams}}
@@ -119,9 +116,8 @@ namespace {{packageName}}.Api
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
-                contentType,
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
-                headerParams,
+                null,
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
             if (response != null)
@@ -135,7 +131,6 @@ namespace {{packageName}}.Api
             _apiInvoker.InvokeApi(
                 resourcePath,
                 "{{httpMethod}}",
-                contentType,
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
