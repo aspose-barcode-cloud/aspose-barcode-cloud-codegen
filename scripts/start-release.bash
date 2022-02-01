@@ -11,7 +11,7 @@ pushd "../submodules"
 for d in */ ; do
     pushd "$d"
 
-    git switch --create "${branch_name}" || true
+    git switch --create "${branch_name}" || git switch "${branch_name}"
     wsl make update || true
 
     popd > /dev/null
