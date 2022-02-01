@@ -7,7 +7,10 @@ import collections
 
 URL_REGEX = re.compile(r"]\((http[^{})]+)\)")
 
-GOOD_URLS = set(['https://www.aspose.cloud'])
+GOOD_URLS = set([
+    'https://www.aspose.cloud',
+    'https://repository.aspose.cloud/repo/com/aspose/aspose-barcode-cloud/',
+])
 BROKEN_URLS = collections.defaultdict(list)
 
 
