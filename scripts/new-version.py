@@ -25,6 +25,13 @@ def set_go_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, 'config-g
     config['packageVersion'] = go_version
     save_config(config, filename)
 
+def set_dart_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, 'config-dart.json')):
+    config = read_config(filename)
+    pub_version = str.join('.', map(str, (0,) + new_version[:2]))
+    if new_version[2] > 0:
+        pub_version += '+' + str(new_version[2])
+    config['pubVersion'] =  pub_version
+    save_config(config, filename)
 
 def set_java_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, 'config-java.json')):
     config = read_config(filename)
@@ -73,6 +80,7 @@ def main(new_versions):
     new_version = tuple(new_versions + [0])
 
     set_android_version(new_version)
+    set_dart_version(new_version)
     set_go_version(new_version)
     set_java_version(new_version)
     set_net_version(new_version)
