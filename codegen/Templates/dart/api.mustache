@@ -6,7 +6,7 @@ part of {{pubName}}.api;
 class {{classname}} {
   final ApiClient apiClient;
 
-  {{classname}}([ApiClient? apiClient]) : apiClient = apiClient ?? defaultApiClient;
+  {{classname}}(this.apiClient) {}
 
   {{#operation}}
   /// {{summary}}
@@ -17,15 +17,6 @@ class {{classname}} {
   {{/isDeprecated}}
   {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}?> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
-
-    // verify required params are set
-    {{#allParams}}
-      {{#required}}
-    if({{paramName}} == null) {
-     throw new ApiException(0, "Missing required param: {{paramName}}");
-    }
-      {{/required}}
-    {{/allParams}}
 
     // create path and map variables
     String requestPath = "{{{path}}}".replaceAll("{format}","json"){{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}.toString()){{/pathParams}};
@@ -66,9 +57,9 @@ class {{classname}} {
         mp.fields['{{baseName}}'] = {{paramName}}.field;
         mp.files.add({{paramName}});
       }
+
       {{/isFile}}{{/formParams}}
-      if(hasFields && mp != null)
-        postBody = mp;
+      if (hasFields) postBody = mp;
     }
     else {
       {{#formParams}}{{#notFile}}if ({{paramName}} != null)

@@ -11,7 +11,6 @@ class {{classname}} {
   }
 
   {{classname}}.fromJson(Map<String, dynamic> json) {
-    if (json == null) return;
   {{#vars}}
   {{#isDateTime}}
     {{name}} = json['{{name}}'] == null ? null : DateTime.parse(json['{{name}}']);
@@ -49,12 +48,12 @@ class {{classname}} {
   }
 
   static List<{{classname}}> listFromJson(List<dynamic> json) {
-    return json == null ? [] : json.map((value) => new {{classname}}.fromJson(value)).toList();
+    return json.map((value) => new {{classname}}.fromJson(value)).toList();
   }
 
   static Map<String, {{classname}}> mapFromJson(Map<String, Map<String, dynamic>> json) {
     var map = new Map<String, {{classname}}>();
-    if (json != null && json.length > 0) {
+    if (json.length > 0) {
       json.forEach((String key, Map<String, dynamic> value) => map[key] = new {{classname}}.fromJson(value));
     }
     return map;

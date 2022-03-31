@@ -19,3 +19,6 @@
 [submodule "submodules/android"]
 	path = submodules/android
 	url = ../aspose-barcode-cloud-android
+[submodule "submodules/dart"]
+	path = submodules/dart
+	url = ../aspose-barcode-cloud-dart

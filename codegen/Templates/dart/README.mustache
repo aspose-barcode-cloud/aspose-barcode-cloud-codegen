@@ -1,0 +1,106 @@
+# Aspose.BarCode Cloud SDK for Dart
+
+- API version: {{appVersion}}
+- SDK version: {{pubVersion}}
+
+{{pubDescription}}
+
+## Demo applications
+
+[Generate Barcode](https://products.aspose.app/barcode/generate) | [Recognize Barcode](https://products.aspose.app/barcode/recognize) | [Embed Barcode](https://products.aspose.app/barcode/embed)
+:---: | :---: | :---:
+[![Generate](https://products.aspose.app/barcode/generate/img/aspose_generate-app-48.png)](https://products.aspose.app/barcode/generate) | [![Recognize](https://products.aspose.app/barcode/recognize/img/aspose_recognize-app-48.png)](https://products.aspose.app/barcode/recognize) | [![Embed](https://products.aspose.app/barcode/embed/img/aspose_embed-app-48.png)](https://products.aspose.app/barcode/embed)
+
+[Aspose.BarCode for Cloud](https://products.aspose.cloud/barcode/) is a REST API for Linear, 2D and postal barcode generation and recognition in the cloud. API recognizes and generates barcode images in a variety of formats. Barcode REST API allows to specify barcode image attributes like image width, height, border style and output image format in order to customize the generation process. Developers can also specify the barcode type and text attributes such as text location and font styles in order to suit the application requirements.
+
+This repository contains Aspose.BarCode Cloud SDK for Dart source code. This SDK allows you to work with Aspose.BarCode for Cloud REST APIs in your Dart or Flutter applications quickly and easily.
+
+To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/applications) (free registration in Aspose Cloud is required for this).
+
+## Prerequisites
+
+To use Aspose.BarCode Cloud SDK for Dart you need to register an account with [Aspose Cloud](https://www.aspose.cloud) and lookup/create Client Secret and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/applications). There is a free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+
+## Requirements
+
+Dart 2.12.0 or later
+
+## Installation & Usage
+Add this dependency to your *pubspec.yaml*:
+
+```yaml
+dependencies:
+  {{pubName}}: {{pubVersion}}
+```
+
+## Sample usage
+
+### Generate an image with barcode and then recognize it
+
+The examples below show how you can generate QR barcode and save it into a local file and then recognize using **{{pubName}}**:
+
+```dart
+import 'package:aspose_barcode_cloud/api.dart' as barcode;
+
+import 'dart:typed_data';
+import 'dart:io';
+
+import 'package:http/http.dart';
+
+Future<void> main() async {
+  const fileName = "qr.png";
+  // Setup
+  var apiClient = barcode.ApiClient(
+    clientId: "Client Id from https://dashboard.aspose.cloud/applications",
+    clientSecret:
+        "Client Secret from https://dashboard.aspose.cloud/applications",
+  );
+  var api = barcode.BarcodeApi(apiClient);
+
+  // Generate image with barcode
+  Uint8List? generated =
+      await api.getBarcodeGenerate("QR", "text", textLocation: "None");
+  // Save generated image to file
+  await new File(fileName).writeAsBytes(generated!);
+  print("Generated image saved to " + fileName);
+
+  // Recognize generated image
+  var formFile = MultipartFile.fromBytes("image", generated.toList(),
+      filename: "barcode.png");
+  barcode.BarcodeResponseList? recognized =
+      await api.postBarcodeRecognizeFromUrlOrContent(image: formFile);
+
+  print("Recognized Type: " + recognized!.barcodes![0].type!);
+  print("Recognized Value: " + recognized.barcodes![0].barcodeValue!);
+}
+```
+
+## Dependencies
+
+- http: '>=0.13.0 <0.14.0'
+
+## Licensing
+
+All Aspose.BarCode for Cloud SDKs, helper scripts and templates are licensed under [MIT License](LICENSE).
+
+## Resources
+
+- [**Website**](https://www.aspose.cloud)
+- [**Product Home**](https://products.aspose.cloud/barcode/)
+- [**Documentation**](https://docs.aspose.cloud/barcode/)
+- [**Free Support Forum**](https://forum.aspose.cloud/c/barcode)
+- [**Paid Support Helpdesk**](https://helpdesk.aspose.cloud/)
+- [**Blog**](https://blog.aspose.cloud/category/barcode/)
+
+## Documentation for API Endpoints
+
+All URIs are relative to *<{{{basePath}}}>*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**](doc/api/{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+## Documentation For Models
+
+{{#models}}{{#model}}- [{{{classname}}}](doc/models/{{{classname}}}.md)
+{{/model}}{{/models}}

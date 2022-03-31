@@ -13,16 +13,22 @@ class ApiClient {
   var client = new {{#browserClient}}Browser{{/browserClient}}Client();
 
   Map<String, String> _defaultHeaderMap = {};
-  Map<String, Authentication> _authentications = {};
+  late Authentication _authentication;
 
   final _RegList = new RegExp(r'^List<(.*)>$');
   final _RegMap = new RegExp(r'^Map<String,(.*)>$');
 
-  ApiClient({this.basePath: "{{{basePath}}}"}) {
-    // Setup authentications (key: authentication name, value: authentication).{{#authMethods}}{{#isBasic}}
-    _authentications['{{name}}'] = new HttpBasicAuth();{{/isBasic}}{{#isApiKey}}
-    _authentications['{{name}}'] = new ApiKeyAuth({{#isKeyInHeader}}"header"{{/isKeyInHeader}}{{^isKeyInHeader}}"query"{{/isKeyInHeader}}, "{{keyParamName}}");{{/isApiKey}}{{#isOAuth}}
-    _authentications['{{name}}'] = new OAuth();{{/isOAuth}}{{/authMethods}}
+  ApiClient(
+      {String? clientId,
+      String? clientSecret,
+      String? accessToken,
+      tokenUrl: "https://api.aspose.cloud/connect/token",
+      this.basePath: "https://api.aspose.cloud/v3.0"}) {
+    _authentication = new OAuth(
+        clientId: clientId,
+        clientSecret: clientSecret,
+        accessToken: accessToken,
+        tokenUrl: tokenUrl);
   }
 
   void addDefaultHeader(String key, String value) {
@@ -103,9 +109,9 @@ class ApiClient {
                              String contentType,
                              List<String> authNames) async {
 
-    _updateParamsForAuth(authNames, queryParams, headerParams);
+    await _updateParamsForAuth(queryParams, headerParams);
 
-    var ps = queryParams.where((p) => p.value != null).map((p) => '${p.name}=${p.value}');
+    var ps = queryParams.map((p) => '${p.name}=${p.value}');
     String queryString = ps.isNotEmpty ?
                          '?' + ps.join('&') :
                          '';
@@ -140,21 +146,8 @@ class ApiClient {
     }
   }
 
-  /// Update query and header parameters based on authentication settings.
-  /// @param authNames The authentications to apply
-  void _updateParamsForAuth(List<String> authNames, List<QueryParam> queryParams, Map<String, String> headerParams) {
-    authNames.forEach((authName) {
-      Authentication? auth = _authentications[authName];
-      if (auth == null) throw new ArgumentError("Authentication undefined: " + authName);
-      auth.applyToParams(queryParams, headerParams);
-    });
-  }
-
-  void setAccessToken(String accessToken) {
-    _authentications.forEach((key, auth) {
-      if (auth is OAuth) {
-        auth.setAccessToken(accessToken);
-      }
-    });
+  Future<void> _updateParamsForAuth(
+      List<QueryParam> queryParams, Map<String, String> headerParams) async {
+    await _authentication.applyToParams(queryParams, headerParams);
   }
 }
