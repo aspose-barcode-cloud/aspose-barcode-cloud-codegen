@@ -3,8 +3,6 @@ cls
 set tempDir=.generated\dotnet
 set targetDir=..\submodules\dotnet
 
-rem set specSource=http://localhost:47972/v3.0/barcode/swagger/spec
-rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
 set specSource=..\spec\aspose-barcode-cloud.json
 
 if exist %tempDir% del /f /s /q %tempDir% || goto :error

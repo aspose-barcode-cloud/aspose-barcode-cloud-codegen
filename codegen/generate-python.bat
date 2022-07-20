@@ -1,6 +1,5 @@
 cls
 
-rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
 set specSource=..\spec\aspose-barcode-cloud.json
 
 set tempDir=.generated
