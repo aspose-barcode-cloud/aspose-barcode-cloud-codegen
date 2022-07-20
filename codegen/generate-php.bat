@@ -2,7 +2,6 @@ cls
 set tempDir=.generated
 set targetDir=..\submodules\php
 
-rem set specSource=https://api.aspose.cloud/v3.0/barcode/swagger/spec
 set specSource=..\spec\aspose-barcode-cloud.json
 
 if exist %tempDir% del /s /q %tempDir% > NUL || goto :error
