@@ -13,7 +13,7 @@ rem java -DdebugOperations -jar Tools\swagger-codegen-cli.jar generate -i "%spec
 rem java -DdebugSupportingFiles -jar Tools\swagger-codegen-cli.jar generate -i "%specSource%" -l typescript-node -t Templates\nodejs -o %tempDir% -c config.json 2> debugSupportingFiles.ts.txt || goto :error
 
 move /y "%tempDir%\api.ts" "%targetDir%\src\" || goto :error
-move /y "%tempDir%\package.json" "%targetDir%\" || goto :error
+copy /y "%tempDir%\package.json" "%targetDir%\" || goto :error
 move /y "%tempDir%\git_push.sh" "%targetDir%\src\models.ts" || goto :error
 
 REM Use typescript-node one more time because typescript-node does not generate docs
