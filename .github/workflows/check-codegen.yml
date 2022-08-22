@@ -39,8 +39,8 @@ jobs:
         run: |
           for s in ./submodules/*/ ; do
             pushd "$s"
-            git fetch origin master
-            git diff --exit-code main origin/master || (echo "Broken Master in $s" ; exit 1)
+            rem_master_hash=$(git ls-remote --exit-code --quiet --heads origin master  | awk '{ print $1}')
+            git diff --exit-code ${rem_master_hash} || (echo "Broken Master in $s" ; exit 1)
             popd > /dev/null
           done
 
