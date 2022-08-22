@@ -38,7 +38,7 @@ jobs:
         run: |
           for s in ./submodules/*/ ; do
             pushd "$s"
-            git diff origin/master --exit-code || echo "Broker Master in $s"
+            git diff origin/master --exit-code || (echo "Broker Master in $s" ; exit 1)
             popd > /dev/null
           done
 
