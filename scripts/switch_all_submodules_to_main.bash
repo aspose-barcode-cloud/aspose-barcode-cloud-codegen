@@ -7,7 +7,7 @@ pushd "$(dirname "$0")/../submodules"
 for d in */ ; do
     pushd "$d"
 
-    git switch master && git pull --ff-only
+    git fetch && git switch main && git pull --ff-only
 
     popd > /dev/null
 done
