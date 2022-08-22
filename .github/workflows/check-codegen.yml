@@ -40,7 +40,7 @@ jobs:
           for s in ./submodules/*/ ; do
             pushd "$s"
             git fetch origin master
-            git diff --exit-code origin/master -- || (echo "Broken Master in $s" ; exit 1)
+            git diff --exit-code --merge-base remotes/origin/master || (echo "Broken Master in $s" ; exit 1)
             popd > /dev/null
           done
 
