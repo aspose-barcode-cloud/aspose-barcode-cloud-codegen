@@ -28,6 +28,14 @@ jobs:
     - name: Check all submodules up-to-date
       run: git diff --exit-code
 
+    - name: Check master points to main
+      run: |
+        for s in ./submodules/*/ ; do
+          pushd "$s"
+          git diff origin/master --exit-code || echo "Broker Master in $s"
+          popd > /dev/null
+        done
+
   check-urls:
     runs-on: ubuntu-latest
     steps:
