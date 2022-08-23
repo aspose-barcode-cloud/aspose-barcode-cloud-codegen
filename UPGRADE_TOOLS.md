@@ -4,6 +4,8 @@ How to upgrade tools
 Swagger codegen
 ---------------
 
+Source code <https://github.com/swagger-api/swagger-codegen>
+	dir `modules/swagger-codegen/src/main/resources`
 Repository <https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli>
 
 ```sh
