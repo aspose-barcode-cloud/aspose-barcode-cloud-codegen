@@ -6,8 +6,7 @@ Requirements
 
 Windows: Bash, WSL, Python3, Java runtime
 WSL: Debian (or Ubuntu) Bullseye
-Debian packages: dotnet, node...
-
+Debian packages: list in file `./doc/deb_packages.list`. To install run `./scripts/install-all-packages.bash` in your Debian on WSL
 Steps:
 
 0. Install all required runtimes and dependencies with `make init` for each submodule.
