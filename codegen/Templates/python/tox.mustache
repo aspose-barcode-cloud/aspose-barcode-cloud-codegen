@@ -1,21 +1,13 @@
 [tox]
-{{^asyncio}}
 envlist = py27, py3
-{{/asyncio}}
-{{#asyncio}}
-envlist = py3
-{{/asyncio}}
 
 [testenv]
 passenv = TEST_CONFIGURATION_ACCESS_TOKEN
+skip_install=True
+whitelist_externals = make
 deps=-r{toxinidir}/requirements.txt
      -r{toxinidir}/test-requirements.txt
 
 commands=
-{{^asyncio}}
-    python -m unittest discover -v
-{{/asyncio}}
-{{#asyncio}}
-    pytest -v --cov petstore_api
-{{/asyncio}}
-    python example.py
+    make test
+    python -Werror example.py
