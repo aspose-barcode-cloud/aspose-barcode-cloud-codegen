@@ -85,13 +85,12 @@ public class ApiClient {
      */
     protected ApiClient() {
         httpClient = new OkHttpClient();
-        httpClient.setSslSocketFactory(null);
 
         {{#useGzipFeature}}
         // Enable gzip request compression
         httpClient.interceptors().add(new GzipRequestInterceptor());
         {{/useGzipFeature}}
-        
+
         json = new JSON();
 
         // Set default User-Agent.
@@ -150,7 +149,7 @@ public class ApiClient {
         this.json = json;
         return this;
     }
-    
+
     public DateFormat getDateFormat() {
         return dateFormat;
     }
@@ -962,7 +961,7 @@ public class ApiClient {
             return contentType;
         }
     }
-    
+
      /**
      * Request OAuth token
      *

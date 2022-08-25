@@ -29,3 +29,5 @@ Steps:
 7. Publish new released packages to appropriate repository (NuGet, Maven, PyPi, NPM ...).
 
 8. After package was published crate Release on GitHub. With changelog and release notes.
+
+9. Link all updated branches and check `codegen` produces the same output.
