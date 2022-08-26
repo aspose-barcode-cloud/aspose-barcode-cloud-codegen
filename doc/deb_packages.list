@@ -25,7 +25,6 @@ golint
 java-common
 java-wrappers
 javascript-common
-kubectl
 make
 maven
 nodejs
