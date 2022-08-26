@@ -3,7 +3,13 @@ set -euo pipefail
 
 year=$(date +%y)
 month=$(date +%-m)
-branch_name="release-${year}.${month}"
+
+major=${1:-$year}
+minor=${2:-$month}
+
+branch_name="release-${major}.${minor}"
+echo "Switching to ${branch_name}"
+git switch --create "${branch_name}" || git switch "${branch_name}"
 
 pushd "$( dirname -- "${BASH_SOURCE[0]}")"
 
@@ -20,4 +26,4 @@ popd
 
 popd
 
-python ./scripts/new-version.py "${year}" "${month}"
+python ./scripts/new-version.py "${major}" "${minor}"
