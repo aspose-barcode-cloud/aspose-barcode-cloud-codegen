@@ -3691,12 +3691,29 @@
           "description": "Height/Width ratio of 2D BarCode module.",
           "format": "double"
         },
-        "EncodeMode": {
-          "type": "integer",
-          "description": "MaxiCode encode mode.",
-          "format": "int32"
+        "Mode": {
+          "description": "Encoding mode for MaxiCode barcodes.",
+          "$ref": "#/definitions/MaxiCodeMode"
         }
       }
+    },
+    "MaxiCodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Mode2",
+        "Mode3",
+        "Mode4",
+        "Mode5",
+        "Mode6"
+      ],
+      "enum": [
+        "Mode2",
+        "Mode3",
+        "Mode4",
+        "Mode5",
+        "Mode6"
+      ]
     },
     "Pdf417Params": {
       "type": "object",
