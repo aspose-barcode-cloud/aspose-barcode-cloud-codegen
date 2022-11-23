@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v12.0.14.0 (NJsonSchema v9.13.18.0 (Newtonsoft.Json v12.0.0.0))",
+  "x-generator": "NSwag v12.0.14.0 (NJsonSchema v9.13.18.0 (Newtonsoft.Json v13.0.0.0))",
   "swagger": "2.0",
   "info": {
     "title": "Aspose.Barcode Cloud API Reference",
@@ -3691,12 +3691,29 @@
           "description": "Height/Width ratio of 2D BarCode module.",
           "format": "double"
         },
-        "EncodeMode": {
-          "type": "integer",
-          "description": "MaxiCode encode mode.",
-          "format": "int32"
+        "Mode": {
+          "description": "Encoding mode for MaxiCode barcodes.",
+          "$ref": "#/definitions/MaxiCodeMode"
         }
       }
+    },
+    "MaxiCodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Mode2",
+        "Mode3",
+        "Mode4",
+        "Mode5",
+        "Mode6"
+      ],
+      "enum": [
+        "Mode2",
+        "Mode3",
+        "Mode4",
+        "Mode5",
+        "Mode6"
+      ]
     },
     "Pdf417Params": {
       "type": "object",
@@ -3791,6 +3808,10 @@
         "Code128Emulation": {
           "description": "Function codeword for Code 128 emulation. Applied for MicroPDF417 only. Ignored for PDF417 and MacroPDF417 barcodes.",
           "$ref": "#/definitions/Code128Emulation"
+        },
+        "Pdf417MacroTerminator": {
+          "description": "Used to tell the encoder whether to add Macro PDF417 Terminator (codeword 922) to the segment.\nApplied only for Macro PDF417.",
+          "$ref": "#/definitions/Pdf417MacroTerminator"
         }
       }
     },
@@ -3912,6 +3933,20 @@
         "Code903",
         "Code904",
         "Code905"
+      ]
+    },
+    "Pdf417MacroTerminator": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "None",
+        "Set"
+      ],
+      "enum": [
+        "Auto",
+        "None",
+        "Set"
       ]
     },
     "PostalParams": {
