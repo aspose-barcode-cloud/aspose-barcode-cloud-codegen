@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | -----
 {{#vars}}**{{name}}** | {{#isPrimitiveType}}**{{{datatype}}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isDateTime}}[**{{^isContainer}}*{{/isContainer}}{{{datatype}}}**]({{^isContainer}}{{datatype}}{{/isContainer}}{{#isContainer}}{{complexType}}{{/isContainer}}.md){{/isDateTime}}{{#isDateTime}}**time.Time**{{/isDateTime}}{{/isPrimitiveType}} | {{description}} | {{^required}}[optional] {{/required}}{{#readOnly}}[readonly] {{/readOnly}}{{#defaultValue}}[default to {{{.}}}]{{/defaultValue}}
 {{/vars}}
 
