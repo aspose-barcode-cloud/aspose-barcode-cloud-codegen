@@ -1,4 +1,5 @@
 #!/bin/bash
+#Run from aspose-barcode-cloud-codegen
 set -euo pipefail
 
 year=$(date +%y)
@@ -18,7 +19,7 @@ for d in */ ; do
     pushd "$d"
 
     git switch --create "${branch_name}" || git switch "${branch_name}"
-    wsl make update || true
+    make update || true
 
     popd > /dev/null
 done
