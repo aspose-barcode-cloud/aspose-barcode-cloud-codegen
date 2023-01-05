@@ -3637,7 +3637,7 @@
         },
         "DotCodeMask": {
           "type": "integer",
-          "description": "Mask of Dotcode barcode.\nDefault value: -1.",
+          "description": "DEPRECATED: DotCodeMask is now calculated automatically",
           "format": "int32"
         }
       }
