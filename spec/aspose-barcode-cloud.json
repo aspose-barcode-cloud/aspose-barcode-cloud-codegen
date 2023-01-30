@@ -110,7 +110,8 @@
               "UpcaGs1DatabarCoupon",
               "CodablockF",
               "GS1CodablockF",
-              "Mailmark"
+              "Mailmark",
+              "GS1DotCode"
             ]
           },
           {
@@ -547,7 +548,8 @@
               "UpcaGs1DatabarCoupon",
               "CodablockF",
               "GS1CodablockF",
-              "Mailmark"
+              "Mailmark",
+              "GS1DotCode"
             ]
           },
           {
@@ -1123,7 +1125,18 @@
               "DotCode",
               "DutchKIX",
               "CodablockF",
-              "Mailmark"
+              "Mailmark",
+              "GS1DotCode",
+              "HIBCCode39LIC",
+              "HIBCCode128LIC",
+              "HIBCAztecLIC",
+              "HIBCDataMatrixLIC",
+              "HIBCQRLIC",
+              "HIBCCode39PAS",
+              "HIBCCode128PAS",
+              "HIBCAztecPAS",
+              "HIBCDataMatrixPAS",
+              "HIBCQRPAS"
             ]
           },
           {
@@ -1534,7 +1547,18 @@
               "DotCode",
               "DutchKIX",
               "CodablockF",
-              "Mailmark"
+              "Mailmark",
+              "GS1DotCode",
+              "HIBCCode39LIC",
+              "HIBCCode128LIC",
+              "HIBCAztecLIC",
+              "HIBCDataMatrixLIC",
+              "HIBCQRLIC",
+              "HIBCCode39PAS",
+              "HIBCCode128PAS",
+              "HIBCAztecPAS",
+              "HIBCDataMatrixPAS",
+              "HIBCQRPAS"
             ]
           },
           {
@@ -1658,7 +1682,18 @@
               "DotCode",
               "DutchKIX",
               "CodablockF",
-              "Mailmark"
+              "Mailmark",
+              "GS1DotCode",
+              "HIBCCode39LIC",
+              "HIBCCode128LIC",
+              "HIBCAztecLIC",
+              "HIBCDataMatrixLIC",
+              "HIBCQRLIC",
+              "HIBCCode39PAS",
+              "HIBCCode128PAS",
+              "HIBCAztecPAS",
+              "HIBCDataMatrixPAS",
+              "HIBCQRPAS"
             ]
           },
           {
@@ -2757,7 +2792,8 @@
         "UpcaGs1DatabarCoupon",
         "CodablockF",
         "GS1CodablockF",
-        "Mailmark"
+        "Mailmark",
+        "GS1DotCode"
       ],
       "enum": [
         "Codabar",
@@ -2826,7 +2862,8 @@
         "UpcaGs1DatabarCoupon",
         "CodablockF",
         "GS1CodablockF",
-        "Mailmark"
+        "Mailmark",
+        "GS1DotCode"
       ]
     },
     "CodeLocation": {
@@ -3635,12 +3672,105 @@
           "description": "Height/Width ratio of 2D BarCode module.",
           "format": "double"
         },
-        "DotCodeMask": {
+        "Columns": {
           "type": "integer",
-          "description": "DEPRECATED: DotCodeMask is now calculated automatically",
+          "description": "Identifies columns count. Sum of the number of rows plus the number of columns of a DotCode symbol must be odd. Number of columns must be at least 5.",
+          "format": "int32"
+        },
+        "EncodeMode": {
+          "description": "Identifies DotCode encode mode. Default value: Auto.",
+          "$ref": "#/definitions/DotCodeEncodeMode"
+        },
+        "ECIEncoding": {
+          "description": "Identifies ECI encoding. Used when DotCodeEncodeMode is Auto. Default value: ISO-8859-1.",
+          "$ref": "#/definitions/ECIEncodings"
+        },
+        "IsReaderInitialization": {
+          "type": "boolean",
+          "description": "Indicates whether code is used for instruct reader to interpret the following data as instructions for initialization or reprogramming of the bar code reader. Default value is false."
+        },
+        "Rows": {
+          "type": "integer",
+          "description": "Identifies rows count. Sum of the number of rows plus the number of columns of a DotCode symbol must be odd. Number of rows must be at least 5.",
           "format": "int32"
         }
       }
+    },
+    "DotCodeEncodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
+      ],
+      "enum": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
+      ]
+    },
+    "ECIEncodings": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
+      ],
+      "enum": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
+      ]
     },
     "ITFParams": {
       "type": "object",
@@ -3692,8 +3822,12 @@
           "format": "double"
         },
         "Mode": {
-          "description": "Encoding mode for MaxiCode barcodes.",
+          "description": "Mode for MaxiCode barcodes.",
           "$ref": "#/definitions/MaxiCodeMode"
+        },
+        "EncodeMode": {
+          "description": "Encoding mode for MaxiCode barcodes.",
+          "$ref": "#/definitions/MaxiCodeEncodeMode"
         }
       }
     },
@@ -3713,6 +3847,20 @@
         "Mode4",
         "Mode5",
         "Mode6"
+      ]
+    },
+    "MaxiCodeEncodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
+      ],
+      "enum": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
       ]
     },
     "Pdf417Params": {
@@ -3855,68 +4003,6 @@
         "Level6",
         "Level7",
         "Level8"
-      ]
-    },
-    "ECIEncodings": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "NONE",
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
-      ],
-      "enum": [
-        "NONE",
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
       ]
     },
     "Code128Emulation": {
@@ -4336,7 +4422,18 @@
         "DotCode",
         "DutchKIX",
         "CodablockF",
-        "Mailmark"
+        "Mailmark",
+        "GS1DotCode",
+        "HIBCCode39LIC",
+        "HIBCCode128LIC",
+        "HIBCAztecLIC",
+        "HIBCDataMatrixLIC",
+        "HIBCQRLIC",
+        "HIBCCode39PAS",
+        "HIBCCode128PAS",
+        "HIBCAztecPAS",
+        "HIBCDataMatrixPAS",
+        "HIBCQRPAS"
       ],
       "enum": [
         "all",
@@ -4406,7 +4503,18 @@
         "DotCode",
         "DutchKIX",
         "CodablockF",
-        "Mailmark"
+        "Mailmark",
+        "GS1DotCode",
+        "HIBCCode39LIC",
+        "HIBCCode128LIC",
+        "HIBCAztecLIC",
+        "HIBCDataMatrixLIC",
+        "HIBCQRLIC",
+        "HIBCCode39PAS",
+        "HIBCCode128PAS",
+        "HIBCAztecPAS",
+        "HIBCDataMatrixPAS",
+        "HIBCQRPAS"
       ]
     },
     "ChecksumValidation": {

@@ -2,6 +2,6 @@
     "browserClient": false,
     "pubDescription": "This SDK allows you to work with Aspose.BarCode for Cloud REST APIs in your Dart or Flutter applications quickly and easily",
     "pubName": "aspose_barcode_cloud",
-    "pubVersion": "0.22.12",
+    "pubVersion": "0.23.1",
     "useEnumExtension": true
 }
