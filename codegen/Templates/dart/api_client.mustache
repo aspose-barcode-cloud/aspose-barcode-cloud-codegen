@@ -82,7 +82,9 @@ class ApiClient {
     // Remove all spaces.  Necessary for reg expressions as well.
     targetType = targetType.replaceAll(' ', '');
 
-    if (targetType == 'String') return jsonVal;
+    if (targetType == 'String') {
+      return jsonVal;
+    }
 
     final decodedJson = json.decode(jsonVal);
     return _deserialize(decodedJson, targetType);
@@ -112,11 +114,11 @@ class ApiClient {
     await _updateParamsForAuth(queryParams, headerParams);
 
     final ps = queryParams.map((p) => '${p.name}=${p.value}');
-    String queryString = ps.isNotEmpty ?
+    final String queryString = ps.isNotEmpty ?
                          '?' + ps.join('&') :
                          '';
 
-    String url = basePath + path + queryString;
+    final String url = basePath + path + queryString;
 
     headerParams.addAll(_defaultHeaderMap);
     headerParams['Content-Type'] = contentType;

@@ -48,7 +48,7 @@ class OAuth implements Authentication {
     }
 
     final data = jsonDecode(response_text);
-    int expires_in = data['expires_in'];
+    final int expires_in = data['expires_in'];
 
     accessToken = data['access_token'];
     tokenExpiration = DateTime.now().add(Duration(seconds: expires_in));

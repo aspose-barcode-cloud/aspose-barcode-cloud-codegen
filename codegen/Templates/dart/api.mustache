@@ -4,9 +4,9 @@ part of {{pubName}}.api;
 
 
 class {{classname}} {
-  final ApiClient apiClient;
-
   {{classname}}(this.apiClient) {}
+
+  final ApiClient apiClient;
 
   {{#operation}}
   ///
@@ -16,15 +16,16 @@ class {{classname}} {
   @deprecated
   {{/isDeprecated}}
   {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
+    // ignore: prefer_final_locals
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // create path and map variables
-    String requestPath = "{{{path}}}".replaceAll("{format}","json"){{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}.toString()){{/pathParams}};
+    final String requestPath = "{{{path}}}".replaceAll("{format}","json"){{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}){{/pathParams}};
 
     // query params
-    List<QueryParam> queryParams = [];
-    Map<String, String> headerParams = {};
-    Map<String, String> formParams = {};
+    final List<QueryParam> queryParams = [];
+    final Map<String, String> headerParams = {};
+    final Map<String, String> formParams = {};
     {{#queryParams}}
     {{^required}}
     if({{paramName}} != null) {
@@ -37,10 +38,10 @@ class {{classname}} {
     {{#headerParams}}headerParams["{{baseName}}"] = {{paramName}};
     {{/headerParams}}
 
-    List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/consumes}}];
+    final List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/consumes}}];
 
-    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-    List<String> authNames = [{{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}}];
+    final String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+    final List<String> authNames = [{{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}}];
 
     {{#hasFormParams}}
     if(contentType.startsWith("multipart/form-data")) {
@@ -61,7 +62,9 @@ class {{classname}} {
       }
 
       {{/isFile}}{{/formParams}}
-      if (hasFields) postBody = mp;
+      if (hasFields) {
+        postBody = mp;
+      }
     }
     else {
       {{#formParams}}{{#notFile}}if ({{paramName}} != null)
