@@ -70,7 +70,7 @@ class {{classname}} {
     }
     {{/hasFormParams}}
 
-    var response = await apiClient.invokeAPI(requestPath,
+    final response = await apiClient.invokeAPI(requestPath,
                                              '{{httpMethod}}',
                                              queryParams,
                                              postBody,
