@@ -27,4 +27,12 @@ class {{classname}} {
   static dynamic encode({{classname}} data) {
     return data.value;
   }
+
+  {{dataType}}? toJson() {
+    return value;
+  }
+
+  String toString() {
+    return value == null ? "null" : value.toString();
+  }
 }

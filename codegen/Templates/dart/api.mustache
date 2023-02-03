@@ -42,6 +42,7 @@ class {{classname}} {
     String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
     List<String> authNames = [{{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}}];
 
+    {{#hasFormParams}}
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
       MultipartRequest? mp;
@@ -52,6 +53,7 @@ class {{classname}} {
       }
       {{/notFile}}{{#isFile}}
       mp = new MultipartRequest('{{httpMethod}}', Uri.parse(requestPath));
+      // ignore: unnecessary_null_comparison
       if ({{paramName}} != null) {
         hasFields = true;
         mp.fields['{{baseName}}'] = {{paramName}}.field;
@@ -66,6 +68,7 @@ class {{classname}} {
         formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
       {{/formParams}}
     }
+    {{/hasFormParams}}
 
     var response = await apiClient.invokeAPI(requestPath,
                                              '{{httpMethod}}',
@@ -78,7 +81,7 @@ class {{classname}} {
 
     if(response.statusCode >= 400) {
       throw new ApiException(response.statusCode, response.body);
-    } else if(response.body != null) {
+    } else {
       return
       {{#isListContainer}}
         {{#returnType}}(apiClient.deserialize(response.body, '{{{returnType}}}') as List).map((item) => item as {{returnBaseType}}).toList();{{/returnType}}
@@ -96,8 +99,6 @@ class {{classname}} {
         {{/isResponseFile}}
         {{/isMapContainer}}
       {{/isListContainer}}
-    } else {
-      return {{#returnType}}null{{/returnType}};
     }
   }
   {{/operation}}
