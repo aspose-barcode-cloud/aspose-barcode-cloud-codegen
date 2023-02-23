@@ -5,9 +5,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/python"
 targetDir="../submodules/python"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l python

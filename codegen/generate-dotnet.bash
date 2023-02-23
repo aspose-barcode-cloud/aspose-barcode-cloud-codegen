@@ -6,9 +6,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/dotnet"
 targetDir="../submodules/dotnet"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # Generate Operations and Models for Debug purposes

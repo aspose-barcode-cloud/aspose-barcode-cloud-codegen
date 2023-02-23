@@ -5,9 +5,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/php"
 targetDir="../submodules/php"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l php -t Templates/php -o "$tempDir" -c config.json > debugModels.php.json
@@ -32,7 +32,7 @@ cp -r $tempDir/SwaggerClient-php/lib/Requests/* $targetDir/src/Aspose/Barcode/Re
 rm -rf $targetDir/docs/* > /dev/null
 cp -r $tempDir/SwaggerClient-php/docs/* $targetDir/docs
 
-cp "$tempDir/SwaggerClient-php/README.md" "$targetDir/" 
+cp "$tempDir/SwaggerClient-php/README.md" "$targetDir/"
 cp  Templates/LICENSE "$targetDir/" > /dev/null
 
 

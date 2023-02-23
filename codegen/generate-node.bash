@@ -6,9 +6,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/node"
 targetDir="../submodules/node"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l typescript-node
