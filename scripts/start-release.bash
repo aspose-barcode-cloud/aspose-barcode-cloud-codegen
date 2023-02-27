@@ -2,6 +2,8 @@
 #Run from aspose-barcode-cloud-codegen
 set -euo pipefail
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 year=$(date +%y)
 month=$(date +%-m)
 
@@ -12,19 +14,16 @@ branch_name="release-${major}.${minor}"
 echo "Switching to ${branch_name}"
 git switch --create "${branch_name}" || git switch "${branch_name}"
 
-pushd "$( dirname -- "${BASH_SOURCE[0]}")"
-
-pushd "../submodules"
+pushd "${SCRIPT_DIR}/../submodules"
 for d in */ ; do
     pushd "$d"
 
     git switch --create "${branch_name}" || git switch "${branch_name}"
     make update || true
 
-    popd > /dev/null
+    popd >/dev/null
 done
-popd
 
-popd
+python "${SCRIPT_DIR}/new-version.py" "${major}" "${minor}"
 
-python ./scripts/new-version.py "${major}" "${minor}"
+popd >/dev/null

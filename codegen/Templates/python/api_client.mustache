@@ -111,7 +111,6 @@ class ApiClient(object):
             files=None, response_type=None, auth_settings=None,
             _return_http_data_only=None, collection_formats=None,
             _preload_content=True, _request_timeout=None,):
-
         config = self.configuration
 
         # header parameters
@@ -179,8 +178,7 @@ class ApiClient(object):
         if _return_http_data_only:
             return return_data
         else:
-            return (return_data, response_data.status,
-                    response_data.getheaders())
+            return return_data, response_data.status, response_data.getheaders()
 {{/tornado}}
 {{#tornado}}
         if _return_http_data_only:

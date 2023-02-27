@@ -8,7 +8,8 @@ import os
 import sys
 from datetime import datetime
 
-BASE_CONFIG_DIR = os.path.join('.', 'codegen')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_CONFIG_DIR = os.path.join(SCRIPT_DIR, '..', 'codegen')
 
 GO_VERSION_FORMAT = '0.{0}{1:02d}.{2}'
 

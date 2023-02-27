@@ -9,7 +9,7 @@ for d in */ ; do
 
     git fetch && git switch main && git pull --ff-only
 
-    popd > /dev/null
+    popd >/dev/null
 done
 
-popd
+popd >/dev/null

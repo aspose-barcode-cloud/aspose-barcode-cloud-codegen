@@ -41,7 +41,7 @@ jobs:
             pushd "$s"
             rem_master_hash=$(git ls-remote --exit-code --quiet --heads origin master  | awk '{ print $1}')
             git diff --exit-code ${rem_master_hash} || (echo "Broken Master in $s" ; exit 1)
-            popd > /dev/null
+            popd >/dev/null
           done
 
   check-urls:
