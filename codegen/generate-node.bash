@@ -18,7 +18,7 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs -o $tempDir -c config.json 2> debugSupportingFiles.ts.txt
 
 mv  "$tempDir/api.ts" "$targetDir/src/"
-cp  "$tempDir/package.json" "$targetDir/"
+mv  "$tempDir/package.json" "$targetDir/"
 mv  "$tempDir/git_push.sh" "$targetDir/src/models.ts"
 
 # Use typescript-node one more time because typescript-node does not generate docs

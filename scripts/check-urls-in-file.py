@@ -1,3 +1,5 @@
+from __future__ import division, print_function
+
 import re
 import subprocess
 import os
@@ -5,7 +7,8 @@ import sys
 import fileinput
 import collections
 
-URL_REGEX = re.compile(r"]\((http[^{})]+)\)")
+URL_END_CHARS = r")\"'<>#\*\s\\"
+URL_REGEX = re.compile(r"(http[s]*://[^{%s}]+)[%s]" % (URL_END_CHARS, URL_END_CHARS))
 
 GOOD_URLS = set([
     'https://products.aspose.cloud/barcode/',
@@ -20,7 +23,7 @@ BROKEN_URLS = collections.defaultdict(list)
 
 def check_url(url):
     with open(os.devnull, 'w') as devnull:
-        ret_code = subprocess.call(['curl', '-sSf', url], stdout=devnull)
+        ret_code = subprocess.call(['curl', '-sSf', '--output', '-', '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0', url], stdout=devnull)
     return ret_code == 0
 
 
