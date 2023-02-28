@@ -7,41 +7,44 @@ namespace Aspose\BarCode;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use Aspose\BarCode\Requests;
+use InvalidArgumentException;
+use RuntimeException;
 
-/*
+/**
  * Aspose.BarCode for Cloud API.
  */
 
 {{#operations}}class {{classname}}
 {
-    /*
+    /**
      * Stores client instance
      * @var ClientInterface client for calling api
      */
     protected $client;
 
-    /*
+    /**
      * Stores configuration
      * @var Configuration configuration info
      */
     protected $config;
 
-    /*
+    /**
      * Stores header selector
      * HeaderSelector class for header selection
      */
     protected $headerSelector;
 
-    /*
-     * Initialize a new instance of WordsApi
-     * @param ClientInterface   $client client for calling api
-     * @param Configuration   $config configuration info
-     * @param HeaderSelector   $selector class for header selection
+    /**
+     * Initialize a new instance of Api
+     * @param ClientInterface|null $client client for calling api
+     * @param Configuration|null $config configuration info
+     * @param HeaderSelector|null $selector class for header selection
      */
     public function __construct(ClientInterface $client = null, Configuration $config = null, HeaderSelector $selector = null)
     {
@@ -50,7 +53,7 @@ use Aspose\BarCode\Requests;
         $this->headerSelector = $selector ?: new HeaderSelector();
     }
 
-    /*
+    /**
      * Gets the config
      * @return Configuration
      */
@@ -60,7 +63,7 @@ use Aspose\BarCode\Requests;
     }
 
 {{#operation}}
-    /*
+    /**
      * Operation {{{operationId}}}
 {{#summary}}
      *
@@ -73,8 +76,8 @@ use Aspose\BarCode\Requests;
 {{/description}}
      * @param Requests\{{operationId}}Request $request is a request object for operation
      *
-     * @throws \{{invokerPackage}}\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
      * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
      */
     public function {{operationId}}(Requests\{{operationId}}Request $request)
@@ -88,7 +91,7 @@ use Aspose\BarCode\Requests;
         }
     }
 
-    /*
+    /**
      * Operation {{{operationId}}}WithHttpInfo
 {{#summary}}
      *
@@ -101,8 +104,8 @@ use Aspose\BarCode\Requests;
 {{/description}}
      * @param Requests\{{operationId}}Request $request is a request object for operation
      *
-     * @throws \{{invokerPackage}}\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
      * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP status code, HTTP response headers (array of strings)
      */
     public function {{operationId}}WithHttpInfo(Requests\{{operationId}}Request $request)
@@ -169,7 +172,7 @@ use Aspose\BarCode\Requests;
         }
     }
 
-    /*
+    /**
      * Operation {{{operationId}}}Async
      *
      * {{{summary}}}
@@ -180,7 +183,7 @@ use Aspose\BarCode\Requests;
 {{/description}}
      * @param Requests\{{operationId}}Request $request is a request object for operation
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function {{operationId}}Async(Requests\{{operationId}}Request $request)
@@ -193,7 +196,7 @@ use Aspose\BarCode\Requests;
             );
     }
 
-    /*
+    /**
      * Operation {{{operationId}}}AsyncWithHttpInfo
      *
      * {{{summary}}}
@@ -204,7 +207,7 @@ use Aspose\BarCode\Requests;
 {{/description}}
      * @param Requests\{{operationId}}Request $request is a request object for operation
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function {{operationId}}AsyncWithHttpInfo(Requests\{{operationId}}Request $request)
@@ -256,12 +259,12 @@ use Aspose\BarCode\Requests;
             );
     }
 
-    /*
+    /**
      * Create request for operation '{{{operationId}}}'
      *
      * @param Requests\{{operationId}}Request $request is a request object for operation
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     protected function {{operationId}}Request(Requests\{{operationId}}Request $request)
@@ -270,43 +273,43 @@ use Aspose\BarCode\Requests;
         {{#required}}
         // verify the required parameter '{{paramName}}' is set
         if (!isset($request->{{paramName}})) {
-            throw new \InvalidArgumentException('Missing the required parameter ${{paramName}} when calling {{operationId}}');
+            throw new InvalidArgumentException('Missing the required parameter ${{paramName}} when calling {{operationId}}');
         }
         {{/required}}
         {{#hasValidation}}
         {{#maxLength}}
         if (isset({{^required}}$request->{{paramName}) && {{/required}}strlen($request->{{paramName}}) > {{maxLength}}) {
-            throw new \InvalidArgumentException("invalid length for \"$request->{{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
+            throw new InvalidArgumentException("invalid length for \"$request->{{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
         }
         {{/maxLength}}
         {{#minLength}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}strlen($request->{{paramName}}) < {{minLength}}) {
-            throw new \InvalidArgumentException("invalid length for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
+            throw new InvalidArgumentException("invalid length for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
         }
         {{/minLength}}
         {{#maximum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} >{{#exclusiveMaximum}}={{/exclusiveMaximum}} {{maximum}}) {
-            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
+            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
         }
         {{/maximum}}
         {{#minimum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} <{{#exclusiveMinimum}}={{/exclusiveMinimum}} {{minimum}}) {
-            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
+            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
         }
         {{/minimum}}
         {{#pattern}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}!preg_match('{{{pattern}}}', $request->{{paramName}})) {
-            throw new \InvalidArgumentException("invalid value for \"{{paramName}}\" when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
+            throw new InvalidArgumentException("invalid value for \"{{paramName}}\" when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
         }
         {{/pattern}}
         {{#maxItems}}
         if (isset({{^required}}${{paramName}}) && {{/required}}count(${{paramName}}) > {{maxItems}}) {
-            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
+            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
         }
         {{/maxItems}}
         {{#minItems}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}count($request->{{paramName}}) < {{minItems}}) {
-            throw new \InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
+            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
         }
         {{/minItems}}
 
@@ -466,10 +469,10 @@ use Aspose\BarCode\Requests;
     }
 
     {{/operation}}
-    /*
+    /**
      * Create http client option
      *
-     * @throws \RuntimeException on file opening failure
+     * @throws RuntimeException on file opening failure
      * @return array of http client options
      */
     private function _createHttpClientOption()
@@ -485,7 +488,7 @@ use Aspose\BarCode\Requests;
         return $options;
     }
 
-    /*
+    /**
      * Executes response logging
      */
     private function _writeResponseLog($statusCode, $headers, $body)
@@ -494,7 +497,7 @@ use Aspose\BarCode\Requests;
         echo $logInfo . $this->_writeHeadersAndBody($logInfo, $headers, $body);
     }
 
-    /*
+    /**
      * Executes request logging
      */
     private function _writeRequestLog($method, $url, $headers, $body)
@@ -503,7 +506,7 @@ use Aspose\BarCode\Requests;
         echo $logInfo . $this->_writeHeadersAndBody($logInfo, $headers, $body);
     }
 
-    /*
+    /**
      * Executes header and boy formatting
      */
     private function _writeHeadersAndBody($logInfo, $headers, $body)
@@ -515,7 +518,7 @@ use Aspose\BarCode\Requests;
         return $logInfo .= 'Body: ' . $body . '\n';
     }
 
-    /*
+    /**
      * Executes url parsing
      */
     private function _parseURL($url, $queryParams)
@@ -529,7 +532,7 @@ use Aspose\BarCode\Requests;
         return $urlPartToSign;
     }
 
-    /*
+    /**
      * Gets a request token from server
      */
     private function _requestToken()

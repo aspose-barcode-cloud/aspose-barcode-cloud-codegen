@@ -6,7 +6,7 @@ import os
 import re
 
 SPLIT_RE = re.compile(
-    r'/\*\s*\n\s\*\s+[-]+\n\s*\*\s+<copyright company="Aspose" file="(?P<file>.+?\.php)">',
+    r'/[\*]+\s*\n\s\*\s+[-]+\n\s*\*\s+<copyright company="Aspose" file="(?P<file>.+?\.php)">',
     re.MULTILINE)
 
 
@@ -19,7 +19,9 @@ def main(src_file, dst_dir):
         if e.errno != errno.EEXIST:
             raise
 
-    for match in reversed(list(SPLIT_RE.finditer(remaining))[1:]):
+    found = list(reversed(list(SPLIT_RE.finditer(remaining))[1:]))
+    assert found, "No parts matching regex '%s' found" % SPLIT_RE.pattern
+    for match in found:
         filename = match.groupdict()['file']
         classname = os.path.splitext(filename)[0]
 

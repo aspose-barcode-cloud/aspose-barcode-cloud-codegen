@@ -1222,7 +1222,7 @@
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1779,7 +1779,7 @@
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
             "format": "int32",
             "x-nullable": true
           },
@@ -4598,7 +4598,7 @@
         },
         "Timeout": {
           "type": "integer",
-          "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+          "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
           "format": "int32"
         },
         "MedianSmoothingWindowSize": {

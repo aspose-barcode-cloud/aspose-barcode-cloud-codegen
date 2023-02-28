@@ -27,7 +27,7 @@ rm -f "${targetDir}/src/Aspose/BarCode/Model/"*
 mv "${tempDir}/SwaggerClient-php/lib/Model/"* "${targetDir}/src/Aspose/BarCode/Model"
 
 rm -f "${targetDir}/src/Aspose/BarCode/Requests/"*
-mv "${tempDir}/SwaggerClient-php/lib/Requests/"* "${targetDir}/src/Aspose/BarCode/Requests"
+mv "${tempDir}/SwaggerClient-php/lib/Requests/"* "${targetDir}/src/Aspose/BarCode/Requests/"
 
 rm -rf "${targetDir}/docs/"*
 mv "${tempDir}/SwaggerClient-php/docs/"* "${targetDir}/docs"
