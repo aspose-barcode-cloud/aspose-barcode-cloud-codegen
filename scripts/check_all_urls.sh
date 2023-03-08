@@ -9,5 +9,5 @@ check_file () {
     echo "$1"
 }
 pushd "${ROOT_DIR}"
-git ls-files --recurse-submodules --exclude-standard --full-name | grep -v 'package-lock.json$' | python "${SCRIPT_DIR}/check-urls-in-file.py"
+git ls-files --recurse-submodules --exclude-standard --full-name | grep -v 'package-lock.json$' | python "${SCRIPT_DIR}/check-urls.py"
 popd
