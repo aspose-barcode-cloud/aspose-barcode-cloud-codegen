@@ -5,9 +5,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/dart"
 targetDir="../submodules/dart"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l dart & exit
@@ -16,34 +16,34 @@ fi
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
-cp Templates/LICENSE "$targetDir/" > /dev/null 
-mv  "$tempDir/README.md" "$targetDir" > /dev/null 
-mv  "$tempDir/.gitignore" "$targetDir/" > /dev/null 
-mv  "$tempDir/pubspec.yaml" "$targetDir/" > /dev/null 
+cp Templates/LICENSE "$targetDir/"
+mv  "$tempDir/README.md" "$targetDir"
+mv  "$tempDir/.gitignore" "$targetDir/"
+mv  "$tempDir/pubspec.yaml" "$targetDir/"
 
 
-rm -rf "$targetDir/lib/*" > /dev/null || mkdir -p "$targetDir/lib/" > /dev/null 
-mv $tempDir/lib/*.dart $targetDir/lib/  > /dev/null 
+rm -rf "${targetDir:?}/lib/*" || mkdir -p "$targetDir/lib/"
+mv $tempDir/lib/*.dart $targetDir/lib/
 
-mkdir -p "$targetDir/lib/model/" > /dev/null
-mv  $tempDir/lib/model/*.dart $targetDir/lib/model/ > /dev/null 
+mkdir -p "$targetDir/lib/model/"
+mv  $tempDir/lib/model/*.dart $targetDir/lib/model/
 
-mkdir -p "$targetDir/lib/api/" > /dev/null
-mv $tempDir/lib/api/*.dart $targetDir/lib/api/ > /dev/null 
+mkdir -p "$targetDir/lib/api/"
+mv $tempDir/lib/api/*.dart $targetDir/lib/api/
 
 mkdir -p "$targetDir/lib/auth/"
-mv  "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/auth/" > /dev/null 
-mv  "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/auth/" > /dev/null 
+mv  "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/auth/"
+mv  "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/auth/"
 
-rm -rf "$targetDir/doc/" > /dev/null
-mkdir -p "$targetDir/doc/api/" > /dev/null 
+rm -rf "$targetDir/doc/"
+mkdir -p "$targetDir/doc/api/"
 
-mv  $tempDir/docs/*Api.md $targetDir/doc/api/ > /dev/null 
-mkdir -p "$targetDir/doc/models/" > /dev/null 
-mv  $tempDir/docs/*.md $targetDir/doc/models/ > /dev/null 
+mv  $tempDir/docs/*Api.md $targetDir/doc/api/
+mkdir -p "$targetDir/doc/models/"
+mv  $tempDir/docs/*.md $targetDir/doc/models/
 
 # Cleanup
-rm -rf $tempDir > /dev/null 
+rm -rf $tempDir
 
 # Format generated code etc.
-pushd "$targetDir" && make after-gen && popd
+pushd "$targetDir" && make after-gen && popd >/dev/null

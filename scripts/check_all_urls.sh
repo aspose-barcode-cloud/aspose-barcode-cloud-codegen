@@ -3,9 +3,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+ROOT_DIR="$( cd "${SCRIPT_DIR}/.." &> /dev/null && pwd )"
 
 check_file () {
     echo "$1"
 }
-
-git ls-files --exclude-standard --full-name | grep -i '\.md$\|\.mustache$' | python "${SCRIPT_DIR}/check-urls-in-file.py"
+pushd "${ROOT_DIR}"
+git ls-files --recurse-submodules --exclude-standard --full-name | grep -v 'package-lock.json$' | python "${SCRIPT_DIR}/check-urls.py"
+popd

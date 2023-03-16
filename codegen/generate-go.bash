@@ -6,28 +6,28 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated"
 targetDir="../submodules/go"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l go
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json 
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugModels.go.json 
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugOperations.go.json 
+java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json
+# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugModels.go.json
+# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugOperations.go.json
 
-rm -rf "$targetDir/barcode" > /dev/null 
+rm -rf "$targetDir/barcode"
 
-mkdir -p "$targetDir/barcode/jwt" > /dev/null 
-mv  "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go" > /dev/null 
+mkdir -p "$targetDir/barcode/jwt"
+mv  "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go"
 
-mv  $tempDir/*.go $targetDir/barcode/ > /dev/null 
+mv  $tempDir/*.go $targetDir/barcode/
 
-rm -rf "$targetDir/docs/*" > /dev/null 
-mv  $tempDir/docs/* $targetDir/docs/ > /dev/null 
-mv  "$tempDir/README.md" "$targetDir/README.md" > /dev/null 
-cp  Templates/LICENSE "$targetDir/" > /dev/null 
+rm -rf "$targetDir/docs/*"
+mv  $tempDir/docs/* $targetDir/docs/
+mv  "$tempDir/README.md" "$targetDir/README.md"
+cp  Templates/LICENSE "$targetDir/"
 
-rm -rf  $tempDir > /dev/null 
+rm -rf  $tempDir
 
-pushd "$targetDir" && make after-gen && popd
+pushd "$targetDir" && make after-gen && popd >/dev/null

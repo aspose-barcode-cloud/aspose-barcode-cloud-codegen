@@ -3,12 +3,12 @@ set -euo pipefail
 
 specSource="../spec/aspose-barcode-cloud.json"
 
-tempDir=".generated"
+tempDir=".generated/java"
 targetDir="../submodules/java"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l java
@@ -17,28 +17,28 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Tem
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > debugOperations.java.json
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > DdebugSupportingFiles.java.json
 
-python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/BarCodeApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
+python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/BarcodeApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/FileApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/FolderApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/StorageApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/api/*" > /dev/null
-cp -r $tempDir/src/main/java/com/aspose/barcode/cloud/api/* $targetDir/src/main/java/com/aspose/barcode/cloud/api  > /dev/null
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/model/*" > /dev/null
-cp -r $tempDir/src/main/java/com/aspose/barcode/cloud/model/* $targetDir/src/main/java/com/aspose/barcode/cloud/model  > /dev/null
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/requests/*" > /dev/null
-cp -r $tempDir/src/main/java/com/aspose/barcode/cloud/requests/* $targetDir/src/main/java/com/aspose/barcode/cloud/requests  > /dev/null
-rm -f $targetDir/src/main/java/com/aspose/barcode/cloud/*.java > /dev/null
-cp $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/java/com/aspose/barcode/cloud  > /dev/null
+rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/api/*"
+mv $tempDir/src/main/java/com/aspose/barcode/cloud/api/* $targetDir/src/main/java/com/aspose/barcode/cloud/api
+rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/model/*"
+mv $tempDir/src/main/java/com/aspose/barcode/cloud/model/* $targetDir/src/main/java/com/aspose/barcode/cloud/model
+rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/requests/*"
+mv $tempDir/src/main/java/com/aspose/barcode/cloud/requests/* $targetDir/src/main/java/com/aspose/barcode/cloud/requests
+rm -f $targetDir/src/main/java/com/aspose/barcode/cloud/*.java
+mv $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/java/com/aspose/barcode/cloud
 
-rm -rf "$targetDir/docs/*" > /dev/null
-cp $tempDir/docs/* $targetDir/docs  > /dev/null
+rm -rf "$targetDir/docs/*"
+mv $tempDir/docs/* $targetDir/docs
 
-cp $tempDir/README.md $targetDir  > /dev/null
-cp $tempDir/pom.xml $targetDir  > /dev/null
-cp  Templates/LICENSE $targetDir > /dev/null
+mv $tempDir/README.md $targetDir
+mv $tempDir/pom.xml $targetDir
+cp  Templates/LICENSE $targetDir
 
 
-rm -rf $tempDir > /dev/null
+rm -rf $tempDir
 
-pushd "$targetDir" && make format && popd
+pushd "$targetDir" && make format && popd >/dev/null

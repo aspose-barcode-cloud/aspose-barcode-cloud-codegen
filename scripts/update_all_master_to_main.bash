@@ -8,7 +8,7 @@ for d in */ ; do
 
     git fetch && git switch master && git merge --ff-only origin/main && git push
 
-    popd > /dev/null
+    popd >/dev/null
 done
 
-popd
+popd >/dev/null

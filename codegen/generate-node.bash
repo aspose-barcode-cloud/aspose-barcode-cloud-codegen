@@ -6,9 +6,9 @@ specSource="../spec/aspose-barcode-cloud.json"
 tempDir=".generated/node"
 targetDir="../submodules/node"
 
-if [ -d $tempDir ]; 
+if [ -d $tempDir ];
 then
-     rm -rf $tempDir 
+     rm -rf $tempDir
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l typescript-node
@@ -18,7 +18,7 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs -o $tempDir -c config.json 2> debugSupportingFiles.ts.txt
 
 mv  "$tempDir/api.ts" "$targetDir/src/"
-cp  "$tempDir/package.json" "$targetDir/"
+mv  "$tempDir/package.json" "$targetDir/"
 mv  "$tempDir/git_push.sh" "$targetDir/src/models.ts"
 
 # Use typescript-node one more time because typescript-node does not generate docs
@@ -29,9 +29,9 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-
 mv  "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
 mv  "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
 mv  "$tempDir/docs/tsconfig.json" "$targetDir/README.md"
-cp  Templates/LICENSE "$targetDir/" > /dev/null
+cp  Templates/LICENSE "$targetDir/"
 
 
-rm -rf $tempDir > /dev/null
+rm -rf $tempDir
 
-pushd "$targetDir" && make format && make lock && popd
+pushd "$targetDir" && make format && make lock && popd >/dev/null

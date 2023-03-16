@@ -1222,7 +1222,7 @@
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process.",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1407,7 +1407,7 @@
             "type": "boolean",
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
-            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
             "x-nullable": true
           },
           {
@@ -1597,7 +1597,7 @@
         "tags": [
           "Barcode"
         ],
-        "summary": "Recognize barcode from an url or from request body. Request body can contain raw data bytes of the image or encoded\nwith base64.",
+        "summary": "Recognize barcode from an url or from request body.\nRequest body can contain raw data bytes of the image with content-type \"application/octet-stream\".\nAn image can also be passed as a form field.",
         "operationId": "PostBarcodeRecognizeFromUrlOrContent",
         "consumes": [
           "multipart/form-data",
@@ -1779,7 +1779,7 @@
             "type": "integer",
             "name": "Timeout",
             "in": "query",
-            "description": "Timeout of recognition process.",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1964,7 +1964,7 @@
             "type": "boolean",
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
-            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\".",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
             "x-nullable": true
           },
           {
@@ -4598,7 +4598,7 @@
         },
         "Timeout": {
           "type": "integer",
-          "description": "Timeout of recognition process.",
+          "description": "Timeout of recognition process in milliseconds.\nDefault value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
           "format": "int32"
         },
         "MedianSmoothingWindowSize": {
@@ -4702,7 +4702,7 @@
         },
         "IgnoreEndingFillingPatternsForCTable": {
           "type": "boolean",
-          "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequnce \"333\" of filling paterns is decoded as letter \"z\"."
+          "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\"."
         }
       }
     },

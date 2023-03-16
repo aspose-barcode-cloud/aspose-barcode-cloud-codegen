@@ -6,9 +6,9 @@ name: CI
 # events but only for the main branch
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,13 +41,15 @@ jobs:
             pushd "$s"
             rem_master_hash=$(git ls-remote --exit-code --quiet --heads origin master  | awk '{ print $1}')
             git diff --exit-code ${rem_master_hash} || (echo "Broken Master in $s" ; exit 1)
-            popd > /dev/null
+            popd >/dev/null
           done
 
   check-urls:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     - name: Check all URLs
       run: ./scripts/check_all_urls.sh

@@ -1,8 +1,10 @@
 *.suo
 *.user
 _ReSharper.*
-bin
-obj
-.vs
+bin/
+obj/
+.vs/
 codegen/.generated/
 codegen/debug*.json
+.idea/
+.vscode/

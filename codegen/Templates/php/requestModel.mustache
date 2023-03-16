@@ -1,6 +1,6 @@
 {{#operations}}
 {{#operation}}
-/*
+/**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose" file="{{nickname}}Request.php">
  *   Copyright (c) 2023 Aspose Pty Ltd
@@ -34,13 +34,13 @@ declare(strict_types=1);
 
 namespace Aspose\BarCode\Requests;
 
-/*
+/**
  * Request model for "{{nickname}}" operation.
  */
 class {{operationId}}Request
 {
     {{#hasParams}}
-    /*
+    /**
      * Initializes a new instance of the {{operationId}}Request class.
      *
      {{#allParams}}
@@ -55,7 +55,7 @@ class {{operationId}}Request
     }
 
     {{#allParams}}
-    /*
+    /**
      * {{^description}}Gets or sets {{paramName}}{{/description}}{{#description}}{{{description}}}{{/description}}
      */
     public ${{paramName}};
