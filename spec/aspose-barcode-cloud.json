@@ -418,6 +418,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "UseAntiAlias",
+            "in": "query",
+            "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing.",
+            "x-nullable": true
+          },
+          {
             "type": "string",
             "name": "format",
             "in": "query",
@@ -856,6 +863,13 @@
             "x-nullable": true
           },
           {
+            "type": "boolean",
+            "name": "UseAntiAlias",
+            "in": "query",
+            "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing.",
+            "x-nullable": true
+          },
+          {
             "type": "string",
             "name": "storage",
             "in": "query",
@@ -1183,7 +1197,7 @@
             "type": "integer",
             "name": "RectX",
             "in": "query",
-            "description": "Set X for area for recognition.",
+            "description": "Set X of top left corner of area for recognition.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1191,7 +1205,7 @@
             "type": "integer",
             "name": "RectY",
             "in": "query",
-            "description": "Set Y for area for recognition.",
+            "description": "Set Y of top left corner of area for recognition.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1408,12 +1422,6 @@
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
             "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
-            "x-nullable": true
-          },
-          {
-            "type": "string",
-            "name": "RectangleRegion",
-            "in": "query",
             "x-nullable": true
           },
           {
@@ -1740,7 +1748,7 @@
             "type": "integer",
             "name": "RectX",
             "in": "query",
-            "description": "Set X for area for recognition.",
+            "description": "Set X of top left corner of area for recognition.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1748,7 +1756,7 @@
             "type": "integer",
             "name": "RectY",
             "in": "query",
-            "description": "Set Y for area for recognition.",
+            "description": "Set Y of top left corner of area for recognition.",
             "format": "int32",
             "x-nullable": true
           },
@@ -1965,12 +1973,6 @@
             "name": "IgnoreEndingFillingPatternsForCTable",
             "in": "query",
             "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
-            "x-nullable": true
-          },
-          {
-            "type": "string",
-            "name": "RectangleRegion",
-            "in": "query",
             "x-nullable": true
           },
           {
@@ -3194,6 +3196,10 @@
           "type": "number",
           "description": "Bars reduction value that is used to compensate ink spread while printing.",
           "format": "double"
+        },
+        "UseAntiAlias": {
+          "type": "boolean",
+          "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing."
         },
         "AustralianPost": {
           "description": "AustralianPost params.",
@@ -4574,12 +4580,12 @@
         },
         "RectX": {
           "type": "integer",
-          "description": "Set X for area for recognition.",
+          "description": "Set X of top left corner of area for recognition.",
           "format": "int32"
         },
         "RectY": {
           "type": "integer",
-          "description": "Set Y for area for recognition.",
+          "description": "Set Y of top left corner of area for recognition.",
           "format": "int32"
         },
         "RectWidth": {

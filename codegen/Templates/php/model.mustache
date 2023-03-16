@@ -300,7 +300,6 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
             return false;
         }
         {{/parent}}
-
         {{#vars}}
         {{#required}}
         if ($this->container['{{name}}'] === null) {

@@ -58,23 +58,7 @@ public class JSON {
     {{/jsr310}}
 
     public static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder()
-        {{#parent}}
-          .registerTypeSelector({{classname}}.class, new TypeSelector() {
-            @Override
-            public Class getClassForElement(JsonElement readElement) {
-                Map classByDiscriminatorValue = new HashMap();
-                {{#children}}
-                classByDiscriminatorValue.put("{{name}}".toUpperCase(), {{classname}}.class);
-                {{/children}}
-                classByDiscriminatorValue.put("{{classname}}".toUpperCase(), {{classname}}.class);
-                return getClassByDiscriminator(
-                                           classByDiscriminatorValue,
-                                           getDiscriminatorValue(readElement, "{{discriminator}}"));
-            }
-          })
-        {{/parent}}
-        ;
+        GsonFireBuilder fireBuilder = new GsonFireBuilder();
         GsonBuilder builder = fireBuilder.createGsonBuilder();
         {{#disableHtmlEscaping}}
         builder.disableHtmlEscaping();
