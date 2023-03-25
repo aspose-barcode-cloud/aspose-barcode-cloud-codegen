@@ -17,5 +17,5 @@ end_of_line = crlf
 indent_style = space
 indent_size = 4
 
-[CODEOWNERS]
+[{CODEOWNERS,Makefile}]
 indent_style = tab

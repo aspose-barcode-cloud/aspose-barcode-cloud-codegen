@@ -1,4 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-curl https://api.aspose.cloud/v3.0/barcode/swagger/spec > spec/aspose-barcode-cloud.json
+SWAGGER_SPEC_URL="https://api.aspose.cloud/v3.0/barcode/swagger/spec"
+# SWAGGER_SPEC_URL="https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec"
+
+curl "${SWAGGER_SPEC_URL}" > spec/aspose-barcode-cloud.json
