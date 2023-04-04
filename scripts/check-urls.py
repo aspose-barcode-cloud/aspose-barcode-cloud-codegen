@@ -41,6 +41,7 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
         Curl.HTTP_RETURNED_ERROR,
         403,
     ),
+    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (Curl.COULDNT_RESOLVE_HOST, None),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
@@ -50,9 +51,11 @@ URLS_TO_IGNORE = frozenset(
         "http://localhost:12345",
         "http://localhost:12345/v3.0",
         "http://some",
-        "https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.14/swagger-codegen-cli-2.4.14.jar",
+        "http://urllib3.readthedocs.io/en/latest/advanced-usage.html",
+        "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet/releases/tag/v{{packageVersion}}",
         "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
         "https://pypi.org/project/{{projectName}}/",
+        "https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.14/swagger-codegen-cli-2.4.14.jar",
     ]
 )
 
@@ -97,9 +100,9 @@ def text_extractor(files):
 
 
 class Task:
+    # To avoid 403 responses
     USER_AGENT = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        + "Chrome/110.0.0.0 Safari/537.36"
+        "Googlebot/2.1 (+http://www.google.com/bot.html)"
     )
 
     def __init__(self, url, filename):

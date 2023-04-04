@@ -255,6 +255,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		newErr := GenericAPIError{
 			error: httpResponse.Status,
 			text:  string(responseBody),
+			StatusCode: httpResponse.StatusCode,
 		}
 		{{#responses}}{{#dataType}}
 		if httpResponse.StatusCode == {{{code}}} {

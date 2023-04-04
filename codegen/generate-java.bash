@@ -41,4 +41,4 @@ cp  Templates/LICENSE $targetDir
 
 rm -rf $tempDir
 
-pushd "$targetDir" && make format && popd >/dev/null
+pushd "$targetDir" && make after-gen && popd >/dev/null
