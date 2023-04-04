@@ -99,9 +99,9 @@ def text_extractor(files):
 
 
 class Task:
+    # To avoid 403 responses
     USER_AGENT = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        + "Chrome/110.0.0.0 Safari/537.36"
+        "Googlebot/2.1 (+http://www.google.com/bot.html)"
     )
 
     def __init__(self, url, filename):
