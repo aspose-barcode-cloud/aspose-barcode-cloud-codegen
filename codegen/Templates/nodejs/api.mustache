@@ -1,6 +1,5 @@
 {{>licenseInfo}}
 import http from 'http';
-import Request from 'request';
 
 
 // ===============================================
@@ -9,6 +8,7 @@ import Request from 'request';
 
 
 import { Configuration } from 'Configuration';
+import { HttpClient, HttpOptions, HttpResult } from './httpClient';
 
 export * from './models';
 
@@ -189,9 +189,11 @@ let typeMap: { [index: string]: any } = {
 export class {{classname}} {
     protected defaultHeaders: any = {};
     protected _configuration: Configuration;
+    private _client: HttpClient;
 
     constructor(configuration: Configuration) {
         this._configuration = configuration;
+        this._client = new HttpClient();
     }
 
 {{#operation}}
@@ -249,7 +251,7 @@ export class {{classname}} {
 {{/isFile}}
 
 {{/formParams}}
-        let requestOptions: Request.Options = {
+        let requestOptions: HttpOptions = {
             method: '{{httpMethod}}',
             qs: requestQueryParameters,
             headers: requestHeaderParams,
@@ -277,28 +279,18 @@ export class {{classname}} {
                 requestOptions.form = requestFormParams;
             }
         }{{/isFile}}{{/formParams}}
-        return await new Promise<{ response: http.{{#supportsES6}}IncomingMessage{{/supportsES6}}{{^supportsES6}}ClientResponse{{/supportsES6}}; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}}}>((resolve, reject) => {
-            const handler = async (error: any, response: Request.Response, body: {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}any{{/returnType}}, allowRepeat: boolean) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({
-                            response: response,
-                            {{#returnType}}
-                            body: ObjectSerializer.deserialize(body, '{{{returnType}}}'),
-                            {{/returnType}}
-                        });
-                    } else if (allowRepeat && response.statusCode && response.statusCode === 401) {
-                        await this._configuration.authentication.applyUnauthorized();
-                        await handler(error, response, body, false);
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            };
-            Request(requestOptions, (error, response, body) => handler(error, response, body, true));
-        });
+
+        const result: HttpResult = await this._client.requestAsync(requestOptions);
+
+        {{#returnType}}
+        return {
+            response: result.response,
+            body: ObjectSerializer.deserialize(result.body, '{{{returnType}}}')
+        };
+        {{/returnType}}
+        {{^returnType}}
+        return result;
+        {{/returnType}}
     }
 {{/operation}}
 }
