@@ -1,5 +1,4 @@
 {{>licenseInfo}}
-import http from 'http';
 
 
 // ===============================================
@@ -7,8 +6,8 @@ import http from 'http';
 // ===============================================
 
 
-import { Configuration } from 'Configuration';
-import { HttpClient, HttpOptions, HttpResult } from './httpClient';
+import { Configuration } from './Configuration';
+import { HttpClient, HttpOptions, HttpResponse, HttpResult } from './httpClient';
 
 export * from './models';
 
@@ -205,7 +204,7 @@ export class {{classname}} {
      {{/summary}}
      * @param request {{operationIdCamelCase}}Request
      */
-    public async {{nickname}}(request: {{operationIdCamelCase}}Request): Promise<{ response: http.{{#supportsES6}}IncomingMessage{{/supportsES6}}{{^supportsES6}}ClientResponse{{/supportsES6}}; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    public async {{nickname}}(request: {{operationIdCamelCase}}Request): Promise<{ response: HttpResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
         const requestPath =
             this._configuration.getApiBaseUrl() +
             '{{{path}}}'{{#pathParams}}.replace(
@@ -214,7 +213,9 @@ export class {{classname}} {
             ){{/pathParams}};
         let requestQueryParameters: any = {};
         let requestHeaderParams: any = (Object as any).assign({}, this.defaultHeaders);
+{{#formParams}}
         let requestFormParams: any = {};
+{{/formParams}}
 
 {{#allParams}}
 {{#required}}
@@ -234,7 +235,6 @@ export class {{classname}} {
 {{#headerParams}}
         requestHeaderParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
 {{/headerParams}}
-        let requestUseFormData = false;
 
 {{#formParams}}
         if (request.{{paramName}} != null) {
@@ -245,10 +245,6 @@ export class {{classname}} {
             requestFormParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
             {{/isFile}}
         }
-{{#isFile}}
-
-        requestUseFormData = true;
-{{/isFile}}
 
 {{/formParams}}
         let requestOptions: HttpOptions = {
