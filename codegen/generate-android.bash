@@ -2,7 +2,7 @@
 set -euo pipefail
 
 specSource="../spec/aspose-barcode-cloud.json"
-tempDir=".generated"
+tempDir=".generated/android"
 targetDir="../submodules/android"
 
 if [ -d $tempDir ];
