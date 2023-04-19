@@ -56,6 +56,8 @@ URLS_TO_IGNORE = frozenset(
         "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
         "https://pypi.org/project/{{projectName}}/",
         "https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.14/swagger-codegen-cli-2.4.14.jar",
+        "https://unknown",
+        "https://www.aspose.cloud/404",
     ]
 )
 
