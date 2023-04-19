@@ -17,7 +17,7 @@ export enum {{classname}} {
 }
 {{/isEnum}}
 {{^isEnum}}
-export class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
+export class {{classname}} {
 {{#vars}}
 {{#description}}
     /**
@@ -38,12 +38,7 @@ export class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
     ];
 
     static getAttributeTypeMap() {
-        {{#parent}}
-        return super.getAttributeTypeMap().concat({{classname}}.attributeTypeMap);
-        {{/parent}}
-        {{^parent}}
         return {{classname}}.attributeTypeMap;
-        {{/parent}}
     }
 }
 {{/isEnum}}
