@@ -3,7 +3,7 @@ set -euo pipefail
 
 specSource="../spec/aspose-barcode-cloud.json"
 
-tempDir=".generated"
+tempDir=".generated/go"
 targetDir="../submodules/go"
 
 if [ -d $tempDir ];
