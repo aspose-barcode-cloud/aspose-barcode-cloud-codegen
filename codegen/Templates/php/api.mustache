@@ -156,7 +156,6 @@ use RuntimeException;
             {{^returnType}}
             return [null, $statusCode, $response->getHeaders()];
             {{/returnType}}
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
         {{#responses}}
