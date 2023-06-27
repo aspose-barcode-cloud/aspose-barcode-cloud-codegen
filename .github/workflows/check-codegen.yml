@@ -4,21 +4,21 @@ name: CI
 # events but only for the main branch
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   check-submodules:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Check all submodules up-to-date
-      run: git diff --exit-code
+      - name: Check all submodules up-to-date
+        run: git diff --exit-code
 
   check-master:
     runs-on: ubuntu-latest
@@ -40,12 +40,20 @@ jobs:
   check-urls:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Check all URLs
-      run: ./scripts/check_all_urls.sh
+      - name: Check all URLs
+        run: ./scripts/check_all_urls.sh
 
-    - name: Check existing swagger specification is up-to-date
-      run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
+  check-swagger:
+    runs-on: ubuntu-latest
+    needs: [check-submodules]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Check existing swagger specification is up-to-date
+        run: curl https://api.aspose.cloud/v3.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -

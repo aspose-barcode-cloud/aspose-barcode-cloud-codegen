@@ -5,7 +5,7 @@
     "title": "Aspose.Barcode Cloud API Reference",
     "version": "3.0"
   },
-  "host": "api.aspose.cloud",
+  "host": "barcode.qa.aspose.cloud",
   "basePath": "/v3.0",
   "schemes": [
     "https"
@@ -111,7 +111,9 @@
               "CodablockF",
               "GS1CodablockF",
               "Mailmark",
-              "GS1DotCode"
+              "GS1DotCode",
+              "HanXin",
+              "GS1HanXin"
             ]
           },
           {
@@ -556,7 +558,9 @@
               "CodablockF",
               "GS1CodablockF",
               "Mailmark",
-              "GS1DotCode"
+              "GS1DotCode",
+              "HanXin",
+              "GS1HanXin"
             ]
           },
           {
@@ -1150,7 +1154,9 @@
               "HIBCCode128PAS",
               "HIBCAztecPAS",
               "HIBCDataMatrixPAS",
-              "HIBCQRPAS"
+              "HIBCQRPAS",
+              "HanXin",
+              "GS1HanXin"
             ]
           },
           {
@@ -1566,7 +1572,9 @@
               "HIBCCode128PAS",
               "HIBCAztecPAS",
               "HIBCDataMatrixPAS",
-              "HIBCQRPAS"
+              "HIBCQRPAS",
+              "HanXin",
+              "GS1HanXin"
             ]
           },
           {
@@ -1701,7 +1709,9 @@
               "HIBCCode128PAS",
               "HIBCAztecPAS",
               "HIBCDataMatrixPAS",
-              "HIBCQRPAS"
+              "HIBCQRPAS",
+              "HanXin",
+              "GS1HanXin"
             ]
           },
           {
@@ -2795,7 +2805,9 @@
         "CodablockF",
         "GS1CodablockF",
         "Mailmark",
-        "GS1DotCode"
+        "GS1DotCode",
+        "HanXin",
+        "GS1HanXin"
       ],
       "enum": [
         "Codabar",
@@ -2865,7 +2877,9 @@
         "CodablockF",
         "GS1CodablockF",
         "Mailmark",
-        "GS1DotCode"
+        "GS1DotCode",
+        "HanXin",
+        "GS1HanXin"
       ]
     },
     "CodeLocation": {
@@ -3264,6 +3278,10 @@
         "Code128": {
           "description": "Code128 params.",
           "$ref": "#/definitions/Code128Params"
+        },
+        "HanXin": {
+          "description": "HanXin params.",
+          "$ref": "#/definitions/HanXinParams"
         }
       }
     },
@@ -4333,6 +4351,243 @@
         "CodeBC"
       ]
     },
+    "HanXinParams": {
+      "type": "object",
+      "description": "HanXin params.",
+      "additionalProperties": false,
+      "properties": {
+        "EncodeMode": {
+          "description": "Encoding mode for XanXin barcodes.\nDefault value: HanXinEncodeMode.Auto.",
+          "$ref": "#/definitions/HanXinEncodeMode"
+        },
+        "ErrorLevel": {
+          "description": "Allowed Han Xin error correction levels from L1 to L4.\nDefault value: HanXinErrorLevel.L1.",
+          "$ref": "#/definitions/HanXinErrorLevel"
+        },
+        "Version": {
+          "description": "Allowed Han Xin versions, Auto and Version01 - Version84.\nDefault value: HanXinVersion.Auto.",
+          "$ref": "#/definitions/HanXinVersion"
+        },
+        "ECIEncoding": {
+          "description": "Extended Channel Interpretation Identifiers. It is used to tell the barcode reader details\nabout the used references for encoding the data in the symbol.\nCurrent implementation consists all well known charset encodings.\nDefault value: ECIEncodings.ISO_8859_1",
+          "$ref": "#/definitions/ECIEncodings"
+        }
+      }
+    },
+    "HanXinEncodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Binary",
+        "ECI",
+        "Unicode",
+        "URI",
+        "Extended"
+      ],
+      "enum": [
+        "Auto",
+        "Binary",
+        "ECI",
+        "Unicode",
+        "URI",
+        "Extended"
+      ]
+    },
+    "HanXinErrorLevel": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "enum": [
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "HanXinVersion": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Version01",
+        "Version02",
+        "Version03",
+        "Version04",
+        "Version05",
+        "Version06",
+        "Version07",
+        "Version08",
+        "Version09",
+        "Version10",
+        "Version11",
+        "Version12",
+        "Version13",
+        "Version14",
+        "Version15",
+        "Version16",
+        "Version17",
+        "Version18",
+        "Version19",
+        "Version20",
+        "Version21",
+        "Version22",
+        "Version23",
+        "Version24",
+        "Version25",
+        "Version26",
+        "Version27",
+        "Version28",
+        "Version29",
+        "Version30",
+        "Version31",
+        "Version32",
+        "Version33",
+        "Version34",
+        "Version35",
+        "Version36",
+        "Version37",
+        "Version38",
+        "Version39",
+        "Version40",
+        "Version41",
+        "Version42",
+        "Version43",
+        "Version44",
+        "Version45",
+        "Version46",
+        "Version47",
+        "Version48",
+        "Version49",
+        "Version50",
+        "Version51",
+        "Version52",
+        "Version53",
+        "Version54",
+        "Version55",
+        "Version56",
+        "Version57",
+        "Version58",
+        "Version59",
+        "Version60",
+        "Version61",
+        "Version62",
+        "Version63",
+        "Version64",
+        "Version65",
+        "Version66",
+        "Version67",
+        "Version68",
+        "Version69",
+        "Version70",
+        "Version71",
+        "Version72",
+        "Version73",
+        "Version74",
+        "Version75",
+        "Version76",
+        "Version77",
+        "Version78",
+        "Version79",
+        "Version80",
+        "Version81",
+        "Version82",
+        "Version83",
+        "Version84"
+      ],
+      "enum": [
+        "Auto",
+        "Version01",
+        "Version02",
+        "Version03",
+        "Version04",
+        "Version05",
+        "Version06",
+        "Version07",
+        "Version08",
+        "Version09",
+        "Version10",
+        "Version11",
+        "Version12",
+        "Version13",
+        "Version14",
+        "Version15",
+        "Version16",
+        "Version17",
+        "Version18",
+        "Version19",
+        "Version20",
+        "Version21",
+        "Version22",
+        "Version23",
+        "Version24",
+        "Version25",
+        "Version26",
+        "Version27",
+        "Version28",
+        "Version29",
+        "Version30",
+        "Version31",
+        "Version32",
+        "Version33",
+        "Version34",
+        "Version35",
+        "Version36",
+        "Version37",
+        "Version38",
+        "Version39",
+        "Version40",
+        "Version41",
+        "Version42",
+        "Version43",
+        "Version44",
+        "Version45",
+        "Version46",
+        "Version47",
+        "Version48",
+        "Version49",
+        "Version50",
+        "Version51",
+        "Version52",
+        "Version53",
+        "Version54",
+        "Version55",
+        "Version56",
+        "Version57",
+        "Version58",
+        "Version59",
+        "Version60",
+        "Version61",
+        "Version62",
+        "Version63",
+        "Version64",
+        "Version65",
+        "Version66",
+        "Version67",
+        "Version68",
+        "Version69",
+        "Version70",
+        "Version71",
+        "Version72",
+        "Version73",
+        "Version74",
+        "Version75",
+        "Version76",
+        "Version77",
+        "Version78",
+        "Version79",
+        "Version80",
+        "Version81",
+        "Version82",
+        "Version83",
+        "Version84"
+      ]
+    },
     "BarcodeResponseList": {
       "type": "object",
       "description": "Represents information about barcode list.",
@@ -4476,7 +4731,9 @@
         "HIBCCode128PAS",
         "HIBCAztecPAS",
         "HIBCDataMatrixPAS",
-        "HIBCQRPAS"
+        "HIBCQRPAS",
+        "HanXin",
+        "GS1HanXin"
       ],
       "enum": [
         "all",
@@ -4557,7 +4814,9 @@
         "HIBCCode128PAS",
         "HIBCAztecPAS",
         "HIBCDataMatrixPAS",
-        "HIBCQRPAS"
+        "HIBCQRPAS",
+        "HanXin",
+        "GS1HanXin"
       ]
     },
     "ChecksumValidation": {
@@ -4957,7 +5216,7 @@
     "JWT": {
       "type": "oauth2",
       "flow": "application",
-      "tokenUrl": "https://api.aspose.cloud/connect/token"
+      "tokenUrl": "https://barcode.qa.aspose.cloud/connect/token"
     }
   }
 }
