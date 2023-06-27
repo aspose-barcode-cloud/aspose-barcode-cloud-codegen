@@ -14,26 +14,20 @@ BASE_CONFIG_DIR = os.path.join(SCRIPT_DIR, "..", "codegen")
 GO_VERSION_FORMAT = "0.{0}{1:02d}.{2}"
 
 
-def set_android_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-android.json")
-):
+def set_android_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-android.json")):
     config = read_config(filename)
     config["artifactVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
 
 
-def set_go_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-go.json")
-):
+def set_go_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-go.json")):
     go_version = GO_VERSION_FORMAT.format(*new_version)
     config = read_config(filename)
     config["packageVersion"] = go_version
     save_config(config, filename)
 
 
-def set_dart_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-dart.json")
-):
+def set_dart_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-dart.json")):
     config = read_config(filename)
     pub_version = str.join(".", map(str, (0,) + new_version[:2]))
     if new_version[2] > 0:
@@ -42,9 +36,7 @@ def set_dart_version(
     save_config(config, filename)
 
 
-def set_java_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-java.json")
-):
+def set_java_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-java.json")):
     config = read_config(filename)
     config["artifactVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
@@ -56,9 +48,7 @@ def set_net_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.
     save_config(config, filename)
 
 
-def set_node_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.json")
-):
+def set_node_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.json")):
     config = read_config(filename)
     config["npmVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
@@ -70,9 +60,7 @@ def set_php_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.
     save_config(config, filename)
 
 
-def set_python_version(
-    new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-python.json")
-):
+def set_python_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-python.json")):
     config = read_config(filename)
     config["packageVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
@@ -105,12 +93,8 @@ def main(new_versions):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        usage="%s %s" % (sys.argv[0], datetime.today().strftime("%y %#m"))
-    )
-    parser.add_argument(
-        "new_versions", type=int, nargs=2, help="Use separate int values like: 21 6"
-    )
+    parser = argparse.ArgumentParser(usage="%s %s" % (sys.argv[0], datetime.today().strftime("%y %#m")))
+    parser.add_argument("new_versions", type=int, nargs=2, help="Use separate int values like: 21 6")
     args = parser.parse_args()
     return vars(args)
 
