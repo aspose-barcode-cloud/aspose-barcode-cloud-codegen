@@ -5,7 +5,7 @@
     "title": "Aspose.Barcode Cloud API Reference",
     "version": "3.0"
   },
-  "host": "barcode.qa.aspose.cloud",
+  "host": "api.aspose.cloud",
   "basePath": "/v3.0",
   "schemes": [
     "https"
@@ -5216,7 +5216,7 @@
     "JWT": {
       "type": "oauth2",
       "flow": "application",
-      "tokenUrl": "https://barcode.qa.aspose.cloud/connect/token"
+      "tokenUrl": "https://api.aspose.cloud/connect/token"
     }
   }
 }
