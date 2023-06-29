@@ -21,9 +21,7 @@ class Curl:
     See: https://curl.se/libcurl/c/libcurl-errors.html
     """
 
-    CURL_STDERR_HTTP_RE = re.compile(
-        r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)"
-    )
+    CURL_STDERR_HTTP_RE = re.compile(r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)")
     OK = 0
     COULDNT_RESOLVE_HOST = 6
     HTTP_RETURNED_ERROR = 22
@@ -41,7 +39,10 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
         Curl.HTTP_RETURNED_ERROR,
         403,
     ),
-    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (Curl.COULDNT_RESOLVE_HOST, None),
+    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (
+        Curl.COULDNT_RESOLVE_HOST,
+        None,
+    ),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
@@ -103,9 +104,7 @@ def text_extractor(files):
 
 class Task:
     # To avoid 403 responses
-    USER_AGENT = (
-        "Googlebot/2.1 (+http://www.google.com/bot.html)"
-    )
+    USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
     def __init__(self, url, filename):
         self.url = url
@@ -154,9 +153,7 @@ def create_new_task(url, filename) -> Task:
 
 def process_finished_task(task) -> None:
     # print("Finish task:", task.url)
-    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(
-        task.url, (0, None)
-    )
+    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
     if task.ret_code == expected_ret_code:
         print("OK:", "'%s' %.2fs" % (task.url, task.age))
         return
@@ -171,8 +168,7 @@ def process_finished_task(task) -> None:
             return
 
     print(
-        "Expected %d got %d for '%s': %s"
-        % (expected_ret_code, task.ret_code, task.url, task.stderr),
+        "Expected %d got %d for '%s': %s" % (expected_ret_code, task.ret_code, task.url, task.stderr),
         file=sys.stderr,
     )
     BROKEN_URLS[task.url].append(task.filename)
@@ -221,9 +217,7 @@ def main(files):
     checker.join()
 
     for url, files in BROKEN_URLS.items():
-        print(
-            "BROKEN URL: '%s' in files: %s" % (url, ", ".join(files)), file=sys.stderr
-        )
+        print("BROKEN URL: '%s' in files: %s" % (url, ", ".join(files)), file=sys.stderr)
     if BROKEN_URLS:
         exit(1)
 
