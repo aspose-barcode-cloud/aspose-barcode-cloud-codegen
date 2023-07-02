@@ -17,20 +17,20 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugOperations.ts.json
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs -o $tempDir -c config.json 2> debugSupportingFiles.ts.txt
 
-mv  "$tempDir/api.ts" "$targetDir/src/"
-mv  "$tempDir/package.json" "$targetDir/"
-mv  "$tempDir/git_push.sh" "$targetDir/src/models.ts"
+mv "$tempDir/api.ts" "$targetDir/src/"
+mv "$tempDir/package.json" "$targetDir/"
+mv "$tempDir/git_push.sh" "$targetDir/src/models.ts"
 
 # Use typescript-node one more time because typescript-node does not generate docs
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugModels.docs.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugOperations.docs.json
 
-mv  "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
-mv  "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
-mv  "$tempDir/docs/tsconfig.json" "$targetDir/README.md"
-cp  Templates/LICENSE "$targetDir/"
-
+mv "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
+mv "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
+mv "$tempDir/docs/tsconfig.json" "$targetDir/README.md"
+cp Templates/LICENSE "$targetDir/"
+cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
 

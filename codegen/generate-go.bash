@@ -19,15 +19,16 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templ
 rm -rf "$targetDir/barcode"
 
 mkdir -p "$targetDir/barcode/jwt"
-mv  "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go"
+mv "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go"
 
-mv  $tempDir/*.go $targetDir/barcode/
+mv $tempDir/*.go $targetDir/barcode/
 
 rm -rf "$targetDir/docs/*"
-mv  $tempDir/docs/* $targetDir/docs/
-mv  "$tempDir/README.md" "$targetDir/README.md"
-cp  Templates/LICENSE "$targetDir/"
+mv $tempDir/docs/* $targetDir/docs/
+mv "$tempDir/README.md" "$targetDir/README.md"
+cp Templates/LICENSE "$targetDir/"
+cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
-rm -rf  $tempDir
+rm -rf $tempDir
 
 pushd "$targetDir" && make after-gen && popd >/dev/null

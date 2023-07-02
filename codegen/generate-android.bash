@@ -28,5 +28,7 @@ exampleDir="$targetDir/app/src/main/java/com/aspose/barcode/cloud/demo_app"
 rm -rf "${exampleDir:?}/*"
 mkdir -p "$exampleDir" || true
 cp "$tempDir/src/main/java/com/aspose/barcode/cloud/demo_app/ApiException.java" "$exampleDir/MainActivity.kt"
-cp  Templates/LICENSE "$targetDir/"
+
+cp Templates/LICENSE "$targetDir/"
+
 rm -rf $tempDir

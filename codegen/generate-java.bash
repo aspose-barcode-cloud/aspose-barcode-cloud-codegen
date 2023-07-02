@@ -36,8 +36,8 @@ mv $tempDir/docs/* $targetDir/docs
 
 mv $tempDir/README.md $targetDir
 mv $tempDir/pom.xml $targetDir
-cp  Templates/LICENSE $targetDir
-
+cp Templates/LICENSE $targetDir
+cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
 

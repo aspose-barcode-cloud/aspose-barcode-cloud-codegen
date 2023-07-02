@@ -16,31 +16,33 @@ fi
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
-cp Templates/LICENSE "$targetDir/"
-mv  "$tempDir/README.md" "$targetDir"
-mv  "$tempDir/.gitignore" "$targetDir/"
-mv  "$tempDir/pubspec.yaml" "$targetDir/"
+mv "$tempDir/README.md" "$targetDir"
+mv "$tempDir/.gitignore" "$targetDir/"
+mv "$tempDir/pubspec.yaml" "$targetDir/"
 
 
 rm -rf "${targetDir:?}/lib/*" || mkdir -p "$targetDir/lib/"
 mv $tempDir/lib/*.dart $targetDir/lib/
 
 mkdir -p "$targetDir/lib/model/"
-mv  $tempDir/lib/model/*.dart $targetDir/lib/model/
+mv $tempDir/lib/model/*.dart $targetDir/lib/model/
 
 mkdir -p "$targetDir/lib/api/"
 mv $tempDir/lib/api/*.dart $targetDir/lib/api/
 
 mkdir -p "$targetDir/lib/auth/"
-mv  "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/auth/"
-mv  "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/auth/"
+mv "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/auth/"
+mv "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/auth/"
 
 rm -rf "$targetDir/doc/"
 mkdir -p "$targetDir/doc/api/"
 
-mv  $tempDir/docs/*Api.md $targetDir/doc/api/
+mv $tempDir/docs/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
-mv  $tempDir/docs/*.md $targetDir/doc/models/
+mv $tempDir/docs/*.md $targetDir/doc/models/
+
+cp Templates/LICENSE "$targetDir/"
+cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 # Cleanup
 rm -rf $tempDir
