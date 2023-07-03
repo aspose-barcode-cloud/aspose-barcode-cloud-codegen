@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 class {{classname}} {
   {{#vars}}{{#description}}/* {{{description}}} */{{/description}}
   {{{datatype}}}? {{name}} = {{{defaultValue}}};
@@ -53,7 +54,7 @@ class {{classname}} {
 
   static Map<String, {{classname}}> mapFromJson(Map<String, Map<String, dynamic>> json) {
     final map = new Map<String, {{classname}}>();
-    if (json.length > 0) {
+    if (json.isNotEmpty) {
       json.forEach((String key, Map<String, dynamic> value) => map[key] = new {{classname}}.fromJson(value));
     }
     return map;
