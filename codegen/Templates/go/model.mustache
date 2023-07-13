@@ -11,8 +11,8 @@ type {{{classname}}} {{^format}}{{dataType}}{{/format}}{{#format}}{{{format}}}{{
 const (
 	{{#allowableValues}}
 	{{#enumVars}}
-	{{^-first}}
-	{{/-first}}
+	{{^@first}}
+	{{/@first}}
 	{{{classname}}}{{value}} {{{classname}}} = "{{{value}}}"
 	{{/enumVars}}
 	{{/allowableValues}}
@@ -20,8 +20,8 @@ const (
 //{{classname}} -{{#description}} {{{description}}}{{/description}}
 type {{classname}} struct {
 {{#vars}}
-{{^-first}}
-{{/-first}}
+{{^@first}}
+{{/@first}}
 {{#description}}
 	// {{{description}}}
 {{/description}}

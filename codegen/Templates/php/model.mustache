@@ -169,8 +169,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
     public function {{getter}}AllowableValues()
     {
         return [
-            {{#allowableValues}}{{#enumVars}}self::{{enumName}}_{{{name}}},{{^-last}}
-            {{/-last}}{{/enumVars}}{{/allowableValues}}
+            {{#allowableValues}}{{#enumVars}}self::{{enumName}}_{{{name}}},{{^@last}}
+            {{/@last}}{{/enumVars}}{{/allowableValues}}
         ];
     }
     {{/isEnum}}{{/vars}}

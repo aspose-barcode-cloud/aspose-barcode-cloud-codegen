@@ -12,8 +12,8 @@
 ```ts
 {{#isEnum}}
 enum {{classname}} {
-    {{#allowableValues}}{{#enumVars}}{{{name}}} = {{{value}}}{{^-last}},
-    {{/-last}}{{/enumVars}}{{/allowableValues}}
+    {{#allowableValues}}{{#enumVars}}{{{name}}} = {{{value}}}{{^@last}},
+    {{/@last}}{{/enumVars}}{{/allowableValues}}
 }
 {{/isEnum}}
 {{^isEnum}}

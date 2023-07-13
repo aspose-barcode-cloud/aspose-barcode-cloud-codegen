@@ -182,8 +182,8 @@ Class | Method | HTTP request | Description
 {{#isBasic}}- **Type**: HTTP basic authentication
 {{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
-- **Flow**: {{flow}}{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#authMethods}}{{#-first}}
-- **Authorization URL**: <{{tokenUrl}}>{{/-first}}{{/authMethods}}{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+- **Flow**: {{flow}}{{#apiInfo}}{{#apis}}{{#@first}}{{#operations}}{{#operation}}{{#@first}}{{#authMethods}}{{#@first}}
+- **Authorization URL**: <{{tokenUrl}}>{{/@first}}{{/authMethods}}{{/@first}}{{/operation}}{{/operations}}{{/@first}}{{/apis}}{{/apiInfo}}
 {{/isOAuth}}
 
 {{/authMethods}}

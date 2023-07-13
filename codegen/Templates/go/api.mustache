@@ -115,7 +115,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	{{/hasQueryParams}}
 	// to determine the Content-Type header
 {{=<% %>=}}
-	contentTypeChoices := []string{<%#consumes%>"<%&mediaType%>"<%^-last%>, <%/-last%><%/consumes%>}
+	contentTypeChoices := []string{<%#consumes%>"<%&mediaType%>"<%^@last%>, <%/@last%><%/consumes%>}
 <%={{ }}=%>
 
 	// set Content-Type header
@@ -126,7 +126,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 
 	// to determine Accept header
 {{=<% %>=}}
-	acceptChoices := []string{<%#produces%>"<%&mediaType%>"<%^-last%>, <%/-last%><%/produces%>}
+	acceptChoices := []string{<%#produces%>"<%&mediaType%>"<%^@last%>, <%/@last%><%/produces%>}
 <%={{ }}=%>
 
 	// set Accept header

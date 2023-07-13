@@ -30,7 +30,7 @@ namespace {{packageName}}.Model
         /// <summary>
         ///     Enum value {{.}}
         /// </summary>
-        {{.}}{{^-last}},{{/-last}}
+        {{.}}{{^@last}},{{/@last}}
       {{/x-enumNames}}{{/vendorExtensions}}
     }
     {{/isEnum}}

@@ -15,19 +15,19 @@ Method | HTTP request | Description
 {{{notes}}}{{/notes}}
 
 ### {{{operationId}}} Required Parameters
-{{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#-last}}
+{{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#@last}}
 Name | Type | Description  | Notes
 ---- | ---- | ------------ | -----
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.{{/-last}}{{/allParams}}{{#allParams}}{{#required}}
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.{{/@last}}{{/allParams}}{{#allParams}}{{#required}}
  **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**{{dataType}}**]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}} | {{description}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{#hasOptionalParams}}
  **optional** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
 
 ### {{{operationId}}} Optional Parameters
 
 Optional parameters are passed through a pointer to a {{{classname}}}{{{nickname}}}Opts struct
-{{#allParams}}{{#-last}}
+{{#allParams}}{{#@last}}
 Name | Type | Description  | Notes
----- | ---- | ------------ | -----{{/-last}}{{/allParams}}{{#allParams}}
+---- | ---- | ------------ | -----{{/@last}}{{/allParams}}{{#allParams}}
 {{^required}} **{{vendorExtensions.x-exportParamName}}** | {{#isFile}}**optional.Interface of {{dataType}}**{{/isFile}}{{#isPrimitiveType}}**optional.{{vendorExtensions.x-optionalDataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{^isListContainer}}[**optional.Interface of {{dataType}}**]({{baseType}}.md){{/isListContainer}}{{#isListContainer}}**optional.Interface of {{dataType}}**{{/isListContainer}}{{/isFile}}{{/isPrimitiveType}} | {{description}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{/hasOptionalParams}}
 
 ### {{{operationId}}} Return type

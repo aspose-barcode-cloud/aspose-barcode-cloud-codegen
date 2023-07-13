@@ -60,7 +60,7 @@ from pprint import pprint
 
 import {{{packageName}}}
 from {{{packageName}}}.rest import ApiException
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
+{{#apiInfo}}{{#apis}}{{#@first}}{{#operations}}{{#operation}}{{#@first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
 # Configure HTTP basic authorization: {{{name}}}
 configuration = {{{packageName}}}.Configuration()
 configuration.username = "YOUR_USERNAME"
@@ -79,17 +79,17 @@ configuration = {{{packageName}}}.Configuration(
 
 # create an instance of the API class
 api = {{{packageName}}}.{{{classname}}}({{{packageName}}}.ApiClient(configuration))
-{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}} = {{#-first}}aspose_barcode_cloud.EncodeBarcodeType.CODE128{{/-first}}{{^-first}}{{{example}}}{{/-first}}  # {{{dataType}}} | {{{description}}}
+{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}} = {{#@first}}aspose_barcode_cloud.EncodeBarcodeType.CODE128{{/@first}}{{^@first}}{{{example}}}{{/@first}}  # {{{dataType}}} | {{{description}}}
 {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}
 try:
 {{#summary}}    # {{{.}}}
-{{/summary}}    {{#returnType}}response = {{/returnType}}api.{{{operationId}}}({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{^-first}}, {{/-first}}{{paramName}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}})
+{{/summary}}    {{#returnType}}response = {{/returnType}}api.{{{operationId}}}({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{^@first}}, {{/@first}}{{paramName}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}})
     with open("example.png", "wb") as f:
         f.write(response.data)
     print("Barcode saved to file 'example.png'")
 except ApiException as e:
     print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+{{/@first}}{{/operation}}{{/operations}}{{/@first}}{{/apis}}{{/apiInfo}}
 
 # Recognize barcode
 response = api.post_barcode_recognize_from_url_or_content(image="example.png",

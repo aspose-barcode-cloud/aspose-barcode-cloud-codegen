@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"time"
 )
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#authMethods}}{{#-first}}
+{{#apiInfo}}{{#apis}}{{#@first}}{{#operations}}{{#operation}}{{#@first}}{{#authMethods}}{{#@first}}
 //Config - JWT auth configuration
 type Config struct {
 	ClientID     string `json:"clientId"`
@@ -115,4 +115,4 @@ func (js jwtSource) Token() (*oauth2.Token, error) {
 	}
 
 	return token, nil
-}{{/-first}}{{/authMethods}}{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+}{{/@first}}{{/authMethods}}{{/@first}}{{/operation}}{{/operations}}{{/@first}}{{/apis}}{{/apiInfo}}

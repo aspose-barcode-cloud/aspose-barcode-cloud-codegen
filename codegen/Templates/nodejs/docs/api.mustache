@@ -12,14 +12,14 @@
 {{&summary}}
 
 ```ts
-{{nickname}}({{#requiredParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/requiredParams}}): {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}void{{/returnType}};
+{{nickname}}({{#requiredParams}}{{paramName}}: {{{dataType}}}{{^@last}}, {{/@last}}{{/requiredParams}}): {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}void{{/returnType}};
 ```
 
 #### {{classname}}.{{nickname}} parameters
 
 Name | Type | Description  | Notes
 ---- | ---- | ------------ | -----
-{{#allParams}} **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}{{#isEnum}} {{#allowableValues}}{{#enumVars}}{{value}}{{^-last}}, {{/-last}}{{/enumVars}}{{/allowableValues}} {{/isEnum}}{{^isEnum}}**{{dataType}}**{{/isEnum}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{#isListContainer}}**{{dataType}}**{{/isListContainer}}{{^isListContainer}}[**{{dataType}}**](models.md#{{baseType}}){{/isListContainer}}{{/isFile}}{{/isPrimitiveType}}| {{description}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to '{{defaultValue}}']{{/defaultValue}}
+{{#allParams}} **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}{{#isEnum}} {{#allowableValues}}{{#enumVars}}{{value}}{{^@last}}, {{/@last}}{{/enumVars}}{{/allowableValues}} {{/isEnum}}{{^isEnum}}**{{dataType}}**{{/isEnum}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{#isListContainer}}**{{dataType}}**{{/isListContainer}}{{^isListContainer}}[**{{dataType}}**](models.md#{{baseType}}){{/isListContainer}}{{/isFile}}{{/isPrimitiveType}}| {{description}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to '{{defaultValue}}']{{/defaultValue}}
 {{/allParams}}
 {{#returnType}}
 

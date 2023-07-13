@@ -86,10 +86,10 @@ namespace {{packageName}}.Api
                 .Replace("&amp;", "&")
                 .Replace("/?", "?");
             {{#headerParams}}
-            {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
+            {{#@first}}var headerParams = new Dictionary<string, string>();{{/@first}}
             {{/headerParams}}
             {{#formParams}}
-            {{#-first}}var formParams = new Dictionary<string, object>();{{/-first}}
+            {{#@first}}var formParams = new Dictionary<string, object>();{{/@first}}
             {{/formParams}}
             {{#pathParams}}
             resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
