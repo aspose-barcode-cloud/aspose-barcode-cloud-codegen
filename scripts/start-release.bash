@@ -24,6 +24,4 @@ for d in */ ; do
     popd >/dev/null
 done
 
-python "${SCRIPT_DIR}/new-version.py" "${major}" "${minor}"
-
 popd >/dev/null

@@ -3606,7 +3606,7 @@
         },
         "Columns": {
           "type": "integer",
-          "description": "Columns count.",
+          "description": "DEPRECATED: Will be replaced with 'DataMatrix.Version' in the next release\n Columns count.",
           "format": "int32"
         },
         "DataMatrixEcc": {
@@ -3619,7 +3619,7 @@
         },
         "Rows": {
           "type": "integer",
-          "description": "Rows count.",
+          "description": "DEPRECATED: Will be replaced with 'DataMatrix.Version' in the next release\n Rows count.",
           "format": "int32"
         },
         "MacroCharacters": {
@@ -3652,7 +3652,7 @@
     },
     "DataMatrixEncodeMode": {
       "type": "string",
-      "description": "",
+      "description": "DataMatrix encoder's encoding mode, default to Auto",
       "x-enumNames": [
         "Auto",
         "ASCII",
