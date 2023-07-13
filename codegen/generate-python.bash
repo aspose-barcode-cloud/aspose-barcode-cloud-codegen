@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/python"
 targetDir="../submodules/python"
 
@@ -11,7 +11,7 @@ then
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l python
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l python -t Templates/python -o $tempDir -c config-python.json
+swagger-codegen generate -i "$specSource" -l python -t Templates/python -o $tempDir -c config-python.json
 # java -DdebugMorms -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l python -t Templates/python -o $tempDir -c config-python.json > debugMorms.py.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l python -t Templates/python -o $tempDir -c config-python.json > debugOperations.py.json
 

@@ -1,8 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
-
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/dotnet"
 targetDir="../submodules/dotnet"
 
@@ -14,7 +13,7 @@ fi
 # Generate Operations and Models for Debug purposes
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugOperations.cs.json & exit
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json & exit
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json
+swagger-codegen generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json
 
 python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/BarcodeApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/FileApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/

@@ -1,0 +1,5765 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Aspose.Barcode Cloud API Reference",
+    "version": "3.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.aspose.cloud/v3.0"
+    }
+  ],
+  "paths": {
+    "/barcode/generate": {
+      "get": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Generate barcode.",
+        "operationId": "GetBarcodeGenerate",
+        "parameters": [
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Type of barcode to generate.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Codabar",
+                "Code11",
+                "Code39Standard",
+                "Code39Extended",
+                "Code93Standard",
+                "Code93Extended",
+                "Code128",
+                "GS1Code128",
+                "EAN8",
+                "EAN13",
+                "EAN14",
+                "SCC14",
+                "SSCC18",
+                "UPCA",
+                "UPCE",
+                "ISBN",
+                "ISSN",
+                "ISMN",
+                "Standard2of5",
+                "Interleaved2of5",
+                "Matrix2of5",
+                "ItalianPost25",
+                "IATA2of5",
+                "ITF14",
+                "ITF6",
+                "MSI",
+                "VIN",
+                "DeutschePostIdentcode",
+                "DeutschePostLeitcode",
+                "OPC",
+                "PZN",
+                "Code16K",
+                "Pharmacode",
+                "DataMatrix",
+                "QR",
+                "Aztec",
+                "Pdf417",
+                "MacroPdf417",
+                "AustraliaPost",
+                "Postnet",
+                "Planet",
+                "OneCode",
+                "RM4SCC",
+                "DatabarOmniDirectional",
+                "DatabarTruncated",
+                "DatabarLimited",
+                "DatabarExpanded",
+                "SingaporePost",
+                "GS1DataMatrix",
+                "AustralianPosteParcel",
+                "SwissPostParcel",
+                "PatchCode",
+                "DatabarExpandedStacked",
+                "DatabarStacked",
+                "DatabarStackedOmniDirectional",
+                "MicroPdf417",
+                "GS1QR",
+                "MaxiCode",
+                "Code32",
+                "DataLogic2of5",
+                "DotCode",
+                "DutchKIX",
+                "UpcaGs1Code128Coupon",
+                "UpcaGs1DatabarCoupon",
+                "CodablockF",
+                "GS1CodablockF",
+                "Mailmark",
+                "GS1DotCode",
+                "HanXin",
+                "GS1HanXin"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/EncodeBarcodeType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/EncodeBarcodeType"
+            }
+          },
+          {
+            "name": "Text",
+            "in": "query",
+            "description": "Text to encode.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "TwoDDisplayText",
+            "in": "query",
+            "description": "Text that will be displayed instead of codetext in 2D barcodes.\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "TextLocation",
+            "in": "query",
+            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\nDefault value: CodeLocation.Below.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Below",
+                "Above",
+                "None"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/CodeLocation"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/CodeLocation"
+            }
+          },
+          {
+            "name": "TextAlignment",
+            "in": "query",
+            "description": "Text alignment.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Left",
+                "Center",
+                "Right"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/TextAlignment"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/TextAlignment"
+            }
+          },
+          {
+            "name": "TextColor",
+            "in": "query",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FontSizeMode",
+            "in": "query",
+            "description": "Specify FontSizeMode. If FontSizeMode is set to Auto, font size will be calculated automatically based on xDimension value.\nIt is recommended to use FontSizeMode.Auto especially in AutoSizeMode.Nearest or AutoSizeMode.Interpolation.\nDefault value: FontSizeMode.Auto.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Auto",
+                "Manual"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/FontMode"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/FontMode"
+            }
+          },
+          {
+            "name": "NoWrap",
+            "in": "query",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Resolution",
+            "in": "query",
+            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ResolutionX",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ResolutionY",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "DimensionX",
+            "in": "query",
+            "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "TextSpace",
+            "in": "query",
+            "description": "Space between the CodeText and the BarCode in Unit value.\nDefault value: 2pt.\nIgnored for EAN8, EAN13, UPCE, UPCA, ISBN, ISMN, ISSN, UpcaGs1DatabarCoupon.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Units",
+            "in": "query",
+            "description": "Common Units for all measuring in query. Default units: pixel.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Pixel",
+                "Point",
+                "Inch",
+                "Millimeter"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/AvailableGraphicsUnit"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/AvailableGraphicsUnit"
+            }
+          },
+          {
+            "name": "SizeMode",
+            "in": "query",
+            "description": "Specifies the different types of automatic sizing modes.\nDefault value: AutoSizeMode.None.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "None",
+                "Nearest",
+                "Interpolation"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/AutoSizeMode"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/AutoSizeMode"
+            }
+          },
+          {
+            "name": "BarHeight",
+            "in": "query",
+            "description": "Height of the barcode in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ImageHeight",
+            "in": "query",
+            "description": "Height of the barcode image in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ImageWidth",
+            "in": "query",
+            "description": "Width of the barcode image in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RotationAngle",
+            "in": "query",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BackColor",
+            "in": "query",
+            "description": "Background color of the barcode image.\nDefault value: Color.White.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BarColor",
+            "in": "query",
+            "description": "Bars color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderColor",
+            "in": "query",
+            "description": "Border color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderWidth",
+            "in": "query",
+            "description": "Border width.\nDefault value: 0.\nIgnored if Visible is set to false.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderDashStyle",
+            "in": "query",
+            "description": "Border dash style.\nDefault value: BorderDashStyle.Solid.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Solid",
+                "Dash",
+                "Dot",
+                "DashDot",
+                "DashDotDot"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/BorderDashStyle"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/BorderDashStyle"
+            }
+          },
+          {
+            "name": "BorderVisible",
+            "in": "query",
+            "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "EnableChecksum",
+            "in": "query",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Default",
+                "Yes",
+                "No"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/EnableChecksum"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/EnableChecksum"
+            }
+          },
+          {
+            "name": "EnableEscape",
+            "in": "query",
+            "description": "Indicates whether explains the character \"\\\" as an escape character in CodeText property. Used for Pdf417, DataMatrix, Code128 only\nIf the EnableEscape is true, \"\\\" will be explained as a special escape character. Otherwise, \"\\\" acts as normal characters.\nAspose.BarCode supports input decimal ascii code and mnemonic for ASCII control-code characters. For example, \\013 and \\\\CR stands for CR.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FilledBars",
+            "in": "query",
+            "description": "Value indicating whether bars are filled.\nOnly for 1D barcodes.\nDefault value: true.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AlwaysShowChecksum",
+            "in": "query",
+            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "WideNarrowRatio",
+            "in": "query",
+            "description": "Wide bars to Narrow bars ratio.\nDefault value: 3, that is, wide bars are 3 times as wide as narrow bars.\nUsed for ITF, PZN, PharmaCode, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, IATA2of5, VIN, DeutschePost, OPC, Code32, DataLogic2of5, PatchCode, Code39Extended, Code39Standard",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ValidateText",
+            "in": "query",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SupplementData",
+            "in": "query",
+            "description": "Supplement parameters.\nUsed for Interleaved2of5, Standard2of5, EAN13, EAN8, UPCA, UPCE, ISBN, ISSN, ISMN.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SupplementSpace",
+            "in": "query",
+            "description": "Space between main the BarCode and supplement BarCode.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BarWidthReduction",
+            "in": "query",
+            "description": "Bars reduction value that is used to compensate ink spread while printing.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "UseAntiAlias",
+            "in": "query",
+            "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Result image format.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Generated barcode image.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/bmp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/gif": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/tiff": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "image/bmp": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "image/gif": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "image/svg+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "image/tiff": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-binary-result": true
+      }
+    },
+    "/barcode/{name}/generate": {
+      "put": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Generate barcode and save on server (from query params or from file with json or xml content)",
+        "operationId": "PutBarcodeGenerateFile",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The image file name.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Type of barcode to generate.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Codabar",
+                "Code11",
+                "Code39Standard",
+                "Code39Extended",
+                "Code93Standard",
+                "Code93Extended",
+                "Code128",
+                "GS1Code128",
+                "EAN8",
+                "EAN13",
+                "EAN14",
+                "SCC14",
+                "SSCC18",
+                "UPCA",
+                "UPCE",
+                "ISBN",
+                "ISSN",
+                "ISMN",
+                "Standard2of5",
+                "Interleaved2of5",
+                "Matrix2of5",
+                "ItalianPost25",
+                "IATA2of5",
+                "ITF14",
+                "ITF6",
+                "MSI",
+                "VIN",
+                "DeutschePostIdentcode",
+                "DeutschePostLeitcode",
+                "OPC",
+                "PZN",
+                "Code16K",
+                "Pharmacode",
+                "DataMatrix",
+                "QR",
+                "Aztec",
+                "Pdf417",
+                "MacroPdf417",
+                "AustraliaPost",
+                "Postnet",
+                "Planet",
+                "OneCode",
+                "RM4SCC",
+                "DatabarOmniDirectional",
+                "DatabarTruncated",
+                "DatabarLimited",
+                "DatabarExpanded",
+                "SingaporePost",
+                "GS1DataMatrix",
+                "AustralianPosteParcel",
+                "SwissPostParcel",
+                "PatchCode",
+                "DatabarExpandedStacked",
+                "DatabarStacked",
+                "DatabarStackedOmniDirectional",
+                "MicroPdf417",
+                "GS1QR",
+                "MaxiCode",
+                "Code32",
+                "DataLogic2of5",
+                "DotCode",
+                "DutchKIX",
+                "UpcaGs1Code128Coupon",
+                "UpcaGs1DatabarCoupon",
+                "CodablockF",
+                "GS1CodablockF",
+                "Mailmark",
+                "GS1DotCode",
+                "HanXin",
+                "GS1HanXin"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/EncodeBarcodeType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/EncodeBarcodeType"
+            }
+          },
+          {
+            "name": "Text",
+            "in": "query",
+            "description": "Text to encode.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "TwoDDisplayText",
+            "in": "query",
+            "description": "Text that will be displayed instead of codetext in 2D barcodes.\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "TextLocation",
+            "in": "query",
+            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\nDefault value: CodeLocation.Below.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Below",
+                "Above",
+                "None"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/CodeLocation"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/CodeLocation"
+            }
+          },
+          {
+            "name": "TextAlignment",
+            "in": "query",
+            "description": "Text alignment.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Left",
+                "Center",
+                "Right"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/TextAlignment"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/TextAlignment"
+            }
+          },
+          {
+            "name": "TextColor",
+            "in": "query",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FontSizeMode",
+            "in": "query",
+            "description": "Specify FontSizeMode. If FontSizeMode is set to Auto, font size will be calculated automatically based on xDimension value.\nIt is recommended to use FontSizeMode.Auto especially in AutoSizeMode.Nearest or AutoSizeMode.Interpolation.\nDefault value: FontSizeMode.Auto.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Auto",
+                "Manual"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/FontMode"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/FontMode"
+            }
+          },
+          {
+            "name": "NoWrap",
+            "in": "query",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Resolution",
+            "in": "query",
+            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ResolutionX",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ResolutionY",
+            "in": "query",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "DimensionX",
+            "in": "query",
+            "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "TextSpace",
+            "in": "query",
+            "description": "Space between the CodeText and the BarCode in Unit value.\nDefault value: 2pt.\nIgnored for EAN8, EAN13, UPCE, UPCA, ISBN, ISMN, ISSN, UpcaGs1DatabarCoupon.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Units",
+            "in": "query",
+            "description": "Common Units for all measuring in query. Default units: pixel.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Pixel",
+                "Point",
+                "Inch",
+                "Millimeter"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/AvailableGraphicsUnit"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/AvailableGraphicsUnit"
+            }
+          },
+          {
+            "name": "SizeMode",
+            "in": "query",
+            "description": "Specifies the different types of automatic sizing modes.\nDefault value: AutoSizeMode.None.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "None",
+                "Nearest",
+                "Interpolation"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/AutoSizeMode"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/AutoSizeMode"
+            }
+          },
+          {
+            "name": "BarHeight",
+            "in": "query",
+            "description": "Height of the barcode in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ImageHeight",
+            "in": "query",
+            "description": "Height of the barcode image in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ImageWidth",
+            "in": "query",
+            "description": "Width of the barcode image in given units. Default units: pixel.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RotationAngle",
+            "in": "query",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BackColor",
+            "in": "query",
+            "description": "Background color of the barcode image.\nDefault value: Color.White.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BarColor",
+            "in": "query",
+            "description": "Bars color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderColor",
+            "in": "query",
+            "description": "Border color.\nDefault value: Color.Black.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderWidth",
+            "in": "query",
+            "description": "Border width.\nDefault value: 0.\nIgnored if Visible is set to false.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BorderDashStyle",
+            "in": "query",
+            "description": "Border dash style.\nDefault value: BorderDashStyle.Solid.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Solid",
+                "Dash",
+                "Dot",
+                "DashDot",
+                "DashDotDot"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/BorderDashStyle"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/BorderDashStyle"
+            }
+          },
+          {
+            "name": "BorderVisible",
+            "in": "query",
+            "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "EnableChecksum",
+            "in": "query",
+            "description": "Enable checksum during generation 1D barcodes.\nDefault is treated as Yes for symbology which must contain checksum, as No where checksum only possible.\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN, Codabar\nChecksum always used: Rest symbology",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Default",
+                "Yes",
+                "No"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/EnableChecksum"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/EnableChecksum"
+            }
+          },
+          {
+            "name": "EnableEscape",
+            "in": "query",
+            "description": "Indicates whether explains the character \"\\\" as an escape character in CodeText property. Used for Pdf417, DataMatrix, Code128 only\nIf the EnableEscape is true, \"\\\" will be explained as a special escape character. Otherwise, \"\\\" acts as normal characters.\nAspose.BarCode supports input decimal ascii code and mnemonic for ASCII control-code characters. For example, \\013 and \\\\CR stands for CR.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FilledBars",
+            "in": "query",
+            "description": "Value indicating whether bars are filled.\nOnly for 1D barcodes.\nDefault value: true.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AlwaysShowChecksum",
+            "in": "query",
+            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "WideNarrowRatio",
+            "in": "query",
+            "description": "Wide bars to Narrow bars ratio.\nDefault value: 3, that is, wide bars are 3 times as wide as narrow bars.\nUsed for ITF, PZN, PharmaCode, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, IATA2of5, VIN, DeutschePost, OPC, Code32, DataLogic2of5, PatchCode, Code39Extended, Code39Standard",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ValidateText",
+            "in": "query",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SupplementData",
+            "in": "query",
+            "description": "Supplement parameters.\nUsed for Interleaved2of5, Standard2of5, EAN13, EAN8, UPCA, UPCE, ISBN, ISSN, ISMN.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SupplementSpace",
+            "in": "query",
+            "description": "Space between main the BarCode and supplement BarCode.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "BarWidthReduction",
+            "in": "query",
+            "description": "Bars reduction value that is used to compensate ink spread while printing.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "UseAntiAlias",
+            "in": "query",
+            "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "storage",
+            "in": "query",
+            "description": "Image's storage.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "Image's folder.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The image format.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "IActionResult with the operation status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultImageInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/generateMultiple": {
+      "post": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Generate multiple barcodes and return in response stream",
+        "operationId": "PostGenerateMultiple",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Format to return stream in",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "default": "png"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of barcodes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GeneratorParamsList"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GeneratorParamsList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Response with streamed images",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/bmp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/gif": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/tiff": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-binary-result": true,
+        "x-codegen-request-body-name": "generatorParamsList"
+      }
+    },
+    "/barcode/{name}/generateMultiple": {
+      "put": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Generate image with multiple barcodes and put new file on server",
+        "operationId": "PutGenerateMultiple",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "New filename",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Format of file",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "default": "png"
+            }
+          },
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "Folder to place file to",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "storage",
+            "in": "query",
+            "description": "The storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of barcodes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GeneratorParamsList"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GeneratorParamsList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Response with result of operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultImageInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-codegen-request-body-name": "generatorParamsList"
+      }
+    },
+    "/barcode/{name}/recognize": {
+      "get": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Recognize barcode from a file on server.",
+        "operationId": "GetBarcodeRecognize",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The image file name.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "The type of barcode to read.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "all",
+                "AustraliaPost",
+                "Aztec",
+                "ISBN",
+                "Codabar",
+                "Code11",
+                "Code128",
+                "GS1Code128",
+                "Code39Extended",
+                "Code39Standard",
+                "Code93Extended",
+                "Code93Standard",
+                "DataMatrix",
+                "DeutschePostIdentcode",
+                "DeutschePostLeitcode",
+                "EAN13",
+                "EAN14",
+                "EAN8",
+                "IATA2of5",
+                "Interleaved2of5",
+                "ISSN",
+                "ISMN",
+                "ItalianPost25",
+                "ITF14",
+                "ITF6",
+                "MacroPdf417",
+                "Matrix2of5",
+                "MSI",
+                "OneCode",
+                "OPC",
+                "PatchCode",
+                "Pdf417",
+                "MicroPdf417",
+                "Planet",
+                "Postnet",
+                "PZN",
+                "QR",
+                "MicroQR",
+                "RM4SCC",
+                "SCC14",
+                "SSCC18",
+                "Standard2of5",
+                "Supplement",
+                "UPCA",
+                "UPCE",
+                "VIN",
+                "Pharmacode",
+                "GS1DataMatrix",
+                "DatabarOmniDirectional",
+                "DatabarTruncated",
+                "DatabarLimited",
+                "DatabarExpanded",
+                "SwissPostParcel",
+                "AustralianPosteParcel",
+                "Code16K",
+                "DatabarStackedOmniDirectional",
+                "DatabarStacked",
+                "DatabarExpandedStacked",
+                "CompactPdf417",
+                "GS1QR",
+                "MaxiCode",
+                "MicrE13B",
+                "Code32",
+                "DataLogic2of5",
+                "DotCode",
+                "DutchKIX",
+                "CodablockF",
+                "Mailmark",
+                "GS1DotCode",
+                "HIBCCode39LIC",
+                "HIBCCode128LIC",
+                "HIBCAztecLIC",
+                "HIBCDataMatrixLIC",
+                "HIBCQRLIC",
+                "HIBCCode39PAS",
+                "HIBCCode128PAS",
+                "HIBCAztecPAS",
+                "HIBCDataMatrixPAS",
+                "HIBCQRPAS",
+                "HanXin",
+                "GS1HanXin"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/DecodeBarcodeType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
+          },
+          {
+            "name": "ChecksumValidation",
+            "in": "query",
+            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Default",
+                "On",
+                "Off"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/ChecksumValidation"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/ChecksumValidation"
+            }
+          },
+          {
+            "name": "DetectEncoding",
+            "in": "query",
+            "description": "A flag which force engine to detect codetext encoding for Unicode.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Preset",
+            "in": "query",
+            "description": "Preset allows to configure recognition quality and speed manually.\nYou can quickly set up Preset by embedded presets: HighPerformance, NormalQuality,\nHighQuality, MaxBarCodes or you can manually configure separate options.\nDefault value of Preset is NormalQuality.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "HighPerformance",
+                "NormalQuality",
+                "HighQualityDetection",
+                "MaxQualityDetection",
+                "HighQuality",
+                "MaxBarCodes"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/PresetType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/PresetType"
+            }
+          },
+          {
+            "name": "RectX",
+            "in": "query",
+            "description": "Set X of top left corner of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectY",
+            "in": "query",
+            "description": "Set Y of top left corner of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectWidth",
+            "in": "query",
+            "description": "Set Width of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectHeight",
+            "in": "query",
+            "description": "Set Height of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "StripFNC",
+            "in": "query",
+            "description": "Value indicating whether FNC symbol strip must be done.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Timeout",
+            "in": "query",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nMaximum value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "MedianSmoothingWindowSize",
+            "in": "query",
+            "description": "Window size for median smoothing. Typical values are 3 or 4. Default value is 3. AllowMedianSmoothing must be set.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowMedianSmoothing",
+            "in": "query",
+            "description": "Allows engine to enable median smoothing as additional scan. Mode helps to recognize noised barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowComplexBackground",
+            "in": "query",
+            "description": "Allows engine to recognize color barcodes on color background as additional scan. Extremely slow mode.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDatamatrixIndustrialBarcodes",
+            "in": "query",
+            "description": "Allows engine for Datamatrix to recognize dashed industrial Datamatrix barcodes.\nSlow mode which helps only for dashed barcodes which consist from spots.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDecreasedImage",
+            "in": "query",
+            "description": "Allows engine to recognize decreased image as additional scan. Size for decreasing is selected by internal engine algorithms.\nMode helps to recognize barcodes which are noised and blurred but captured with high resolution.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDetectScanGap",
+            "in": "query",
+            "description": "Allows engine to use gap between scans to increase recognition speed. Mode can make recognition problems with low height barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowIncorrectBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize barcodes which has incorrect checksum or incorrect values.\nMode can be used to recognize damaged barcodes with incorrect text.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowInvertImage",
+            "in": "query",
+            "description": "Allows engine to recognize inverse color image as additional scan. Mode can be used when barcode is white on black background.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowMicroWhiteSpotsRemoving",
+            "in": "query",
+            "description": "Allows engine for Postal barcodes to recognize slightly noised images. Mode helps to recognize slightly damaged Postal barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowOneDFastBarcodesDetector",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize high quality barcodes which fill almost whole image.\nMode helps to quickly recognize generated barcodes from Internet.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowOneDWipedBarsRestoration",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to recognize barcodes with single wiped/glued bars in pattern.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowQRMicroQrRestoration",
+            "in": "query",
+            "description": "Allows engine for QR/MicroQR to recognize damaged MicroQR barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowRegularImage",
+            "in": "query",
+            "description": "Allows engine to recognize regular image without any restorations as main scan. Mode to recognize image as is.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowSaltAndPepperFiltering",
+            "in": "query",
+            "description": "Allows engine to recognize barcodes with salt and pepper noise type. Mode can remove small noise with white and black dots.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowWhiteSpotsRemoving",
+            "in": "query",
+            "description": "Allows engine to recognize image without small white spots as additional scan. Mode helps to recognize noised image as well as median smoothing filtering.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CheckMore1DVariants",
+            "in": "query",
+            "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FastScanOnly",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RegionLikelihoodThresholdPercent",
+            "in": "query",
+            "description": "Sets threshold for detected regions that may contain barcodes.\nValue 0.7 means that bottom 70% of possible regions are filtered out and not processed further.\nRegion likelihood threshold must be between [0.05, 0.9]\nUse high values for clear images with few barcodes.\nUse low values for images with many barcodes or for noisy images.\nLow value may lead to a bigger recognition time.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ScanWindowSizes",
+            "in": "query",
+            "description": "Scan window sizes in pixels.\nAllowed sizes are 10, 15, 20, 25, 30.\nScanning with small window size takes more time and provides more accuracy but may fail in detecting very big barcodes.\nCombining of several window sizes can improve detection quality.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "Similarity",
+            "in": "query",
+            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SkipDiagonalSearch",
+            "in": "query",
+            "description": "Allows detector to skip search for diagonal barcodes.\nSetting it to false will increase detection time but allow to find diagonal barcodes that can be missed otherwise.\nEnabling of diagonal search leads to a bigger detection time.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ReadTinyBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AustralianPostEncodingTable",
+            "in": "query",
+            "description": "Interpreting Type for the Customer Information of AustralianPost BarCode.Default is CustomerInformationInterpretingType.Other.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "CTable",
+                "NTable",
+                "Other"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/CustomerInformationInterpretingType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/CustomerInformationInterpretingType"
+            }
+          },
+          {
+            "name": "IgnoreEndingFillingPatternsForCTable",
+            "in": "query",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "storage",
+            "in": "query",
+            "description": "The image storage.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "The image folder.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BarcodeResponseList with barcodes info.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarcodeResponseList"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Recognition of a barcode from file on server with parameters in body.",
+        "operationId": "PutBarcodeRecognizeFromBody",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The image file name.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "all",
+                "AustraliaPost",
+                "Aztec",
+                "ISBN",
+                "Codabar",
+                "Code11",
+                "Code128",
+                "GS1Code128",
+                "Code39Extended",
+                "Code39Standard",
+                "Code93Extended",
+                "Code93Standard",
+                "DataMatrix",
+                "DeutschePostIdentcode",
+                "DeutschePostLeitcode",
+                "EAN13",
+                "EAN14",
+                "EAN8",
+                "IATA2of5",
+                "Interleaved2of5",
+                "ISSN",
+                "ISMN",
+                "ItalianPost25",
+                "ITF14",
+                "ITF6",
+                "MacroPdf417",
+                "Matrix2of5",
+                "MSI",
+                "OneCode",
+                "OPC",
+                "PatchCode",
+                "Pdf417",
+                "MicroPdf417",
+                "Planet",
+                "Postnet",
+                "PZN",
+                "QR",
+                "MicroQR",
+                "RM4SCC",
+                "SCC14",
+                "SSCC18",
+                "Standard2of5",
+                "Supplement",
+                "UPCA",
+                "UPCE",
+                "VIN",
+                "Pharmacode",
+                "GS1DataMatrix",
+                "DatabarOmniDirectional",
+                "DatabarTruncated",
+                "DatabarLimited",
+                "DatabarExpanded",
+                "SwissPostParcel",
+                "AustralianPosteParcel",
+                "Code16K",
+                "DatabarStackedOmniDirectional",
+                "DatabarStacked",
+                "DatabarExpandedStacked",
+                "CompactPdf417",
+                "GS1QR",
+                "MaxiCode",
+                "MicrE13B",
+                "Code32",
+                "DataLogic2of5",
+                "DotCode",
+                "DutchKIX",
+                "CodablockF",
+                "Mailmark",
+                "GS1DotCode",
+                "HIBCCode39LIC",
+                "HIBCCode128LIC",
+                "HIBCAztecLIC",
+                "HIBCDataMatrixLIC",
+                "HIBCQRLIC",
+                "HIBCCode39PAS",
+                "HIBCCode128PAS",
+                "HIBCAztecPAS",
+                "HIBCDataMatrixPAS",
+                "HIBCQRPAS",
+                "HanXin",
+                "GS1HanXin"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/DecodeBarcodeType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
+          },
+          {
+            "name": "storage",
+            "in": "query",
+            "description": "The storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "The image folder.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "BarcodeReader object with parameters.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReaderParams"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "BarcodeResponseList with barcodes info.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarcodeResponseList"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-codegen-request-body-name": "readerParams"
+      }
+    },
+    "/barcode/recognize": {
+      "post": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Recognize barcode from an url or from request body.\nRequest body can contain raw data bytes of the image with content-type \"application/octet-stream\".\nAn image can also be passed as a form field.",
+        "operationId": "PostBarcodeRecognizeFromUrlOrContent",
+        "parameters": [
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "The type of barcode to read.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "all",
+                "AustraliaPost",
+                "Aztec",
+                "ISBN",
+                "Codabar",
+                "Code11",
+                "Code128",
+                "GS1Code128",
+                "Code39Extended",
+                "Code39Standard",
+                "Code93Extended",
+                "Code93Standard",
+                "DataMatrix",
+                "DeutschePostIdentcode",
+                "DeutschePostLeitcode",
+                "EAN13",
+                "EAN14",
+                "EAN8",
+                "IATA2of5",
+                "Interleaved2of5",
+                "ISSN",
+                "ISMN",
+                "ItalianPost25",
+                "ITF14",
+                "ITF6",
+                "MacroPdf417",
+                "Matrix2of5",
+                "MSI",
+                "OneCode",
+                "OPC",
+                "PatchCode",
+                "Pdf417",
+                "MicroPdf417",
+                "Planet",
+                "Postnet",
+                "PZN",
+                "QR",
+                "MicroQR",
+                "RM4SCC",
+                "SCC14",
+                "SSCC18",
+                "Standard2of5",
+                "Supplement",
+                "UPCA",
+                "UPCE",
+                "VIN",
+                "Pharmacode",
+                "GS1DataMatrix",
+                "DatabarOmniDirectional",
+                "DatabarTruncated",
+                "DatabarLimited",
+                "DatabarExpanded",
+                "SwissPostParcel",
+                "AustralianPosteParcel",
+                "Code16K",
+                "DatabarStackedOmniDirectional",
+                "DatabarStacked",
+                "DatabarExpandedStacked",
+                "CompactPdf417",
+                "GS1QR",
+                "MaxiCode",
+                "MicrE13B",
+                "Code32",
+                "DataLogic2of5",
+                "DotCode",
+                "DutchKIX",
+                "CodablockF",
+                "Mailmark",
+                "GS1DotCode",
+                "HIBCCode39LIC",
+                "HIBCCode128LIC",
+                "HIBCAztecLIC",
+                "HIBCDataMatrixLIC",
+                "HIBCQRLIC",
+                "HIBCCode39PAS",
+                "HIBCCode128PAS",
+                "HIBCAztecPAS",
+                "HIBCDataMatrixPAS",
+                "HIBCQRPAS",
+                "HanXin",
+                "GS1HanXin"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/DecodeBarcodeType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
+          },
+          {
+            "name": "ChecksumValidation",
+            "in": "query",
+            "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "Default",
+                "On",
+                "Off"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/ChecksumValidation"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/ChecksumValidation"
+            }
+          },
+          {
+            "name": "DetectEncoding",
+            "in": "query",
+            "description": "A flag which force engine to detect codetext encoding for Unicode.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Preset",
+            "in": "query",
+            "description": "Preset allows to configure recognition quality and speed manually.\nYou can quickly set up Preset by embedded presets: HighPerformance, NormalQuality,\nHighQuality, MaxBarCodes or you can manually configure separate options.\nDefault value of Preset is NormalQuality.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "HighPerformance",
+                "NormalQuality",
+                "HighQualityDetection",
+                "MaxQualityDetection",
+                "HighQuality",
+                "MaxBarCodes"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/PresetType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/PresetType"
+            }
+          },
+          {
+            "name": "RectX",
+            "in": "query",
+            "description": "Set X of top left corner of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectY",
+            "in": "query",
+            "description": "Set Y of top left corner of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectWidth",
+            "in": "query",
+            "description": "Set Width of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RectHeight",
+            "in": "query",
+            "description": "Set Height of area for recognition.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "StripFNC",
+            "in": "query",
+            "description": "Value indicating whether FNC symbol strip must be done.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Timeout",
+            "in": "query",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nMaximum value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "MedianSmoothingWindowSize",
+            "in": "query",
+            "description": "Window size for median smoothing. Typical values are 3 or 4. Default value is 3. AllowMedianSmoothing must be set.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowMedianSmoothing",
+            "in": "query",
+            "description": "Allows engine to enable median smoothing as additional scan. Mode helps to recognize noised barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowComplexBackground",
+            "in": "query",
+            "description": "Allows engine to recognize color barcodes on color background as additional scan. Extremely slow mode.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDatamatrixIndustrialBarcodes",
+            "in": "query",
+            "description": "Allows engine for Datamatrix to recognize dashed industrial Datamatrix barcodes.\nSlow mode which helps only for dashed barcodes which consist from spots.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDecreasedImage",
+            "in": "query",
+            "description": "Allows engine to recognize decreased image as additional scan. Size for decreasing is selected by internal engine algorithms.\nMode helps to recognize barcodes which are noised and blurred but captured with high resolution.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowDetectScanGap",
+            "in": "query",
+            "description": "Allows engine to use gap between scans to increase recognition speed. Mode can make recognition problems with low height barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowIncorrectBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize barcodes which has incorrect checksum or incorrect values.\nMode can be used to recognize damaged barcodes with incorrect text.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowInvertImage",
+            "in": "query",
+            "description": "Allows engine to recognize inverse color image as additional scan. Mode can be used when barcode is white on black background.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowMicroWhiteSpotsRemoving",
+            "in": "query",
+            "description": "Allows engine for Postal barcodes to recognize slightly noised images. Mode helps to recognize slightly damaged Postal barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowOneDFastBarcodesDetector",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize high quality barcodes which fill almost whole image.\nMode helps to quickly recognize generated barcodes from Internet.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowOneDWipedBarsRestoration",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to recognize barcodes with single wiped/glued bars in pattern.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowQRMicroQrRestoration",
+            "in": "query",
+            "description": "Allows engine for QR/MicroQR to recognize damaged MicroQR barcodes.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowRegularImage",
+            "in": "query",
+            "description": "Allows engine to recognize regular image without any restorations as main scan. Mode to recognize image as is.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowSaltAndPepperFiltering",
+            "in": "query",
+            "description": "Allows engine to recognize barcodes with salt and pepper noise type. Mode can remove small noise with white and black dots.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AllowWhiteSpotsRemoving",
+            "in": "query",
+            "description": "Allows engine to recognize image without small white spots as additional scan. Mode helps to recognize noised image as well as median smoothing filtering.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CheckMore1DVariants",
+            "in": "query",
+            "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "FastScanOnly",
+            "in": "query",
+            "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "RegionLikelihoodThresholdPercent",
+            "in": "query",
+            "description": "Sets threshold for detected regions that may contain barcodes.\nValue 0.7 means that bottom 70% of possible regions are filtered out and not processed further.\nRegion likelihood threshold must be between [0.05, 0.9]\nUse high values for clear images with few barcodes.\nUse low values for images with many barcodes or for noisy images.\nLow value may lead to a bigger recognition time.",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ScanWindowSizes",
+            "in": "query",
+            "description": "Scan window sizes in pixels.\nAllowed sizes are 10, 15, 20, 25, 30.\nScanning with small window size takes more time and provides more accuracy but may fail in detecting very big barcodes.\nCombining of several window sizes can improve detection quality.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "Similarity",
+            "in": "query",
+            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SkipDiagonalSearch",
+            "in": "query",
+            "description": "Allows detector to skip search for diagonal barcodes.\nSetting it to false will increase detection time but allow to find diagonal barcodes that can be missed otherwise.\nEnabling of diagonal search leads to a bigger detection time.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ReadTinyBarcodes",
+            "in": "query",
+            "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False.",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AustralianPostEncodingTable",
+            "in": "query",
+            "description": "Interpreting Type for the Customer Information of AustralianPost BarCode.Default is CustomerInformationInterpretingType.Other.",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "CTable",
+                "NTable",
+                "Other"
+              ],
+              "x-schema": {
+                "$ref": "#/definitions/CustomerInformationInterpretingType"
+              }
+            },
+            "x-schema": {
+              "$ref": "#/definitions/CustomerInformationInterpretingType"
+            }
+          },
+          {
+            "name": "IgnoreEndingFillingPatternsForCTable",
+            "in": "query",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\".",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The image file url.",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "description": "Image data",
+                    "format": "binary"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "description": "Image data",
+                    "format": "binary"
+                  }
+                }
+              }
+            },
+            "application/octet-stream": {
+              "schema": {
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "description": "Image data",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "BarcodeResponseList with barcode data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarcodeResponseList"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/file/{path}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Download file",
+        "operationId": "DownloadFile",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path e.g. '/folder/file.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to download",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The raw data of the file.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          },
+          "404": {
+            "description": "File for given path not found.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "x-binary-result": true
+      },
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Upload file",
+        "operationId": "UploadFile",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext\n If the content is multipart and path does not contains the file name it tries to get them from filename parameter\n from Content-Disposition header.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "File"
+                ],
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "description": "File to upload",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Empty error list if the upload is successful.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilesUploadResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Delete file",
+        "operationId": "DeleteFile",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path e.g. '/folder/file.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to delete",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the delete is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/file/copy/{srcPath}": {
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Copy file",
+        "operationId": "CopyFile",
+        "parameters": [
+          {
+            "name": "srcPath",
+            "in": "path",
+            "description": "Source file path e.g. '/folder/file.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "destPath",
+            "in": "query",
+            "description": "Destination file path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to copy",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the copy is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/file/move/{srcPath}": {
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Move file",
+        "operationId": "MoveFile",
+        "parameters": [
+          {
+            "name": "srcPath",
+            "in": "path",
+            "description": "Source file path e.g. '/src.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "destPath",
+            "in": "query",
+            "description": "Destination file path e.g. '/dest.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID to move",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the move is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          },
+          "404": {
+            "description": "File for given path not found.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/{path}": {
+      "get": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Get all files and folders within a folder",
+        "operationId": "GetFilesList",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Folder path e.g. '/folder'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all files and folders contained by the folder.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilesList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          },
+          "404": {
+            "description": "Can't find folder for given path.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Create the folder",
+        "operationId": "CreateFolder",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Folder path to create e.g. 'folder_1/folder_2/'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the create is successful.",
+            "content": {}
+          },
+          "400": {
+            "description": "Storage not found or it is not associated with the application.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Delete folder",
+        "operationId": "DeleteFolder",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Folder path e.g. '/folder'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "recursive",
+            "in": "query",
+            "description": "Enable to delete folders, subfolders and files",
+            "schema": {
+              "type": "boolean",
+              "nullable": false,
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the delete is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/copy/{srcPath}": {
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Copy folder",
+        "operationId": "CopyFolder",
+        "parameters": [
+          {
+            "name": "srcPath",
+            "in": "path",
+            "description": "Source folder path e.g. '/src'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "destPath",
+            "in": "query",
+            "description": "Destination folder path e.g. '/dst'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the copy is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/folder/move/{srcPath}": {
+      "put": {
+        "tags": [
+          "Folder"
+        ],
+        "summary": "Move folder",
+        "operationId": "MoveFolder",
+        "parameters": [
+          {
+            "name": "srcPath",
+            "in": "path",
+            "description": "Folder path to move e.g. '/folder'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "destPath",
+            "in": "query",
+            "description": "Destination folder path to move to e.g '/dst'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "srcStorageName",
+            "in": "query",
+            "description": "Source storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "destStorageName",
+            "in": "query",
+            "description": "Destination storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns 200 if the move is successful.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/{storageName}/exist": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Check if storage exists",
+        "operationId": "StorageExists",
+        "parameters": [
+          {
+            "name": "storageName",
+            "in": "path",
+            "description": "Storage name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Storage exist result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageExist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/exist/{path}": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Check if file or folder exists",
+        "operationId": "ObjectExists",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File or folder path e.g. '/file.ext' or '/folder'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "File version ID",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object exist result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectExist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/disc": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Get disc usage",
+        "operationId": "GetDiscUsage",
+        "parameters": [
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Disc usage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscUsage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Storage not found or it is not associated with an application.",
+            "content": {}
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/barcode/storage/version/{path}": {
+      "get": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Get file versions",
+        "operationId": "GetFileVersions",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "description": "File path e.g. '/file.ext'",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            }
+          },
+          {
+            "name": "storageName",
+            "in": "query",
+            "description": "Storage name",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File versions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileVersions"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization token is invalid or expired.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiErrorResponse": {
+        "type": "object",
+        "properties": {
+          "RequestId": {
+            "type": "string"
+          },
+          "Error": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "DateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "InnerError": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        }
+      },
+      "EncodeBarcodeType": {
+        "type": "string",
+        "description": "See EncodeTypes",
+        "enum": [
+          "Codabar",
+          "Code11",
+          "Code39Standard",
+          "Code39Extended",
+          "Code93Standard",
+          "Code93Extended",
+          "Code128",
+          "GS1Code128",
+          "EAN8",
+          "EAN13",
+          "EAN14",
+          "SCC14",
+          "SSCC18",
+          "UPCA",
+          "UPCE",
+          "ISBN",
+          "ISSN",
+          "ISMN",
+          "Standard2of5",
+          "Interleaved2of5",
+          "Matrix2of5",
+          "ItalianPost25",
+          "IATA2of5",
+          "ITF14",
+          "ITF6",
+          "MSI",
+          "VIN",
+          "DeutschePostIdentcode",
+          "DeutschePostLeitcode",
+          "OPC",
+          "PZN",
+          "Code16K",
+          "Pharmacode",
+          "DataMatrix",
+          "QR",
+          "Aztec",
+          "Pdf417",
+          "MacroPdf417",
+          "AustraliaPost",
+          "Postnet",
+          "Planet",
+          "OneCode",
+          "RM4SCC",
+          "DatabarOmniDirectional",
+          "DatabarTruncated",
+          "DatabarLimited",
+          "DatabarExpanded",
+          "SingaporePost",
+          "GS1DataMatrix",
+          "AustralianPosteParcel",
+          "SwissPostParcel",
+          "PatchCode",
+          "DatabarExpandedStacked",
+          "DatabarStacked",
+          "DatabarStackedOmniDirectional",
+          "MicroPdf417",
+          "GS1QR",
+          "MaxiCode",
+          "Code32",
+          "DataLogic2of5",
+          "DotCode",
+          "DutchKIX",
+          "UpcaGs1Code128Coupon",
+          "UpcaGs1DatabarCoupon",
+          "CodablockF",
+          "GS1CodablockF",
+          "Mailmark",
+          "GS1DotCode",
+          "HanXin",
+          "GS1HanXin"
+        ],
+        "x-enumNames": [
+          "Codabar",
+          "Code11",
+          "Code39Standard",
+          "Code39Extended",
+          "Code93Standard",
+          "Code93Extended",
+          "Code128",
+          "GS1Code128",
+          "EAN8",
+          "EAN13",
+          "EAN14",
+          "SCC14",
+          "SSCC18",
+          "UPCA",
+          "UPCE",
+          "ISBN",
+          "ISSN",
+          "ISMN",
+          "Standard2of5",
+          "Interleaved2of5",
+          "Matrix2of5",
+          "ItalianPost25",
+          "IATA2of5",
+          "ITF14",
+          "ITF6",
+          "MSI",
+          "VIN",
+          "DeutschePostIdentcode",
+          "DeutschePostLeitcode",
+          "OPC",
+          "PZN",
+          "Code16K",
+          "Pharmacode",
+          "DataMatrix",
+          "QR",
+          "Aztec",
+          "Pdf417",
+          "MacroPdf417",
+          "AustraliaPost",
+          "Postnet",
+          "Planet",
+          "OneCode",
+          "RM4SCC",
+          "DatabarOmniDirectional",
+          "DatabarTruncated",
+          "DatabarLimited",
+          "DatabarExpanded",
+          "SingaporePost",
+          "GS1DataMatrix",
+          "AustralianPosteParcel",
+          "SwissPostParcel",
+          "PatchCode",
+          "DatabarExpandedStacked",
+          "DatabarStacked",
+          "DatabarStackedOmniDirectional",
+          "MicroPdf417",
+          "GS1QR",
+          "MaxiCode",
+          "Code32",
+          "DataLogic2of5",
+          "DotCode",
+          "DutchKIX",
+          "UpcaGs1Code128Coupon",
+          "UpcaGs1DatabarCoupon",
+          "CodablockF",
+          "GS1CodablockF",
+          "Mailmark",
+          "GS1DotCode",
+          "HanXin",
+          "GS1HanXin"
+        ]
+      },
+      "CodeLocation": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Below",
+          "Above",
+          "None"
+        ],
+        "x-enumNames": [
+          "Below",
+          "Above",
+          "None"
+        ]
+      },
+      "TextAlignment": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Left",
+          "Center",
+          "Right"
+        ],
+        "x-enumNames": [
+          "Left",
+          "Center",
+          "Right"
+        ]
+      },
+      "FontMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Manual"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Manual"
+        ]
+      },
+      "AvailableGraphicsUnit": {
+        "type": "string",
+        "description": "Subset of GraphicsUnit.",
+        "enum": [
+          "Pixel",
+          "Point",
+          "Inch",
+          "Millimeter"
+        ],
+        "x-enumNames": [
+          "Pixel",
+          "Point",
+          "Inch",
+          "Millimeter"
+        ]
+      },
+      "AutoSizeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "None",
+          "Nearest",
+          "Interpolation"
+        ],
+        "x-enumNames": [
+          "None",
+          "Nearest",
+          "Interpolation"
+        ]
+      },
+      "BorderDashStyle": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Solid",
+          "Dash",
+          "Dot",
+          "DashDot",
+          "DashDotDot"
+        ],
+        "x-enumNames": [
+          "Solid",
+          "Dash",
+          "Dot",
+          "DashDot",
+          "DashDotDot"
+        ]
+      },
+      "EnableChecksum": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Default",
+          "Yes",
+          "No"
+        ],
+        "x-enumNames": [
+          "Default",
+          "Yes",
+          "No"
+        ]
+      },
+      "ResultImageInfo": {
+        "required": [
+          "FileSize"
+        ],
+        "type": "object",
+        "properties": {
+          "FileSize": {
+            "type": "integer",
+            "description": "Result file size.",
+            "format": "int64"
+          },
+          "ImageWidth": {
+            "type": "integer",
+            "description": "Result image width.",
+            "format": "int32"
+          },
+          "ImageHeight": {
+            "type": "integer",
+            "description": "Result image height.",
+            "format": "int32"
+          }
+        },
+        "description": "Created image info."
+      },
+      "GeneratorParamsList": {
+        "required": [
+          "XStep",
+          "YStep"
+        ],
+        "type": "object",
+        "properties": {
+          "BarcodeBuilders": {
+            "type": "array",
+            "description": "List of barcode generators",
+            "items": {
+              "$ref": "#/components/schemas/GeneratorParams"
+            }
+          },
+          "XStep": {
+            "type": "integer",
+            "description": "Shift step according to X axis",
+            "format": "int32"
+          },
+          "YStep": {
+            "type": "integer",
+            "description": "Shift step according to Y axis",
+            "format": "int32"
+          }
+        },
+        "description": "Represents list of barcode generators"
+      },
+      "GeneratorParams": {
+        "required": [
+          "Text",
+          "TypeOfBarcode"
+        ],
+        "type": "object",
+        "properties": {
+          "TypeOfBarcode": {
+            "$ref": "#/components/schemas/EncodeBarcodeType"
+          },
+          "Text": {
+            "type": "string",
+            "description": "Text to encode."
+          },
+          "TwoDDisplayText": {
+            "type": "string",
+            "description": "Text that will be displayed instead of codetext in 2D barcodes.\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode"
+          },
+          "TextLocation": {
+            "$ref": "#/components/schemas/CodeLocation"
+          },
+          "TextAlignment": {
+            "$ref": "#/components/schemas/TextAlignment"
+          },
+          "TextColor": {
+            "type": "string",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black."
+          },
+          "Font": {
+            "$ref": "#/components/schemas/FontParams"
+          },
+          "FontSizeMode": {
+            "$ref": "#/components/schemas/FontMode"
+          },
+          "NoWrap": {
+            "type": "boolean",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false."
+          },
+          "Resolution": {
+            "type": "number",
+            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.",
+            "format": "double"
+          },
+          "ResolutionX": {
+            "type": "number",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "format": "double"
+          },
+          "ResolutionY": {
+            "type": "number",
+            "description": "DEPRECATED: Use 'Resolution' instead.",
+            "format": "double"
+          },
+          "DimensionX": {
+            "type": "number",
+            "description": "The smallest width of the unit of BarCode bars or spaces.\nIncrease this will increase the whole barcode image width.\nIgnored if AutoSizeMode property is set to AutoSizeMode.Nearest or AutoSizeMode.Interpolation.",
+            "format": "double"
+          },
+          "TextSpace": {
+            "type": "number",
+            "description": "Space between the CodeText and the BarCode in Unit value.\nDefault value: 2pt.\nIgnored for EAN8, EAN13, UPCE, UPCA, ISBN, ISMN, ISSN, UpcaGs1DatabarCoupon.",
+            "format": "double"
+          },
+          "Units": {
+            "$ref": "#/components/schemas/AvailableGraphicsUnit"
+          },
+          "SizeMode": {
+            "$ref": "#/components/schemas/AutoSizeMode"
+          },
+          "BarHeight": {
+            "type": "number",
+            "description": "Height of the barcode in given units. Default units: pixel.",
+            "format": "double"
+          },
+          "ImageHeight": {
+            "type": "number",
+            "description": "Height of the barcode image in given units. Default units: pixel.",
+            "format": "double"
+          },
+          "ImageWidth": {
+            "type": "number",
+            "description": "Width of the barcode image in given units. Default units: pixel.",
+            "format": "double"
+          },
+          "RotationAngle": {
+            "type": "number",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+            "format": "double"
+          },
+          "Padding": {
+            "$ref": "#/components/schemas/Padding"
+          },
+          "CaptionAbove": {
+            "$ref": "#/components/schemas/CaptionParams"
+          },
+          "CaptionBelow": {
+            "$ref": "#/components/schemas/CaptionParams"
+          },
+          "BackColor": {
+            "type": "string",
+            "description": "Background color of the barcode image.\nDefault value: Color.White."
+          },
+          "BarColor": {
+            "type": "string",
+            "description": "Bars color.\nDefault value: Color.Black."
+          },
+          "BorderColor": {
+            "type": "string",
+            "description": "Border color.\nDefault value: Color.Black."
+          },
+          "BorderWidth": {
+            "type": "number",
+            "description": "Border width.\nDefault value: 0.\nIgnored if Visible is set to false.",
+            "format": "double"
+          },
+          "BorderDashStyle": {
+            "$ref": "#/components/schemas/BorderDashStyle"
+          },
+          "BorderVisible": {
+            "type": "boolean",
+            "description": "Border visibility. If false than parameter Width is always ignored (0).\nDefault value: false."
+          },
+          "EnableChecksum": {
+            "$ref": "#/components/schemas/EnableChecksum"
+          },
+          "EnableEscape": {
+            "type": "boolean",
+            "description": "Indicates whether explains the character \"\\\" as an escape character in CodeText property. Used for Pdf417, DataMatrix, Code128 only\nIf the EnableEscape is true, \"\\\" will be explained as a special escape character. Otherwise, \"\\\" acts as normal characters.\nAspose.BarCode supports input decimal ascii code and mnemonic for ASCII control-code characters. For example, \\013 and \\\\CR stands for CR."
+          },
+          "FilledBars": {
+            "type": "boolean",
+            "description": "Value indicating whether bars are filled.\nOnly for 1D barcodes.\nDefault value: true."
+          },
+          "AlwaysShowChecksum": {
+            "type": "boolean",
+            "description": "Always display checksum digit in the human readable text for Code128 and GS1Code128 barcodes."
+          },
+          "WideNarrowRatio": {
+            "type": "number",
+            "description": "Wide bars to Narrow bars ratio.\nDefault value: 3, that is, wide bars are 3 times as wide as narrow bars.\nUsed for ITF, PZN, PharmaCode, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, IATA2of5, VIN, DeutschePost, OPC, Code32, DataLogic2of5, PatchCode, Code39Extended, Code39Standard",
+            "format": "double"
+          },
+          "ValidateText": {
+            "type": "boolean",
+            "description": "Only for 1D barcodes.\nIf codetext is incorrect and value set to true - exception will be thrown. Otherwise codetext will be corrected to match barcode's specification.\nException always will be thrown for: Databar symbology if codetext is incorrect.\nException always will not be thrown for: AustraliaPost, SingaporePost, Code39Extended, Code93Extended, Code16K, Code128 symbology if codetext is incorrect."
+          },
+          "SupplementData": {
+            "type": "string",
+            "description": "Supplement parameters.\nUsed for Interleaved2of5, Standard2of5, EAN13, EAN8, UPCA, UPCE, ISBN, ISSN, ISMN."
+          },
+          "SupplementSpace": {
+            "type": "number",
+            "description": "Space between main the BarCode and supplement BarCode.",
+            "format": "double"
+          },
+          "BarWidthReduction": {
+            "type": "number",
+            "description": "Bars reduction value that is used to compensate ink spread while printing.",
+            "format": "double"
+          },
+          "UseAntiAlias": {
+            "type": "boolean",
+            "description": "Indicates whether is used anti-aliasing mode to render image. Anti-aliasing mode is applied to barcode and text drawing."
+          },
+          "AustralianPost": {
+            "$ref": "#/components/schemas/AustralianPostParams"
+          },
+          "Aztec": {
+            "$ref": "#/components/schemas/AztecParams"
+          },
+          "Codabar": {
+            "$ref": "#/components/schemas/CodabarParams"
+          },
+          "Codablock": {
+            "$ref": "#/components/schemas/CodablockParams"
+          },
+          "Code16K": {
+            "$ref": "#/components/schemas/Code16KParams"
+          },
+          "Coupon": {
+            "$ref": "#/components/schemas/CouponParams"
+          },
+          "DataBar": {
+            "$ref": "#/components/schemas/DataBarParams"
+          },
+          "DataMatrix": {
+            "$ref": "#/components/schemas/DataMatrixParams"
+          },
+          "DotCode": {
+            "$ref": "#/components/schemas/DotCodeParams"
+          },
+          "ITF": {
+            "$ref": "#/components/schemas/ITFParams"
+          },
+          "MaxiCode": {
+            "$ref": "#/components/schemas/MaxiCodeParams"
+          },
+          "Pdf417": {
+            "$ref": "#/components/schemas/Pdf417Params"
+          },
+          "Postal": {
+            "$ref": "#/components/schemas/PostalParams"
+          },
+          "QR": {
+            "$ref": "#/components/schemas/QrParams"
+          },
+          "PatchCode": {
+            "$ref": "#/components/schemas/PatchCodeParams"
+          },
+          "Code128": {
+            "$ref": "#/components/schemas/Code128Params"
+          },
+          "HanXin": {
+            "$ref": "#/components/schemas/HanXinParams"
+          }
+        },
+        "description": "Represents extended BarcodeGenerator params."
+      },
+      "FontParams": {
+        "type": "object",
+        "properties": {
+          "Family": {
+            "type": "string",
+            "description": "Font family."
+          },
+          "Size": {
+            "type": "number",
+            "description": "Font size in units.",
+            "format": "double"
+          },
+          "Style": {
+            "$ref": "#/components/schemas/FontStyle"
+          }
+        },
+        "description": "Font."
+      },
+      "FontStyle": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Regular",
+          "Bold",
+          "Italic",
+          "Underline",
+          "Strikeout"
+        ],
+        "x-enumFlags": true,
+        "x-enumNames": [
+          "Regular",
+          "Bold",
+          "Italic",
+          "Underline",
+          "Strikeout"
+        ]
+      },
+      "Padding": {
+        "type": "object",
+        "properties": {
+          "Left": {
+            "type": "number",
+            "description": "Left padding.",
+            "format": "double"
+          },
+          "Right": {
+            "type": "number",
+            "description": "Right padding.",
+            "format": "double"
+          },
+          "Top": {
+            "type": "number",
+            "description": "Top padding.",
+            "format": "double"
+          },
+          "Bottom": {
+            "type": "number",
+            "description": "Bottom padding.",
+            "format": "double"
+          }
+        },
+        "description": "Padding around barcode."
+      },
+      "CaptionParams": {
+        "type": "object",
+        "properties": {
+          "Text": {
+            "type": "string",
+            "description": "Caption text."
+          },
+          "Alignment": {
+            "$ref": "#/components/schemas/TextAlignment"
+          },
+          "Color": {
+            "type": "string",
+            "description": "Text color."
+          },
+          "Visible": {
+            "type": "boolean",
+            "description": "Is caption visible."
+          },
+          "Font": {
+            "$ref": "#/components/schemas/FontParams"
+          },
+          "Padding": {
+            "$ref": "#/components/schemas/Padding"
+          },
+          "NoWrap": {
+            "type": "boolean",
+            "description": "Specify word wraps (line breaks) within text.\nDefault value: false."
+          }
+        },
+        "description": "Caption"
+      },
+      "AustralianPostParams": {
+        "type": "object",
+        "properties": {
+          "EncodingTable": {
+            "$ref": "#/components/schemas/CustomerInformationInterpretingType"
+          },
+          "ShortBarHeight": {
+            "type": "number",
+            "description": "Short bar's height of AustralianPost barcode.",
+            "format": "double"
+          }
+        },
+        "description": "AustralianPost barcode parameters."
+      },
+      "CustomerInformationInterpretingType": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "CTable",
+          "NTable",
+          "Other"
+        ],
+        "x-enumNames": [
+          "CTable",
+          "NTable",
+          "Other"
+        ]
+      },
+      "AztecParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "ErrorLevel": {
+            "type": "integer",
+            "description": "Level of error correction of Aztec types of barcode.\nValue should between 10 to 95.",
+            "format": "int32"
+          },
+          "SymbolMode": {
+            "$ref": "#/components/schemas/AztecSymbolMode"
+          },
+          "TextEncoding": {
+            "type": "string",
+            "description": "Sets the encoding of codetext."
+          }
+        },
+        "description": "Aztec parameters."
+      },
+      "AztecSymbolMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Compact",
+          "FullRange",
+          "Rune"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Compact",
+          "FullRange",
+          "Rune"
+        ]
+      },
+      "CodabarParams": {
+        "type": "object",
+        "properties": {
+          "ChecksumMode": {
+            "$ref": "#/components/schemas/CodabarChecksumMode"
+          },
+          "StartSymbol": {
+            "$ref": "#/components/schemas/CodabarSymbol"
+          },
+          "StopSymbol": {
+            "$ref": "#/components/schemas/CodabarSymbol"
+          }
+        },
+        "description": "Codabar parameters."
+      },
+      "CodabarChecksumMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Mod10",
+          "Mod16"
+        ],
+        "x-enumNames": [
+          "Mod10",
+          "Mod16"
+        ]
+      },
+      "CodabarSymbol": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "x-enumNames": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      "CodablockParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "Columns": {
+            "type": "integer",
+            "description": "Columns count.",
+            "format": "int32"
+          },
+          "Rows": {
+            "type": "integer",
+            "description": "Rows count.",
+            "format": "int32"
+          }
+        },
+        "description": "Codablock parameters."
+      },
+      "Code16KParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "QuietZoneLeftCoef": {
+            "type": "integer",
+            "description": "Size of the left quiet zone in xDimension.\nDefault value: 10, meaning if xDimension = 2px than left quiet zone will be 20px.",
+            "format": "int32"
+          },
+          "QuietZoneRightCoef": {
+            "type": "integer",
+            "description": "Size of the right quiet zone in xDimension.\nDefault value: 1, meaning if xDimension = 2px than right quiet zone will be 2px.",
+            "format": "int32"
+          }
+        },
+        "description": "Code16K parameters."
+      },
+      "CouponParams": {
+        "type": "object",
+        "properties": {
+          "SupplementSpace": {
+            "type": "number",
+            "description": "Space between main the BarCode and supplement BarCode in Unit value.",
+            "format": "double"
+          }
+        },
+        "description": "Coupon parameters. Used for UpcaGs1DatabarCoupon, UpcaGs1Code128Coupon."
+      },
+      "DataBarParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.\nUsed for DataBar stacked.",
+            "format": "double"
+          },
+          "Columns": {
+            "type": "integer",
+            "description": "Columns count.",
+            "format": "int32"
+          },
+          "Rows": {
+            "type": "integer",
+            "description": "Rows count.",
+            "format": "int32"
+          },
+          "Is2DCompositeComponent": {
+            "type": "boolean",
+            "description": "Enables flag of 2D composite component with DataBar barcode"
+          },
+          "IsAllowOnlyGS1Encoding": {
+            "type": "boolean",
+            "description": "If this flag is set, it allows only GS1 encoding standard for Databar barcode types"
+          }
+        },
+        "description": "Databar parameters."
+      },
+      "DataMatrixParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module",
+            "format": "double"
+          },
+          "TextEncoding": {
+            "type": "string",
+            "description": "Encoding of codetext."
+          },
+          "Columns": {
+            "type": "integer",
+            "description": "DEPRECATED: Will be replaced with 'DataMatrix.Version' in the next release\n Columns count.",
+            "format": "int32"
+          },
+          "DataMatrixEcc": {
+            "$ref": "#/components/schemas/DataMatrixEccType"
+          },
+          "DataMatrixEncodeMode": {
+            "$ref": "#/components/schemas/DataMatrixEncodeMode"
+          },
+          "Rows": {
+            "type": "integer",
+            "description": "DEPRECATED: Will be replaced with 'DataMatrix.Version' in the next release\n Rows count.",
+            "format": "int32"
+          },
+          "MacroCharacters": {
+            "$ref": "#/components/schemas/MacroCharacter"
+          }
+        },
+        "description": "DataMatrix parameters."
+      },
+      "DataMatrixEccType": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "EccAuto",
+          "Ecc000",
+          "Ecc050",
+          "Ecc080",
+          "Ecc100",
+          "Ecc140",
+          "Ecc200"
+        ],
+        "x-enumNames": [
+          "EccAuto",
+          "Ecc000",
+          "Ecc050",
+          "Ecc080",
+          "Ecc100",
+          "Ecc140",
+          "Ecc200"
+        ]
+      },
+      "DataMatrixEncodeMode": {
+        "type": "string",
+        "description": "DataMatrix encoder's encoding mode, default to Auto",
+        "enum": [
+          "Auto",
+          "ASCII",
+          "Full",
+          "Custom",
+          "C40",
+          "Text",
+          "EDIFACT",
+          "ANSIX12",
+          "ExtendedCodetext"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "ASCII",
+          "Full",
+          "Custom",
+          "C40",
+          "Text",
+          "EDIFACT",
+          "ANSIX12",
+          "ExtendedCodetext"
+        ]
+      },
+      "MacroCharacter": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "None",
+          "Macro05",
+          "Macro06"
+        ],
+        "x-enumNames": [
+          "None",
+          "Macro05",
+          "Macro06"
+        ]
+      },
+      "DotCodeParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "Columns": {
+            "type": "integer",
+            "description": "Identifies columns count. Sum of the number of rows plus the number of columns of a DotCode symbol must be odd. Number of columns must be at least 5.",
+            "format": "int32"
+          },
+          "EncodeMode": {
+            "$ref": "#/components/schemas/DotCodeEncodeMode"
+          },
+          "ECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "IsReaderInitialization": {
+            "type": "boolean",
+            "description": "Indicates whether code is used for instruct reader to interpret the following data as instructions for initialization or reprogramming of the bar code reader. Default value is false."
+          },
+          "Rows": {
+            "type": "integer",
+            "description": "Identifies rows count. Sum of the number of rows plus the number of columns of a DotCode symbol must be odd. Number of rows must be at least 5.",
+            "format": "int32"
+          }
+        },
+        "description": "DotCode parameters."
+      },
+      "DotCodeEncodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Bytes",
+          "ExtendedCodetext"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Bytes",
+          "ExtendedCodetext"
+        ]
+      },
+      "ECIEncodings": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "NONE",
+          "ISO_8859_1",
+          "ISO_8859_2",
+          "ISO_8859_3",
+          "ISO_8859_4",
+          "ISO_8859_5",
+          "ISO_8859_6",
+          "ISO_8859_7",
+          "ISO_8859_8",
+          "ISO_8859_9",
+          "ISO_8859_10",
+          "ISO_8859_11",
+          "ISO_8859_13",
+          "ISO_8859_14",
+          "ISO_8859_15",
+          "ISO_8859_16",
+          "Shift_JIS",
+          "Win1250",
+          "Win1251",
+          "Win1252",
+          "Win1256",
+          "UTF16BE",
+          "UTF8",
+          "US_ASCII",
+          "Big5",
+          "GB18030",
+          "EUC_KR"
+        ],
+        "x-enumNames": [
+          "NONE",
+          "ISO_8859_1",
+          "ISO_8859_2",
+          "ISO_8859_3",
+          "ISO_8859_4",
+          "ISO_8859_5",
+          "ISO_8859_6",
+          "ISO_8859_7",
+          "ISO_8859_8",
+          "ISO_8859_9",
+          "ISO_8859_10",
+          "ISO_8859_11",
+          "ISO_8859_13",
+          "ISO_8859_14",
+          "ISO_8859_15",
+          "ISO_8859_16",
+          "Shift_JIS",
+          "Win1250",
+          "Win1251",
+          "Win1252",
+          "Win1256",
+          "UTF16BE",
+          "UTF8",
+          "US_ASCII",
+          "Big5",
+          "GB18030",
+          "EUC_KR"
+        ]
+      },
+      "ITFParams": {
+        "type": "object",
+        "properties": {
+          "BorderThickness": {
+            "type": "number",
+            "description": "ITF border (bearer bar) thickness in Unit value.\nDefault value: 12pt.",
+            "format": "double"
+          },
+          "BorderType": {
+            "$ref": "#/components/schemas/ITF14BorderType"
+          },
+          "QuietZoneCoef": {
+            "type": "integer",
+            "description": "Size of the quiet zones in xDimension.\nDefault value: 10, meaning if xDimension = 2px than quiet zones will be 20px.",
+            "format": "int32"
+          }
+        },
+        "description": "ITF parameters."
+      },
+      "ITF14BorderType": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "None",
+          "Frame",
+          "Bar",
+          "FrameOut",
+          "BarOut"
+        ],
+        "x-enumNames": [
+          "None",
+          "Frame",
+          "Bar",
+          "FrameOut",
+          "BarOut"
+        ]
+      },
+      "MaxiCodeParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "Mode": {
+            "$ref": "#/components/schemas/MaxiCodeMode"
+          },
+          "EncodeMode": {
+            "$ref": "#/components/schemas/MaxiCodeEncodeMode"
+          }
+        },
+        "description": "MaxiCode parameters."
+      },
+      "MaxiCodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Mode2",
+          "Mode3",
+          "Mode4",
+          "Mode5",
+          "Mode6"
+        ],
+        "x-enumNames": [
+          "Mode2",
+          "Mode3",
+          "Mode4",
+          "Mode5",
+          "Mode6"
+        ]
+      },
+      "MaxiCodeEncodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Bytes",
+          "ExtendedCodetext"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Bytes",
+          "ExtendedCodetext"
+        ]
+      },
+      "Pdf417Params": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "TextEncoding": {
+            "type": "string",
+            "description": "Encoding of codetext."
+          },
+          "Columns": {
+            "type": "integer",
+            "description": "Columns count.",
+            "format": "int32"
+          },
+          "CompactionMode": {
+            "$ref": "#/components/schemas/Pdf417CompactionMode"
+          },
+          "ErrorLevel": {
+            "$ref": "#/components/schemas/Pdf417ErrorLevel"
+          },
+          "MacroFileID": {
+            "type": "integer",
+            "description": "Macro Pdf417 barcode's file ID.\nUsed for MacroPdf417.",
+            "format": "int32"
+          },
+          "MacroSegmentID": {
+            "type": "integer",
+            "description": "Macro Pdf417 barcode's segment ID, which starts from 0, to MacroSegmentsCount - 1.",
+            "format": "int32"
+          },
+          "MacroSegmentsCount": {
+            "type": "integer",
+            "description": "Macro Pdf417 barcode segments count.",
+            "format": "int32"
+          },
+          "Rows": {
+            "type": "integer",
+            "description": "Rows count.",
+            "format": "int32"
+          },
+          "Truncate": {
+            "type": "boolean",
+            "description": "Whether Pdf417 symbology type of BarCode is truncated (to reduce space)."
+          },
+          "Pdf417ECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "IsReaderInitialization": {
+            "type": "boolean",
+            "description": "Used to instruct the reader to interpret the data contained within the symbol\nas programming for reader initialization"
+          },
+          "MacroTimeStamp": {
+            "type": "string",
+            "description": "Macro Pdf417 barcode time stamp",
+            "format": "date-time"
+          },
+          "MacroSender": {
+            "type": "string",
+            "description": "Macro Pdf417 barcode sender name"
+          },
+          "MacroFileSize": {
+            "type": "integer",
+            "description": "Macro Pdf417 file size.\nThe file size field contains the size in bytes of the entire source file",
+            "format": "int32"
+          },
+          "MacroChecksum": {
+            "type": "integer",
+            "description": "Macro Pdf417 barcode checksum.\nThe checksum field contains the value of the 16-bit (2 bytes) CRC checksum using the CCITT-16 polynomial",
+            "format": "int32"
+          },
+          "MacroFileName": {
+            "type": "string",
+            "description": "Macro Pdf417 barcode file name"
+          },
+          "MacroAddressee": {
+            "type": "string",
+            "description": "Macro Pdf417 barcode addressee name"
+          },
+          "MacroECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "Code128Emulation": {
+            "$ref": "#/components/schemas/Code128Emulation"
+          },
+          "Pdf417MacroTerminator": {
+            "$ref": "#/components/schemas/Pdf417MacroTerminator"
+          }
+        },
+        "description": "PDF417 parameters."
+      },
+      "Pdf417CompactionMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Text",
+          "Numeric",
+          "Binary"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Text",
+          "Numeric",
+          "Binary"
+        ]
+      },
+      "Pdf417ErrorLevel": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Level0",
+          "Level1",
+          "Level2",
+          "Level3",
+          "Level4",
+          "Level5",
+          "Level6",
+          "Level7",
+          "Level8"
+        ],
+        "x-enumNames": [
+          "Level0",
+          "Level1",
+          "Level2",
+          "Level3",
+          "Level4",
+          "Level5",
+          "Level6",
+          "Level7",
+          "Level8"
+        ]
+      },
+      "Code128Emulation": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "None",
+          "Code903",
+          "Code904",
+          "Code905"
+        ],
+        "x-enumNames": [
+          "None",
+          "Code903",
+          "Code904",
+          "Code905"
+        ]
+      },
+      "Pdf417MacroTerminator": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "None",
+          "Set"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "None",
+          "Set"
+        ]
+      },
+      "PostalParams": {
+        "type": "object",
+        "properties": {
+          "ShortBarHeight": {
+            "type": "number",
+            "description": "Short bar's height of Postal barcodes.",
+            "format": "double"
+          }
+        },
+        "description": "Postal parameters. Used for Postnet, Planet."
+      },
+      "QrParams": {
+        "type": "object",
+        "properties": {
+          "AspectRatio": {
+            "type": "number",
+            "description": "Height/Width ratio of 2D BarCode module.",
+            "format": "double"
+          },
+          "TextEncoding": {
+            "type": "string",
+            "description": "Encoding of codetext."
+          },
+          "EncodeType": {
+            "$ref": "#/components/schemas/QREncodeType"
+          },
+          "ECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "EncodeMode": {
+            "$ref": "#/components/schemas/QREncodeMode"
+          },
+          "ErrorLevel": {
+            "$ref": "#/components/schemas/QRErrorLevel"
+          },
+          "Version": {
+            "$ref": "#/components/schemas/QRVersion"
+          },
+          "StructuredAppend": {
+            "$ref": "#/components/schemas/StructuredAppend"
+          }
+        },
+        "description": "QR parameters."
+      },
+      "QREncodeType": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "ForceQR",
+          "ForceMicroQR"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "ForceQR",
+          "ForceMicroQR"
+        ]
+      },
+      "QREncodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Bytes",
+          "Utf8BOM",
+          "Utf16BEBOM",
+          "ECIEncoding",
+          "ExtendedCodetext"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Bytes",
+          "Utf8BOM",
+          "Utf16BEBOM",
+          "ECIEncoding",
+          "ExtendedCodetext"
+        ]
+      },
+      "QRErrorLevel": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "LevelL",
+          "LevelM",
+          "LevelQ",
+          "LevelH"
+        ],
+        "x-enumNames": [
+          "LevelL",
+          "LevelM",
+          "LevelQ",
+          "LevelH"
+        ]
+      },
+      "QRVersion": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Version01",
+          "Version02",
+          "Version03",
+          "Version04",
+          "Version05",
+          "Version06",
+          "Version07",
+          "Version08",
+          "Version09",
+          "Version10",
+          "Version11",
+          "Version12",
+          "Version13",
+          "Version14",
+          "Version15",
+          "Version16",
+          "Version17",
+          "Version18",
+          "Version19",
+          "Version20",
+          "Version21",
+          "Version22",
+          "Version23",
+          "Version24",
+          "Version25",
+          "Version26",
+          "Version27",
+          "Version28",
+          "Version29",
+          "Version30",
+          "Version31",
+          "Version32",
+          "Version33",
+          "Version34",
+          "Version35",
+          "Version36",
+          "Version37",
+          "Version38",
+          "Version39",
+          "Version40",
+          "VersionM1",
+          "VersionM2",
+          "VersionM3",
+          "VersionM4"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Version01",
+          "Version02",
+          "Version03",
+          "Version04",
+          "Version05",
+          "Version06",
+          "Version07",
+          "Version08",
+          "Version09",
+          "Version10",
+          "Version11",
+          "Version12",
+          "Version13",
+          "Version14",
+          "Version15",
+          "Version16",
+          "Version17",
+          "Version18",
+          "Version19",
+          "Version20",
+          "Version21",
+          "Version22",
+          "Version23",
+          "Version24",
+          "Version25",
+          "Version26",
+          "Version27",
+          "Version28",
+          "Version29",
+          "Version30",
+          "Version31",
+          "Version32",
+          "Version33",
+          "Version34",
+          "Version35",
+          "Version36",
+          "Version37",
+          "Version38",
+          "Version39",
+          "Version40",
+          "VersionM1",
+          "VersionM2",
+          "VersionM3",
+          "VersionM4"
+        ]
+      },
+      "StructuredAppend": {
+        "type": "object",
+        "properties": {
+          "SequenceIndicator": {
+            "type": "integer",
+            "description": "The index of the QR structured append mode barcode. Index starts from 0.",
+            "format": "int32"
+          },
+          "TotalCount": {
+            "type": "integer",
+            "description": "QR structured append mode barcodes quantity. Max value is 16.",
+            "format": "int32"
+          },
+          "ParityByte": {
+            "type": "integer",
+            "description": "QR structured append mode parity data.",
+            "format": "byte"
+          }
+        },
+        "description": "QR structured append parameters."
+      },
+      "PatchCodeParams": {
+        "type": "object",
+        "properties": {
+          "ExtraBarcodeText": {
+            "type": "string",
+            "description": "Specifies codetext for an extra QR barcode, when PatchCode is generated in page mode."
+          },
+          "PatchFormat": {
+            "$ref": "#/components/schemas/PatchFormat"
+          }
+        },
+        "description": "PatchCode parameters."
+      },
+      "PatchFormat": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "PatchOnly",
+          "A4",
+          "A4_LANDSCAPE",
+          "US_Letter",
+          "US_Letter_LANDSCAPE"
+        ],
+        "x-enumNames": [
+          "PatchOnly",
+          "A4",
+          "A4_LANDSCAPE",
+          "US_Letter",
+          "US_Letter_LANDSCAPE"
+        ]
+      },
+      "Code128Params": {
+        "type": "object",
+        "properties": {
+          "EncodeMode": {
+            "$ref": "#/components/schemas/Code128EncodeMode"
+          }
+        },
+        "description": "Code128 params."
+      },
+      "Code128EncodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "CodeA",
+          "CodeB",
+          "CodeAB",
+          "CodeC",
+          "CodeAC",
+          "CodeBC"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "CodeA",
+          "CodeB",
+          "CodeAB",
+          "CodeC",
+          "CodeAC",
+          "CodeBC"
+        ]
+      },
+      "HanXinParams": {
+        "type": "object",
+        "properties": {
+          "EncodeMode": {
+            "$ref": "#/components/schemas/HanXinEncodeMode"
+          },
+          "ErrorLevel": {
+            "$ref": "#/components/schemas/HanXinErrorLevel"
+          },
+          "Version": {
+            "$ref": "#/components/schemas/HanXinVersion"
+          },
+          "ECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          }
+        },
+        "description": "HanXin params."
+      },
+      "HanXinEncodeMode": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Binary",
+          "ECI",
+          "Unicode",
+          "URI",
+          "Extended"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Binary",
+          "ECI",
+          "Unicode",
+          "URI",
+          "Extended"
+        ]
+      },
+      "HanXinErrorLevel": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "L1",
+          "L2",
+          "L3",
+          "L4"
+        ],
+        "x-enumNames": [
+          "L1",
+          "L2",
+          "L3",
+          "L4"
+        ]
+      },
+      "HanXinVersion": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Auto",
+          "Version01",
+          "Version02",
+          "Version03",
+          "Version04",
+          "Version05",
+          "Version06",
+          "Version07",
+          "Version08",
+          "Version09",
+          "Version10",
+          "Version11",
+          "Version12",
+          "Version13",
+          "Version14",
+          "Version15",
+          "Version16",
+          "Version17",
+          "Version18",
+          "Version19",
+          "Version20",
+          "Version21",
+          "Version22",
+          "Version23",
+          "Version24",
+          "Version25",
+          "Version26",
+          "Version27",
+          "Version28",
+          "Version29",
+          "Version30",
+          "Version31",
+          "Version32",
+          "Version33",
+          "Version34",
+          "Version35",
+          "Version36",
+          "Version37",
+          "Version38",
+          "Version39",
+          "Version40",
+          "Version41",
+          "Version42",
+          "Version43",
+          "Version44",
+          "Version45",
+          "Version46",
+          "Version47",
+          "Version48",
+          "Version49",
+          "Version50",
+          "Version51",
+          "Version52",
+          "Version53",
+          "Version54",
+          "Version55",
+          "Version56",
+          "Version57",
+          "Version58",
+          "Version59",
+          "Version60",
+          "Version61",
+          "Version62",
+          "Version63",
+          "Version64",
+          "Version65",
+          "Version66",
+          "Version67",
+          "Version68",
+          "Version69",
+          "Version70",
+          "Version71",
+          "Version72",
+          "Version73",
+          "Version74",
+          "Version75",
+          "Version76",
+          "Version77",
+          "Version78",
+          "Version79",
+          "Version80",
+          "Version81",
+          "Version82",
+          "Version83",
+          "Version84"
+        ],
+        "x-enumNames": [
+          "Auto",
+          "Version01",
+          "Version02",
+          "Version03",
+          "Version04",
+          "Version05",
+          "Version06",
+          "Version07",
+          "Version08",
+          "Version09",
+          "Version10",
+          "Version11",
+          "Version12",
+          "Version13",
+          "Version14",
+          "Version15",
+          "Version16",
+          "Version17",
+          "Version18",
+          "Version19",
+          "Version20",
+          "Version21",
+          "Version22",
+          "Version23",
+          "Version24",
+          "Version25",
+          "Version26",
+          "Version27",
+          "Version28",
+          "Version29",
+          "Version30",
+          "Version31",
+          "Version32",
+          "Version33",
+          "Version34",
+          "Version35",
+          "Version36",
+          "Version37",
+          "Version38",
+          "Version39",
+          "Version40",
+          "Version41",
+          "Version42",
+          "Version43",
+          "Version44",
+          "Version45",
+          "Version46",
+          "Version47",
+          "Version48",
+          "Version49",
+          "Version50",
+          "Version51",
+          "Version52",
+          "Version53",
+          "Version54",
+          "Version55",
+          "Version56",
+          "Version57",
+          "Version58",
+          "Version59",
+          "Version60",
+          "Version61",
+          "Version62",
+          "Version63",
+          "Version64",
+          "Version65",
+          "Version66",
+          "Version67",
+          "Version68",
+          "Version69",
+          "Version70",
+          "Version71",
+          "Version72",
+          "Version73",
+          "Version74",
+          "Version75",
+          "Version76",
+          "Version77",
+          "Version78",
+          "Version79",
+          "Version80",
+          "Version81",
+          "Version82",
+          "Version83",
+          "Version84"
+        ]
+      },
+      "BarcodeResponseList": {
+        "type": "object",
+        "properties": {
+          "Barcodes": {
+            "type": "array",
+            "description": "List of barcodes which are present in image.",
+            "items": {
+              "$ref": "#/components/schemas/BarcodeResponse"
+            }
+          }
+        },
+        "description": "Represents information about barcode list."
+      },
+      "BarcodeResponse": {
+        "type": "object",
+        "properties": {
+          "BarcodeValue": {
+            "type": "string",
+            "description": "Barcode data."
+          },
+          "Type": {
+            "type": "string",
+            "description": "Type of the barcode."
+          },
+          "Region": {
+            "type": "array",
+            "description": "Region with barcode.",
+            "items": {
+              "$ref": "#/components/schemas/RegionPoint"
+            }
+          },
+          "Checksum": {
+            "type": "string",
+            "description": "Checksum of barcode."
+          }
+        },
+        "description": "Represents information about barcode."
+      },
+      "RegionPoint": {
+        "required": [
+          "X",
+          "Y"
+        ],
+        "type": "object",
+        "properties": {
+          "X": {
+            "type": "integer",
+            "description": "X-coordinate",
+            "format": "int32"
+          },
+          "Y": {
+            "type": "integer",
+            "description": "Y-coordinate",
+            "format": "int32"
+          }
+        },
+        "description": "Wrapper around Drawing.Point for proper specification."
+      },
+      "DecodeBarcodeType": {
+        "type": "string",
+        "description": "See DecodeType",
+        "enum": [
+          "all",
+          "AustraliaPost",
+          "Aztec",
+          "ISBN",
+          "Codabar",
+          "Code11",
+          "Code128",
+          "GS1Code128",
+          "Code39Extended",
+          "Code39Standard",
+          "Code93Extended",
+          "Code93Standard",
+          "DataMatrix",
+          "DeutschePostIdentcode",
+          "DeutschePostLeitcode",
+          "EAN13",
+          "EAN14",
+          "EAN8",
+          "IATA2of5",
+          "Interleaved2of5",
+          "ISSN",
+          "ISMN",
+          "ItalianPost25",
+          "ITF14",
+          "ITF6",
+          "MacroPdf417",
+          "Matrix2of5",
+          "MSI",
+          "OneCode",
+          "OPC",
+          "PatchCode",
+          "Pdf417",
+          "MicroPdf417",
+          "Planet",
+          "Postnet",
+          "PZN",
+          "QR",
+          "MicroQR",
+          "RM4SCC",
+          "SCC14",
+          "SSCC18",
+          "Standard2of5",
+          "Supplement",
+          "UPCA",
+          "UPCE",
+          "VIN",
+          "Pharmacode",
+          "GS1DataMatrix",
+          "DatabarOmniDirectional",
+          "DatabarTruncated",
+          "DatabarLimited",
+          "DatabarExpanded",
+          "SwissPostParcel",
+          "AustralianPosteParcel",
+          "Code16K",
+          "DatabarStackedOmniDirectional",
+          "DatabarStacked",
+          "DatabarExpandedStacked",
+          "CompactPdf417",
+          "GS1QR",
+          "MaxiCode",
+          "MicrE13B",
+          "Code32",
+          "DataLogic2of5",
+          "DotCode",
+          "DutchKIX",
+          "CodablockF",
+          "Mailmark",
+          "GS1DotCode",
+          "HIBCCode39LIC",
+          "HIBCCode128LIC",
+          "HIBCAztecLIC",
+          "HIBCDataMatrixLIC",
+          "HIBCQRLIC",
+          "HIBCCode39PAS",
+          "HIBCCode128PAS",
+          "HIBCAztecPAS",
+          "HIBCDataMatrixPAS",
+          "HIBCQRPAS",
+          "HanXin",
+          "GS1HanXin"
+        ],
+        "x-enumNames": [
+          "all",
+          "AustraliaPost",
+          "Aztec",
+          "ISBN",
+          "Codabar",
+          "Code11",
+          "Code128",
+          "GS1Code128",
+          "Code39Extended",
+          "Code39Standard",
+          "Code93Extended",
+          "Code93Standard",
+          "DataMatrix",
+          "DeutschePostIdentcode",
+          "DeutschePostLeitcode",
+          "EAN13",
+          "EAN14",
+          "EAN8",
+          "IATA2of5",
+          "Interleaved2of5",
+          "ISSN",
+          "ISMN",
+          "ItalianPost25",
+          "ITF14",
+          "ITF6",
+          "MacroPdf417",
+          "Matrix2of5",
+          "MSI",
+          "OneCode",
+          "OPC",
+          "PatchCode",
+          "Pdf417",
+          "MicroPdf417",
+          "Planet",
+          "Postnet",
+          "PZN",
+          "QR",
+          "MicroQR",
+          "RM4SCC",
+          "SCC14",
+          "SSCC18",
+          "Standard2of5",
+          "Supplement",
+          "UPCA",
+          "UPCE",
+          "VIN",
+          "Pharmacode",
+          "GS1DataMatrix",
+          "DatabarOmniDirectional",
+          "DatabarTruncated",
+          "DatabarLimited",
+          "DatabarExpanded",
+          "SwissPostParcel",
+          "AustralianPosteParcel",
+          "Code16K",
+          "DatabarStackedOmniDirectional",
+          "DatabarStacked",
+          "DatabarExpandedStacked",
+          "CompactPdf417",
+          "GS1QR",
+          "MaxiCode",
+          "MicrE13B",
+          "Code32",
+          "DataLogic2of5",
+          "DotCode",
+          "DutchKIX",
+          "CodablockF",
+          "Mailmark",
+          "GS1DotCode",
+          "HIBCCode39LIC",
+          "HIBCCode128LIC",
+          "HIBCAztecLIC",
+          "HIBCDataMatrixLIC",
+          "HIBCQRLIC",
+          "HIBCCode39PAS",
+          "HIBCCode128PAS",
+          "HIBCAztecPAS",
+          "HIBCDataMatrixPAS",
+          "HIBCQRPAS",
+          "HanXin",
+          "GS1HanXin"
+        ]
+      },
+      "ChecksumValidation": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Default",
+          "On",
+          "Off"
+        ],
+        "x-enumNames": [
+          "Default",
+          "On",
+          "Off"
+        ]
+      },
+      "PresetType": {
+        "type": "string",
+        "description": "See QualitySettings\nallows to configure recognition quality and speed manually.",
+        "enum": [
+          "HighPerformance",
+          "NormalQuality",
+          "HighQualityDetection",
+          "MaxQualityDetection",
+          "HighQuality",
+          "MaxBarCodes"
+        ],
+        "x-enumNames": [
+          "HighPerformance",
+          "NormalQuality",
+          "HighQualityDetection",
+          "MaxQualityDetection",
+          "HighQuality",
+          "MaxBarCodes"
+        ]
+      },
+      "ReaderParams": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "$ref": "#/components/schemas/DecodeBarcodeType"
+          },
+          "ChecksumValidation": {
+            "$ref": "#/components/schemas/ChecksumValidation"
+          },
+          "DetectEncoding": {
+            "type": "boolean",
+            "description": "A flag which force engine to detect codetext encoding for Unicode."
+          },
+          "Preset": {
+            "$ref": "#/components/schemas/PresetType"
+          },
+          "RectX": {
+            "type": "integer",
+            "description": "Set X of top left corner of area for recognition.",
+            "format": "int32"
+          },
+          "RectY": {
+            "type": "integer",
+            "description": "Set Y of top left corner of area for recognition.",
+            "format": "int32"
+          },
+          "RectWidth": {
+            "type": "integer",
+            "description": "Set Width of area for recognition.",
+            "format": "int32"
+          },
+          "RectHeight": {
+            "type": "integer",
+            "description": "Set Height of area for recognition.",
+            "format": "int32"
+          },
+          "StripFNC": {
+            "type": "boolean",
+            "description": "Value indicating whether FNC symbol strip must be done."
+          },
+          "Timeout": {
+            "type": "integer",
+            "description": "Timeout of recognition process in milliseconds.\nDefault value is 15_000 (15 seconds).\nMaximum value is 60_000 (1 minute).\nIn case of a timeout RequestTimeout (408) status will be returned.\nTry reducing the image size to avoid timeout.",
+            "format": "int32"
+          },
+          "MedianSmoothingWindowSize": {
+            "type": "integer",
+            "description": "Window size for median smoothing. Typical values are 3 or 4. Default value is 3. AllowMedianSmoothing must be set.",
+            "format": "int32"
+          },
+          "AllowMedianSmoothing": {
+            "type": "boolean",
+            "description": "Allows engine to enable median smoothing as additional scan. Mode helps to recognize noised barcodes."
+          },
+          "AllowComplexBackground": {
+            "type": "boolean",
+            "description": "Allows engine to recognize color barcodes on color background as additional scan. Extremely slow mode."
+          },
+          "AllowDatamatrixIndustrialBarcodes": {
+            "type": "boolean",
+            "description": "Allows engine for Datamatrix to recognize dashed industrial Datamatrix barcodes.\nSlow mode which helps only for dashed barcodes which consist from spots."
+          },
+          "AllowDecreasedImage": {
+            "type": "boolean",
+            "description": "Allows engine to recognize decreased image as additional scan. Size for decreasing is selected by internal engine algorithms.\nMode helps to recognize barcodes which are noised and blurred but captured with high resolution."
+          },
+          "AllowDetectScanGap": {
+            "type": "boolean",
+            "description": "Allows engine to use gap between scans to increase recognition speed. Mode can make recognition problems with low height barcodes."
+          },
+          "AllowIncorrectBarcodes": {
+            "type": "boolean",
+            "description": "Allows engine to recognize barcodes which has incorrect checksum or incorrect values.\nMode can be used to recognize damaged barcodes with incorrect text."
+          },
+          "AllowInvertImage": {
+            "type": "boolean",
+            "description": "Allows engine to recognize inverse color image as additional scan. Mode can be used when barcode is white on black background."
+          },
+          "AllowMicroWhiteSpotsRemoving": {
+            "type": "boolean",
+            "description": "Allows engine for Postal barcodes to recognize slightly noised images. Mode helps to recognize slightly damaged Postal barcodes."
+          },
+          "AllowOneDFastBarcodesDetector": {
+            "type": "boolean",
+            "description": "Allows engine for 1D barcodes to quickly recognize high quality barcodes which fill almost whole image.\nMode helps to quickly recognize generated barcodes from Internet."
+          },
+          "AllowOneDWipedBarsRestoration": {
+            "type": "boolean",
+            "description": "Allows engine for 1D barcodes to recognize barcodes with single wiped/glued bars in pattern."
+          },
+          "AllowQRMicroQrRestoration": {
+            "type": "boolean",
+            "description": "Allows engine for QR/MicroQR to recognize damaged MicroQR barcodes."
+          },
+          "AllowRegularImage": {
+            "type": "boolean",
+            "description": "Allows engine to recognize regular image without any restorations as main scan. Mode to recognize image as is."
+          },
+          "AllowSaltAndPepperFiltering": {
+            "type": "boolean",
+            "description": "Allows engine to recognize barcodes with salt and pepper noise type. Mode can remove small noise with white and black dots."
+          },
+          "AllowWhiteSpotsRemoving": {
+            "type": "boolean",
+            "description": "Allows engine to recognize image without small white spots as additional scan. Mode helps to recognize noised image as well as median smoothing filtering."
+          },
+          "CheckMore1DVariants": {
+            "type": "boolean",
+            "description": "Allows engine to recognize 1D barcodes with checksum by checking more recognition variants. Default value: False."
+          },
+          "FastScanOnly": {
+            "type": "boolean",
+            "description": "Allows engine for 1D barcodes to quickly recognize middle slice of an image and return result without using any time-consuming algorithms.\nDefault value: False."
+          },
+          "RegionLikelihoodThresholdPercent": {
+            "type": "number",
+            "description": "Sets threshold for detected regions that may contain barcodes.\nValue 0.7 means that bottom 70% of possible regions are filtered out and not processed further.\nRegion likelihood threshold must be between [0.05, 0.9]\nUse high values for clear images with few barcodes.\nUse low values for images with many barcodes or for noisy images.\nLow value may lead to a bigger recognition time.",
+            "format": "double"
+          },
+          "ScanWindowSizes": {
+            "type": "array",
+            "description": "Scan window sizes in pixels.\nAllowed sizes are 10, 15, 20, 25, 30.\nScanning with small window size takes more time and provides more accuracy but may fail in detecting very big barcodes.\nCombining of several window sizes can improve detection quality.",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "Similarity": {
+            "type": "number",
+            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+            "format": "double"
+          },
+          "SkipDiagonalSearch": {
+            "type": "boolean",
+            "description": "Allows detector to skip search for diagonal barcodes.\nSetting it to false will increase detection time but allow to find diagonal barcodes that can be missed otherwise.\nEnabling of diagonal search leads to a bigger detection time."
+          },
+          "ReadTinyBarcodes": {
+            "type": "boolean",
+            "description": "Allows engine to recognize tiny barcodes on large images. Ignored if AllowIncorrectBarcodes is set to True. Default value: False."
+          },
+          "AustralianPostEncodingTable": {
+            "$ref": "#/components/schemas/CustomerInformationInterpretingType"
+          },
+          "IgnoreEndingFillingPatternsForCTable": {
+            "type": "boolean",
+            "description": "The flag which force AustraliaPost decoder to ignore last filling patterns in Customer Information Field during decoding as CTable method.\nCTable encoding method does not have any gaps in encoding table and sequence \"333\" of filling patterns is decoded as letter \"z\"."
+          }
+        },
+        "description": "Represents BarcodeReader object."
+      },
+      "FilesUploadResult": {
+        "type": "object",
+        "properties": {
+          "Uploaded": {
+            "type": "array",
+            "description": "List of uploaded file names",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Errors": {
+            "type": "array",
+            "description": "List of errors.",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        },
+        "description": "File upload result"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "description": "Code"
+          },
+          "Message": {
+            "type": "string",
+            "description": "Message"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Description"
+          },
+          "InnerError": {
+            "$ref": "#/components/schemas/ErrorDetails"
+          }
+        },
+        "description": "Error"
+      },
+      "ErrorDetails": {
+        "required": [
+          "Date"
+        ],
+        "type": "object",
+        "properties": {
+          "RequestId": {
+            "type": "string",
+            "description": "The request id"
+          },
+          "Date": {
+            "type": "string",
+            "description": "Date",
+            "format": "date-time"
+          }
+        },
+        "description": "The error details"
+      },
+      "FilesList": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "array",
+            "description": "Files and folders contained by folder StorageFile.",
+            "items": {
+              "$ref": "#/components/schemas/StorageFile"
+            }
+          }
+        },
+        "description": "Files list"
+      },
+      "StorageFile": {
+        "required": [
+          "IsFolder",
+          "Size"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "File or folder name."
+          },
+          "IsFolder": {
+            "type": "boolean",
+            "description": "True if it is a folder."
+          },
+          "ModifiedDate": {
+            "type": "string",
+            "description": "File or folder last modified DateTime.",
+            "format": "date-time"
+          },
+          "Size": {
+            "type": "integer",
+            "description": "File or folder size.",
+            "format": "int64"
+          },
+          "Path": {
+            "type": "string",
+            "description": "File or folder path."
+          }
+        },
+        "description": "File or folder information"
+      },
+      "StorageExist": {
+        "required": [
+          "Exists"
+        ],
+        "type": "object",
+        "properties": {
+          "Exists": {
+            "type": "boolean",
+            "description": "Shows that the storage exists."
+          }
+        },
+        "description": "Storage exists"
+      },
+      "ObjectExist": {
+        "required": [
+          "Exists",
+          "IsFolder"
+        ],
+        "type": "object",
+        "properties": {
+          "Exists": {
+            "type": "boolean",
+            "description": "Indicates that the file or folder exists."
+          },
+          "IsFolder": {
+            "type": "boolean",
+            "description": "True if it is a folder, false if it is a file."
+          }
+        },
+        "description": "Object exists"
+      },
+      "DiscUsage": {
+        "required": [
+          "TotalSize",
+          "UsedSize"
+        ],
+        "type": "object",
+        "properties": {
+          "UsedSize": {
+            "type": "integer",
+            "description": "Application used disc space.",
+            "format": "int64"
+          },
+          "TotalSize": {
+            "type": "integer",
+            "description": "Total disc space.",
+            "format": "int64"
+          }
+        },
+        "description": "Class for disc space information."
+      },
+      "FileVersions": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "array",
+            "description": "File versions FileVersion.",
+            "items": {
+              "$ref": "#/components/schemas/FileVersion"
+            }
+          }
+        },
+        "description": "File versions FileVersion."
+      },
+      "FileVersion": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StorageFile"
+          },
+          {
+            "required": [
+              "IsLatest"
+            ],
+            "type": "object",
+            "properties": {
+              "VersionId": {
+                "type": "string",
+                "description": "File Version ID."
+              },
+              "IsLatest": {
+                "type": "boolean",
+                "description": "Specifies whether the file is (true) or is not (false) the latest version of an file."
+              }
+            },
+            "description": "File Version"
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://api.aspose.cloud/connect/token",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  },
+  "x-generator": "NSwag v12.0.14.0 (NJsonSchema v9.13.18.0 (Newtonsoft.Json v13.0.0.0))"
+}

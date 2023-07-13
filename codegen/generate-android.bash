@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/android"
 targetDir="../submodules/android"
 

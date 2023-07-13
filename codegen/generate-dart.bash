@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/dart"
 targetDir="../submodules/dart"
 
@@ -11,9 +11,9 @@ then
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l dart & exit
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json & exit
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json & exit
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
+# java -DdebugModels -jar "/opt/homebrew/Cellar/swagger-codegen/3.0.46/libexec/swagger-codegen-cli.jar" generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json & exit
+# java -DdebugOperations -jar "/opt/homebrew/Cellar/swagger-codegen/3.0.46/libexec/swagger-codegen-cli.jar" generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json & exit
+swagger-codegen generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
 mv "$tempDir/README.md" "$targetDir"

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/php"
 targetDir="../submodules/php"
 
@@ -12,7 +12,7 @@ fi
 
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json > debugModels.php.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json > debugOperations.php.json
-java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json
+swagger-codegen generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json
 
 python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/BarcodeApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"
 python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/FileApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"

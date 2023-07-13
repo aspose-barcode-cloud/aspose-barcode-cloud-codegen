@@ -1,8 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
-
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/java"
 targetDir="../submodules/java"
 
@@ -12,7 +11,7 @@ then
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l java
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json
+swagger-codegen generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > debugModels.java.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > debugOperations.java.json
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > DdebugSupportingFiles.java.json

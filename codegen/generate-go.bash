@@ -1,8 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-specSource="../spec/aspose-barcode-cloud.json"
-
+specSource="../spec/aspose-barcode-cloud-with-deprecated.json"
 tempDir=".generated/go"
 targetDir="../submodules/go"
 
@@ -12,7 +11,7 @@ then
 fi
 
 # java -jar Tools/swagger-codegen-cli.jar config-help -l go
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json
+swagger-codegen generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugModels.go.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l go -t Templates/go -o $tempDir -c config-go.json > debugOperations.go.json
 
