@@ -94,11 +94,11 @@ namespace {{packageName}}.Api
             {{#pathParams}}
             resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/pathParams}}
+            #pragma warning disable CS0618 // Type or member is obsolete
             {{#queryParams}}
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
-            {{#vendorExtensions}}{{^x-binary-result}}
-            {{/x-binary-result}}{{/vendorExtensions}}
+            #pragma warning restore CS0618 // Type or member is obsolete
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null)
