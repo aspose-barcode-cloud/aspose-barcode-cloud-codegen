@@ -19,3 +19,6 @@ indent_size = 4
 
 [{CODEOWNERS,Makefile}]
 indent_style = tab
+
+[*.mustache]
+insert_final_newline = false

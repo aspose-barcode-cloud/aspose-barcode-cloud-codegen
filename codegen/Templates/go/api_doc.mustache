@@ -25,10 +25,10 @@ Name | Type | Description  | Notes
 ### {{{operationId}}} Optional Parameters
 
 Optional parameters are passed through a pointer to a {{{classname}}}{{{nickname}}}Opts struct
-{{#allParams}}{{#-last}}
+{{#allParams}}{{#-first}}
 Name | Type | Description  | Notes
----- | ---- | ------------ | -----{{/-last}}{{/allParams}}{{#allParams}}
-{{^required}} **{{vendorExtensions.x-exportParamName}}** | {{#isFile}}**optional.Interface of {{dataType}}**{{/isFile}}{{#isPrimitiveType}}**optional.{{vendorExtensions.x-optionalDataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{^isListContainer}}[**optional.Interface of {{dataType}}**]({{baseType}}.md){{/isListContainer}}{{#isListContainer}}**optional.Interface of {{dataType}}**{{/isListContainer}}{{/isFile}}{{/isPrimitiveType}} | {{description}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{/hasOptionalParams}}
+---- | ---- | ------------ | -----{{/-first}}{{^required}}
+**{{vendorExtensions.x-exportParamName}}** | {{#isFile}}**optional.Interface of {{dataType}}**{{/isFile}}{{#isPrimitiveType}}**optional.{{vendorExtensions.x-optionalDataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{^isListContainer}}[**optional.Interface of {{dataType}}**]({{baseType}}.md){{/isListContainer}}{{#isListContainer}}**optional.Interface of {{dataType}}**{{/isListContainer}}{{/isFile}}{{/isPrimitiveType}} | {{description}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{/hasOptionalParams}}
 
 ### {{{operationId}}} Return type
 
