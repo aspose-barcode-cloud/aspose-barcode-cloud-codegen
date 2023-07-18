@@ -42,15 +42,15 @@ class OAuth implements Authentication {
       ..fields['client_secret'] = clientSecret;
 
     final response = await request.send();
-    final response_text = await response.stream.bytesToString();
+    final responseText = await response.stream.bytesToString();
     if (response.statusCode != 200) {
-      throw ApiException(response.statusCode, response_text);
+      throw ApiException(response.statusCode, responseText);
     }
 
-    final data = jsonDecode(response_text);
-    final int expires_in = data['expires_in'];
+    final data = jsonDecode(responseText);
+    final int expiresIn = data['expires_in'];
 
     accessToken = data['access_token'];
-    tokenExpiration = DateTime.now().add(Duration(seconds: expires_in));
+    tokenExpiration = DateTime.now().add(Duration(seconds: expiresIn));
   }
 }
