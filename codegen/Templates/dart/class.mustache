@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: deprecated_member_use_from_same_package
 class {{classname}} {
   {{#vars}}{{#description}}/* {{{description}}} */{{/description}}
   {{{datatype}}}? {{name}} = {{{defaultValue}}};
@@ -53,7 +55,7 @@ class {{classname}} {
 
   static Map<String, {{classname}}> mapFromJson(Map<String, Map<String, dynamic>> json) {
     final map = new Map<String, {{classname}}>();
-    if (json.length > 0) {
+    if (json.isNotEmpty) {
       json.forEach((String key, Map<String, dynamic> value) => map[key] = new {{classname}}.fromJson(value));
     }
     return map;

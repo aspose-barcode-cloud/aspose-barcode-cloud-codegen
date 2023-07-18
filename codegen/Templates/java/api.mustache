@@ -82,6 +82,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
+    @SuppressWarnings("removal")
     protected com.squareup.okhttp.Call {{operationId}}Call({{operationIdCamelCase}}Request request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object {{localVariablePrefix}}postBody = {{#bodyParam}}request.{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 

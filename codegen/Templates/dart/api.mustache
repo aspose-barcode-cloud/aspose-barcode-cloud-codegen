@@ -40,7 +40,7 @@ class {{classname}} {
 
     final List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/consumes}}];
 
-    final String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+    final String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
     final List<String> authNames = [{{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}}];
 
     {{#hasFormParams}}

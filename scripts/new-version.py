@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 
 from __future__ import division, print_function
 
@@ -93,7 +93,7 @@ def main(new_versions):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(usage="%s %s" % (sys.argv[0], datetime.today().strftime("%y %#m")))
+    parser = argparse.ArgumentParser(usage="%s %s" % (sys.argv[0], datetime.today().strftime("%y %m")))
     parser.add_argument("new_versions", type=int, nargs=2, help="Use separate int values like: 21 6")
     args = parser.parse_args()
     return vars(args)
