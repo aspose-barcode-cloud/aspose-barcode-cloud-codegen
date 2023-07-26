@@ -80,7 +80,7 @@ def save_config(config, filename):
 
 def main(new_versions):
     assert 2 <= len(new_versions) <= 3, "Version format should be: 23 7 or 23 7 1"
-    new_version = tuple(new_versions + [0] * (3-len(new_versions)))
+    new_version = tuple(new_versions + [0] * (3 - len(new_versions)))
 
     set_android_version(new_version)
     set_dart_version(new_version)
