@@ -10,9 +10,10 @@ then
      rm -rf "${tempDir}"
 fi
 
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json > debugModels.php.json
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json > debugOperations.php.json
-java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config.json
+# java -jar Tools/swagger-codegen-cli.jar config-help -l php & exit 1
+# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugModels.php.json
+# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugOperations.php.json
+java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json
 
 python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/BarcodeApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"
 python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/FileApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"
@@ -39,4 +40,4 @@ cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf "${tempDir}"
 
-pushd "${targetDir}" && make format && popd >/dev/null
+pushd "${targetDir}" && make after-gen && popd >/dev/null

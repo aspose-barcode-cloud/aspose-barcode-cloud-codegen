@@ -1,6 +1,5 @@
 {
     "artifactVersion": "23.7.0",
-    "invokerPackage": "Aspose\\BarCode",
     "npmName": "aspose-barcode-cloud-node",
     "npmVersion": "23.7.0",
     "packageName": "Aspose.BarCode.Cloud.Sdk",

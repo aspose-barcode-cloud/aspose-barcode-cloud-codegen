@@ -54,7 +54,7 @@ def set_node_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config
     save_config(config, filename)
 
 
-def set_php_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.json")):
+def set_php_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-php.json")):
     config = read_config(filename)
     config["artifactVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
@@ -79,8 +79,8 @@ def save_config(config, filename):
 
 
 def main(new_versions):
-    assert len(new_versions) == 2
-    new_version = tuple(new_versions + [0])
+    assert 2 <= len(new_versions) <= 3, "Version format should be: 23 7 or 23 7 1"
+    new_version = tuple(new_versions + [0] * (3-len(new_versions)))
 
     set_android_version(new_version)
     set_dart_version(new_version)
@@ -94,7 +94,7 @@ def main(new_versions):
 
 def parse_args():
     parser = argparse.ArgumentParser(usage="%s %s" % (sys.argv[0], datetime.today().strftime("%y %m")))
-    parser.add_argument("new_versions", type=int, nargs=2, help="Use separate int values like: 21 6")
+    parser.add_argument("new_versions", type=int, nargs="+", help="Use separate int values like: 21 6 1")
     args = parser.parse_args()
     return vars(args)
 
