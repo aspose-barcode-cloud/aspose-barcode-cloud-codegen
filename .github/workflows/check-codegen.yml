@@ -18,7 +18,9 @@ jobs:
           submodules: recursive
 
       - name: Check all submodules up-to-date
-        run: git diff --exit-code
+        run: |
+          ./scripts/update_submodules.bash
+          git diff --exit-code
 
   check-master:
     runs-on: ubuntu-latest
