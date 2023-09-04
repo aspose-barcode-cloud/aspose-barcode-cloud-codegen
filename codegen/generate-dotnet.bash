@@ -12,8 +12,8 @@ then
 fi
 
 # Generate Operations and Models for Debug purposes
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugOperations.cs.json & exit
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json & exit
+# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugOperations.cs.json ; exit
+# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json ; exit
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json
 
 python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/BarcodeApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/

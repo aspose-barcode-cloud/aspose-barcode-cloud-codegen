@@ -10,9 +10,9 @@ then
      rm -rf $tempDir
 fi
 
-# java -jar Tools/swagger-codegen-cli.jar config-help -l dart & exit
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json & exit
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json & exit
+# java -jar Tools/swagger-codegen-cli.jar config-help -l dart ; exit
+# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json ; exit
+# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json ; exit
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
