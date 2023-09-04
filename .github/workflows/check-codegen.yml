@@ -22,23 +22,6 @@ jobs:
           git submodule update --recursive --remote
           git diff --exit-code
 
-  check-master:
-    runs-on: ubuntu-latest
-    needs: [check-submodules]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Check master points to main
-        run: |
-          for s in ./submodules/*/ ; do
-            pushd "$s"
-            rem_master_hash=$(git ls-remote --exit-code --quiet --heads origin master  | awk '{ print $1}')
-            git diff --exit-code ${rem_master_hash} || (echo "Broken Master in $s" ; exit 1)
-            popd >/dev/null
-          done
-
   check-urls:
     runs-on: ubuntu-latest
     steps:
