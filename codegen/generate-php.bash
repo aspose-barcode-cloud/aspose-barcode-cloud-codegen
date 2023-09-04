@@ -10,7 +10,7 @@ then
      rm -rf "${tempDir}"
 fi
 
-# java -jar Tools/swagger-codegen-cli.jar config-help -l php & exit 1
+# java -jar Tools/swagger-codegen-cli.jar config-help -l php ; exit 1
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugModels.php.json
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugOperations.php.json
 java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json
