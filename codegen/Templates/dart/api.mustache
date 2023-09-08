@@ -53,7 +53,7 @@ class {{classname}} {
         mp.fields['{{baseName}}'] = parameterToString({{paramName}});
       }
       {{/notFile}}{{#isFile}}
-      mp = new MultipartRequest('{{httpMethod}}', Uri.parse(requestPath));
+      mp = MultipartRequest('{{httpMethod}}', Uri.parse(requestPath));
       // ignore: unnecessary_null_comparison
       if ({{paramName}} != null) {
         hasFields = true;
@@ -83,7 +83,7 @@ class {{classname}} {
                                              authNames);
 
     if(response.statusCode >= 400) {
-      throw new ApiException(response.statusCode, response.body);
+      throw ApiException(response.statusCode, response.body);
     } else {
       return
       {{#isListContainer}}
@@ -91,7 +91,7 @@ class {{classname}} {
       {{/isListContainer}}
       {{^isListContainer}}
         {{#isMapContainer}}
-          {{#returnType}}new {{{returnType}}}.from(apiClient.deserialize(response.body, '{{{returnType}}}')) {{/returnType}};
+          {{#returnType}}{{{returnType}}}.from(apiClient.deserialize(response.body, '{{{returnType}}}')) {{/returnType}};
         {{/isMapContainer}}
         {{^isMapContainer}}
         {{#isResponseFile}}

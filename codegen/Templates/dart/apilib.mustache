@@ -1,10 +1,15 @@
 library {{pubName}}.api;
 
+export './configuration.dart' show Configuration;
+
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';{{#browserClient}}
-import 'package:http/browser_client.dart';{{/browserClient}}
-import 'package:http/http.dart';
+import 'dart:typed_data';
+
+{{#browserClient}}import 'package:http/browser_client.dart';{{/browserClient}}
+import 'package:http/http.dart' show Client, MultipartFile, MultipartRequest, Response;
+
+import './configuration.dart' show Configuration;
 
 part 'api_client.dart';
 part 'api_helper.dart';
