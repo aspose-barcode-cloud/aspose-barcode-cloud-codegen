@@ -1,7 +1,11 @@
-part of {{pubName}}.api;
+import 'dart:typed_data' show Uint8List;
+
+import 'package:http/http.dart' show MultipartFile, MultipartRequest;
+
+import '../../aspose_barcode_cloud.dart';
+import '../api_helper.dart';
 
 {{#operations}}
-
 
 class {{classname}} {
   {{classname}}(this.apiClient) {}
@@ -30,7 +34,7 @@ class {{classname}} {
     {{^required}}
     if({{paramName}} != null) {
     {{/required}}
-      queryParams.addAll(_convertParametersForCollectionFormat("{{collectionFormat}}", "{{baseName}}", {{paramName}}));
+      queryParams.addAll(convertParametersForCollectionFormat("{{collectionFormat}}", "{{baseName}}", {{paramName}}));
     {{^required}}
     }
     {{/required}}

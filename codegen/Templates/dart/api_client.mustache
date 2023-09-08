@@ -1,18 +1,18 @@
-part of {{pubName}}.api;
+import 'dart:convert' show json;
+
+import 'package:http/http.dart' as Http show Client, MultipartRequest, Response;
+
+import '../aspose_barcode_cloud.dart';
+import 'api_helper.dart';
+import 'auth/authentication.dart';
+import 'auth/oauth.dart';
 
 const String SDK_VERSION = "{{pubVersion}}";
-
-class QueryParam {
-  String name;
-  String value;
-
-  QueryParam(this.name, this.value);
-}
 
 class ApiClient {
 
   late final String basePath;
-  final httpClient = {{#browserClient}}Browser{{/browserClient}}Client();
+  final httpClient = Http.Client();
 
   static const String API_SDK_HEADER = "x-aspose-client";
   static const String SDK_NAME = "dart sdk";
@@ -108,7 +108,7 @@ class ApiClient {
 
   // We don't use a Map<String, String> for queryParams.
   // If collectionFormat is 'multi' a key might appear multiple times.
-  Future<Response> invokeAPI(String path,
+  Future<Http.Response> invokeAPI(String path,
                              String method,
                              List<QueryParam> queryParams,
                              Object? body,
@@ -129,14 +129,14 @@ class ApiClient {
     headerParams.addAll(_defaultHeaderMap);
     headerParams['Content-Type'] = contentType;
 
-    if(body is MultipartRequest) {
-      final request = MultipartRequest(method, Uri.parse(url));
+    if(body is Http.MultipartRequest) {
+      final request = Http.MultipartRequest(method, Uri.parse(url));
       request.fields.addAll(body.fields);
       request.files.addAll(body.files);
       request.headers.addAll(body.headers);
       request.headers.addAll(headerParams);
       final response = await httpClient.send(request);
-      return Response.fromStream(response);
+      return Http.Response.fromStream(response);
     } else {
       final msgBody = contentType == "application/x-www-form-urlencoded" ? formParams : serialize(body);
       switch(method) {
