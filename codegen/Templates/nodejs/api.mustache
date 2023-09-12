@@ -266,7 +266,7 @@ export class {{classname}} {
 {{/isResponseFile}}
         };
 
-        await this._configuration.authentication.applyToRequest(requestOptions);
+        await this._configuration.authentication.applyToRequestAsync(requestOptions);
         {{#formParams}}{{^isFile}}
         if (Object.keys(requestFormParams).length) {
             if (requestUseFormData) {
