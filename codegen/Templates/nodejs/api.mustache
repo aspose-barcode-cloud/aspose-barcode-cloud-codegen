@@ -186,7 +186,10 @@ let typeMap: { [index: string]: any } = {
 {{/description}}
 
 export class {{classname}} {
-    protected defaultHeaders: any = {};
+    protected defaultHeaders: any = {
+        'x-aspose-client': 'nodejs sdk',
+        'x-aspose-client-version': '{{npmVersion}}'
+    };
     protected _configuration: Configuration;
     private _client: HttpClient;
 
@@ -211,10 +214,10 @@ export class {{classname}} {
                 '{' + '{{baseName}}' + '}',
                 String(request.{{paramName}})
             ){{/pathParams}};
-        let requestQueryParameters: any = {};
-        let requestHeaderParams: any = (Object as any).assign({}, this.defaultHeaders);
+        let queryParameters: any = {};
+        let headerParams: any = (Object as any).assign({}, this.defaultHeaders);
 {{#formParams}}
-        let requestFormParams: any = {};
+        let formParams: any = {};
 {{/formParams}}
 
 {{#allParams}}
@@ -228,29 +231,29 @@ export class {{classname}} {
 {{/allParams}}
 {{#queryParams}}
         if (request.{{paramName}} != null) {
-            requestQueryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, "{{{dataType}}}");
+            queryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, "{{{dataType}}}");
         }
 
 {{/queryParams}}
 {{#headerParams}}
-        requestHeaderParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
+        headerParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
 {{/headerParams}}
 
 {{#formParams}}
         if (request.{{paramName}} != null) {
             {{#isFile}}
-            requestFormParams['{{baseName}}'] = request.{{paramName}};
+            formParams['{{baseName}}'] = request.{{paramName}};
             {{/isFile}}
             {{^isFile}}
-            requestFormParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
+            formParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
             {{/isFile}}
         }
 
 {{/formParams}}
         let requestOptions: HttpOptions = {
             method: '{{httpMethod}}',
-            qs: requestQueryParameters,
-            headers: requestHeaderParams,
+            qs: queryParameters,
+            headers: headerParams,
             uri: requestPath,
 {{#formParams}}
 {{#isFile}}
@@ -268,11 +271,11 @@ export class {{classname}} {
 
         await this._configuration.authentication.applyToRequestAsync(requestOptions);
         {{#formParams}}{{^isFile}}
-        if (Object.keys(requestFormParams).length) {
-            if (requestUseFormData) {
-                (requestOptions as any).formData = requestFormParams;
+        if (Object.keys(formParams).length) {
+            if (useFormData) {
+                (requestOptions as any).formData = formParams;
             } else {
-                requestOptions.form = requestFormParams;
+                requestOptions.form = formParams;
             }
         }{{/isFile}}{{/formParams}}
 
