@@ -2,9 +2,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-pushd "${SCRIPT_DIR}/../codegen"
+pushd "$( dirname "${BASH_SOURCE[0]}" )/../codegen"
 
 for gen in generate-*.bash
 do

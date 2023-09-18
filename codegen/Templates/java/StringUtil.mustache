@@ -1,0 +1,31 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}};
+
+/**
+ * String Utilities.
+ */
+public class StringUtil {
+
+  /**
+   * Join an array of strings with the given separator.
+   * <p>TODO: Replace with String.join after update to Java 8+</p>
+   *
+   * @param array     The array of strings
+   * @param separator The separator
+   * @return the resulting string
+   */
+  public static String join(String[] array, String separator) {
+    int len = array.length;
+    if (len == 0) {
+      return "";
+    }
+
+    StringBuilder out = new StringBuilder();
+    out.append(array[0]);
+    for (int i = 1; i < len; i++) {
+      out.append(separator).append(array[i]);
+    }
+    return out.toString();
+  }
+}

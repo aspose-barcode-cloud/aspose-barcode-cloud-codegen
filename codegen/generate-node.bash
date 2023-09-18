@@ -2,7 +2,6 @@
 set -euo pipefail
 
 specSource="../spec/aspose-barcode-cloud.json"
-
 tempDir=".generated/node"
 targetDir="../submodules/node"
 

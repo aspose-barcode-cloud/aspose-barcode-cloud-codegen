@@ -2,7 +2,6 @@
 set -euo pipefail
 
 specSource="../spec/aspose-barcode-cloud.json"
-
 tempDir=".generated/java"
 targetDir="../submodules/java"
 
@@ -29,6 +28,8 @@ mv $tempDir/src/main/java/com/aspose/barcode/cloud/model/* $targetDir/src/main/j
 rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/requests/*"
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/requests/* $targetDir/src/main/java/com/aspose/barcode/cloud/requests
 rm -f $targetDir/src/main/java/com/aspose/barcode/cloud/*.java
+# Ignore some files
+rm "$tempDir/src/main/java/com/aspose/barcode/cloud/GzipRequestInterceptor.java"
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/java/com/aspose/barcode/cloud
 
 rm -rf "$targetDir/docs/*"

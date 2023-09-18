@@ -99,33 +99,34 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{^isReadOnly}}
   {{#isListContainer}}
 
-  public {{classname}} add{{nameInCamelCase}}Item({{{items.datatypeWithEnum}}} {{name}}Item) {
+  /**
+   * Add {{#complexType}}{{complexType}}{{/complexType}}{{^complexType}}{{nameInCamelCase}} item{{/complexType}}.
+   */
+  public void add{{nameInCamelCase}}Item({{{items.datatypeWithEnum}}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
     }
     {{/required}}
     this.{{name}}.add({{name}}Item);
-    return this;
   }
   {{/isListContainer}}
   {{#isMapContainer}}
 
-  public {{classname}} put{{nameInCamelCase}}Item(String key, {{{items.datatypeWithEnum}}} {{name}}Item) {
+  public void put{{nameInCamelCase}}Item(String key, {{{items.datatypeWithEnum}}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
     }
     {{/required}}
     this.{{name}}.put(key, {{name}}Item);
-    return this;
   }
   {{/isMapContainer}}
 
   {{/isReadOnly}}
    /**
   {{#description}}
-   * {{description}}
+   * {{unescapedDescription}}
   {{/description}}
   {{^description}}
    * Get {{name}}
@@ -138,7 +139,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{/maximum}}
    * @return {{name}}
   **/
-{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}  @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{description}}}")
+{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}  @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{nameInCamelCase}}}")
 {{#vendorExtensions.extraAnnotation}}
   {{{vendorExtensions.extraAnnotation}}}
 {{/vendorExtensions.extraAnnotation}}

@@ -43,6 +43,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * JSON utility class for serialization/deserialization.
+ */
 public class JSON {
     private Gson gson;
     private boolean isLenientOnJson = false;
@@ -57,7 +60,7 @@ public class JSON {
     private final LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
     {{/jsr310}}
 
-    public static GsonBuilder createGson() {
+    private static GsonBuilder createGson() {
         GsonFireBuilder fireBuilder = new GsonFireBuilder();
         GsonBuilder builder = fireBuilder.createGsonBuilder();
         {{#disableHtmlEscaping}}
@@ -66,6 +69,9 @@ public class JSON {
         return builder;
     }
 
+    /**
+     * Constructor.
+     */
     public JSON() {
         ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
         gson = createGson()
@@ -118,7 +124,6 @@ public class JSON {
     /**
      * Deserialize the given JSON string to Java object.
      *
-     * @param <T>        Type
      * @param body       The JSON string
      * @param returnType The type to deserialize into
      * @return The deserialized Java object
@@ -136,9 +141,11 @@ public class JSON {
         } catch (JsonParseException e) {
             // Fallback processing when failed to parse JSON form response body:
             // return the response body string directly for the String return type;
-            if (returnType.equals(String.class))
+            if (returnType.equals(String.class)) {
                 return (T) body;
-            else throw (e);
+            } else {
+                throw (e);
+            }
         }
     }
 
