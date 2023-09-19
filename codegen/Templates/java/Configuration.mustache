@@ -2,29 +2,33 @@
 
 package {{invokerPackage}};
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 /**
  * Class for storing configuration of the SDK.
  */
 public class Configuration {
-    private static ApiClient defaultApiClient = new ApiClient();
+    public String ClientId = "Client Id from https://dashboard.aspose.cloud/applications";
+    public String ClientSecret = "Client Secret from https://dashboard.aspose.cloud/applications";
+    public String ApiBaseUrl = "{{hostWithoutBasePath}}";
+    public String TokenUrl = ApiBaseUrl + "/connect/token";
+    public String AccessToken = null;
 
-    /**
-     * Get the default API client, which would be used when creating API
-     * instances without providing an API client.
-     *
-     * @return Default API client
-     */
-    public static ApiClient getDefaultApiClient() {
-        return defaultApiClient;
+    /** Build ApiClient from configuration. */
+    public ApiClient buildApiClient() {
+        if (AccessToken != null) {
+            return new ApiClient(AccessToken);
+        }
+        return new ApiClient(ClientId, ClientSecret, ApiBaseUrl, TokenUrl);
     }
 
-    /**
-     * Set the default API client, which would be used when creating API
-     * instances without providing an API client.
-     *
-     * @param apiClient API client
-     */
-    public static void setDefaultApiClient(ApiClient apiClient) {
-        defaultApiClient = apiClient;
+    /** Load configuration from file. */
+    public static Configuration loadFromFile(File file) throws IOException {
+        String content = String.join("\n", Files.readAllLines(file.toPath()));
+        Configuration loadedConfig = new JSON().deserialize(content, Configuration.class);
+
+        return loadedConfig;
     }
 }

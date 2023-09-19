@@ -6,7 +6,6 @@ import {{invokerPackage}}.ApiCallback;
 import {{invokerPackage}}.ApiClient;
 import {{invokerPackage}}.ApiException;
 import {{invokerPackage}}.ApiResponse;
-import {{invokerPackage}}.Configuration;
 import {{invokerPackage}}.Pair;
 import {{invokerPackage}}.ProgressRequestBody;
 import {{invokerPackage}}.ProgressResponseBody;
@@ -49,10 +48,6 @@ import java.util.Map;
  */
 public class {{classname}} {
     private final ApiClient {{localVariablePrefix}}apiClient;
-
-    public {{classname}}() {
-        this(Configuration.getDefaultApiClient());
-    }
 
     public {{classname}}(ApiClient apiClient) {
         this.{{localVariablePrefix}}apiClient = apiClient;
