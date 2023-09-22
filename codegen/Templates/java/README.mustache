@@ -23,7 +23,7 @@ This repository contains Aspose.BarCode Cloud SDK for Java source code. This SDK
 
 Building the API client library requires:
 
-1. Java 1.7+
+1. Java 8 (JDK 1.8)
 2. Maven
 
 ## Prerequisites

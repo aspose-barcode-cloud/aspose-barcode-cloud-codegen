@@ -3,7 +3,7 @@
 
 ## Load the API package
 ```dart
-import 'package:{{pubName}}/api.dart';
+import 'package:{{pubName}}/aspose_barcode_cloud.dart';
 ```
 
 All URIs are relative to *{{basePath}}*
@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ### Example
 ```dart
-import 'package:{{pubName}}/api.dart';
+import 'package:{{pubName}}/aspose_barcode_cloud.dart';
 {{#hasAuthMethods}}
 {{#authMethods}}
 {{#isBasic}}
@@ -45,9 +45,9 @@ import 'package:{{pubName}}/api.dart';
 {{/authMethods}}
 {{/hasAuthMethods}}
 
-final api_instance = new {{classname}}();
+final api_instance = {{classname}}();
 {{#allParams}}
-final {{paramName}} = {{#isListContainer}}[{{/isListContainer}}{{#isBodyParam}}new {{dataType}}(){{/isBodyParam}}{{^isBodyParam}}{{{example}}}{{/isBodyParam}}{{#isListContainer}}]{{/isListContainer}}; // {{{dataType}}} | {{{description}}}
+final {{paramName}} = {{#isListContainer}}[{{/isListContainer}}{{#isBodyParam}}{{dataType}}(){{/isBodyParam}}{{^isBodyParam}}{{{example}}}{{/isBodyParam}}{{#isListContainer}}]{{/isListContainer}}; // {{{dataType}}} | {{{description}}}
 {{/allParams}}
 
 try {

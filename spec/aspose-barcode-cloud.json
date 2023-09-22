@@ -113,7 +113,8 @@
               "Mailmark",
               "GS1DotCode",
               "HanXin",
-              "GS1HanXin"
+              "GS1HanXin",
+              "GS1Aztec"
             ]
           },
           {
@@ -560,7 +561,8 @@
               "Mailmark",
               "GS1DotCode",
               "HanXin",
-              "GS1HanXin"
+              "GS1HanXin",
+              "GS1Aztec"
             ]
           },
           {
@@ -1156,7 +1158,9 @@
               "HIBCDataMatrixPAS",
               "HIBCQRPAS",
               "HanXin",
-              "GS1HanXin"
+              "GS1HanXin",
+              "GS1Aztec",
+              "GS1CompositeBar"
             ]
           },
           {
@@ -1581,7 +1585,9 @@
               "HIBCDataMatrixPAS",
               "HIBCQRPAS",
               "HanXin",
-              "GS1HanXin"
+              "GS1HanXin",
+              "GS1Aztec",
+              "GS1CompositeBar"
             ]
           },
           {
@@ -1718,7 +1724,9 @@
               "HIBCDataMatrixPAS",
               "HIBCQRPAS",
               "HanXin",
-              "GS1HanXin"
+              "GS1HanXin",
+              "GS1Aztec",
+              "GS1CompositeBar"
             ]
           },
           {
@@ -2821,7 +2829,8 @@
         "Mailmark",
         "GS1DotCode",
         "HanXin",
-        "GS1HanXin"
+        "GS1HanXin",
+        "GS1Aztec"
       ],
       "enum": [
         "Codabar",
@@ -2893,7 +2902,8 @@
         "Mailmark",
         "GS1DotCode",
         "HanXin",
-        "GS1HanXin"
+        "GS1HanXin",
+        "GS1Aztec"
       ]
     },
     "CodeLocation": {
@@ -3451,7 +3461,24 @@
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Sets the encoding of codetext."
+          "description": "DEPRECATED: This property is obsolete and will be removed in future releases. Unicode symbols detection and encoding will be processed in Auto mode with Extended Channel Interpretation charset designator. Using of own encodings requires manual CodeText encoding into byte[] array.\n Sets the encoding of codetext."
+        },
+        "EncodeMode": {
+          "description": "Encoding mode for Aztec barcodes.\nDefault value: Auto",
+          "$ref": "#/definitions/AztecEncodeMode"
+        },
+        "ECIEncoding": {
+          "description": "Identifies ECI encoding. Used when AztecEncodeMode is Auto. Default value: ISO-8859-1.",
+          "$ref": "#/definitions/ECIEncodings"
+        },
+        "IsReaderInitialization": {
+          "type": "boolean",
+          "description": "Used to instruct the reader to interpret the data contained within the symbol\nas programming for reader initialization."
+        },
+        "LayersCount": {
+          "type": "integer",
+          "description": "Gets or sets layers count of Aztec symbol. Layers count should be in range from\n1 to 3 for Compact mode and in range from 1 to 32 for Full Range mode. Default\nvalue: 0 (auto).",
+          "format": "int32"
         }
       }
     },
@@ -3469,6 +3496,82 @@
         "Compact",
         "FullRange",
         "Rune"
+      ]
+    },
+    "AztecEncodeMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
+      ],
+      "enum": [
+        "Auto",
+        "Bytes",
+        "ExtendedCodetext"
+      ]
+    },
+    "ECIEncodings": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
+      ],
+      "enum": [
+        "NONE",
+        "ISO_8859_1",
+        "ISO_8859_2",
+        "ISO_8859_3",
+        "ISO_8859_4",
+        "ISO_8859_5",
+        "ISO_8859_6",
+        "ISO_8859_7",
+        "ISO_8859_8",
+        "ISO_8859_9",
+        "ISO_8859_10",
+        "ISO_8859_11",
+        "ISO_8859_13",
+        "ISO_8859_14",
+        "ISO_8859_15",
+        "ISO_8859_16",
+        "Shift_JIS",
+        "Win1250",
+        "Win1251",
+        "Win1252",
+        "Win1256",
+        "UTF16BE",
+        "UTF8",
+        "US_ASCII",
+        "Big5",
+        "GB18030",
+        "EUC_KR"
       ]
     },
     "CodabarParams": {
@@ -3616,7 +3719,7 @@
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Encoding of codetext."
+          "description": "DEPRECATED: This property is obsolete and will be removed in future releases. Unicode symbols detection and encoding will be processed in Auto mode with Extended Channel Interpretation charset designator. Using of own encodings requires manual CodeText encoding into byte[] array.\n Sets the encoding of codetext."
         },
         "Columns": {
           "type": "integer",
@@ -3906,68 +4009,6 @@
         "ExtendedCodetext"
       ]
     },
-    "ECIEncodings": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "NONE",
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
-      ],
-      "enum": [
-        "NONE",
-        "ISO_8859_1",
-        "ISO_8859_2",
-        "ISO_8859_3",
-        "ISO_8859_4",
-        "ISO_8859_5",
-        "ISO_8859_6",
-        "ISO_8859_7",
-        "ISO_8859_8",
-        "ISO_8859_9",
-        "ISO_8859_10",
-        "ISO_8859_11",
-        "ISO_8859_13",
-        "ISO_8859_14",
-        "ISO_8859_15",
-        "ISO_8859_16",
-        "Shift_JIS",
-        "Win1250",
-        "Win1251",
-        "Win1252",
-        "Win1256",
-        "UTF16BE",
-        "UTF8",
-        "US_ASCII",
-        "Big5",
-        "GB18030",
-        "EUC_KR"
-      ]
-    },
     "ITFParams": {
       "type": "object",
       "description": "ITF parameters.",
@@ -4071,7 +4112,7 @@
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Encoding of codetext."
+          "description": "DEPRECATED: This property is obsolete and will be removed in future releases. Unicode symbols detection and encoding will be processed in Auto mode with Extended Channel Interpretation charset designator. Using of own encodings requires manual CodeText encoding into byte[] array.\n Sets the encoding of codetext."
         },
         "Columns": {
           "type": "integer",
@@ -4255,7 +4296,7 @@
         },
         "TextEncoding": {
           "type": "string",
-          "description": "Encoding of codetext."
+          "description": "DEPRECATED: This property is obsolete and will be removed in future releases. Unicode symbols detection and encoding will be processed in Auto mode with Extended Channel Interpretation charset designator. Using of own encodings requires manual CodeText encoding into byte[] array.\n Sets the encoding of codetext."
         },
         "EncodeType": {
           "description": "QR / MicroQR selector mode. Select ForceQR for standard QR symbols, Auto for MicroQR.",
@@ -4901,7 +4942,9 @@
         "HIBCDataMatrixPAS",
         "HIBCQRPAS",
         "HanXin",
-        "GS1HanXin"
+        "GS1HanXin",
+        "GS1Aztec",
+        "GS1CompositeBar"
       ],
       "enum": [
         "all",
@@ -4984,7 +5027,9 @@
         "HIBCDataMatrixPAS",
         "HIBCQRPAS",
         "HanXin",
-        "GS1HanXin"
+        "GS1HanXin",
+        "GS1Aztec",
+        "GS1CompositeBar"
       ]
     },
     "ChecksumValidation": {

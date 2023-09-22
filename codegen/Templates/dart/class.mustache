@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 // ignore_for_file: deprecated_member_use_from_same_package
+import '../../aspose_barcode_cloud.dart';
+
 class {{classname}} {
   {{#vars}}{{#description}}/* {{{description}}} */{{/description}}
   {{{datatype}}}? {{name}} = {{{defaultValue}}};
@@ -22,7 +24,7 @@ class {{classname}} {
     {{#complexType}}
       {{#isListContainer}}{{complexType}}.listFromJson(json['{{name}}']){{/isListContainer}}{{^isListContainer}}
       {{#isMapContainer}}{{complexType}}.mapFromJson(json['{{name}}']){{/isMapContainer}}
-      {{^isMapContainer}}new {{complexType}}.fromJson(json['{{name}}']){{/isMapContainer}}{{/isListContainer}}
+      {{^isMapContainer}}{{complexType}}.fromJson(json['{{name}}']){{/isMapContainer}}{{/isListContainer}}
     {{/complexType}}
     {{^complexType}}
       {{#isListContainer}}
@@ -50,13 +52,13 @@ class {{classname}} {
   }
 
   static List<{{classname}}> listFromJson(List<dynamic> json) {
-    return json.map((value) => new {{classname}}.fromJson(value)).toList();
+    return json.map((value) => {{classname}}.fromJson(value)).toList();
   }
 
   static Map<String, {{classname}}> mapFromJson(Map<String, Map<String, dynamic>> json) {
-    final map = new Map<String, {{classname}}>();
+    final map = Map<String, {{classname}}>();
     if (json.isNotEmpty) {
-      json.forEach((String key, Map<String, dynamic> value) => map[key] = new {{classname}}.fromJson(value));
+      json.forEach((String key, Map<String, dynamic> value) => map[key] = {{classname}}.fromJson(value));
     }
     return map;
   }

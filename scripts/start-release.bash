@@ -18,7 +18,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 pushd "${SCRIPT_DIR}/.."
 
 echo "Update Swagger specification..."
-./update_swagger_spec.bash
+./scripts/update_swagger_spec.bash
 
 echo "Switching to ${branch_name}"
 git switch --create "${branch_name}" || git switch "${branch_name}"

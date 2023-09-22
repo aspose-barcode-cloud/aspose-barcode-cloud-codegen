@@ -1,34 +1,40 @@
-part of {{pubName}}.api;
+import 'dart:convert' show json;
 
-class QueryParam {
-  String name;
-  String value;
+import 'package:http/http.dart' as Http show Client, MultipartRequest, Response;
 
-  QueryParam(this.name, this.value);
-}
+import '../aspose_barcode_cloud.dart';
+import 'api_helper.dart';
+import 'auth/authentication.dart';
+import 'auth/oauth.dart';
+
+const String SDK_VERSION = "{{pubVersion}}";
 
 class ApiClient {
 
-  String basePath;
-  final client = new {{#browserClient}}Browser{{/browserClient}}Client();
+  late final String basePath;
+  final httpClient = Http.Client();
 
-  Map<String, String> _defaultHeaderMap = {};
+  static const String API_SDK_HEADER = "x-aspose-client";
+  static const String SDK_NAME = "dart sdk";
+  static const String API_CLIENT_VERSION_HEADER = "x-aspose-client-version";
+
+  Map<String, String> _defaultHeaderMap = {
+    API_SDK_HEADER: SDK_NAME,
+    API_CLIENT_VERSION_HEADER: SDK_VERSION,
+  };
+
   late Authentication _authentication;
 
-  final _regList = new RegExp(r'^List<(.*)>$');
-  final _regMap = new RegExp(r'^Map<String,(.*)>$');
+  final _regList = RegExp(r'^List<(.*)>$');
+  final _regMap = RegExp(r'^Map<String,(.*)>$');
 
-  ApiClient(
-      {String? clientId,
-      String? clientSecret,
-      String? accessToken,
-      tokenUrl = "https://api.aspose.cloud/connect/token",
-      this.basePath = "https://api.aspose.cloud/v3.0"}) {
-    _authentication = new OAuth(
-        clientId: clientId,
-        clientSecret: clientSecret,
-        accessToken: accessToken,
-        tokenUrl: tokenUrl);
+  ApiClient(Configuration config) {
+    this.basePath = config.basePath;
+    _authentication = OAuth(
+        clientId: config.clientId,
+        clientSecret: config.clientSecret,
+        accessToken: config.accessToken,
+        tokenUrl: config.tokenUrl);
   }
 
   void addDefaultHeader(String key, String value) {
@@ -50,10 +56,10 @@ class ApiClient {
           {{#model}}
         case '{{classname}}':
             {{#isEnum}}
-           return new {{classname}}.fromJson(value);
+           return {{classname}}.fromJson(value);
             {{/isEnum}}
             {{^isEnum}}
-          return new {{classname}}.fromJson(value);
+          return {{classname}}.fromJson(value);
             {{/isEnum}}
           {{/model}}
         {{/models}}
@@ -67,15 +73,15 @@ class ApiClient {
             } else if (value is Map &&
                 (match = _regMap.firstMatch(targetType)) != null) {
               final newTargetType = match![1];
-              return new Map.fromIterables(value.keys,
+              return Map.fromIterables(value.keys,
                   value.values.map((v) => _deserialize(v, newTargetType!)));
             }
           }
       }
     } on Exception catch (e, stack) {
-      throw new ApiException.withInner(0, 'Exception during deserialization.', e, stack);
+      throw ApiException.withInner(0, 'Exception during deserialization.', e, stack);
     }
-    throw new ApiException(0, 'Could not find a suitable class for deserialization');
+    throw ApiException(0, 'Could not find a suitable class for deserialization');
   }
 
   dynamic deserialize(String jsonVal, String targetType) {
@@ -102,7 +108,7 @@ class ApiClient {
 
   // We don't use a Map<String, String> for queryParams.
   // If collectionFormat is 'multi' a key might appear multiple times.
-  Future<Response> invokeAPI(String path,
+  Future<Http.Response> invokeAPI(String path,
                              String method,
                              List<QueryParam> queryParams,
                              Object? body,
@@ -123,27 +129,27 @@ class ApiClient {
     headerParams.addAll(_defaultHeaderMap);
     headerParams['Content-Type'] = contentType;
 
-    if(body is MultipartRequest) {
-      final request = new MultipartRequest(method, Uri.parse(url));
+    if(body is Http.MultipartRequest) {
+      final request = Http.MultipartRequest(method, Uri.parse(url));
       request.fields.addAll(body.fields);
       request.files.addAll(body.files);
       request.headers.addAll(body.headers);
       request.headers.addAll(headerParams);
-      final response = await client.send(request);
-      return Response.fromStream(response);
+      final response = await httpClient.send(request);
+      return Http.Response.fromStream(response);
     } else {
       final msgBody = contentType == "application/x-www-form-urlencoded" ? formParams : serialize(body);
       switch(method) {
         case "POST":
-          return client.post(Uri.parse(url), headers: headerParams, body: msgBody);
+          return httpClient.post(Uri.parse(url), headers: headerParams, body: msgBody);
         case "PUT":
-          return client.put(Uri.parse(url), headers: headerParams, body: msgBody);
+          return httpClient.put(Uri.parse(url), headers: headerParams, body: msgBody);
         case "DELETE":
-          return client.delete(Uri.parse(url), headers: headerParams);
+          return httpClient.delete(Uri.parse(url), headers: headerParams);
         case "PATCH":
-          return client.patch(Uri.parse(url), headers: headerParams, body: msgBody);
+          return httpClient.patch(Uri.parse(url), headers: headerParams, body: msgBody);
         default:
-          return client.get(Uri.parse(url), headers: headerParams);
+          return httpClient.get(Uri.parse(url), headers: headerParams);
       }
     }
   }

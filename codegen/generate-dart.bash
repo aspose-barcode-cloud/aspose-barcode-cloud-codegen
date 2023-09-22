@@ -21,18 +21,21 @@ mv "$tempDir/.gitignore" "$targetDir/"
 mv "$tempDir/pubspec.yaml" "$targetDir/"
 
 
-rm -rf "${targetDir:?}/lib/*" || mkdir -p "$targetDir/lib/"
-mv $tempDir/lib/*.dart $targetDir/lib/
+rm -rf "${targetDir:?}/lib/"*.dart || true
+mv $tempDir/lib/api.dart $targetDir/lib/aspose_barcode_cloud.dart
 
-mkdir -p "$targetDir/lib/model/"
-mv $tempDir/lib/model/*.dart $targetDir/lib/model/
+mkdir -p "$targetDir/lib/src/" || true
+mv $tempDir/lib/*.dart $targetDir/lib/src/
 
-mkdir -p "$targetDir/lib/api/"
-mv $tempDir/lib/api/*.dart $targetDir/lib/api/
+mkdir -p "$targetDir/lib/src/model/"
+mv $tempDir/lib/model/*.dart $targetDir/lib/src/model/
 
-mkdir -p "$targetDir/lib/auth/"
-mv "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/auth/"
-mv "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/auth/"
+mkdir -p "$targetDir/lib/src/api/"
+mv $tempDir/lib/api/*.dart $targetDir/lib/src/api/
+
+mkdir -p "$targetDir/lib/src/auth/"
+mv "$tempDir/lib/auth/authentication.dart" "$targetDir/lib/src/auth/"
+mv "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/src/auth/"
 
 rm -rf "$targetDir/doc/"
 mkdir -p "$targetDir/doc/api/"

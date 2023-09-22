@@ -1,9 +1,16 @@
-part of {{pubName}}.api;
+import '../aspose_barcode_cloud.dart';
 
 const _delimiters = const {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
 
+class QueryParam {
+  String name;
+  String value;
+
+  QueryParam(this.name, this.value);
+}
+
 // port from Java version
-Iterable<QueryParam> _convertParametersForCollectionFormat(
+Iterable<QueryParam> convertParametersForCollectionFormat(
   String collectionFormat, String name, dynamic value) {
   final params = <QueryParam>[];
 
@@ -13,7 +20,7 @@ Iterable<QueryParam> _convertParametersForCollectionFormat(
   }
 
   if (value is! List) {
-    params.add(new QueryParam(name, parameterToString(value)));
+    params.add(QueryParam(name, parameterToString(value)));
     return params;
   }
 
@@ -23,12 +30,12 @@ Iterable<QueryParam> _convertParametersForCollectionFormat(
   collectionFormat = collectionFormat.isEmpty ? "csv" : collectionFormat; // default: csv
 
   if (collectionFormat == "multi") {
-    return values.map((v) => new QueryParam(name, parameterToString(v)));
+    return values.map((v) => QueryParam(name, parameterToString(v)));
   }
 
   final String delimiter = _delimiters[collectionFormat] ?? ",";
 
-  params.add(new QueryParam(name, values.map((v) => parameterToString(v)).join(delimiter)));
+  params.add(QueryParam(name, values.map((v) => parameterToString(v)).join(delimiter)));
   return params;
 }
 
