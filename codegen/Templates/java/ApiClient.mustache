@@ -834,7 +834,7 @@ public class ApiClient {
                         url.append("&");
                     }
                     String value = parameterToString(param.getValue());
-                    url.append(escapeString(param.getName())).append("=").append(escapeString(value));
+                    url.append(escapeString(param.getKey())).append("=").append(escapeString(value));
                 }
             }
         }
@@ -851,7 +851,7 @@ public class ApiClient {
                     }
                     String value = parameterToString(param.getValue());
                     // collection query parameter value already escaped as part of parameterToPairs
-                    url.append(escapeString(param.getName())).append("=").append(value);
+                    url.append(escapeString(param.getKey())).append("=").append(value);
                 }
             }
         }
