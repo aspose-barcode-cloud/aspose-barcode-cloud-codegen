@@ -2,46 +2,12 @@
 
 package {{invokerPackage}};
 
-/**
- * Name-value pair.
- */
-public class Pair {
-    private String name = "";
-    private String value = "";
+import java.util.AbstractMap;
 
-    public Pair(String name, String value) {
-        setName(name);
-        setValue(value);
-    }
+/** Key-value pair. */
+public class Pair extends AbstractMap.SimpleImmutableEntry<String, String> {
 
-    private void setName(String name) {
-        if (isNullOrEmpty(name)) {
-            return;
-        }
-
-        this.name = name;
-    }
-
-    private void setValue(String value) {
-        if (isNullOrEmpty(value)) {
-            return;
-        }
-
-        this.value = value;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
-
-    private static boolean isNullOrEmpty(String arg) {
-        if (arg == null) {
-            return true;
-        }
-        return arg.trim().isEmpty();
+    public Pair(String key, String value) {
+        super(key, value);
     }
 }
