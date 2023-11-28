@@ -24,7 +24,8 @@ deprecated: openapi
 
 # Making all SDKs
 .PHONY: sdk
-sdk: android dart dotnet go java node php python
+sdk:
+	./scripts/generate-all.bash
 
 .PHONY: android
 android:
