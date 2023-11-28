@@ -8,4 +8,4 @@ sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 
 sudo apt update
-sudo apt install dotnet-sdk-7.0
+sudo apt install dotnet-sdk-8.0
