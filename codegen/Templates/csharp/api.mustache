@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using {{packageName}}.Interfaces;
 using {{packageName}}.Internal;
 using {{packageName}}.Internal.RequestHandlers;
@@ -65,12 +66,14 @@ namespace {{packageName}}.Api
         {{#operation}}
 
         /// <summary>
+        /// This method is obsolete and will be removed in next releases. Use new async method <see cref="{{nickname}}Async" /> instead.
         ///     {{summary}} {{notes}}
         /// </summary>
         /// <param name="request">Request. <see cref="{{nickname}}Request" /></param>
         {{#returnType}}/// <returns>
         ///     <see cref="{{{returnType}}}" />
         /// </returns>{{/returnType}}
+        [System.Obsolete]
         public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}}({{nickname}}Request request)
         {
 {{#allParams}}{{#required}}            // verify the required parameter '{{paramName}}' is set
@@ -128,6 +131,77 @@ namespace {{packageName}}.Api
             {{/returnType}}
             {{^returnType}}
             _apiInvoker.InvokeApi(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
+        }
+
+        /// <summary>
+        ///     {{summary}} {{notes}}
+        /// </summary>
+        /// <param name="request">Request. <see cref="{{nickname}}Request" /></param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. {{#returnType}}Task result type is  <see cref="{{returnType}}" /> {{/returnType}}
+        /// </returns>
+        public async {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{nickname}}Request request)
+        {
+{{#allParams}}{{#required}}            // verify the required parameter '{{paramName}}' is set
+            if (request.{{baseName}} == null)
+            {
+                throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
+            }
+{{/required}}{{/allParams}}            // create path and map variables
+            string resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
+            resourcePath = Regex
+                .Replace(resourcePath, "\\*", string.Empty)
+                .Replace("&amp;", "&")
+                .Replace("/?", "?");
+            {{#headerParams}}
+            {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
+            {{/headerParams}}
+            {{#formParams}}
+            {{#-first}}var formParams = new Dictionary<string, object>();{{/-first}}
+            {{/formParams}}
+            {{#pathParams}}
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            {{/pathParams}}
+            {{#queryParams}}
+            {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
+            {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
+            {{/queryParams}}
+            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
+            {{#formParams}}
+            if (request.{{baseName}} != null)
+            {
+                {{#isFile}}
+                formParams.Add("{{paramName}}", ApiInvoker.ToFileInfo(request.{{baseName}}, "{{baseName}}"));
+                {{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", request.{{baseName}}); // form parameter{{/isFile}}
+            }
+            {{/formParams}}
+{{#vendorExtensions}}{{#x-binary-result}}            return await _apiInvoker.InvokeBinaryApiAsync(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = await _apiInvoker.InvokeApiAsync(
+                resourcePath,
+                "{{httpMethod}}",
+                {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
+                null,
+                {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+
+            if (response != null)
+            {
+                return ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}}));
+            }
+
+            return null;
+            {{/returnType}}
+            {{^returnType}}
+            await _apiInvoker.InvokeApiAsync(
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
