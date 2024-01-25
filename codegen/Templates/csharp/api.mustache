@@ -73,7 +73,7 @@ namespace {{packageName}}.Api
         {{#returnType}}/// <returns>
         ///     <see cref="{{{returnType}}}" />
         /// </returns>{{/returnType}}
-        [System.Obsolete]
+        [System.Obsolete("This method is obsolete and will be removed in next releases. Use new async method \"{{nickname}}Async\" instead.")]
         public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}}({{nickname}}Request request)
         {
 {{#allParams}}{{#required}}            // verify the required parameter '{{paramName}}' is set
