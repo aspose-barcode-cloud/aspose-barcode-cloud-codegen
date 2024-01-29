@@ -1163,8 +1163,20 @@
               "GS1HanXin",
               "GS1Aztec",
               "GS1CompositeBar",
-              "GS1MicroPdf417"
+              "GS1MicroPdf417",
+              "mostCommonlyUsed"
             ]
+          },
+          {
+            "type": "array",
+            "name": "Types",
+            "in": "query",
+            "description": "Multiple barcode types to read.",
+            "collectionFormat": "multi",
+            "x-nullable": true,
+            "items": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
           },
           {
             "type": "string",
@@ -1591,7 +1603,8 @@
               "GS1HanXin",
               "GS1Aztec",
               "GS1CompositeBar",
-              "GS1MicroPdf417"
+              "GS1MicroPdf417",
+              "mostCommonlyUsed"
             ]
           },
           {
@@ -1731,8 +1744,20 @@
               "GS1HanXin",
               "GS1Aztec",
               "GS1CompositeBar",
-              "GS1MicroPdf417"
+              "GS1MicroPdf417",
+              "mostCommonlyUsed"
             ]
+          },
+          {
+            "type": "array",
+            "name": "Types",
+            "in": "query",
+            "description": "Multiple barcode types to read.",
+            "collectionFormat": "multi",
+            "x-nullable": true,
+            "items": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
           },
           {
             "type": "string",
@@ -4964,7 +4989,8 @@
         "GS1HanXin",
         "GS1Aztec",
         "GS1CompositeBar",
-        "GS1MicroPdf417"
+        "GS1MicroPdf417",
+        "mostCommonlyUsed"
       ],
       "enum": [
         "all",
@@ -5050,7 +5076,8 @@
         "GS1HanXin",
         "GS1Aztec",
         "GS1CompositeBar",
-        "GS1MicroPdf417"
+        "GS1MicroPdf417",
+        "mostCommonlyUsed"
       ]
     },
     "ChecksumValidation": {
@@ -5095,6 +5122,13 @@
         "Type": {
           "description": "The type of barcode to read.",
           "$ref": "#/definitions/DecodeBarcodeType"
+        },
+        "Types": {
+          "type": "array",
+          "description": "Multiple barcode types to read.",
+          "items": {
+            "$ref": "#/definitions/DecodeBarcodeType"
+          }
         },
         "ChecksumValidation": {
           "description": "Enable checksum validation during recognition for 1D barcodes.\nDefault is treated as Yes for symbologies which must contain checksum, as No where checksum only possible.\nChecksum never used: Codabar\nChecksum is possible: Code39 Standard/Extended, Standard2of5, Interleaved2of5, Matrix2of5, ItalianPost25, DeutschePostIdentcode, DeutschePostLeitcode, VIN\nChecksum always used: Rest symbologies",
