@@ -35,4 +35,8 @@ class {{classname}} {
   String toString() {
     return value == null ? "null" : value.toString();
   }
+
+   static List<{{classname}}> listFromJson(List<dynamic> json) {
+    return json.map((value) => {{classname}}.fromJson(value)).toList();
+      }
 }
