@@ -43,6 +43,10 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
         Curl.COULDNT_RESOLVE_HOST,
         None,
     ),
+    "https://storage.googleapis.com/download.dartlang.org/linux/debian": (
+        Curl.HTTP_RETURNED_ERROR,
+        404,
+    ),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
