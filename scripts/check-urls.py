@@ -217,8 +217,10 @@ def main(files):
     queue.put_nowait(None)
     checker.join()
 
+    if BROKEN_URLS:
+        print("Errors:", file=sys.stdout, flush=True)
     for url, files in BROKEN_URLS.items():
-        print("BROKEN URL: '%s' in files: %s" % (url, ", ".join(files)), file=sys.stderr)
+        print("BROKEN URL: '%s' in files: %s" % (url, ", ".join(files)), file=sys.stderr, flush=True)
     if BROKEN_URLS:
         exit(1)
 
