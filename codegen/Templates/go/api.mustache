@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 {{#imports}}	"{{import}}"
 {{/imports}}
@@ -108,7 +109,16 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	{{/required}}
 	{{^required}}
 	if optionals != nil && optionals.{{vendorExtensions.x-exportParamName}}.IsSet() {
+		{{#isCollectionFormatMulti}}
+		values := reflect.ValueOf(optionals.{{vendorExtensions.x-exportParamName}}.Value());
+		for i := 0; i < values.Len(); i++ {
+			item := values.Index(i)
+			queryParams.Add("{{baseName}}", parameterToString(item, ""))
+		}
+		{{/isCollectionFormatMulti}}
+		{{^isCollectionFormatMulti}}
 		queryParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-exportParamName}}.Value(), "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+		{{/isCollectionFormatMulti}}
 	}
 	{{/required}}
 	{{/queryParams}}
