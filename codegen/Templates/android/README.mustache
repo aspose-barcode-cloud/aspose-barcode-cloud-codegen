@@ -66,7 +66,7 @@ Postnet, Planet, USPS OneCode, Australia Post, Deutsche Post Identcode, Deutsche
 
 ## Prerequisites
 
-To use Aspose Barcode Cloud for Android you need to register an account with [Aspose Cloud](https://www.aspose.cloud) and lookup/create Client Secret and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/applications). There is free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+To use Aspose Barcode Cloud for Android you need to register an account with [Aspose Cloud](https://www.aspose.cloud) and lookup/create Client Secret and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/applications). There is free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/).
 
 ## Getting Started
 

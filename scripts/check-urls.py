@@ -21,7 +21,9 @@ class Curl:
     See: https://curl.se/libcurl/c/libcurl-errors.html
     """
 
-    CURL_STDERR_HTTP_RE = re.compile(r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)")
+    CURL_STDERR_HTTP_RE = re.compile(
+        r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)"
+    )
     OK = 0
     COULDNT_RESOLVE_HOST = 6
     HTTP_RETURNED_ERROR = 22
@@ -68,18 +70,18 @@ URL_RE_PATTERN = r"(https*://[^%s]+)[%s]?" % (URL_END_CHARS, URL_END_CHARS)
 # print(URL_RE_PATTERN)
 URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
-
 BROKEN_URLS = collections.defaultdict(list)
 
+EXTRACTED_URLS_WITH_FILES = {k: [] for k in URLS_TO_IGNORE}
 
-EXTRACTED_URLS = set(URLS_TO_IGNORE)
 
-
-def url_extractor(text):
+def url_extractor(text, filename):
     for url in URL_REGEX.findall(text):
-        if url not in EXTRACTED_URLS:
-            EXTRACTED_URLS.add(url)
+        if url not in EXTRACTED_URLS_WITH_FILES:
+            EXTRACTED_URLS_WITH_FILES[url] = [filename]
             yield url
+        else:
+            EXTRACTED_URLS_WITH_FILES[url].append(filename)
 
 
 FILES_TO_IGNORE = frozenset(
@@ -107,9 +109,8 @@ class Task:
     # To avoid 403 responses
     USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
-    def __init__(self, url, filename):
+    def __init__(self, url):
         self.url = url
-        self.filename = filename
         self._proc = subprocess.Popen(
             [
                 "curl",
@@ -147,14 +148,16 @@ class Task:
         return time.time() - self._started
 
 
-def create_new_task(url, filename) -> Task:
-    # print("Create task:", url, filename)
-    return Task(url, filename)
+def create_new_task(url) -> Task:
+    # print("Create task:", url)
+    return Task(url)
 
 
 def process_finished_task(task) -> None:
     # print("Finish task:", task.url)
-    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
+    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(
+        task.url, (0, None)
+    )
     if task.ret_code == expected_ret_code:
         print("OK:", "'%s' %.2fs" % (task.url, task.age))
         return
@@ -169,13 +172,14 @@ def process_finished_task(task) -> None:
             return
 
     print(
-        "Expected %d got %d for '%s': %s" % (expected_ret_code, task.ret_code, task.url, task.stderr),
+        "Expected %d got %d for '%s': %s"
+        % (expected_ret_code, task.ret_code, task.url, task.stderr),
         file=sys.stderr,
     )
-    BROKEN_URLS[task.url].append(task.filename)
+    BROKEN_URLS[task.url] = EXTRACTED_URLS_WITH_FILES[task.url]
 
 
-queue = SimpleQueue()
+WORKER_QUEUE = SimpleQueue()
 
 
 def url_checker(num_workers=8):
@@ -195,13 +199,13 @@ def url_checker(num_workers=8):
 
         if not queue_is_empty:
             for i in (i for (i, w) in enumerate(workers) if w is None):
-                item = queue.get()
+                item = WORKER_QUEUE.get()
                 if item is None:
                     queue_is_empty = True
                     print("Stop queue")
                     break
-                (url, filename) = item
-                workers[i] = create_new_task(url, filename)
+                url = item
+                workers[i] = create_new_task(url)
         time.sleep(0.2)
     print("Worker finished")
 
@@ -211,14 +215,21 @@ def main(files):
     checker.start()
 
     for filename, text in text_extractor(files):
-        for url in url_extractor(text):
+        for url in url_extractor(text, filename):
             # print("In:", url)
-            queue.put_nowait((url, filename))
-    queue.put_nowait(None)
+            WORKER_QUEUE.put_nowait((url))
+    WORKER_QUEUE.put_nowait(None)
     checker.join()
 
+    if BROKEN_URLS:
+        print("Errors:", file=sys.stdout, flush=True)
     for url, files in BROKEN_URLS.items():
-        print("BROKEN URL: '%s' in files: %s" % (url, ", ".join(files)), file=sys.stderr)
+        print(
+            "BROKEN URL: '%s' in files: %s"
+            % (url, ", ".join("'%s'" % f for f in files)),
+            file=sys.stderr,
+            flush=True,
+        )
     if BROKEN_URLS:
         exit(1)
 
