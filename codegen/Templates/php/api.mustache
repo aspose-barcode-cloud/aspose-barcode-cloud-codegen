@@ -322,7 +322,6 @@ use RuntimeException;
         $httpBody = '';
         $multipart = false;
     {{#pathParams}}
-        // path params
         {{#collectionFormat}}
         if (is_array($request->{{paramName}})) {
             $request->{{paramName}} = ObjectSerializer::serializeCollection($request->{{paramName}}, '{{collectionFormat}}');
@@ -332,27 +331,27 @@ use RuntimeException;
             $localName = lcfirst('{{baseName}}');
             $resourcePath = str_replace('{' . $localName . '}', ObjectSerializer::toPathValue($request->{{paramName}}), $resourcePath);
         }
-        {{/pathParams}}
-
-        {{#queryParams}}
-        // query params
+    {{/pathParams}}
+    {{#queryParams}}
         {{#collectionFormat}}
         if (is_array($request->{{paramName}})) {
-            $request->{{paramName}} = ObjectSerializer::serializeCollection($request->{{paramName}}, '{{collectionFormat}}', true);
+            $queryParamName = lcfirst('{{baseName}}');
+            $queryParams[$queryParamName] = $request->{{paramName}};
         }
         {{/collectionFormat}}
+        {{^collectionFormat}}
         if (isset($request->{{paramName}})) {
-            $localName = lcfirst('{{baseName}}');
-            $localValue = is_bool($request->{{paramName}}) ? ($request->{{paramName}} ? 'true' : 'false') : $request->{{paramName}};
-            if (strpos($resourcePath, '{' . $localName . '}') !== false) {
-                $resourcePath = str_replace('{' . $localName . '}', ObjectSerializer::toPathValue($localValue), $resourcePath);
+            $queryParamName = lcfirst('{{baseName}}');
+            $queryParamValue = is_bool($request->{{paramName}}) ? ($request->{{paramName}} ? 'true' : 'false') : $request->{{paramName}};
+            if (strpos($resourcePath, '{' . $queryParamName . '}') !== false) {
+                $resourcePath = str_replace('{' . $queryParamName . '}', ObjectSerializer::toPathValue($queryParamValue), $resourcePath);
             } else {
-                $queryParams[$localName] = ObjectSerializer::toQueryValue($localValue);
+                $queryParams[$queryParamName] = ObjectSerializer::toQueryValue($queryParamValue);
             }
         }
-        {{/queryParams}}
-
-        {{#headerParams}}
+        {{/collectionFormat}}
+    {{/queryParams}}
+    {{#headerParams}}
         // header params
         {{#collectionFormat}}
         if (is_array($request->{{paramName}})) {
@@ -362,7 +361,7 @@ use RuntimeException;
         if (isset($request->{{paramName}})) {
             $headerParams['{{paramName}}'] = ObjectSerializer::toHeaderValue($request->{{paramName}});
         }
-        {{/headerParams}}
+    {{/headerParams}}
 
         $resourcePath = $this->_parseURL($resourcePath, $queryParams);
 
@@ -524,7 +523,7 @@ use RuntimeException;
     {
         // parse the url
         $UrlToSign = trim($url, '/');
-        $urlQuery = http_build_query($queryParams);
+        $urlQuery = preg_replace('/%5B[0-9]+%5D=/', '=', http_build_query($queryParams));
 
         $urlPartToSign = $this->config->getBasePath() . '/' . parse_url($UrlToSign, PHP_URL_HOST) . parse_url($UrlToSign, PHP_URL_PATH) . '?' . $urlQuery;
 
