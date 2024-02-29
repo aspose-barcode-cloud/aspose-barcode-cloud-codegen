@@ -30,13 +30,12 @@ pushd "./submodules"
 for d in */ ; do
     pushd "$d"
 
-    git switch --create "${branch_name}" || git switch "${branch_name}"
+    git switch --create "${branch_name}" || git switch "${branch_name}" || true
     make update || true
 
     popd >/dev/null
 done
-
-python "${SCRIPT_DIR}/new-version.py" "${major}" "${minor}"
-
 popd >/dev/null
+
+python "new-version.py" "${major}" "${minor}"
 popd >/dev/null
