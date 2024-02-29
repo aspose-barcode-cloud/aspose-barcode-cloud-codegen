@@ -51,11 +51,12 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
 
 URLS_TO_IGNORE = frozenset(
     [
+        "http://|https://|ftp://",
         "http://localhost:12345",
         "http://localhost:12345/v3.0",
         "http://some",
         "http://urllib3.readthedocs.io/en/latest/advanced-usage.html",
-        "http://|https://|ftp://",
+        "https://api-qa.aspose.cloud",
         "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet/releases/tag/v{{packageVersion}}",
         "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
         "https://pypi.org/project/{{projectName}}/",
