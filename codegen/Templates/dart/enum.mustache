@@ -1,8 +1,10 @@
+/// {{{description}}}
+/// {{classname}}: {{#allowableValues}}{{values}}{{/allowableValues}}
 class {{classname}} {
-  /// The underlying value of this enum member.
-  {{dataType}}? value;
+  /// The underlying value of {{classname}} enum.
+  late final {{dataType}} _value;
 
-  {{classname}}._internal(this.value);
+  {{classname}}._internal(this._value);
 
   {{#allowableValues}}
     {{#enumVars}}
@@ -13,31 +15,35 @@ class {{classname}} {
     {{/enumVars}}
   {{/allowableValues}}
 
+  /// Creates a {{classname}} instance from a JSON representation.
   {{classname}}.fromJson(dynamic data) {
     switch (data) {
     {{#allowableValues}}
       {{#enumVars}}
-          case {{{value}}}: value = data; break;
+      case {{{value}}}:
       {{/enumVars}}
+        _value = data;
+        break;
     {{/allowableValues}}
     default: throw Exception('Unknown enum value to decode: $data');
     }
   }
 
-  static dynamic encode({{classname}} data) {
-    return data.value;
-  }
-
+  /// Returns a JSON representation of {{classname}}.
   {{dataType}}? toJson() {
-    return value;
+    return _value;
   }
 
   @override
   String toString() {
-    return value == null ? "null" : value.toString();
+    return _value.toString();
   }
 
-   static List<{{classname}}> listFromJson(List<dynamic> json) {
+  /// Converts a list of JSON objects to a list of {{classname}} instances.
+  ///
+  /// @param json The list of JSON objects to convert.
+  /// @return A list of {{classname}} instances.
+  static List<{{classname}}> listFromJson(List<dynamic> json) {
     return json.map((value) => {{classname}}.fromJson(value)).toList();
-      }
+  }
 }

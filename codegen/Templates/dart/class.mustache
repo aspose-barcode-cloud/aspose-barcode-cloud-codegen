@@ -2,11 +2,14 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 import '../../aspose_barcode_cloud.dart';
 
+/// {{#description}}{{{description}}}{{/description}}{{^description}}{{{classname}}}{{/description}}
 class {{classname}} {
-  {{#vars}}{{#description}}/* {{{description}}} */{{/description}}
+  {{#vars}}
+  /// {{#description}}{{{description}}}{{/description}}{{^description}}{{{name}}}{{/description}}
   {{{datatype}}}? {{name}} = {{{defaultValue}}};
   {{#allowableValues}}{{#min}} // range from {{min}} to {{max}}{{/min}}//{{^min}}enum {{name}}Enum { {{#values}} {{.}}, {{/values}} };{{/min}}{{/allowableValues}}
   {{/vars}}
+  /// Constructor
   {{classname}}();
 
   @override
@@ -14,6 +17,7 @@ class {{classname}} {
     return '{{classname}}[{{#vars}}{{name}}=${{name}}, {{/vars}}]';
   }
 
+  /// Creates a {{classname}} instance from a JSON representation.
   {{classname}}.fromJson(Map<String, dynamic> json) {
   {{#vars}}
   {{#isDateTime}}
@@ -43,6 +47,7 @@ class {{classname}} {
   {{/vars}}
   }
 
+  /// Returns a JSON representation of {{classname}}.
   Map<String, dynamic> toJson() {
     return {
     {{#vars}}
@@ -51,15 +56,11 @@ class {{classname}} {
      };
   }
 
+  /// Converts a list of JSON objects to a list of {{classname}} instances.
+  ///
+  /// @param json The list of JSON objects to convert.
+  /// @return A list of {{classname}} instances.
   static List<{{classname}}> listFromJson(List<dynamic> json) {
     return json.map((value) => {{classname}}.fromJson(value)).toList();
-  }
-
-  static Map<String, {{classname}}> mapFromJson(Map<String, Map<String, dynamic>> json) {
-    final map = Map<String, {{classname}}>();
-    if (json.isNotEmpty) {
-      json.forEach((String key, Map<String, dynamic> value) => map[key] = {{classname}}.fromJson(value));
-    }
-    return map;
   }
 }

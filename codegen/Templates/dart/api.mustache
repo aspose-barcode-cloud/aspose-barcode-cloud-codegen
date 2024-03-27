@@ -7,10 +7,12 @@ import '../api_helper.dart';
 
 {{#operations}}
 
+/// {{classname}}
 class {{classname}} {
-  {{classname}}(this.apiClient) {}
+  /// Constructor
+  {{classname}}(this._apiClient) {}
 
-  final ApiClient apiClient;
+  final ApiClient _apiClient;
 
   {{#operation}}
   ///
@@ -77,7 +79,7 @@ class {{classname}} {
     }
     {{/hasFormParams}}
 
-    final response = await apiClient.invokeAPI(requestPath,
+    final response = await _apiClient.invokeAPI(requestPath,
                                              '{{httpMethod}}',
                                              queryParams,
                                              postBody,
@@ -91,18 +93,18 @@ class {{classname}} {
     } else {
       return
       {{#isListContainer}}
-        {{#returnType}}(apiClient.deserialize(response.body, '{{{returnType}}}') as List).map((item) => item as {{returnBaseType}}).toList();{{/returnType}}
+        {{#returnType}}(_apiClient.deserialize(response.body, '{{{returnType}}}') as List).map((item) => item as {{returnBaseType}}).toList();{{/returnType}}
       {{/isListContainer}}
       {{^isListContainer}}
         {{#isMapContainer}}
-          {{#returnType}}{{{returnType}}}.from(apiClient.deserialize(response.body, '{{{returnType}}}')) {{/returnType}};
+          {{#returnType}}{{{returnType}}}.from(_apiClient.deserialize(response.body, '{{{returnType}}}')) {{/returnType}};
         {{/isMapContainer}}
         {{^isMapContainer}}
         {{#isResponseFile}}
         response.bodyBytes;
         {{/isResponseFile}}
         {{^isResponseFile}}
-          {{#returnType}}apiClient.deserialize(response.body, '{{{returnType}}}') as {{{returnType}}} {{/returnType}};
+          {{#returnType}}_apiClient.deserialize(response.body, '{{{returnType}}}') as {{{returnType}}} {{/returnType}};
         {{/isResponseFile}}
         {{/isMapContainer}}
       {{/isListContainer}}
