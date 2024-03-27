@@ -32,7 +32,7 @@ class {{classname}} {
       {{/isListContainer}}
       {{^isListContainer}}
         {{#isDouble}}
-        json['{{name}}'] == null ? null : json['{{name}}'].toDouble()
+        json['{{name}}']?.toDouble()
         {{/isDouble}}
         {{^isDouble}}
         json['{{name}}']

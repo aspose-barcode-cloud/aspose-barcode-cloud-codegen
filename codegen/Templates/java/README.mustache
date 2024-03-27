@@ -126,10 +126,11 @@ public class BarcodeApiExample {
     }
 
     private static File generateBarcode(BarcodeApi api) throws ApiException {
-        String type = EncodeBarcodeType.PDF417.toString();
+        String type = EncodeBarcodeType.QR.toString();
         String text = "Aspose.BarCode for Cloud Sample";
         GetBarcodeGenerateRequest request = new GetBarcodeGenerateRequest(type, text);
-
+        request.textLocation = "None";
+        
         return api.getBarcodeGenerate(request);
     }
 
