@@ -60,6 +60,7 @@ $config->setClientSecret('Client Secret from https://dashboard.aspose.cloud/appl
 
 $request = new GetBarcodeGenerateRequest(EncodeBarcodeType::QR, 'PHP SDK Test');
 $request->format = 'png';
+$request->text_location = 'None';
 
 $api = new BarcodeApi(null, $config);
 $response = $api->GetBarCodeGenerate($request);
