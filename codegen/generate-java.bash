@@ -21,11 +21,11 @@ python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/FolderApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/StorageApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/api/*"
+rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/api/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/api/* $targetDir/src/main/java/com/aspose/barcode/cloud/api
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/model/*"
+rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/model/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/model/* $targetDir/src/main/java/com/aspose/barcode/cloud/model
-rm -rf "$targetDir/src/main/java/com/aspose/barcode/cloud/requests/*"
+rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/requests/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/requests/* $targetDir/src/main/java/com/aspose/barcode/cloud/requests
 rm -f $targetDir/src/main/java/com/aspose/barcode/cloud/*.java
 # Ignore some files
@@ -33,7 +33,7 @@ rm "$tempDir/src/main/java/com/aspose/barcode/cloud/GzipRequestInterceptor.java"
 rm "$tempDir/src/main/java/com/aspose/barcode/cloud/StringUtil.java"
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/java/com/aspose/barcode/cloud
 
-rm -rf "$targetDir/docs/*"
+rm -rf ${targetDir}/docs/*
 mv $tempDir/docs/* $targetDir/docs
 
 mv $tempDir/README.md $targetDir

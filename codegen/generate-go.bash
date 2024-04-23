@@ -23,7 +23,7 @@ mv "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go"
 
 mv $tempDir/*.go $targetDir/barcode/
 
-rm -rf "$targetDir/docs/*"
+rm -rf $targetDir/docs/*
 mv $tempDir/docs/* $targetDir/docs/
 mv "$tempDir/README.md" "$targetDir/README.md"
 cp Templates/LICENSE "$targetDir/"

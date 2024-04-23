@@ -25,7 +25,7 @@ mv "$tempDir/gradlew" "$targetDir/app/build.gradle"
 mv "$tempDir/src/main/AndroidManifest.xml" "$targetDir/app/src/main/"
 
 exampleDir="$targetDir/app/src/main/java/com/aspose/barcode/cloud/demo_app"
-rm -rf "${exampleDir:?}/*"
+rm -rf ${exampleDir:?}/*
 mkdir -p "$exampleDir" || true
 mv "$tempDir/src/main/java/com/aspose/barcode/cloud/demo_app/ApiException.java" "$exampleDir/MainActivity.kt"
 
