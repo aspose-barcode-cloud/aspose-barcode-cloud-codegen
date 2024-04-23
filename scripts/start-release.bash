@@ -37,5 +37,5 @@ for d in */ ; do
 done
 popd >/dev/null
 
-python "new-version.py" "${major}" "${minor}"
+python "./scripts/new-version.py" "${major}" "${minor}"
 popd >/dev/null
