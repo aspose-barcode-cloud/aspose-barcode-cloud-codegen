@@ -28,6 +28,7 @@ mkdir -p "$targetDir/lib/src/" || true
 mv $tempDir/lib/*.dart $targetDir/lib/src/
 
 mkdir -p "$targetDir/lib/src/model/"
+rm -rf "$targetDir/lib/src/model/"*.dart
 mv $tempDir/lib/model/*.dart $targetDir/lib/src/model/
 
 mkdir -p "$targetDir/lib/src/api/"
