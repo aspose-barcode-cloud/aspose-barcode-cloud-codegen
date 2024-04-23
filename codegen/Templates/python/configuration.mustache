@@ -1,6 +1,5 @@
 # coding: utf-8
 
-{{>partial_header}}
 from __future__ import absolute_import, division
 
 import contextlib
@@ -304,5 +303,5 @@ class Configuration(object):
             js_data = json.loads(response.data)
 
         access_token = js_data["access_token"]
-        
+
         return access_token
