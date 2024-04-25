@@ -2067,6 +2067,68 @@
         ]
       }
     },
+    "/barcode/scan": {
+      "post": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Quickly scan a barcode from an image.",
+        "operationId": "ScanBarcode",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "file",
+            "name": "imageFile",
+            "in": "formData",
+            "required": true,
+            "description": "Image as file",
+            "x-nullable": true
+          },
+          {
+            "type": "array",
+            "name": "decodeTypes",
+            "in": "formData",
+            "description": "Types of barcode to recognize",
+            "collectionFormat": "multi",
+            "x-nullable": true,
+            "items": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
+          },
+          {
+            "type": "integer",
+            "name": "timeout",
+            "in": "formData",
+            "description": "Timeout of recognition process in milliseconds.\n Default value is 15_000 (15 seconds).\n Maximum value is 30_000 (1/2 minute).\n In case of a timeout RequestTimeout (408) status will be returned.\n Try reducing the image size to avoid timeout.",
+            "format": "int32",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "BarcodeResponseList with barcode data.",
+            "schema": {
+              "$ref": "#/definitions/BarcodeResponseList"
+            }
+          },
+          "400": {
+            "x-nullable": true,
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/barcode/storage/file/{path}": {
       "get": {
         "tags": [

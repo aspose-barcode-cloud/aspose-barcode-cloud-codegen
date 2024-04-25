@@ -22,8 +22,8 @@ mv "$tempDir/git_push.sh" "$targetDir/src/models.ts"
 
 # Use typescript-node one more time because typescript-node does not generate docs
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugModels.docs.json
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugOperations.docs.json
+#java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugModels.node.json
+#java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugOperations.node.json
 
 mv "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
 mv "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
