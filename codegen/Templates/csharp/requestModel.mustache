@@ -27,12 +27,14 @@
 
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace {{packageName}}.Model.Requests
 {
     /// <summary>
     ///     Request model for <see cref="{{packageName}}.Api.{{classname}}.{{nickname}}Async" /> operation.
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class {{nickname}}Request{{#vendorExtensions}}{{#x-csharp-implements}} : {{x-csharp-implements}}{{/x-csharp-implements}}{{/vendorExtensions}}
     {
         {{#hasParams}}

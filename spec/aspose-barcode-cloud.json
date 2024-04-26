@@ -1416,7 +1416,7 @@
             "type": "number",
             "name": "Similarity",
             "in": "query",
-            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
             "format": "double",
             "x-nullable": true
           },
@@ -1997,7 +1997,7 @@
             "type": "number",
             "name": "Similarity",
             "in": "query",
-            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+            "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
             "format": "double",
             "x-nullable": true
           },
@@ -5321,7 +5321,7 @@
         },
         "Similarity": {
           "type": "number",
-          "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
+          "description": "Similarity coefficient depends on how homogeneous barcodes are.\nUse high value for clear barcodes.\nUse low values to detect barcodes that ara partly damaged or not lighten evenly.\nSimilarity coefficient must be between [0.5, 0.9]",
           "format": "double"
         },
         "SkipDiagonalSearch": {
