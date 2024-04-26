@@ -21,8 +21,8 @@ python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/FileApi.
 python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/FolderApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/StorageApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 
-cp Templates/LICENSE "$targetDir/"
-cp Templates/LICENSE "$targetDir/src/LICENSE.txt"
+cp ../LICENSE "$targetDir/"
+cp ../LICENSE "$targetDir/src/LICENSE.txt"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf "$targetDir/src/Model/"

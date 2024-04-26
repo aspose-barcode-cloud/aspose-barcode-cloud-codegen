@@ -34,7 +34,7 @@ rm -rf "${targetDir}/docs/"*
 mv "${tempDir}/SwaggerClient-php/docs/"* "${targetDir}/docs"
 
 mv "${tempDir}/SwaggerClient-php/README.md" "${targetDir}/"
-cp Templates/LICENSE "${targetDir}/"
+cp ../LICENSE "${targetDir}/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 

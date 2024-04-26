@@ -45,7 +45,7 @@ mv $tempDir/docs/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
 mv $tempDir/docs/*.md $targetDir/doc/models/
 
-cp Templates/LICENSE "$targetDir/"
+cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 # Cleanup

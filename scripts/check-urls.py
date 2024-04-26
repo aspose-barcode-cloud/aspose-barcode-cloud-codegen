@@ -203,7 +203,7 @@ def url_checker(num_workers=8):
                 item = WORKER_QUEUE.get()
                 if item is None:
                     queue_is_empty = True
-                    print("Stop queue")
+                    print("URL queue is over")
                     break
                 url = item
                 workers[i] = create_new_task(url)

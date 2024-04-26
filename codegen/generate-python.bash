@@ -27,7 +27,7 @@ cp "$tempDir/test-requirements.txt" "$targetDir/test-requirements.txt"
 cp "$tempDir/tox.ini" "$targetDir/tox.ini"
 cp "$tempDir/README.md" "$targetDir/README.md"
 
-cp Templates/LICENSE "$targetDir/"
+cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
