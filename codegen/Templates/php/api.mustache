@@ -364,19 +364,28 @@ use RuntimeException;
         $resourcePath = $this->_parseURL($resourcePath, $queryParams);
 
         {{#formParams}}
-        // form params
+        {{#-first}}// form params{{/-first}}
         {{#isFile}}
         $multipart = true;
         $filename = ObjectSerializer::toFormValue($request->{{paramName}});
         $handle = fopen($filename, 'rb');
         $fsize = filesize($filename);
         $contents = fread($handle, $fsize);
-        $formParams['{{paramName}}'] = $contents;
+        $formParams['{{baseName}}'][] = $contents;
         {{/isFile}}
         {{^isFile}}
-        if (isset($request->{{paramName}})) {
-            $formParams['{{paramName}}'] = ObjectSerializer::toFormValue($request->{{paramName}});
-        }
+            {{#isCollectionFormatMulti}}
+            foreach($request->{{paramName}} as $item) {
+                $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($item);
+            }
+            {{/isCollectionFormatMulti}}
+            {{^isCollectionFormatMulti}}
+            {{/isCollectionFormatMulti}}
+            {{^isCollectionFormatMulti}}
+            if (isset($request->{{paramName}})) {
+                $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($request->{{paramName}});
+            }
+            {{/isCollectionFormatMulti}}
         {{/isFile}}
         {{/formParams}}
         // body params
@@ -414,12 +423,14 @@ use RuntimeException;
         {{#hasFormParams}}
         if ($multipart) {
             $multipartContents = [];
-            foreach ($formParams as $formParamName => $formParamValue) {
-                $multipartContents[] = [
-                    'name' => $formParamName,
-                    'contents' => $formParamValue,
-                    'filename' => $filename
-                ];
+            foreach ($formParams as $formParamName => $formParamValues) {
+                foreach ($formParamValues as $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue,
+                        'filename' => $filename
+                    ];
+                }
             }
             // for HTTP post (form)
             $httpBody = new MultipartStream($multipartContents);
@@ -429,7 +440,7 @@ use RuntimeException;
 
         }{{#formParams}}{{#isFile}} else {
             // for HTTP post (form)
-            $httpBody = $formParams['{{paramName}}'];
+            $httpBody = $formParams['{{baseName}}'][0];
         }{{/isFile}}{{/formParams}}
         {{/hasFormParams}}
 
