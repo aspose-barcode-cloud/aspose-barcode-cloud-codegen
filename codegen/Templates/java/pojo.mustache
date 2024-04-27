@@ -126,7 +126,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{/isReadOnly}}
    /**
   {{#description}}
-   * {{unescapedDescription}}
+   * {{description}}
   {{/description}}
   {{^description}}
    * Get {{name}}
@@ -138,7 +138,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
    * maximum: {{maximum}}
   {{/maximum}}
    * @return {{name}}
-  **/
+   */
 {{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}  @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{nameInCamelCase}}}")
 {{#vendorExtensions.extraAnnotation}}
   {{{vendorExtensions.extraAnnotation}}}

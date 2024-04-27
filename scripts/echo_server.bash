@@ -6,5 +6,5 @@ set -euo pipefail
 # For each incoming connection, it starts a loop that reads lines from the connection and echoes them back.
 
 port=47972
-echo "Starting echo server on port $port"
+echo "Starting echo server http://localhost:$port/"
 nc localhost $port -lc 'while true; do read line; echo "$line"; done'

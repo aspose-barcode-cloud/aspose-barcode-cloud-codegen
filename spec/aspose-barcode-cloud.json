@@ -3510,7 +3510,7 @@
       "additionalProperties": false,
       "properties": {
         "EncodingTable": {
-          "description": "Interpreting type for the Customer Information of AustralianPost, default to CustomerInformationInterpretingType.Other\"",
+          "description": "Interpreting type for the Customer Information of AustralianPost, default to CustomerInformationInterpretingType.Other",
           "$ref": "#/definitions/CustomerInformationInterpretingType"
         },
         "ShortBarHeight": {
