@@ -1,7 +1,8 @@
 import 'dart:typed_data' show Uint8List;
 
-import 'package:http/http.dart' show MultipartFile, MultipartRequest;
+import 'package:http/http.dart' show MultipartFile;
 
+import '../http/multipart_request_plus.dart';
 import '../../aspose_barcode_cloud.dart';
 import '../api_helper.dart';
 
@@ -52,20 +53,30 @@ class {{classname}} {
     {{#hasFormParams}}
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
-      MultipartRequest? mp;
+      MultipartRequestPlus? mp;
       {{#formParams}}{{#notFile}}
       if ({{paramName}} != null) {
         hasFields = true;
-        mp.fields['{{baseName}}'] = parameterToString({{paramName}});
+        {{#isCollectionFormatMulti}}
+        final List<String> stringValues = {{paramName}}.map((i) => parameterToString(i)).toList();
+        mp.fields['{{baseName}}'] = stringValues;
+        {{/isCollectionFormatMulti}}
+        {{^isCollectionFormatMulti}}
+        mp.fields['{{baseName}}'] = [parameterToString({{paramName}})];
+        {{/isCollectionFormatMulti}}
       }
       {{/notFile}}{{#isFile}}
-      mp = MultipartRequest('{{httpMethod}}', Uri.parse(requestPath));
-      // ignore: unnecessary_null_comparison
+      mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
+      {{#required}}
+        hasFields = true;
+        mp.files.add({{paramName}});
+      {{/required}}
+      {{^required}}
       if ({{paramName}} != null) {
         hasFields = true;
-        mp.fields['{{baseName}}'] = {{paramName}}.field;
         mp.files.add({{paramName}});
       }
+      {{/required}}
 
       {{/isFile}}{{/formParams}}
       if (hasFields) {
@@ -73,9 +84,9 @@ class {{classname}} {
       }
     }
     else {
-      {{#formParams}}{{#notFile}}if ({{paramName}} != null)
-        formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
-      {{/formParams}}
+    {{#formParams}}{{#notFile}}if ({{paramName}} != null)
+      formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
+    {{/formParams}}
     }
     {{/hasFormParams}}
 

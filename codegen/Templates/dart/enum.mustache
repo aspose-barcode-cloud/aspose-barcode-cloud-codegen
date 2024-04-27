@@ -7,12 +7,13 @@ class {{classname}} {
   {{classname}}._internal(this._value);
 
   {{#allowableValues}}
-    {{#enumVars}}
+    {{#values}}
       {{#description}}
   /// {{description}}
       {{/description}}
-  static {{classname}} {{name}} = {{classname}}._internal({{{value}}});
-    {{/enumVars}}
+  // ignore: non_constant_identifier_names
+  static final {{classname}} {{.}} = {{classname}}._internal("{{.}}");
+    {{/values}}
   {{/allowableValues}}
 
   /// Creates a {{classname}} instance from a JSON representation.
