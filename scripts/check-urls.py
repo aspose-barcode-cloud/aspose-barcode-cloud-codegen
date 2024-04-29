@@ -52,21 +52,29 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
 URLS_TO_IGNORE = frozenset(
     [
         "http://|https://|ftp://",
+        "http://localhost:$port/",
         "http://localhost:12345",
         "http://localhost:12345/v3.0",
+        "http://localhost:47972/v3.0/barcode/swagger/spec",
         "http://some",
+        "http://tools.ietf.org/html/rfc1341.html",
+        "http://tools.ietf.org/html/rfc2046",
+        "http://tools.ietf.org/html/rfc2388",
         "http://urllib3.readthedocs.io/en/latest/advanced-usage.html",
         "https://api-qa.aspose.cloud",
+        "https://api-qa.aspose.cloud/connect/token",
+        "https://api.aspose.cloud/v3.0/barcode/scan",
         "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet/releases/tag/v{{packageVersion}}",
         "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
         "https://pypi.org/project/{{projectName}}/",
         "https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.14/swagger-codegen-cli-2.4.14.jar",
+        "https://tools.ietf.org/html/rfc1521",
         "https://unknown",
         "https://www.aspose.cloud/404",
     ]
 )
 
-URL_END_CHARS = r"\)\"'<>\*\s\\"
+URL_END_CHARS = r",#\)\"'<>\*\s\\"
 URL_RE_PATTERN = r"(https*://[^%s]+)[%s]?" % (URL_END_CHARS, URL_END_CHARS)
 # print(URL_RE_PATTERN)
 URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
@@ -184,6 +192,7 @@ WORKER_QUEUE = SimpleQueue()
 
 
 def url_checker(num_workers=8):
+    next_report_age_sec = 5
     workers: list[Optional[Task]] = [None for _ in range(num_workers)]
 
     queue_is_empty = False
@@ -195,8 +204,9 @@ def url_checker(num_workers=8):
             if not task.running:
                 process_finished_task(task)
                 workers[i] = None
-            elif task.age > 5:
+            elif task.age > next_report_age_sec:
                 print("Long request: '%s' %.2fs" % (task.url, task.age))
+                next_report_age_sec += 3
 
         if not queue_is_empty:
             for i in (i for (i, w) in enumerate(workers) if w is None):
@@ -218,7 +228,7 @@ def main(files):
     for filename, text in text_extractor(files):
         for url in url_extractor(text, filename):
             # print("In:", url)
-            WORKER_QUEUE.put_nowait((url))
+            WORKER_QUEUE.put_nowait(url)
     WORKER_QUEUE.put_nowait(None)
     checker.join()
 
