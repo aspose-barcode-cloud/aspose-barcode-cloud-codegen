@@ -1,5 +1,3 @@
-{{>licenseInfo}}
-
 package {{invokerPackage}};
 
 import com.aspose.barcode.cloud.model.ApiErrorResponse;
@@ -900,14 +898,25 @@ public class ApiClient {
     public RequestBody buildRequestBodyMultipart(Map<String, Object> formParams) {
         MultipartBuilder mpBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
         for (Entry<String, Object> param : formParams.entrySet()) {
-            if (param.getValue() instanceof File) {
-                File file = (File) param.getValue();
+            Object paramValue = param.getValue();
+            if (paramValue instanceof File) {
+                File file = (File) paramValue;
                 Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + param.getKey() + "\"; filename=\"" + file.getName() + "\"");
                 MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));
                 mpBuilder.addPart(partHeaders, RequestBody.create(mediaType, file));
+            } else if (paramValue instanceof Collection) {
+                Collection<Object> collection = (Collection<Object>) paramValue;
+                for (Object item : collection) {
+                    Headers partHeaders =
+                            Headers.of(
+                                    "Content-Disposition",
+                                    "form-data; name=\"" + param.getKey() + "\"");
+                    mpBuilder.addPart(
+                            partHeaders, RequestBody.create(null, parameterToString(item)));
+                }
             } else {
                 Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + param.getKey() + "\"");
-                mpBuilder.addPart(partHeaders, RequestBody.create(null, parameterToString(param.getValue())));
+                mpBuilder.addPart(partHeaders, RequestBody.create(null, parameterToString(paramValue)));
             }
         }
         return mpBuilder.build();

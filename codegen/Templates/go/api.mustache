@@ -1,10 +1,9 @@
-{{>partial_header}}
 package {{packageName}}
 
 {{#operations}}
 import (
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -44,6 +43,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		httpMethod = strings.ToUpper("{{httpMethod}}")
 		postBody   interface{}
 		fileName   string
+		fileFieldName string
 		fileBytes  []byte
 		{{#returnType}}returnValue {{#isResponseFile}}[]byte{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}{{/returnType}}
 	)
@@ -159,24 +159,25 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 {{#hasFormParams}}
 {{#formParams}}
 {{#isFile}}
-{{#required}}
+	{{#required}}
     requestFile := {{paramName}}
     if requestFile != nil {
 		fileName = requestFile.Name()
+		fileFieldName = "{{baseName}}"
 		var err error
-		fileBytes, err = ioutil.ReadAll(requestFile)
+		fileBytes, err = io.ReadAll(io.Reader(requestFile))
 		if err != nil {
 			return returnValue, nil, err
 		}
 	}
-{{/required}}
-{{^required}}
+	{{/required}}
+	{{^required}}
 
 	if optionals != nil && optionals.{{vendorExtensions.x-exportParamName}}.IsSet() {
 		if requestFile, fileOk := optionals.{{vendorExtensions.x-exportParamName}}.Value().({{dataType}}); fileOk {
 			fileName = requestFile.Name()
 			var err error
-			fileBytes, err = ioutil.ReadAll(requestFile)
+			fileBytes, err = io.ReadAll(io.Reader(requestFile))
 			if err != nil {
 				return returnValue, nil, err
 			}
@@ -187,7 +188,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 			return {{#returnType}}returnValue, {{/returnType}}nil, reportError("{{paramName}} should be {{dataType}} or []byte")
 		}
 	}
-{{/required}}
+	{{/required}}
 {{/isFile}}
 {{^isFile}}
 {{#required}}
@@ -195,7 +196,16 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 {{/required}}
 {{^required}}
 	if optionals != nil && optionals.{{vendorExtensions.x-exportParamName}}.IsSet() {
+		{{#isCollectionFormatMulti}}
+		values := reflect.ValueOf(optionals.{{vendorExtensions.x-exportParamName}}.Value());
+		for i := 0; i < values.Len(); i++ {
+			item := values.Index(i)
+			formParams.Add("{{baseName}}", parameterToString(item, ""))
+		}
+		{{/isCollectionFormatMulti}}
+		{{^isCollectionFormatMulti}}
 		formParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-exportParamName}}.Value(), "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+		{{/isCollectionFormatMulti}}
 	}
 {{/required}}
 {{/isFile}}
@@ -235,7 +245,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	}
 {{/isApiKey}}
 {{/authMethods}}
-	r, err := a.client.prepareRequest(ctx, requestPath, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	r, err := a.client.prepareRequest(ctx, requestPath, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileFieldName, fileBytes)
 	if err != nil {
 		return {{#returnType}}returnValue, {{/returnType}}nil, err
 	}
@@ -245,7 +255,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		return {{#returnType}}returnValue, {{/returnType}}httpResponse, err
 	}
 
-	responseBody, err := ioutil.ReadAll(httpResponse.Body)
+	responseBody, err := io.ReadAll(io.Reader(httpResponse.Body))
 	httpResponse.Body.Close()
 	if err != nil {
 		return {{#returnType}}returnValue, {{/returnType}}httpResponse, err

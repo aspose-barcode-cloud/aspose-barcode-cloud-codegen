@@ -28,6 +28,7 @@ mkdir -p "$targetDir/lib/src/" || true
 mv $tempDir/lib/*.dart $targetDir/lib/src/
 
 mkdir -p "$targetDir/lib/src/model/"
+rm -rf "$targetDir/lib/src/model/"*.dart
 mv $tempDir/lib/model/*.dart $targetDir/lib/src/model/
 
 mkdir -p "$targetDir/lib/src/api/"
@@ -44,7 +45,7 @@ mv $tempDir/docs/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
 mv $tempDir/docs/*.md $targetDir/doc/models/
 
-cp Templates/LICENSE "$targetDir/"
+cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 # Cleanup
