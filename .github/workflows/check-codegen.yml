@@ -1,4 +1,4 @@
-name: CI
+name: Check pull request
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
@@ -21,16 +21,6 @@ jobs:
         run: |
           git submodule update --recursive --remote
           git diff --exit-code
-
-  check-urls:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Check all URLs
-        run: ./scripts/check_all_urls.sh
 
   check-swagger:
     runs-on: ubuntu-latest

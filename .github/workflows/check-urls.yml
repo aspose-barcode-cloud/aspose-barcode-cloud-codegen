@@ -1,0 +1,22 @@
+name: Check URLs
+
+on:
+  # Run on each PR to main
+  pull_request:
+    branches:
+      - main
+  # And every day at 03:00 UTC
+  schedule:
+    - cron: '0 3 * * *'
+
+
+jobs:
+  check-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Check all URLs
+        run: ./scripts/check_all_urls.sh
