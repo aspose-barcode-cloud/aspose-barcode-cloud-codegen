@@ -17,6 +17,68 @@
     "application/json"
   ],
   "paths": {
+    "/barcode/scan": {
+      "post": {
+        "tags": [
+          "Barcode"
+        ],
+        "summary": "Quickly scan a barcode from an image.",
+        "operationId": "ScanBarcode",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "type": "file",
+            "name": "imageFile",
+            "in": "formData",
+            "required": true,
+            "description": "Image as file",
+            "x-nullable": true
+          },
+          {
+            "type": "array",
+            "name": "decodeTypes",
+            "in": "formData",
+            "description": "Types of barcode to recognize",
+            "collectionFormat": "multi",
+            "x-nullable": true,
+            "items": {
+              "$ref": "#/definitions/DecodeBarcodeType"
+            }
+          },
+          {
+            "type": "integer",
+            "name": "timeout",
+            "in": "formData",
+            "description": "Timeout of recognition process in milliseconds.\n Default value is 15_000 (15 seconds).\n Maximum value is 30_000 (1/2 minute).\n In case of a timeout RequestTimeout (408) status will be returned.\n Try reducing the image size to avoid timeout.",
+            "format": "int32",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "BarcodeResponseList with barcode data.",
+            "schema": {
+              "$ref": "#/definitions/BarcodeResponseList"
+            }
+          },
+          "400": {
+            "x-nullable": true,
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/barcode/generate": {
       "get": {
         "tags": [
@@ -2067,68 +2129,6 @@
         ]
       }
     },
-    "/barcode/scan": {
-      "post": {
-        "tags": [
-          "Barcode"
-        ],
-        "summary": "Quickly scan a barcode from an image.",
-        "operationId": "ScanBarcode",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "parameters": [
-          {
-            "type": "file",
-            "name": "imageFile",
-            "in": "formData",
-            "required": true,
-            "description": "Image as file",
-            "x-nullable": true
-          },
-          {
-            "type": "array",
-            "name": "decodeTypes",
-            "in": "formData",
-            "description": "Types of barcode to recognize",
-            "collectionFormat": "multi",
-            "x-nullable": true,
-            "items": {
-              "$ref": "#/definitions/DecodeBarcodeType"
-            }
-          },
-          {
-            "type": "integer",
-            "name": "timeout",
-            "in": "formData",
-            "description": "Timeout of recognition process in milliseconds.\n Default value is 15_000 (15 seconds).\n Maximum value is 30_000 (1/2 minute).\n In case of a timeout RequestTimeout (408) status will be returned.\n Try reducing the image size to avoid timeout.",
-            "format": "int32",
-            "x-nullable": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": true,
-            "description": "BarcodeResponseList with barcode data.",
-            "schema": {
-              "$ref": "#/definitions/BarcodeResponseList"
-            }
-          },
-          "400": {
-            "x-nullable": true,
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/ApiErrorResponse"
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
     "/barcode/storage/file/{path}": {
       "get": {
         "tags": [
@@ -2814,6 +2814,67 @@
     }
   },
   "definitions": {
+    "BarcodeResponseList": {
+      "type": "object",
+      "description": "Represents information about barcode list.",
+      "additionalProperties": false,
+      "properties": {
+        "Barcodes": {
+          "type": "array",
+          "description": "List of barcodes which are present in image.",
+          "items": {
+            "$ref": "#/definitions/BarcodeResponse"
+          }
+        }
+      }
+    },
+    "BarcodeResponse": {
+      "type": "object",
+      "description": "Represents information about barcode.",
+      "additionalProperties": false,
+      "properties": {
+        "BarcodeValue": {
+          "type": "string",
+          "description": "Barcode data."
+        },
+        "Type": {
+          "type": "string",
+          "description": "Type of the barcode."
+        },
+        "Region": {
+          "type": "array",
+          "description": "Region with barcode.",
+          "items": {
+            "$ref": "#/definitions/RegionPoint"
+          }
+        },
+        "Checksum": {
+          "type": "string",
+          "description": "Checksum of barcode."
+        }
+      }
+    },
+    "RegionPoint": {
+      "type": "object",
+      "description": "Wrapper around Drawing.Point for proper specification.",
+      "additionalProperties": false,
+      "required": [
+        "X",
+        "Y"
+      ],
+      "properties": {
+        "X": {
+          "type": "integer",
+          "description": "X-coordinate",
+          "format": "int32"
+        },
+        "Y": {
+          "type": "integer",
+          "description": "Y-coordinate",
+          "format": "int32"
+        }
+      }
+    },
     "ApiErrorResponse": {
       "type": "object",
       "additionalProperties": false,
@@ -2847,6 +2908,184 @@
           "$ref": "#/definitions/ApiError"
         }
       }
+    },
+    "DecodeBarcodeType": {
+      "type": "string",
+      "description": "See DecodeType",
+      "x-enumNames": [
+        "all",
+        "AustraliaPost",
+        "Aztec",
+        "ISBN",
+        "Codabar",
+        "Code11",
+        "Code128",
+        "GS1Code128",
+        "Code39Extended",
+        "Code39Standard",
+        "Code93Extended",
+        "Code93Standard",
+        "DataMatrix",
+        "DeutschePostIdentcode",
+        "DeutschePostLeitcode",
+        "EAN13",
+        "EAN14",
+        "EAN8",
+        "IATA2of5",
+        "Interleaved2of5",
+        "ISSN",
+        "ISMN",
+        "ItalianPost25",
+        "ITF14",
+        "ITF6",
+        "MacroPdf417",
+        "Matrix2of5",
+        "MSI",
+        "OneCode",
+        "OPC",
+        "PatchCode",
+        "Pdf417",
+        "MicroPdf417",
+        "Planet",
+        "Postnet",
+        "PZN",
+        "QR",
+        "MicroQR",
+        "RM4SCC",
+        "SCC14",
+        "SSCC18",
+        "Standard2of5",
+        "Supplement",
+        "UPCA",
+        "UPCE",
+        "VIN",
+        "Pharmacode",
+        "GS1DataMatrix",
+        "DatabarOmniDirectional",
+        "DatabarTruncated",
+        "DatabarLimited",
+        "DatabarExpanded",
+        "SwissPostParcel",
+        "AustralianPosteParcel",
+        "Code16K",
+        "DatabarStackedOmniDirectional",
+        "DatabarStacked",
+        "DatabarExpandedStacked",
+        "CompactPdf417",
+        "GS1QR",
+        "MaxiCode",
+        "MicrE13B",
+        "Code32",
+        "DataLogic2of5",
+        "DotCode",
+        "DutchKIX",
+        "CodablockF",
+        "Mailmark",
+        "GS1DotCode",
+        "HIBCCode39LIC",
+        "HIBCCode128LIC",
+        "HIBCAztecLIC",
+        "HIBCDataMatrixLIC",
+        "HIBCQRLIC",
+        "HIBCCode39PAS",
+        "HIBCCode128PAS",
+        "HIBCAztecPAS",
+        "HIBCDataMatrixPAS",
+        "HIBCQRPAS",
+        "HanXin",
+        "GS1HanXin",
+        "GS1Aztec",
+        "GS1CompositeBar",
+        "GS1MicroPdf417",
+        "mostCommonlyUsed"
+      ],
+      "enum": [
+        "all",
+        "AustraliaPost",
+        "Aztec",
+        "ISBN",
+        "Codabar",
+        "Code11",
+        "Code128",
+        "GS1Code128",
+        "Code39Extended",
+        "Code39Standard",
+        "Code93Extended",
+        "Code93Standard",
+        "DataMatrix",
+        "DeutschePostIdentcode",
+        "DeutschePostLeitcode",
+        "EAN13",
+        "EAN14",
+        "EAN8",
+        "IATA2of5",
+        "Interleaved2of5",
+        "ISSN",
+        "ISMN",
+        "ItalianPost25",
+        "ITF14",
+        "ITF6",
+        "MacroPdf417",
+        "Matrix2of5",
+        "MSI",
+        "OneCode",
+        "OPC",
+        "PatchCode",
+        "Pdf417",
+        "MicroPdf417",
+        "Planet",
+        "Postnet",
+        "PZN",
+        "QR",
+        "MicroQR",
+        "RM4SCC",
+        "SCC14",
+        "SSCC18",
+        "Standard2of5",
+        "Supplement",
+        "UPCA",
+        "UPCE",
+        "VIN",
+        "Pharmacode",
+        "GS1DataMatrix",
+        "DatabarOmniDirectional",
+        "DatabarTruncated",
+        "DatabarLimited",
+        "DatabarExpanded",
+        "SwissPostParcel",
+        "AustralianPosteParcel",
+        "Code16K",
+        "DatabarStackedOmniDirectional",
+        "DatabarStacked",
+        "DatabarExpandedStacked",
+        "CompactPdf417",
+        "GS1QR",
+        "MaxiCode",
+        "MicrE13B",
+        "Code32",
+        "DataLogic2of5",
+        "DotCode",
+        "DutchKIX",
+        "CodablockF",
+        "Mailmark",
+        "GS1DotCode",
+        "HIBCCode39LIC",
+        "HIBCCode128LIC",
+        "HIBCAztecLIC",
+        "HIBCDataMatrixLIC",
+        "HIBCQRLIC",
+        "HIBCCode39PAS",
+        "HIBCCode128PAS",
+        "HIBCAztecPAS",
+        "HIBCDataMatrixPAS",
+        "HIBCQRPAS",
+        "HanXin",
+        "GS1HanXin",
+        "GS1Aztec",
+        "GS1CompositeBar",
+        "GS1MicroPdf417",
+        "mostCommonlyUsed"
+      ]
     },
     "EncodeBarcodeType": {
       "type": "string",
@@ -4901,245 +5140,6 @@
         "Version82",
         "Version83",
         "Version84"
-      ]
-    },
-    "BarcodeResponseList": {
-      "type": "object",
-      "description": "Represents information about barcode list.",
-      "additionalProperties": false,
-      "properties": {
-        "Barcodes": {
-          "type": "array",
-          "description": "List of barcodes which are present in image.",
-          "items": {
-            "$ref": "#/definitions/BarcodeResponse"
-          }
-        }
-      }
-    },
-    "BarcodeResponse": {
-      "type": "object",
-      "description": "Represents information about barcode.",
-      "additionalProperties": false,
-      "properties": {
-        "BarcodeValue": {
-          "type": "string",
-          "description": "Barcode data."
-        },
-        "Type": {
-          "type": "string",
-          "description": "Type of the barcode."
-        },
-        "Region": {
-          "type": "array",
-          "description": "Region with barcode.",
-          "items": {
-            "$ref": "#/definitions/RegionPoint"
-          }
-        },
-        "Checksum": {
-          "type": "string",
-          "description": "Checksum of barcode."
-        }
-      }
-    },
-    "RegionPoint": {
-      "type": "object",
-      "description": "Wrapper around Drawing.Point for proper specification.",
-      "additionalProperties": false,
-      "required": [
-        "X",
-        "Y"
-      ],
-      "properties": {
-        "X": {
-          "type": "integer",
-          "description": "X-coordinate",
-          "format": "int32"
-        },
-        "Y": {
-          "type": "integer",
-          "description": "Y-coordinate",
-          "format": "int32"
-        }
-      }
-    },
-    "DecodeBarcodeType": {
-      "type": "string",
-      "description": "See DecodeType",
-      "x-enumNames": [
-        "all",
-        "AustraliaPost",
-        "Aztec",
-        "ISBN",
-        "Codabar",
-        "Code11",
-        "Code128",
-        "GS1Code128",
-        "Code39Extended",
-        "Code39Standard",
-        "Code93Extended",
-        "Code93Standard",
-        "DataMatrix",
-        "DeutschePostIdentcode",
-        "DeutschePostLeitcode",
-        "EAN13",
-        "EAN14",
-        "EAN8",
-        "IATA2of5",
-        "Interleaved2of5",
-        "ISSN",
-        "ISMN",
-        "ItalianPost25",
-        "ITF14",
-        "ITF6",
-        "MacroPdf417",
-        "Matrix2of5",
-        "MSI",
-        "OneCode",
-        "OPC",
-        "PatchCode",
-        "Pdf417",
-        "MicroPdf417",
-        "Planet",
-        "Postnet",
-        "PZN",
-        "QR",
-        "MicroQR",
-        "RM4SCC",
-        "SCC14",
-        "SSCC18",
-        "Standard2of5",
-        "Supplement",
-        "UPCA",
-        "UPCE",
-        "VIN",
-        "Pharmacode",
-        "GS1DataMatrix",
-        "DatabarOmniDirectional",
-        "DatabarTruncated",
-        "DatabarLimited",
-        "DatabarExpanded",
-        "SwissPostParcel",
-        "AustralianPosteParcel",
-        "Code16K",
-        "DatabarStackedOmniDirectional",
-        "DatabarStacked",
-        "DatabarExpandedStacked",
-        "CompactPdf417",
-        "GS1QR",
-        "MaxiCode",
-        "MicrE13B",
-        "Code32",
-        "DataLogic2of5",
-        "DotCode",
-        "DutchKIX",
-        "CodablockF",
-        "Mailmark",
-        "GS1DotCode",
-        "HIBCCode39LIC",
-        "HIBCCode128LIC",
-        "HIBCAztecLIC",
-        "HIBCDataMatrixLIC",
-        "HIBCQRLIC",
-        "HIBCCode39PAS",
-        "HIBCCode128PAS",
-        "HIBCAztecPAS",
-        "HIBCDataMatrixPAS",
-        "HIBCQRPAS",
-        "HanXin",
-        "GS1HanXin",
-        "GS1Aztec",
-        "GS1CompositeBar",
-        "GS1MicroPdf417",
-        "mostCommonlyUsed"
-      ],
-      "enum": [
-        "all",
-        "AustraliaPost",
-        "Aztec",
-        "ISBN",
-        "Codabar",
-        "Code11",
-        "Code128",
-        "GS1Code128",
-        "Code39Extended",
-        "Code39Standard",
-        "Code93Extended",
-        "Code93Standard",
-        "DataMatrix",
-        "DeutschePostIdentcode",
-        "DeutschePostLeitcode",
-        "EAN13",
-        "EAN14",
-        "EAN8",
-        "IATA2of5",
-        "Interleaved2of5",
-        "ISSN",
-        "ISMN",
-        "ItalianPost25",
-        "ITF14",
-        "ITF6",
-        "MacroPdf417",
-        "Matrix2of5",
-        "MSI",
-        "OneCode",
-        "OPC",
-        "PatchCode",
-        "Pdf417",
-        "MicroPdf417",
-        "Planet",
-        "Postnet",
-        "PZN",
-        "QR",
-        "MicroQR",
-        "RM4SCC",
-        "SCC14",
-        "SSCC18",
-        "Standard2of5",
-        "Supplement",
-        "UPCA",
-        "UPCE",
-        "VIN",
-        "Pharmacode",
-        "GS1DataMatrix",
-        "DatabarOmniDirectional",
-        "DatabarTruncated",
-        "DatabarLimited",
-        "DatabarExpanded",
-        "SwissPostParcel",
-        "AustralianPosteParcel",
-        "Code16K",
-        "DatabarStackedOmniDirectional",
-        "DatabarStacked",
-        "DatabarExpandedStacked",
-        "CompactPdf417",
-        "GS1QR",
-        "MaxiCode",
-        "MicrE13B",
-        "Code32",
-        "DataLogic2of5",
-        "DotCode",
-        "DutchKIX",
-        "CodablockF",
-        "Mailmark",
-        "GS1DotCode",
-        "HIBCCode39LIC",
-        "HIBCCode128LIC",
-        "HIBCAztecLIC",
-        "HIBCDataMatrixLIC",
-        "HIBCQRLIC",
-        "HIBCCode39PAS",
-        "HIBCCode128PAS",
-        "HIBCAztecPAS",
-        "HIBCDataMatrixPAS",
-        "HIBCQRPAS",
-        "HanXin",
-        "GS1HanXin",
-        "GS1Aztec",
-        "GS1CompositeBar",
-        "GS1MicroPdf417",
-        "mostCommonlyUsed"
       ]
     },
     "ChecksumValidation": {
