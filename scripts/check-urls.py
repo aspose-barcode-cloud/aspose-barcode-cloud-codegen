@@ -22,9 +22,7 @@ class Curl:
     See: https://curl.se/libcurl/c/libcurl-errors.html
     """
 
-    CURL_STDERR_HTTP_RE = re.compile(
-        r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)"
-    )
+    CURL_STDERR_HTTP_RE = re.compile(r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)")
     OK = 0
     COULDNT_RESOLVE_HOST = 6
     HTTP_RETURNED_ERROR = 22
@@ -162,9 +160,7 @@ def create_new_task(url) -> Task:
 
 def process_finished_task(task) -> None:
     # print("Finish task:", task.url)
-    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(
-        task.url, (0, None)
-    )
+    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
     if task.ret_code == expected_ret_code:
         print("OK:", "'%s' %.2fs" % (task.url, task.age))
         JOB_SUMMARY.add_success(task.url)
@@ -181,8 +177,7 @@ def process_finished_task(task) -> None:
             return
 
     print(
-        "Expected %d got %d for '%s': %s"
-        % (expected_ret_code, task.ret_code, task.url, task.stderr),
+        "Expected %d got %d for '%s': %s" % (expected_ret_code, task.ret_code, task.url, task.stderr),
         file=sys.stderr,
     )
     JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
@@ -221,7 +216,7 @@ def url_checker(num_workers=8):
     print("Worker finished")
 
 
-JOB_SUMMARY = JobSummary(os.environ.get('GITHUB_STEP_SUMMARY', "step_summary.md"))
+JOB_SUMMARY = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
 JOB_SUMMARY.add_header("Test all URLs")
 
 

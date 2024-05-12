@@ -6,7 +6,7 @@ format: format-black
 
 .PHONY: format-black
 format-black:
-	python -m black --line-length=120 -v .
+	python -m black --line-length=120 --exclude submodules -v .
 
 .PHONY: swagger
 swagger:

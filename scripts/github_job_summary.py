@@ -4,13 +4,16 @@ from threading import Lock
 
 
 class JobSummary:
+    """
+    See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary
+    """
 
     def __init__(self, filename: str):
         """
 
         :param filename: Use $GITHUB_STEP_SUMMARY inside GitHub
         """
-        self.__file: TextIO = open(filename, mode='wt')
+        self.__file: TextIO = open(filename, mode="wt")
         self._errors = []
         self._success = []
         self._lock = Lock()
@@ -23,7 +26,7 @@ class JobSummary:
         if not self.has_errors:
             return "OK"
         lines = ["Errors:"] + self._errors
-        return '\n\n'.join(lines)
+        return "\n\n".join(lines)
 
     def _write_line(self, line):
         with self._lock:
@@ -37,6 +40,9 @@ class JobSummary:
         self._write_line(f"{'#' * level} {text}\n\n")
 
     def add_error(self, text: str):
+        """
+        See https://github.com/markdown-templates/markdown-emojis
+        """
         if not self._errors:
             self._write_line("Errors:\n")
         self._errors.append(text)
@@ -47,11 +53,9 @@ class JobSummary:
 
     def finalize(self, format_str: str):
         total = len(self._success) + len(self._errors)
-        self._write_line('\n' + format_str.format(
-            total=total,
-            success=len(self._success),
-            failed=len(self._errors)
-        ) + '\n')
+        self._write_line(
+            "\n" + format_str.format(total=total, success=len(self._success), failed=len(self._errors)) + "\n"
+        )
 
 
 def test():
@@ -64,5 +68,5 @@ def test():
         summary.finalize("Total={total}, success={success}, failed={failed}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()
