@@ -1,4 +1,3 @@
-import collections
 import fileinput
 import os
 import re
@@ -8,6 +7,8 @@ import threading
 import time
 from queue import SimpleQueue
 from typing import Optional
+
+from github_job_summary import JobSummary
 
 """
 Read file names from stdin
@@ -77,9 +78,8 @@ URL_RE_PATTERN = r"(https*://[^%s]+)[%s]?" % (URL_END_CHARS, URL_END_CHARS)
 # print(URL_RE_PATTERN)
 URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
-BROKEN_URLS = collections.defaultdict(list)
-
-EXTRACTED_URLS_WITH_FILES = {k: [] for k in URLS_TO_IGNORE}
+# URL : [Files]
+EXTRACTED_URLS_WITH_FILES: dict[str, [str]] = {k: [] for k in URLS_TO_IGNORE}
 
 
 def url_extractor(text, filename):
@@ -167,6 +167,7 @@ def process_finished_task(task) -> None:
     )
     if task.ret_code == expected_ret_code:
         print("OK:", "'%s' %.2fs" % (task.url, task.age))
+        JOB_SUMMARY.add_success(task.url)
         return
 
     if task.ret_code == Curl.HTTP_RETURNED_ERROR and expected_http_code:
@@ -176,6 +177,7 @@ def process_finished_task(task) -> None:
         http_code = int(match.groupdict()["http_code"])
         if http_code == expected_http_code:
             print("OK HTTP:", "'%s' %.2fs" % (task.url, task.age))
+            JOB_SUMMARY.add_success(task.url)
             return
 
     print(
@@ -183,7 +185,7 @@ def process_finished_task(task) -> None:
         % (expected_ret_code, task.ret_code, task.url, task.stderr),
         file=sys.stderr,
     )
-    BROKEN_URLS[task.url] = EXTRACTED_URLS_WITH_FILES[task.url]
+    JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
 
 
 WORKER_QUEUE = SimpleQueue()
@@ -219,7 +221,11 @@ def url_checker(num_workers=8):
     print("Worker finished")
 
 
-def main(files):
+JOB_SUMMARY = JobSummary(os.environ.get('GITHUB_STEP_SUMMARY', "step_summary.md"))
+JOB_SUMMARY.add_header("Test all URLs")
+
+
+def main(files: [str]) -> int:
     checker = threading.Thread(target=url_checker)
     checker.start()
 
@@ -230,18 +236,14 @@ def main(files):
     WORKER_QUEUE.put_nowait(None)
     checker.join()
 
-    if BROKEN_URLS:
-        print("Errors:", file=sys.stdout, flush=True)
-    for url, files in BROKEN_URLS.items():
-        print(
-            "BROKEN URL: '%s' in files: %s"
-            % (url, ", ".join("'%s'" % f for f in files)),
-            file=sys.stderr,
-            flush=True,
-        )
-    if BROKEN_URLS:
-        exit(1)
+    JOB_SUMMARY.finalize("Checked {total} failed **{failed}**\nGood={success}")
+    if JOB_SUMMARY.has_errors:
+        print(JOB_SUMMARY, file=sys.stderr, flush=True)
+        return 1
+    else:
+        print(JOB_SUMMARY, file=sys.stdout, flush=True)
+        return 0
 
 
 if __name__ == "__main__":
-    main([filename.strip() for filename in fileinput.input()])
+    exit(main([filename.strip() for filename in fileinput.input()]))
