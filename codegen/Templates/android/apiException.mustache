@@ -22,10 +22,10 @@ import androidx.core.content.ContextCompat
 import com.aspose.barcode.cloud.ApiClient
 import com.aspose.barcode.cloud.ApiException
 import com.aspose.barcode.cloud.api.BarcodeApi
+import com.aspose.barcode.cloud.model.CodeLocation
 import com.aspose.barcode.cloud.model.EncodeBarcodeType
-import com.aspose.barcode.cloud.model.PresetType
 import com.aspose.barcode.cloud.requests.GetBarcodeGenerateRequest
-import com.aspose.barcode.cloud.requests.PostBarcodeRecognizeFromUrlOrContentRequest
+import com.aspose.barcode.cloud.requests.ScanBarcodeRequest
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
@@ -172,8 +172,8 @@ class MainActivity : AppCompatActivity() {
                 if (resultCode == RESULT_OK) {
                     val bmpImage = data?.extras?.get("data") as Bitmap
                     recognizeBarcode(bmpImage)
-        }
                 }
+            }
 
             else -> {
                 showErrorMessage("No file selected")
@@ -195,12 +195,11 @@ class MainActivity : AppCompatActivity() {
                 smallerBmp.compress(Bitmap.CompressFormat.PNG, 100, output)
             }
 
-            val recognizeRequest = PostBarcodeRecognizeFromUrlOrContentRequest()
-            recognizeRequest.preset = PresetType.HIGHPERFORMANCE.value
-            recognizeRequest.image = tmpFile
+            val apiRequest = ScanBarcodeRequest(tmpFile);
+
             Thread {
                 try {
-                    val recognized = api.postBarcodeRecognizeFromUrlOrContent(recognizeRequest)
+                    val recognized = api.scanBarcode(apiRequest)
 
                     runOnUiThread {
                         stopRecognizeAnimation()
@@ -253,6 +252,7 @@ class MainActivity : AppCompatActivity() {
         barcodeRequest.imageHeight = barcodeImgView.measuredHeight.toDouble()
         barcodeRequest.imageWidth = barcodeImgView.measuredWidth.toDouble()
         barcodeRequest.format = "png"
+
         Thread {
             try {
                 val generated: File? = api.getBarcodeGenerate(barcodeRequest)
@@ -293,7 +293,10 @@ class MainActivity : AppCompatActivity() {
         getContentIntent.type = "image/*"
         getContentIntent.addCategory(Intent.CATEGORY_OPENABLE)
         try {
-             startActivityForResult(Intent.createChooser(getContentIntent, "Select an Image to Recognize"), ACTION_GET_CONTENT_CALLBACK_CODE)
+            startActivityForResult(
+                Intent.createChooser(getContentIntent, "Select an Image to Recognize"),
+                ACTION_GET_CONTENT_CALLBACK_CODE
+            )
         } catch (ex: java.lang.Exception) {
             showErrorMessage("Unable to start file selector")
         }
