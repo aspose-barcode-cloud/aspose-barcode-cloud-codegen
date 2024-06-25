@@ -111,7 +111,7 @@ namespace {{packageName}}.Api
                     }
                     {{/isCollectionFormatMulti}}
                     {{#isPrimitiveType}}
-                    formParams.Add(new StringContent(request.{{baseName}}.ToString()), "{{baseName}}");
+                    formParams.Add(new StringContent($"{request.{{baseName}}}"), "{{baseName}}");
                     {{/isPrimitiveType}}
                 {{/isFile}}
             }
