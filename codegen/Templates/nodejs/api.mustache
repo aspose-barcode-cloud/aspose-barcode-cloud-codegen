@@ -204,6 +204,7 @@ export class {{classname}} {
         const requestPath =
             this._configuration.getApiBaseUrl() +
             '{{{path}}}'{{#pathParams}}.replace(
+                // eslint-disable-next-line no-useless-concat
                 '{' + '{{baseName}}' + '}',
                 String(request.{{paramName}})
             ){{/pathParams}};
