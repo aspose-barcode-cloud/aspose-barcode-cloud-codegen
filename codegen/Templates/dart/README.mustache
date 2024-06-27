@@ -44,44 +44,12 @@ dependencies:
 The examples below show how you can generate QR barcode and save it into a local file and then recognize using **{{pubName}}**:
 
 ```dart
-import 'package:aspose_barcode_cloud/aspose_barcode_cloud.dart' as barcode;
-
-import 'dart:typed_data';
-import 'dart:io';
-
-import 'package:http/http.dart';
-
-Future<void> main() async {
-  const fileName = "qr.png";
-  // Setup
-  final apiClient = barcode.ApiClient(
-    clientId: "Client Id from https://dashboard.aspose.cloud/applications",
-    clientSecret:
-        "Client Secret from https://dashboard.aspose.cloud/applications",
-  );
-  final api = barcode.BarcodeApi(apiClient);
-
-  // Generate image with barcode
-  Uint8List? generated =
-      await api.getBarcodeGenerate("QR", "text", textLocation: "None");
-  // Save generated image to file
-  await File(fileName).writeAsBytes(generated!);
-  print("Generated image saved to " + fileName);
-
-  // Recognize generated image
-  final formFile = MultipartFile.fromBytes("image", generated.toList(),
-      filename: "barcode.png");
-  barcode.BarcodeResponseList? recognized =
-      await api.postBarcodeRecognizeFromUrlOrContent(image: formFile);
-
-  print("Recognized Type: " + recognized!.barcodes![0].type!);
-  print("Recognized Value: " + recognized.barcodes![0].barcodeValue!);
-}
+%insert example/main.dart%
 ```
 
 ## Dependencies
 
-- http: '>=0.13.0 <0.14.0'
+- http: '>=0.13.0 <2.0.0'
 
 ## Licensing
 
