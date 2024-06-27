@@ -16,7 +16,7 @@ fi
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
-mv "$tempDir/README.md" "$targetDir"
+mv "$tempDir/README.md" "$targetDir/README.template"
 mv "$tempDir/.gitignore" "$targetDir/"
 mv "$tempDir/pubspec.yaml" "$targetDir/"
 

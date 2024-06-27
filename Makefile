@@ -8,8 +8,8 @@ format: format-black
 format-black:
 	python -m black --line-length=120 --exclude submodules -v .
 
-.PHONY: swagger
-swagger:
+.PHONY: update
+update:
 	./scripts/update_swagger_spec.bash
 
 .PHONY: openapi
