@@ -68,6 +68,7 @@ URLS_TO_IGNORE = frozenset(
         "https://tools.ietf.org/html/rfc1521",
         "https://unknown",
         "https://www.aspose.cloud/404",
+        "https://www.mojohaus.org/VERSIONS/RULE/2.1.0",
     ]
 )
 
