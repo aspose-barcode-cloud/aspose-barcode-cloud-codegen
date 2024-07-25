@@ -27,7 +27,7 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l typescript-
 
 mv "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
 mv "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
-mv "$tempDir/docs/tsconfig.json" "$targetDir/README.md"
+mv "$tempDir/docs/tsconfig.json" "$targetDir/README.template"
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
