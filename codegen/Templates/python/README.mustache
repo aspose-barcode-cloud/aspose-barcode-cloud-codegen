@@ -54,47 +54,7 @@ import aspose_barcode_cloud
 The examples below show how you can generate and recognize Code128 barcode and save it into local file using {{projectName}}:
 
 ```python
-from __future__ import division, print_function
-
-from pprint import pprint
-
-import {{{packageName}}}
-from {{{packageName}}}.rest import ApiException
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
-# Configure HTTP basic authorization: {{{name}}}
-configuration = {{{packageName}}}.Configuration()
-configuration.username = "YOUR_USERNAME"
-configuration.password = "YOUR_PASSWORD"{{/isBasic}}{{#isApiKey}}
-# Configure API key authorization: {{{name}}}
-configuration = {{{packageName}}}.Configuration()
-configuration.api_key["{{{keyParamName}}}"] = "YOUR_API_KEY"
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix["{{{keyParamName}}}"] = "Bearer"{{/isApiKey}}{{#isOAuth}}
-# Configure OAuth2 access token for authorization: {{{name}}}
-configuration = {{{packageName}}}.Configuration(
-    client_id="Client Id from https://dashboard.aspose.cloud/applications",
-    client_secret="Client Secret from https://dashboard.aspose.cloud/applications",
-){{/isOAuth}}{{/authMethods}}
-{{/hasAuthMethods}}
-
-# create an instance of the API class
-api = {{{packageName}}}.{{{classname}}}({{{packageName}}}.ApiClient(configuration))
-{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}} = {{#-first}}aspose_barcode_cloud.EncodeBarcodeType.CODE128{{/-first}}{{^-first}}{{{example}}}{{/-first}}  # {{{dataType}}} | {{{description}}}
-{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}
-try:
-{{#summary}}    # {{{.}}}
-{{/summary}}    {{#returnType}}response = {{/returnType}}api.{{{operationId}}}({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{^-first}}, {{/-first}}{{paramName}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}})
-    with open("example.png", "wb") as f:
-        f.write(response.data)
-    print("Barcode saved to file 'example.png'")
-except ApiException as e:
-    print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
-
-# Recognize barcode
-response = api.post_barcode_recognize_from_url_or_content(image="example.png",
-                                                          preset=aspose_barcode_cloud.PresetType.HIGHPERFORMANCE)
-pprint(response)
+%insert example.py%
 ```
 
 ## Requirements
