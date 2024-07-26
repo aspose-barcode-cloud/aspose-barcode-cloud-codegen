@@ -33,7 +33,7 @@ mv "${tempDir}/SwaggerClient-php/lib/Requests/"* "${targetDir}/src/Aspose/BarCod
 rm -rf "${targetDir}/docs/"*
 mv "${tempDir}/SwaggerClient-php/docs/"* "${targetDir}/docs"
 
-mv "${tempDir}/SwaggerClient-php/README.md" "${targetDir}/"
+mv "${tempDir}/SwaggerClient-php/README.md" "${targetDir}/README.template"
 cp ../LICENSE "${targetDir}/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 

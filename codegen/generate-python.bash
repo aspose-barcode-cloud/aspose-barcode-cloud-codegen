@@ -25,7 +25,7 @@ cp "$tempDir/setup.py" "$targetDir/setup.py"
 cp "$tempDir/requirements.txt" "$targetDir/requirements.txt"
 cp "$tempDir/test-requirements.txt" "$targetDir/test-requirements.txt"
 cp "$tempDir/tox.ini" "$targetDir/tox.ini"
-cp "$tempDir/README.md" "$targetDir/README.md"
+cp "$tempDir/README.md" "$targetDir/README.template"
 
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"

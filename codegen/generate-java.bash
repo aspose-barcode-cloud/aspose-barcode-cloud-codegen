@@ -36,7 +36,7 @@ mv $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/ja
 rm -rf ${targetDir}/docs/*
 mv $tempDir/docs/* $targetDir/docs
 
-mv $tempDir/README.md $targetDir
+mv "$tempDir/README.md" "$targetDir/README.template"
 mv $tempDir/pom.xml $targetDir
 cp ../LICENSE $targetDir
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
