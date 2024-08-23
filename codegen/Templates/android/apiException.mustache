@@ -21,11 +21,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.aspose.barcode.cloud.ApiClient
 import com.aspose.barcode.cloud.ApiException
-import com.aspose.barcode.cloud.api.BarcodeApi
-import com.aspose.barcode.cloud.model.CodeLocation
+import com.aspose.barcode.cloud.api.GenerateApi
+import com.aspose.barcode.cloud.api.ScanApi
+import com.aspose.barcode.cloud.model.BarcodeImageFormat
+import com.aspose.barcode.cloud.model.BarcodeResponseList
 import com.aspose.barcode.cloud.model.EncodeBarcodeType
-import com.aspose.barcode.cloud.requests.GetBarcodeGenerateRequest
-import com.aspose.barcode.cloud.requests.ScanBarcodeRequest
+import com.aspose.barcode.cloud.model.EncodeDataType
+import com.aspose.barcode.cloud.requests.GenerateRequestWrapper
+import com.aspose.barcode.cloud.requests.ScanMultipartRequestWrapper
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
@@ -71,7 +74,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var barcodeTextEdit: EditText
     private lateinit var barcodeImgView: ImageView
 
-    private lateinit var api: BarcodeApi
+    private lateinit var scanApi: ScanApi
+    private lateinit var generateApi: GenerateApi
     private val encodeTypes = EncodeBarcodeType.values().map { it.toString() }.sorted()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -194,11 +198,11 @@ class MainActivity : AppCompatActivity() {
                 smallerBmp.compress(Bitmap.CompressFormat.PNG, 100, output)
             }
 
-            val apiRequest = ScanBarcodeRequest(tmpFile);
+            val apiRequest = ScanMultipartRequestWrapper(tmpFile);
 
             Thread {
                 try {
-                    val recognized = api.scanBarcode(apiRequest)
+                    val recognized = scanApi.scanMultipart(apiRequest)
 
                     runOnUiThread {
                         stopRecognizeAnimation()
@@ -246,15 +250,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onBtnGenerateClick(@Suppress("UNUSED_PARAMETER") view: View) {
-        val type: String = barcodeTypeSpinner.selectedItem.toString()
-        val barcodeRequest = GetBarcodeGenerateRequest(type, barcodeTextEdit.text.toString())
-        barcodeRequest.imageHeight = barcodeImgView.measuredHeight.toDouble()
-        barcodeRequest.imageWidth = barcodeImgView.measuredWidth.toDouble()
-        barcodeRequest.format = "png"
+
+        val type: EncodeBarcodeType = EncodeBarcodeType.fromValue(barcodeTypeSpinner.selectedItem.toString())
+
+       val genRequest = GenerateRequestWrapper(
+                        type, barcodeTextEdit.text.toString());
+
+        genRequest.imageFormat = BarcodeImageFormat.PNG;
+        genRequest.imageHeight = barcodeImgView.measuredHeight.toDouble()
+        genRequest.imageWidth = barcodeImgView.measuredWidth.toDouble()
+
 
         Thread {
             try {
-                val generated: File? = api.getBarcodeGenerate(barcodeRequest)
+                val generated: File? = genApi.generate(genRequest);
                 runOnUiThread {
                     val bitmap = BitmapFactory.decodeFile(generated!!.absolutePath)
                     barcodeImgView.setImageBitmap(bitmap)

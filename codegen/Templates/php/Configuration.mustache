@@ -46,9 +46,9 @@ class Configuration implements JsonSerializable
      *
      * @var string
      */
-    protected $host = '{{hostWithoutBasePath}}';
+    protected $host = 'https://{{host}}';
 
-    protected $authUrl = '{{hostWithoutBasePath}}/connect/token';
+    protected $authUrl = '{{#authMethods}}{{#-first}}{{tokenUrl}}{{/-first}}{{/authMethods}}';
 
     /**
      * Version of API to use, possible values are v1, v1.1, v2, v3

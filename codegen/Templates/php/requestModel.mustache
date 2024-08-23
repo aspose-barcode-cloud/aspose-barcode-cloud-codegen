@@ -2,7 +2,7 @@
 {{#operation}}
 /**
  * --------------------------------------------------------------------------------------------------------------------
- * <copyright company="Aspose" file="{{nickname}}Request.php">
+ * <copyright company="Aspose" file="{{nickname}}RequestWrapper.php">
  *   Copyright (c) 2024 Aspose Pty Ltd
  * </copyright>
  * --------------------------------------------------------------------------------------------------------------------
@@ -15,17 +15,17 @@ namespace Aspose\BarCode\Requests;
 /**
  * Request model for "{{nickname}}" operation.
  */
-class {{operationId}}Request
+class {{operationId}}RequestWrapper
 {
     {{#hasParams}}
     /**
-     * Initializes a new instance of the {{operationId}}Request class.
+     * Initializes a new instance of the {{operationId}}RequestWrapper class.
      *
      {{#allParams}}
-     * @param {{dataType}} ${{paramName}} {{#description}}{{{description}}}{{/description}}
+     * @param {{^schema}}{{dataType}}{{/schema}}{{#schema}}{{dataType}}{{/schema}} ${{paramName}} {{#description}}{{{description}}}{{/description}}
      {{/allParams}}
      */
-    public function __construct({{#allParams}}${{paramName}}{{^required}} = null{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
+    public function __construct({{#allParams}}${{paramName}}{{^required}} = null{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
     {
         {{#allParams}}
         $this->{{paramName}} = ${{paramName}};
@@ -37,9 +37,9 @@ class {{operationId}}Request
      * {{^description}}Gets or sets {{paramName}}{{/description}}{{#description}}{{{description}}}{{/description}}
      */
     public ${{paramName}};
-    {{#hasMore}}
+    {{^-last}}
 
-    {{/hasMore}}
+    {{/-last}}
     {{/allParams}}
     {{/hasParams}}
 }

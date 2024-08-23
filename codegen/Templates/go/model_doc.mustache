@@ -6,9 +6,9 @@
 {{/description}}
 {{#allowableValues}}
 ## Allowable values
-{{#enumVars}}
-{{#-first}}* **{{{classname}}}{{value}}**{{/-first}}{{^-first}}* {{{classname}}}{{value}}{{/-first}}
-{{/enumVars}}
+{{#values}}
+{{#-first}}* **{{{classname}}}{{.}}**{{/-first}}{{^-first}}* {{{classname}}}{{.}}{{/-first}}
+{{/values}}
 {{/allowableValues}}
 {{#hasVars}}
 ## Properties

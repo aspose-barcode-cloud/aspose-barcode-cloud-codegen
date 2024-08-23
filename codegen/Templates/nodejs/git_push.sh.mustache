@@ -55,21 +55,21 @@ export class {{classname}} {
 /**
  * {{{summary}}}
  */
-export class {{operationIdCamelCase}}Request {
+export class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
     /**
      * {{{unescapedDescription}}}
      */
-    '{{paramName}}'{{^required}}?{{/required}}: {{{dataType}}} {{#defaultValue}}={{#isString}}"{{{.}}}"{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}};
+    '{{paramName}}{{#isFile}}Bytes{{/isFile}}'{{^required}}?{{/required}}: {{^isFile}}{{{dataType}}}{{/isFile}}{{#isFile}}Buffer{{/isFile}}{{#defaultValue}}={{#isString}}"{{{.}}}"{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}};
     {{/allParams}}
 
     {{#requiredParams.0}}
     /**{{#requiredParams}}
-     * @param {{paramName}} {{{unescapedDescription}}}
+     * @param {{paramName}}{{#isFile}}Bytes{{/isFile}} {{{unescapedDescription}}}
      {{/requiredParams}}*/
-    constructor({{#requiredParams}} {{paramName}} : {{{dataType}}} {{#hasMore}},{{/hasMore}} {{/requiredParams}}) {
+    constructor({{#requiredParams}} {{paramName}}{{#isFile}}Bytes{{/isFile}} : {{^isFile}}{{{dataType}}}{{/isFile}}{{#isFile}}Buffer{{/isFile}}{{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
-        this.{{paramName}} = {{paramName}};
+        this.{{paramName}}{{#isFile}}Bytes{{/isFile}} = {{paramName}}{{#isFile}}Bytes{{/isFile}};
     {{/requiredParams}}
     }
     {{/requiredParams.0}}

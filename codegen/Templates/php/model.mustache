@@ -21,12 +21,12 @@ use Aspose\BarCode\ObjectSerializer;
 {{#isEnum}}
 class {{classname}}
 {
-{{#vendorExtensions}}{{#x-enumNames}}
+{{#allowableValues}}{{#values}}
   /// <summary>
   /// Enum value {{.}}
   /// </summary>
   const {{.}} =  "{{.}}";
-  {{/x-enumNames}}{{/vendorExtensions}}
+  {{/values}}{{/allowableValues}}
 }
 {{/isEnum}}
 {{^isEnum}}
@@ -47,8 +47,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        {{#vars}}'{{name}}' => '{{{datatype}}}'{{#hasMore}},
-        {{/hasMore}}{{/vars}}
+        {{#vars}}'{{name}}' => '{{{datatype}}}'{{^-last}},
+        {{/-last}}{{/vars}}
     ];
 
     /**
@@ -57,8 +57,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * @var (string|null)[]
      */
     protected static array $swaggerFormats = [
-        {{#vars}}'{{name}}' => {{#dataFormat}}'{{{dataFormat}}}'{{/dataFormat}}{{^dataFormat}}null{{/dataFormat}}{{#hasMore}},
-        {{/hasMore}}{{/vars}}
+        {{#vars}}'{{name}}' => {{#dataFormat}}'{{{dataFormat}}}'{{/dataFormat}}{{^dataFormat}}null{{/dataFormat}}{{^-last}},
+        {{/-last}}{{/vars}}
     ];
 
     /**
@@ -88,8 +88,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * @var string[]
      */
     protected static $attributeMap = [
-        {{#vars}}'{{name}}' => '{{baseName}}'{{#hasMore}},
-        {{/hasMore}}{{/vars}}
+        {{#vars}}'{{name}}' => '{{baseName}}'{{^-last}},
+        {{/-last}}{{/vars}}
     ];
 
     /**
@@ -98,8 +98,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * @var string[]
      */
     protected static $setters = [
-        {{#vars}}'{{name}}' => '{{setter}}'{{#hasMore}},
-        {{/hasMore}}{{/vars}}
+        {{#vars}}'{{name}}' => '{{setter}}'{{^-last}},
+        {{/-last}}{{/vars}}
     ];
 
     /**
@@ -108,8 +108,8 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * @var string[]
      */
     protected static $getters = [
-        {{#vars}}'{{name}}' => '{{getter}}'{{#hasMore}},
-        {{/hasMore}}{{/vars}}
+        {{#vars}}'{{name}}' => '{{getter}}'{{^-last}},
+        {{/-last}}{{/vars}}
     ];
 
     /**

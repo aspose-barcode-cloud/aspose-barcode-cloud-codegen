@@ -1,12 +1,12 @@
 import { Configuration } from './Configuration';
 import { HttpClient, HttpOptions, HttpResponse, HttpResult } from './httpClient';
-import { Multipart, FormFile, FormParamsType } from './multipart';
+import { Multipart, RequestFile, FormParamsType } from './multipart';
 
 export * from './models';
 
 import { {{#models}} {{#model}}{{classname}},{{/model}} {{/models}} } from './models';
 
-import { {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}} {{operationIdCamelCase}}Request, {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}} } from './models';
+import { {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}} {{operationIdCamelCase}}RequestWrapper, {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}} } from './models';
 
 
 let primitives = ['string', 'boolean', 'double', 'integer', 'long', 'float', 'number', 'any'];
@@ -72,8 +72,8 @@ class ObjectSerializer {
             return data.toString();
         }
 
-        if (enumsMap[type]) {
-            return enumsMap[type][data];
+        if (enumsMap[type] && Object.values(enumsMap[type]).includes(data)) {
+            return data;
         }
 
         if (!typeMap[type]) {
@@ -198,9 +198,9 @@ export class {{classname}} {
      {{#summary}}
      * @summary {{&summary}}
      {{/summary}}
-     * @param request {{operationIdCamelCase}}Request
+     * @param request {{operationIdCamelCase}}RequestWrapper
      */
-    public async {{nickname}}(request: {{operationIdCamelCase}}Request): Promise<{ response: HttpResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    public async {{nickname}}(request: {{operationIdCamelCase}}RequestWrapper): Promise<{ response: HttpResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
         const requestPath =
             this._configuration.getApiBaseUrl() +
             '{{{path}}}'{{#pathParams}}.replace(
@@ -213,17 +213,12 @@ export class {{classname}} {
 {{#hasFormParams}}
         const formParams: FormParamsType = [];
 {{/hasFormParams}}
-{{#formParams}}
-    {{#isFile}}
-        const fileToUpload = (request.{{paramName}}==null) ? null : new FormFile('{{paramName}}', '{{paramName}}.png', request.{{paramName}});
-    {{/isFile}}
-{{/formParams}}
 
 {{#allParams}}
 {{#required}}
-        // verify required parameter 'request.{{paramName}}' is not null or undefined
-        if (request.{{paramName}} == null) {
-            throw new Error('Required parameter request.{{paramName}} was null or undefined when calling {{nickname}}.');
+        // verify required parameter 'request.{{paramName}}{{#isFile}}Bytes{{/isFile}}' is not null or undefined
+        if (request.{{paramName}}{{#isFile}}Bytes{{/isFile}} == null) {
+            throw new Error('Required parameter request.{{paramName}}{{#isFile}}Bytes{{/isFile}} was null or undefined when calling {{nickname}}.');
         }
 
 {{/required}}
@@ -251,7 +246,6 @@ export class {{classname}} {
             {{/isListContainer}}
         }
     {{/isFile}}
-
 {{/formParams}}
         const requestOptions: HttpOptions = {
             method: '{{httpMethod}}',
@@ -266,13 +260,15 @@ export class {{classname}} {
             encoding: null,
 {{/isResponseFile}}
         };
-{{#formParams}}
-{{#isFile}}
-        const multipartForm = new Multipart(formParams, fileToUpload == null ? [] : [fileToUpload]);
-        requestOptions.body = multipartForm.body;
-        requestOptions.headers = {...requestOptions.headers, ...multipartForm.headers}
-{{/isFile}}
-{{/formParams}}
+
+ {{#hasFormParams}}
+
+            let fileArray = new Array<RequestFile>();
+            {{#formParams}}{{#isFile}}fileArray = request.{{paramName}}Bytes == null ? [] : [new RequestFile('{{paramName}}', '', request.{{paramName}}Bytes)];{{/isFile}}{{/formParams}}
+            const multipartForm = new Multipart(formParams, fileArray);
+            requestOptions.body = multipartForm.body;
+            requestOptions.headers = {...requestOptions.headers, ...multipartForm.headers}
+{{/hasFormParams}}
 
         await this._configuration.authentication.applyToRequestAsync(requestOptions);
 

@@ -8,7 +8,7 @@ NAME = "{{{projectName}}}"
 VERSION = "{{packageVersion}}"
 {{#apiInfo}}
 {{#apis}}
-{{^hasMore}}
+{{#-last}}
 # To install the library, run the following
 #
 # python setup.py install
@@ -182,6 +182,6 @@ setup(
         "Blog": "https://blog.aspose.cloud/categories/aspose.barcode-cloud-product-family/",
     },
 )
-{{/hasMore}}
+{{/-last}}
 {{/apis}}
 {{/apiInfo}}
