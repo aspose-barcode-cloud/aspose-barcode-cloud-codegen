@@ -83,18 +83,18 @@ namespace {{packageName}}.Api
                 .Replace("&amp;", "&")
                 .Replace("/?", "?");
             {{#headerParams}}
-            {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
+            {{#@first}}var headerParams = new Dictionary<string, string>();{{/@first}}
             {{/headerParams}}
             {{#formParams}}
-            {{#-first}}var formParams = new MultipartFormDataContent();{{/-first}}
+            {{#@first}}var formParams = new MultipartFormDataContent();{{/@first}}
             {{/formParams}}
             {{#pathParams}}
             resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/pathParams}}
             {{#queryParams}}
-            {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
+            {{#@first}}#pragma warning disable CS0618 // Type or member is obsolete{{/@first}}
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
-            {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
+            {{#@last}}#pragma warning restore CS0618 // Type or member is obsolete{{/@last}}
             {{/queryParams}}
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
@@ -111,7 +111,7 @@ namespace {{packageName}}.Api
                     }
                     {{/isCollectionFormatMulti}}
                     {{#isPrimitiveType}}
-                    formParams.Add(new StringContent($"{request.{{baseName}}}"), "{{baseName}}");
+                    formParams.Add(new StringContent($"{request.{{baseName}} }"), "{{baseName}}");
                     {{/isPrimitiveType}}
                 {{/isFile}}
             }

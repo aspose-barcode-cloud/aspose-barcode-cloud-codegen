@@ -4,11 +4,12 @@ How to upgrade tools
 Swagger codegen
 ---------------
 
-Source code <https://github.com/swagger-api/swagger-codegen> dir `modules/swagger-codegen/src/main/resources`
-<https://github.com/swagger-api/swagger-codegen/tree/master/modules/swagger-codegen/src/main/resources>
+Source code <https://github.com/swagger-api/swagger-codegen/tree/3.0.0>
 
-Repository <https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli>
+Origin templates <https://github.com/swagger-api/swagger-codegen-generators/blob/master/src/main/resources/handlebars>
+
+Repository <https://mvnrepository.com/artifact/io.swagger.codegen.v3/swagger-codegen-cli>
 
 ```sh
-curl 'https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.29/swagger-codegen-cli-2.4.29.jar' -Lo codegen/Tools/swagger-codegen-cli.jar
+curl 'https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.61/swagger-codegen-cli-3.0.61.jar' -Lo codegen/Tools/swagger-codegen-cli.jar
 ```

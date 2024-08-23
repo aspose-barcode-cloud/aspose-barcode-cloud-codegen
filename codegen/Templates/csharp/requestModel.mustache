@@ -44,13 +44,15 @@ namespace {{packageName}}.Model.Requests
         {{#requiredParams}}
         /// <param name="{{paramName}}">{{description}}</param>
         {{/requiredParams}}
-        public {{nickname}}Request({{#requiredParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#-last}}{{{dataType}}} {{paramName}} = null {{/-last}}{{/allParams}}{{/requiredParams}})
+        public {{nickname}}Request({{#requiredParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#@last}}{{{dataType}}} {{paramName}} = null {{/@last}}{{/allParams}}{{/requiredParams}})
         {
             {{#requiredParams}}
             this.{{baseName}} = {{paramName}};
-            {{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#-last}}this.{{baseName}} = {{paramName}};{{/-last}}{{/allParams}}{{/requiredParams}}}
+            {{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#@last}}this.{{baseName}} = {{paramName}};{{/@last}}{{/allParams}}{{/requiredParams}} 
+        }
 
-        {{#allParams}}
+        {{#contents}}
+        {{#parameters}}
         /// <summary>
         ///     {{^description}}Gets or sets {{baseName}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>
@@ -58,7 +60,8 @@ namespace {{packageName}}.Model.Requests
         {{#hasMore}}
 
         {{/hasMore}}
-        {{/allParams}}
+        {{/parameters}}
+        {{/contents}}
         {{/hasParams}}
     }
 }

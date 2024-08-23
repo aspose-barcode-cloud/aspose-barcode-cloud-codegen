@@ -17,10 +17,10 @@ fi
 # java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json ; exit
 java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l csharp -t Templates/csharp -o $tempDir -c config.json
 
-python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/BarcodeApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
-python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/FileApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
-python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/FolderApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
-python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/StorageApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
+python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/GenerateApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
+python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/ScanApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
+python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/RecognizeApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
+# python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/StorageApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 
 cp ../LICENSE "$targetDir/"
 cp ../LICENSE "$targetDir/src/LICENSE.txt"
