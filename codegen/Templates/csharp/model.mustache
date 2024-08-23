@@ -21,12 +21,12 @@ namespace {{packageName}}.Model
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
-    { {{#vendorExtensions}}{{#x-enumNames}}
+    { {{#allowableValues}}{{#values}}
         /// <summary>
         ///     Enum value {{.}}
         /// </summary>
         {{.}}{{^-last}},{{/-last}}
-      {{/x-enumNames}}{{/vendorExtensions}}
+      {{/values}}{{/allowableValues}}
     }
     {{/isEnum}}
     {{^isEnum}}

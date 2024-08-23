@@ -18,13 +18,13 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 {{#useBeanValidation}}
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 {{/useBeanValidation}}
 {{#performBeanValidation}}
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
-import javax.validation.executable.ExecutableValidator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.executable.ExecutableValidator;
 import java.util.Set;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -56,7 +56,7 @@ public class {{classname}} {
     {{#operation}}
     /**
      * Build call for {{operationId}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -73,12 +73,12 @@ public class {{classname}} {
     @Deprecated
     {{/isDeprecated}}
     @SuppressWarnings("removal")
-    protected okhttp3.Call {{operationId}}Call({{operationIdCamelCase}}Request request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    protected com.squareup.okhttp.Call {{operationId}}Call({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object {{localVariablePrefix}}postBody = {{#bodyParam}}request.{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
         // create path and map variables
         String {{localVariablePrefix}}path = "{{{path}}}"{{#pathParams}}
-            .replaceAll("\\{" + "{{baseName}}" + "}", request.{{{paramName}}}){{/pathParams}};
+            .replaceAll("\\{" + "{{baseName}}" + "}", request.{{{paramName}}}.toString()){{/pathParams}};
 
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}queryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}collectionQueryParams = new {{javaUtilPrefix}}ArrayList<>();{{#queryParams}}
@@ -98,7 +98,7 @@ public class {{classname}} {
         {{/formParams}}
 
         final String[] {{localVariablePrefix}}accepts = {
-            {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}}
+            {{#produces}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/produces}}
         };
         final String {{localVariablePrefix}}accept = {{localVariablePrefix}}apiClient.selectHeaderAccept({{localVariablePrefix}}accepts);
         if ({{localVariablePrefix}}accept != null) {
@@ -106,16 +106,16 @@ public class {{classname}} {
         }
 
         final String[] {{localVariablePrefix}}contentTypes = {
-            {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
+            {{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}}
         };
         final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
         {{localVariablePrefix}}headerParams.put("Content-Type", {{localVariablePrefix}}contentType);
 
         if(progressListener != null) {
-            {{localVariablePrefix}}apiClient.getHttpClient().networkInterceptors().add(new okhttp3.Interceptor() {
+            {{localVariablePrefix}}apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain) throws IOException {
-                    okhttp3.Response originalResponse = chain.proceed(chain.request());
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
                     .build();
@@ -129,7 +129,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    private okhttp3.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}Request request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         {{^performBeanValidation}}
         {{#allParams}}{{#required}}
         // verify the required parameter 'request.{{paramName}}' is set
@@ -140,7 +140,7 @@ public class {{classname}} {
         }
         {{/required}}{{/allParams}}
 
-        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
         return {{localVariablePrefix}}call;
 
         {{/performBeanValidation}}
@@ -149,13 +149,13 @@ public class {{classname}} {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-            Object[] parameterValues = { {{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}} };
+            Object[] parameterValues = { {{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} };
             Method method = this.getClass().getMethod("{{operationId}}WithHttpInfo"{{#allParams}}, {{#isListContainer}}java.util.List{{/isListContainer}}{{#isMapContainer}}java.util.Map{{/isMapContainer}}{{^isListContainer}}{{^isMapContainer}}{{{dataType}}}{{/isMapContainer}}{{/isListContainer}}.class{{/allParams}});
             Set<ConstraintViolation<{{classname}}>> violations = executableValidator.validateParameters(this, method,
                     parameterValues);
 
             if (violations.size() == 0) {
-                okhttp3.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
+                com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
                 return {{localVariablePrefix}}call;
 
             } else {
@@ -175,7 +175,7 @@ public class {{classname}} {
     /**
      * {{summary}}
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}{{#returnType}}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}{{#returnType}}
      * @return {{returnType}}{{/returnType}}
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#isDeprecated}}
@@ -189,7 +189,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{operationIdCamelCase}}Request request) throws ApiException {
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{operationIdCamelCase}}RequestWrapper request) throws ApiException {
         {{#returnType}}ApiResponse<{{{returnType}}}> {{localVariablePrefix}}resp = {{/returnType}}{{operationId}}WithHttpInfo(request);{{#returnType}}
         return {{localVariablePrefix}}resp.getData();{{/returnType}}
     }
@@ -197,7 +197,7 @@ public class {{classname}} {
     /**
      * {{summary}}
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @return ApiResponse&lt;{{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}Void{{/returnType}}&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#isDeprecated}}
@@ -211,8 +211,8 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{operationIdCamelCase}}Request request) throws ApiException {
-        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, null, null);
+    public ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{operationIdCamelCase}}RequestWrapper request) throws ApiException {
+        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, null, null);
         {{#returnType}}Type {{localVariablePrefix}}returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call, {{localVariablePrefix}}returnType);{{/returnType}}{{^returnType}}return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call);{{/returnType}}
     }
@@ -220,7 +220,7 @@ public class {{classname}} {
     /**
      * {{summary}} (asynchronously)
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -235,7 +235,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public okhttp3.Call {{operationId}}Async({{operationIdCamelCase}}Request request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
+    public com.squareup.okhttp.Call {{operationId}}Async({{operationIdCamelCase}}RequestWrapper request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -256,7 +256,7 @@ public class {{classname}} {
             };
         }
 
-        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, progressListener, progressRequestListener);
         {{#returnType}}Type {{localVariablePrefix}}returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         {{localVariablePrefix}}apiClient.executeAsync({{localVariablePrefix}}call, {{localVariablePrefix}}returnType, callback);{{/returnType}}{{^returnType}}{{localVariablePrefix}}apiClient.executeAsync({{localVariablePrefix}}call, callback);{{/returnType}}
         return {{localVariablePrefix}}call;
@@ -268,7 +268,7 @@ public class {{classname}} {
 {{#operations}}
 {{#operation}}
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="{{operationIdCamelCase}}Request.java">
+// <copyright company="Aspose" file="{{operationIdCamelCase}}RequestWrapper.java">
 //   Copyright (c) 2024 Aspose.BarCode for Cloud
 // </copyright>
 // <summary>
@@ -297,13 +297,27 @@ package com.aspose.barcode.cloud.requests;
 
 import java.io.File;
 import java.util.List;
-import com.aspose.barcode.cloud.model.GeneratorParamsList;
-import com.aspose.barcode.cloud.model.ReaderParams;
+import java.net.URI;
+import com.aspose.barcode.cloud.model.BarcodeImageFormat;
+import com.aspose.barcode.cloud.model.BarcodeImageParams;
+import com.aspose.barcode.cloud.model.EncodeBarcodeType;
+import com.aspose.barcode.cloud.model.EncodeData;
+import com.aspose.barcode.cloud.model.EncodeDataType;
+import com.aspose.barcode.cloud.model.GenerateParams;
 import com.aspose.barcode.cloud.model.DecodeBarcodeType;
+import com.aspose.barcode.cloud.model.GraphicsUnit;
+import com.aspose.barcode.cloud.model.RecognitionMode;
+import com.aspose.barcode.cloud.model.TextAlignment;
+import com.aspose.barcode.cloud.model.RecognitionImageKind;
+import com.aspose.barcode.cloud.model.CodeLocation;
+import com.aspose.barcode.cloud.model.RecognizeBase64Request;
+import com.aspose.barcode.cloud.model.RegionPoint;
+import com.aspose.barcode.cloud.model.ScanBase64Request;
+
 /**
  * {{{summary}}}
  */
-public class {{operationIdCamelCase}}Request {
+public class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
     /**
      * {{{unescapedDescription}}}.
@@ -318,7 +332,7 @@ public class {{operationIdCamelCase}}Request {
      * {{#requiredParams}}
      * @param {{paramName}} {{{unescapedDescription}}}
      {{/requiredParams}}*/
-    public {{operationIdCamelCase}}Request({{#requiredParams}} {{{dataType}}} {{paramName}} {{#hasMore}},{{/hasMore}} {{/requiredParams}}) {
+    public {{operationIdCamelCase}}RequestWrapper({{#requiredParams}} {{{dataType}}} {{paramName}} {{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
         this.{{paramName}} = {{paramName}};
     {{/requiredParams}}

@@ -179,6 +179,11 @@
             <artifactId>gson-fire</artifactId>
             <version>${gson-fire-version}</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         {{#joda}}
             <dependency>
                 <groupId>joda-time</groupId>
@@ -196,7 +201,7 @@
         {{#useBeanValidation}}
             <!-- Bean Validation API support -->
             <dependency>
-                <groupId>javax.validation</groupId>
+                <groupId>jakarta.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>1.1.0.Final</version>
                 <scope>provided</scope>
@@ -217,7 +222,7 @@
                 <version>5.4.1.Final</version>
             </dependency>
             <dependency>
-                <groupId>javax.el</groupId>
+                <groupId>jakarta.el</groupId>
                 <artifactId>el-api</artifactId>
                 <version>2.2</version>
             </dependency>

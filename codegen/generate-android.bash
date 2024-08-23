@@ -10,10 +10,10 @@ then
      rm -rf $tempDir
 fi
 
-# java -jar Tools/swagger-codegen-cli.jar config-help -l android ; exit 1
-java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l android -t Templates/android -o $tempDir -c config-android.json
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l android -t Templates/java -o $tempDir -c config-android.json > debugModels.android.json
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l android -t Templates/java -o $tempDir -c config-android.json > debugOperations.android.json
+# java -jar Tools/openapi-generator-cli.jar config-help -l android ; exit 1
+java -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g android -t Templates/android -o $tempDir -c config-android.json
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g android -t Templates/java -o $tempDir -c config-android.json > debugModels.android.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g android -t Templates/java -o $tempDir -c config-android.json > debugOperations.android.json
 
 mv "$tempDir/README.md" "$targetDir"
 mv "$tempDir/.gitignore" "$targetDir"

@@ -4,11 +4,12 @@ How to upgrade tools
 Swagger codegen
 ---------------
 
-Source code <https://github.com/swagger-api/swagger-codegen> dir `modules/swagger-codegen/src/main/resources`
-<https://github.com/swagger-api/swagger-codegen/tree/master/modules/swagger-codegen/src/main/resources>
+Source code <https://github.com/OpenAPITools/openapi-generator/tree/master>
 
-Repository <https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli>
+Origin templates <https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources>
+
+Repository <https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli>
 
 ```sh
-curl 'https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.29/swagger-codegen-cli-2.4.29.jar' -Lo codegen/Tools/swagger-codegen-cli.jar
+curl 'https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.8.0/openapi-generator-cli-7.8.0.jar' -Lo codegen/Tools/openapi-generator-cli.jar
 ```

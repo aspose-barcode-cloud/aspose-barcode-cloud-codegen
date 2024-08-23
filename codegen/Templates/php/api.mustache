@@ -72,13 +72,13 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
      * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
      */
-    public function {{operationId}}(Requests\{{operationId}}Request $request)
+    public function {{operationId}}(Requests\{{operationId}}RequestWrapper $request)
     {
         try {
             {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
@@ -100,23 +100,23 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
      * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP status code, HTTP response headers (array of strings)
      */
-    public function {{operationId}}WithHttpInfo(Requests\{{operationId}}Request $request)
+    public function {{operationId}}WithHttpInfo(Requests\{{operationId}}RequestWrapper $request)
     {
         $returnType = '{{returnType}}';
-        $request = $this->{{operationId}}Request($request);
+        $request = $this->{{operationId}}RequestWrapper($request);
 
         try {
             $options = $this->_createHttpClientOption();
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null);
+                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
             }
 
             $statusCode = $response->getStatusCode();
@@ -178,12 +178,12 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function {{operationId}}Async(Requests\{{operationId}}Request $request)
+    public function {{operationId}}Async(Requests\{{operationId}}RequestWrapper $request)
     {
         return $this->{{operationId}}AsyncWithHttpInfo($request)
             ->then(
@@ -202,15 +202,15 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function {{operationId}}AsyncWithHttpInfo(Requests\{{operationId}}Request $request)
+    public function {{operationId}}AsyncWithHttpInfo(Requests\{{operationId}}RequestWrapper $request)
     {
         $returnType = '{{returnType}}';
-        $request = $this->{{operationId}}Request($request);
+        $request = $this->{{operationId}}RequestWrapper($request);
 
         return $this->client
             ->sendAsync($request, $this->_createHttpClientOption())
@@ -259,12 +259,12 @@ use RuntimeException;
     /**
      * Create request for operation '{{{operationId}}}'
      *
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function {{operationId}}Request(Requests\{{operationId}}Request $request)
+    protected function {{operationId}}RequestWrapper(Requests\{{operationId}}RequestWrapper $request)
     {
         {{#allParams}}
         {{#required}}
@@ -276,37 +276,37 @@ use RuntimeException;
         {{#hasValidation}}
         {{#maxLength}}
         if (isset({{^required}}$request->{{paramName}) && {{/required}}strlen($request->{{paramName}}) > {{maxLength}}) {
-            throw new InvalidArgumentException("invalid length for \"$request->{{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
+            throw new InvalidArgumentException("invalid length for $request->{{paramName}} when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
         }
         {{/maxLength}}
         {{#minLength}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}strlen($request->{{paramName}}) < {{minLength}}) {
-            throw new InvalidArgumentException("invalid length for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
+            throw new InvalidArgumentException("invalid length for {{paramName}} when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
         }
         {{/minLength}}
         {{#maximum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} >{{#exclusiveMaximum}}={{/exclusiveMaximum}} {{maximum}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
         }
         {{/maximum}}
         {{#minimum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} <{{#exclusiveMinimum}}={{/exclusiveMinimum}} {{minimum}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
         }
         {{/minimum}}
         {{#pattern}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}!preg_match('{{{pattern}}}', $request->{{paramName}})) {
-            throw new InvalidArgumentException("invalid value for \"{{paramName}}\" when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
         }
         {{/pattern}}
         {{#maxItems}}
         if (isset({{^required}}${{paramName}}) && {{/required}}count(${{paramName}}) > {{maxItems}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
         }
         {{/maxItems}}
         {{#minItems}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}count($request->{{paramName}}) < {{minItems}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
         }
         {{/minItems}}
 
@@ -364,14 +364,14 @@ use RuntimeException;
         $resourcePath = $this->_parseURL($resourcePath, $queryParams);
 
         {{#formParams}}
-        {{#-first}}// form params{{/-first}}
-        {{#isFile}}
+        {{#-first}}
         $multipart = true;
+        // form params{{/-first}}
+        {{#isFile}}
         $filename = ObjectSerializer::toFormValue($request->{{paramName}});
         $handle = fopen($filename, 'rb');
         $fsize = filesize($filename);
         $contents = fread($handle, $fsize);
-        $fileField = '{{baseName}}';
         $formParams['{{baseName}}'][] = $contents;
         {{/isFile}}
         {{^isFile}}
@@ -381,10 +381,8 @@ use RuntimeException;
             }
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            {{/isCollectionFormatMulti}}
-            {{^isCollectionFormatMulti}}
             if (isset($request->{{paramName}})) {
-                $formParams['{{baseName}}'] = ObjectSerializer::toFormValue($request->{{paramName}});
+                $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($request->{{paramName}});
             }
             {{/isCollectionFormatMulti}}
         {{/isFile}}
@@ -403,12 +401,12 @@ use RuntimeException;
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}]
+                [{{#produces}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/produces}}]
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}],
-                [{{#consumes}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/consumes}}]
+                [{{#produces}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/produces}}],
+                [{{#consumes}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/consumes}}]
             );
         }
 
@@ -422,41 +420,21 @@ use RuntimeException;
         }
         {{/hasBodyParam}}
         {{#hasFormParams}}
-        if ($multipart) {
+
             $multipartContents = [];
             foreach ($formParams as $formParamName => $formParamValues) {
-                                if (is_array($formParamValues)) {
-                    foreach ($formParamValues as $formParamValue) {
-                        if ($formParamName === $fileField) {
-                            $multipartContents[] = [
-                                'name' => $formParamName,
-                                'contents' => $formParamValue,
-                                'filename' => $filename
-                            ];
-                        } else {
-                            $multipartContents[] = [
-                                'name' => $formParamName,
-                                'contents' => $formParamValue,
-                            ];
-                        }
-                    }
-                } else {
+                foreach ($formParamValues as $formParamValue) {
+                    $multipartFileName = {{#formParams}}{{#isFile}}str_contains($formParamName, 'file') ? $filename : {{/isFile}}{{/formParams}}'';
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValues,
+                        'contents' => $formParamValue,
+                        'filename' => $multipartFileName
                     ];
                 }
             }
             // for HTTP post (form)
             $httpBody = new MultipartStream($multipartContents);
 
-        } elseif ($headers['Content-Type'] === 'application/json') {
-            $httpBody = \GuzzleHttp\json_encode($formParams);
-
-        }{{#formParams}}{{#isFile}} else {
-            // for HTTP post (form)
-            $httpBody = $formParams['{{baseName}}'][0];
-        }{{/isFile}}{{/formParams}}
         {{/hasFormParams}}
 
         if (!$this->config->getAccessToken()) {
@@ -534,7 +512,8 @@ use RuntimeException;
     private function _writeHeadersAndBody($logInfo, $headers, $body)
     {
         foreach ($headers as $name => $value) {
-            $logInfo .= $name . ': ' . $value . '\n';
+            $strValue = is_array($value) ? implode($value) : $value;
+            $logInfo .= $name . ': ' . $strValue . '\n';
         }
 
         return $logInfo .= 'Body: ' . $body . '\n';

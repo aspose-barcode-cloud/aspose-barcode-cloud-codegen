@@ -1,19 +1,19 @@
 package {{packageName}}
-{{#models}}{{#imports}}
-import ({{/imports}}{{#imports}}
-	"{{import}}"{{/imports}}{{#imports}}
+{{#models}}
+import (
+{{#imports}}
+	"{{import}}"
+{{/imports}}
 )
-{{/imports}}{{#model}}{{#isEnum}}{{#description}}// {{{classname}}} : {{{description}}}{{/description}}
+{{#model}}{{#isEnum}}{{#description}}// {{{classname}}} : {{{description}}}{{/description}}
 type {{{classname}}} {{^format}}{{dataType}}{{/format}}{{#format}}{{{format}}}{{/format}}
 
 // List of {{{name}}}
 const (
 	{{#allowableValues}}
-	{{#enumVars}}
-	{{^-first}}
-	{{/-first}}
-	{{{classname}}}{{value}} {{{classname}}} = "{{{value}}}"
-	{{/enumVars}}
+	{{#values}}
+	{{{classname}}}{{.}} {{{classname}}} = "{{{.}}}"
+	{{/values}}
 	{{/allowableValues}}
 ){{/isEnum}}{{^isEnum}}
 // {{classname}} -{{#description}} {{{description}}}{{/description}}
@@ -24,6 +24,6 @@ type {{classname}} struct {
 {{#description}}
 	// {{{description}}}
 {{/description}}
-	{{baseName}} {{^isEnum}}{{^isPrimitiveType}}{{^isContainer}}{{^isDateTime}}{{^required}}{{^datatypeWithEnum}}*{{/datatypeWithEnum}}{{/required}}{{/isDateTime}}{{/isContainer}}{{/isPrimitiveType}}{{/isEnum}}{{{datatype}}} `json:"{{baseName}}{{^required}},omitempty{{/required}}"{{#withXml}} xml:"{{baseName}}"{{/withXml}}`
+	{{name}} {{^isEnum}}{{^isPrimitiveType}}{{^isContainer}}{{^isDateTime}}{{^required}}{{^datatypeWithEnum}}*{{/datatypeWithEnum}}{{/required}}{{/isDateTime}}{{/isContainer}}{{/isPrimitiveType}}{{/isEnum}}{{^isContainer}}{{{baseType}}}{{/isContainer}}{{#isContainer}}{{{dataType}}}{{/isContainer}} `json:"{{baseName}}{{^required}},omitempty{{/required}}"{{#withXml}} xml:"{{baseName}}"{{/withXml}}`
 {{/vars}}
 }{{/isEnum}}{{/model}}{{/models}}

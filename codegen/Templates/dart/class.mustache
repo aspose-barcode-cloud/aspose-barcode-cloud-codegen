@@ -6,11 +6,12 @@ import '../../aspose_barcode_cloud.dart';
 class {{classname}} {
   {{#vars}}
   /// {{#description}}{{{description}}}{{/description}}{{^description}}{{{name}}}{{/description}}
-  {{{datatype}}}? {{name}} = {{{defaultValue}}};
   {{#allowableValues}}{{#min}} // range from {{min}} to {{max}}{{/min}}//{{^min}}enum {{name}}Enum { {{#values}} {{.}}, {{/values}} };{{/min}}{{/allowableValues}}
+  {{#required}}late {{/required}}{{{datatype}}}{{^required}}?{{/required}} {{name}};
+
   {{/vars}}
   /// Constructor
-  {{classname}}();
+  {{classname}}({{#requiredVars}}this.{{name}}, {{/requiredVars}}{{#optionalVars}}{{#-first}}[{{/-first}}this.{{name}}{{^-last}}, {{/-last}}{{#-last}}]{{/-last}}{{/optionalVars}});
 
   @override
   String toString() {
@@ -24,24 +25,24 @@ class {{classname}} {
     {{name}} = json['{{name}}'] == null ? null : DateTime.parse(json['{{name}}']);
   {{/isDateTime}}
   {{^isDateTime}}
-    {{name}} =
+    {{name}} = {{^required}} json['{{name}}'] == null ? null : {{/required}}
     {{#complexType}}
-      {{#isListContainer}}{{complexType}}.listFromJson(json['{{name}}']){{/isListContainer}}{{^isListContainer}}
-      {{#isMapContainer}}{{complexType}}.mapFromJson(json['{{name}}']){{/isMapContainer}}
-      {{^isMapContainer}}{{complexType}}.fromJson(json['{{name}}']){{/isMapContainer}}{{/isListContainer}}
+      {{#isArray}}{{complexType}}.listFromJson(json['{{name}}']){{/isArray}}{{^isArray}}
+      {{#isMap}}{{complexType}}.mapFromJson(json['{{name}}']){{/isMap}}
+      {{^isMap}}{{complexType}}.fromJson(json['{{name}}']){{/isMap}}{{/isArray}}
     {{/complexType}}
     {{^complexType}}
-      {{#isListContainer}}
+      {{#isArray}}
         (json['{{name}}'] as List).map((item) => item as {{items.datatype}}).toList()
-      {{/isListContainer}}
-      {{^isListContainer}}
+      {{/isArray}}
+      {{^isArray}}
         {{#isDouble}}
         json['{{name}}']?.toDouble()
         {{/isDouble}}
         {{^isDouble}}
         json['{{name}}']
         {{/isDouble}}
-      {{/isListContainer}}
+      {{/isArray}}
     {{/complexType}};
   {{/isDateTime}}
   {{/vars}}

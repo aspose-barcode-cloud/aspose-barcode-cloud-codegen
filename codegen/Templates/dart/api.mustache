@@ -22,12 +22,12 @@ class {{classname}} {
   {{#isDeprecated}}
   @deprecated
   {{/isDeprecated}}
-  {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
+  {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{^isFile}}{{{dataType}}} {{paramName}}{{/isFile}}{{#isFile}}Uint8List {{paramName}}Bytes{{/isFile}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{^isFile}}{{{dataType}}}? {{paramName}}{{/isFile}}{{#isFile}}Uint8List? {{paramName}}Bytes{{/isFile}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
     // ignore: prefer_final_locals
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // create path and map variables
-    final String requestPath = "{{{path}}}".replaceAll("{format}","json"){{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}){{/pathParams}};
+    final String requestPath = "{{{path}}}"{{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}.toString()){{/pathParams}};
 
     // query params
     final List<QueryParam> queryParams = [];
@@ -45,18 +45,15 @@ class {{classname}} {
     {{#headerParams}}headerParams["{{baseName}}"] = {{paramName}};
     {{/headerParams}}
 
-    final List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/consumes}}];
+    final List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{^-last}},{{/-last}}{{/consumes}}];
 
     final String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
-    final List<String> authNames = [{{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}}];
+    final List<String> authNames = [{{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}}];
 
     {{#hasFormParams}}
-    if(contentType.startsWith("multipart/form-data")) {
-      bool hasFields = false;
-      MultipartRequestPlus? mp;
-      {{#formParams}}{{#notFile}}
+      MultipartRequestPlus mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
+      {{#formParams}}{{^isFile}}
       if ({{paramName}} != null) {
-        hasFields = true;
         {{#isCollectionFormatMulti}}
         final List<String> stringValues = {{paramName}}.map((i) => parameterToString(i)).toList();
         mp.fields['{{baseName}}'] = stringValues;
@@ -65,29 +62,20 @@ class {{classname}} {
         mp.fields['{{baseName}}'] = [parameterToString({{paramName}})];
         {{/isCollectionFormatMulti}}
       }
-      {{/notFile}}{{#isFile}}
-      mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
+      {{/isFile}}{{#isFile}}
+      
       {{#required}}
-        hasFields = true;
-        mp.files.add({{paramName}});
+        mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       {{/required}}
       {{^required}}
       if ({{paramName}} != null) {
-        hasFields = true;
-        mp.files.add({{paramName}});
+        mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       }
       {{/required}}
 
       {{/isFile}}{{/formParams}}
-      if (hasFields) {
-        postBody = mp;
-      }
-    }
-    else {
-    {{#formParams}}{{#notFile}}if ({{paramName}} != null)
-      formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
-    {{/formParams}}
-    }
+      postBody = mp;
+    
     {{/hasFormParams}}
 
     final response = await _apiClient.invokeAPI(requestPath,
@@ -100,7 +88,17 @@ class {{classname}} {
                                              authNames);
 
     if(response.statusCode >= 400) {
+    ApiErrorResponse error;
+    try
+    {
+      error = _apiClient.deserialize(response.body, 'ApiErrorResponse');
+    }
+    catch (e)
+    {
       throw ApiException(response.statusCode, response.body);
+    }
+      throw ApiException.withResponse(response.statusCode, response.reasonPhrase == null ? "Api response error" : response.reasonPhrase!, error);
+     
     } else {
       return
       {{#isListContainer}}

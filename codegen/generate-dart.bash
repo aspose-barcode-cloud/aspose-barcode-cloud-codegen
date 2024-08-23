@@ -10,10 +10,10 @@ then
      rm -rf $tempDir
 fi
 
-# java -jar Tools/swagger-codegen-cli.jar config-help -l dart ; exit
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json ; exit
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json ; exit
-java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l dart -t Templates/dart -o $tempDir -c config-dart.json
+# java -jar Tools/openapi-generator-cli.jar config-help -l dart ; exit
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g dart -t Templates/dart -o $tempDir -c config-dart.json > debugModels.dart.json ; exit
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g dart -t Templates/dart -o $tempDir -c config-dart.json > debugOperations.dart.json ; exit
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g dart -t Templates/dart -o $tempDir -c config-dart.json
 
 
 mv "$tempDir/README.md" "$targetDir/README.template"
@@ -41,9 +41,9 @@ mv "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/src/auth/"
 rm -rf "$targetDir/doc/"
 mkdir -p "$targetDir/doc/api/"
 
-mv $tempDir/docs/*Api.md $targetDir/doc/api/
+mv $tempDir/doc/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
-mv $tempDir/docs/*.md $targetDir/doc/models/
+mv $tempDir/doc/*.md $targetDir/doc/models/
 
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
