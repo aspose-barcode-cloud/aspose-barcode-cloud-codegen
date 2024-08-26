@@ -98,7 +98,7 @@ public class {{classname}} {
         {{/formParams}}
 
         final String[] {{localVariablePrefix}}accepts = {
-            {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}}
+            {{#produces}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/produces}}
         };
         final String {{localVariablePrefix}}accept = {{localVariablePrefix}}apiClient.selectHeaderAccept({{localVariablePrefix}}accepts);
         if ({{localVariablePrefix}}accept != null) {
@@ -106,7 +106,7 @@ public class {{classname}} {
         }
 
         final String[] {{localVariablePrefix}}contentTypes = {
-            {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
+            {{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}}
         };
         final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
         {{localVariablePrefix}}headerParams.put("Content-Type", {{localVariablePrefix}}contentType);
@@ -149,7 +149,7 @@ public class {{classname}} {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-            Object[] parameterValues = { {{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}} };
+            Object[] parameterValues = { {{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} };
             Method method = this.getClass().getMethod("{{operationId}}WithHttpInfo"{{#allParams}}, {{#isListContainer}}java.util.List{{/isListContainer}}{{#isMapContainer}}java.util.Map{{/isMapContainer}}{{^isListContainer}}{{^isMapContainer}}{{{dataType}}}{{/isMapContainer}}{{/isListContainer}}.class{{/allParams}});
             Set<ConstraintViolation<{{classname}}>> violations = executableValidator.validateParameters(this, method,
                     parameterValues);
@@ -318,7 +318,7 @@ public class {{operationIdCamelCase}}Request {
      * {{#requiredParams}}
      * @param {{paramName}} {{{unescapedDescription}}}
      {{/requiredParams}}*/
-    public {{operationIdCamelCase}}Request({{#requiredParams}} {{{dataType}}} {{paramName}} {{#hasMore}},{{/hasMore}} {{/requiredParams}}) {
+    public {{operationIdCamelCase}}Request({{#requiredParams}} {{{dataType}}} {{paramName}} {{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
         this.{{paramName}} = {{paramName}};
     {{/requiredParams}}

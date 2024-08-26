@@ -67,7 +67,7 @@ export class {{operationIdCamelCase}}Request {
     /**{{#requiredParams}}
      * @param {{paramName}} {{{unescapedDescription}}}
      {{/requiredParams}}*/
-    constructor({{#requiredParams}} {{paramName}} : {{{dataType}}} {{#hasMore}},{{/hasMore}} {{/requiredParams}}) {
+    constructor({{#requiredParams}} {{paramName}} : {{{dataType}}} {{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
         this.{{paramName}} = {{paramName}};
     {{/requiredParams}}

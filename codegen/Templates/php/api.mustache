@@ -402,12 +402,12 @@ use RuntimeException;
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}]
+                [{{#produces}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/produces}}]
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}],
-                [{{#consumes}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/consumes}}]
+                [{{#produces}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/produces}}],
+                [{{#consumes}}'{{{mediaType}}}'{{^-last}}, {{/-last}}{{/consumes}}]
             );
         }
 

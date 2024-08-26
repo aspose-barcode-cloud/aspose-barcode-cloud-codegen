@@ -19,7 +19,7 @@ namespace Aspose.BarCode.Cloud.Sdk.Api
             DebugMode = false;
             ApiVersion = "{{appVersion}}";
             AuthType = AuthType.JWT;
-            TokenUrl = {{#apiInfo}}{{#apis}}{{#@first}}{{#operations}}{{#@first}}{{#authMethods}}{{#@first}}"{{tokenUrl}}"{{/@first}}{{/authMethods}}{{/@first}}{{/operations}}{{/@first}}{{/apis}}{{/apiInfo}};
+            TokenUrl = {{#authMethods}}{{#-first}}"{{tokenUrl}}"{{/-first}}{{/authMethods}};
             DefaultHeaders = new Dictionary<string, string>();
         }
 

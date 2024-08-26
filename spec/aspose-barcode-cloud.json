@@ -433,7 +433,8 @@
                 "$ref": "#/components/schemas/GenerateParams"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -627,7 +628,8 @@
                 "$ref": "#/components/schemas/RecognizeBase64Request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -792,6 +794,7 @@
             "name": "url",
             "in": "query",
             "description": "Url to barcode image",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "uri"
@@ -869,7 +872,8 @@
                 "$ref": "#/components/schemas/ScanBase64Request"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -933,6 +937,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "file"
+                ],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -1379,7 +1386,7 @@
       },
       "EncodeDataType": {
         "enum": [
-          "String",
+          "StringData",
           "Base64Bytes",
           "HexBytes"
         ],
@@ -1479,9 +1486,9 @@
         "type": "object",
         "properties": {
           "fileBase64": {
+            "minLength": 1,
             "type": "string",
-            "description": "Barcode image bytes encoded as base-64.",
-            "nullable": true
+            "description": "Barcode image bytes encoded as base-64."
           }
         },
         "additionalProperties": false,

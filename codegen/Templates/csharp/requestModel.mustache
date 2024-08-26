@@ -44,24 +44,22 @@ namespace {{packageName}}.Model.Requests
         {{#requiredParams}}
         /// <param name="{{paramName}}">{{description}}</param>
         {{/requiredParams}}
-        public {{nickname}}Request({{#requiredParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#@last}}{{{dataType}}} {{paramName}} = null {{/@last}}{{/allParams}}{{/requiredParams}})
+        public {{nickname}}Request({{#requiredParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#-last}}{{{dataType}}} {{paramName}} = null {{/-last}}{{/allParams}}{{/requiredParams}})
         {
             {{#requiredParams}}
-            this.{{baseName}} = {{paramName}};
-            {{/requiredParams}}{{^requiredParams}}{{#allParams}}{{#@last}}this.{{baseName}} = {{paramName}};{{/@last}}{{/allParams}}{{/requiredParams}} 
-        }
+            this.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} = {{paramName}};
+            {{/requiredParams}}
+            {{^requiredParams}}{{#allParams}}{{#-last}}this.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} = {{paramName}};{{/-last}}{{/allParams}}{{/requiredParams}}}
 
-        {{#contents}}
-        {{#parameters}}
+        {{#allParams}}
         /// <summary>
-        ///     {{^description}}Gets or sets {{baseName}}{{/description}}{{#description}}{{{description}}}{{/description}}
+        ///     {{^description}}Gets or sets {{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>
-        public {{{dataType}}} {{baseName}} { get; set; }
-        {{#hasMore}}
+        public {{{dataType}}} {{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} { get; set; }
+        {{^-last}}
 
-        {{/hasMore}}
-        {{/parameters}}
-        {{/contents}}
+        {{/-last}}
+        {{/allParams}}
         {{/hasParams}}
     }
 }

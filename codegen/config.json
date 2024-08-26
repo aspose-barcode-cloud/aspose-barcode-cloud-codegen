@@ -4,5 +4,6 @@
     "npmVersion": "24.7.0",
     "packageName": "Aspose.BarCode.Cloud.Sdk",
     "packageVersion": "24.7.0",
-    "supportsES6": true
+    "supportsES6": true,
+    "targetFramework": "netstandard2.0"
 }

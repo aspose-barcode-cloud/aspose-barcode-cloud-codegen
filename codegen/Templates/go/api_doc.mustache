@@ -9,7 +9,7 @@ Method | HTTP request | Description
 {{/operation}}{{/operations}}{{#operations}}{{#operation}}
 ## {{{operationId}}}
 
-> {{#returnType}}{{{returnType}}} {{/returnType}}{{{operationId}}}(ctx, {{#allParams}}{{#required}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}optional{{/hasOptionalParams}})
+> {{#returnType}}{{{returnType}}} {{/returnType}}{{{operationId}}}(ctx, {{#allParams}}{{#required}}{{paramName}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}}{{#hasOptionalParams}}optional{{/hasOptionalParams}})
 {{{summary}}}{{#notes}}
 
 {{{notes}}}{{/notes}}

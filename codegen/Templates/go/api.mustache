@@ -38,7 +38,7 @@ type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}
 {{/required}}{{/allParams}}{{/hasOptionalParams}}
 {{#returnType}} * @return {{#isResponseFile}}[]byte{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}{{/returnType}}
 */
-func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}}, {{/hasParams}}{{#allParams}}{{#required}}{{paramName}} {{{dataType}}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}optionals *{{{classname}}}{{{nickname}}}Opts{{/hasOptionalParams}}) ({{#isResponseFile}}[]byte, {{/isResponseFile}}{{^isResponseFile}}{{#returnType}}{{{returnType}}}, {{/returnType}}{{/isResponseFile}}*http.Response, error) {
+func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}}, {{/hasParams}}{{#allParams}}{{#required}}{{paramName}} {{{dataType}}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}}{{#hasOptionalParams}}optionals *{{{classname}}}{{{nickname}}}Opts{{/hasOptionalParams}}) ({{#isResponseFile}}[]byte, {{/isResponseFile}}{{^isResponseFile}}{{#returnType}}{{{returnType}}}, {{/returnType}}{{/isResponseFile}}*http.Response, error) {
 	var (
 		httpMethod = strings.ToUpper("{{httpMethod}}")
 		postBody   interface{}

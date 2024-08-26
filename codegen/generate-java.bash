@@ -16,10 +16,10 @@ java -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Tem
 # java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > debugOperations.java.json
 # java -DdebugSupportingFiles -jar Tools/swagger-codegen-cli.jar generate -i "$specSource" -l java -t Templates/java -o $tempDir -c config-java.json > DdebugSupportingFiles.java.json
 
-python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/BarcodeApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
-python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/FileApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
-python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/FolderApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
-python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/StorageApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
+python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/GenerateApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
+python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/ScanApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
+python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/RecognizeApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
+# python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/StorageApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 
 rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/api/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/api/* $targetDir/src/main/java/com/aspose/barcode/cloud/api

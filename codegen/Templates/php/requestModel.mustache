@@ -25,7 +25,7 @@ class {{operationId}}Request
      * @param {{dataType}} ${{paramName}} {{#description}}{{{description}}}{{/description}}
      {{/allParams}}
      */
-    public function __construct({{#allParams}}${{paramName}}{{^required}} = null{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
+    public function __construct({{#allParams}}${{paramName}}{{^required}} = null{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
     {
         {{#allParams}}
         $this->{{paramName}} = ${{paramName}};
@@ -37,9 +37,9 @@ class {{operationId}}Request
      * {{^description}}Gets or sets {{paramName}}{{/description}}{{#description}}{{{description}}}{{/description}}
      */
     public ${{paramName}};
-    {{#hasMore}}
+    {{^-last}}
 
-    {{/hasMore}}
+    {{/-last}}
     {{/allParams}}
     {{/hasParams}}
 }
