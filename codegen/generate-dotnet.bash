@@ -11,7 +11,7 @@ then
      rm -rf $tempDir
 fi
 
-# Templates src https://github.com/swagger-api/swagger-codegen/tree/master/modules/swagger-codegen/src/main/resources/csharp
+# Templates src https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources/csharp
 # Generate Operations and Models for Debug purposes
 # java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config.json > debugOperations.cs.json ; exit
 # java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json ; exit

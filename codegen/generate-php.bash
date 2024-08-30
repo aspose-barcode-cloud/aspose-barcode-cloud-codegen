@@ -10,10 +10,10 @@ then
      rm -rf "${tempDir}"
 fi
 
-# java -jar Tools/swagger-codegen-cli.jar config-help -l php ; exit 1
-# java -DdebugModels -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugModels.php.json
-# java -DdebugOperations -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json > debugOperations.php.json
-java -jar Tools/swagger-codegen-cli.jar generate -i "${specSource}" -l php -t Templates/php -o "${tempDir}" -c config-php.json
+# java -jar Tools/openapi-generator-cli.jar config-help -g php ; exit 1
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g php -t Templates/php -o "${tempDir}" -c config-php.json > debugModels.php.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g php -t Templates/php -o "${tempDir}" -c config-php.json > debugOperations.php.json
+java -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g php -t Templates/php -o "${tempDir}" -c config-php.json
 
 # python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/GenerateApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"
 # python Tools/split-php-file.py "${tempDir}/SwaggerClient-php/lib/Api/ScanApi.php" "${tempDir}/SwaggerClient-php/lib/Requests/"
