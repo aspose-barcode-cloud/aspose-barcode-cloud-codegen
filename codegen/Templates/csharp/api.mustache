@@ -87,17 +87,6 @@ namespace {{packageName}}.Api
             {{/headerParams}}
             {{#formParams}}
             {{#-first}}var formParams = new MultipartFormDataContent();{{/-first}}
-            {{/formParams}}
-            {{#pathParams}}
-            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
-            {{/pathParams}}
-            {{#queryParams}}
-            {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
-            {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
-            {{/queryParams}}
-            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
-            {{#formParams}}
             {{^isEnum}}
             if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
             { {{/isEnum}}
@@ -117,6 +106,16 @@ namespace {{packageName}}.Api
                 {{/isFile}}
            {{^isEnum}} } {{/isEnum}}
             {{/formParams}}
+            {{#pathParams}}
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
+            {{/pathParams}}
+            {{#queryParams}}
+            {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
+            {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
+            {{/queryParams}}
+            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
+ 
 {{#vendorExtensions}}{{#x-binary-result}}            return await _apiInvoker.InvokeBinaryApiAsync(
                 resourcePath,
                 "{{httpMethod}}",

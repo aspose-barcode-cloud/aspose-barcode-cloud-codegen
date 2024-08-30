@@ -213,7 +213,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "x-binary-result": true
       }
     },
     "/barcode/generate-form": {
@@ -411,7 +412,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "x-binary-result": true
       }
     },
     "/barcode/generate-body": {
@@ -511,7 +513,8 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "x-binary-result": true
       }
     },
     "/barcode/recognize/{barcodeType}": {
@@ -1443,8 +1446,7 @@
             "items": {
               "$ref": "#/components/schemas/DecodeBarcodeType"
             },
-            "description": "Array of decode types to find on barcode",
-            "nullable": true
+            "description": "Array of decode types to find on barcode"
           },
           "recognitionMode": {
             "$ref": "#/components/schemas/RecognitionMode"
@@ -1454,9 +1456,9 @@
           },
           "fileBase64": {
             "maxLength": 28730982,
+            "minLength": 1,
             "type": "string",
-            "description": "Barcode image bytes encoded as base-64.",
-            "nullable": true
+            "description": "Barcode image bytes encoded as base-64."
           }
         },
         "additionalProperties": false,
