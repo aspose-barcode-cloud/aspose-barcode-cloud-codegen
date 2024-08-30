@@ -89,7 +89,7 @@ namespace {{packageName}}.Api
             {{#-first}}var formParams = new MultipartFormDataContent();{{/-first}}
             {{^isEnum}}
             if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
-            { {{/isEnum}}
+            { {{/isEnum}}      {{#isEnum}}{{^required}}if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)  { {{/required}}{{/isEnum}}
                 {{#isFile}}
                 formParams.Add(new StreamContent(request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", "{{paramName}}.png");
                 {{/isFile}}
@@ -104,7 +104,7 @@ namespace {{packageName}}.Api
                     formParams.Add(new StringContent($"{request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} }"), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}");
                     {{/isPrimitiveType}}
                 {{/isFile}}
-           {{^isEnum}} } {{/isEnum}}
+           {{^isEnum}} } {{/isEnum}}   {{#isEnum}}{{^required}} } {{/required}}{{/isEnum}}
             {{/formParams}}
             {{#pathParams}}
             resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
