@@ -22,7 +22,7 @@ class Configuration(object):
     _default = None
 
     def __init__(self, client_id=None, client_secret=None, access_token=None, host=None,
-                 token_url="{{hostWithoutBasePath}}/connect/token"):
+                 token_url={{#authMethods}}{{#-first}}"{{tokenUrl}}"{{/-first}}{{/authMethods}}):
         """Constructor"""
         if self._default:
             for key in self._default.__dict__:

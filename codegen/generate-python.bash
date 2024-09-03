@@ -13,7 +13,7 @@ fi
 # java -jar Tools/openapi-generator-cli.jar config-help -g python
 java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json
 # java -DdebugMorms -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json > debugMorms.py.json
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json > debugOperations.py.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json > debugOperations.py.json ; exit
 
 rm -rf $targetDir/aspose_barcode_cloud/*
 cp -r $tempDir/aspose_barcode_cloud/* $targetDir/aspose_barcode_cloud/

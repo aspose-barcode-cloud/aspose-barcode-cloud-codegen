@@ -18,6 +18,8 @@ class {{classname}}(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+        # Authentication setting
+        self.auth_settings = [{{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}}]
 {{#operation}}
 
     def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{paramName}}{{^required}}={{#defaultValue}}{{#isBoolean}}None{{/isBoolean}}{{^isBoolean}}{{{example}}}{{/isBoolean}}{{/defaultValue}}{{^defaultValue}}None{{/defaultValue}}{{/required}}, {{/allParams}}{{/sortParamsByRequiredFlag}}async_req=False, **kwargs):
@@ -169,7 +171,7 @@ class {{classname}}(object):
         local_var_files = {}
 {{#formParams}}
         if "{{paramName}}" in params:
-            {{#notFile}}form_params.append(("{{baseName}}", params["{{paramName}}"])){{/notFile}}{{#isFile}}local_var_files["{{baseName}}"] = params["{{paramName}}"]{{/isFile}}{{#isListContainer}}
+            {{^isFile}}form_params.append(("{{baseName}}", params["{{paramName}}"])){{/isFile}}{{#isFile}}local_var_files["{{baseName}}"] = params["{{paramName}}"]{{/isFile}}{{#isListContainer}}
             collection_formats["{{baseName}}"] = "{{collectionFormat}}"{{/isListContainer}}
 {{/formParams}}
 
@@ -190,8 +192,6 @@ class {{classname}}(object):
             [{{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}}])
 
         {{/hasConsumes}}
-        # Authentication setting
-        auth_settings = [{{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}}]
 
         return self.api_client.call_api(
             "{{{path}}}", "{{httpMethod}}",
@@ -202,7 +202,7 @@ class {{classname}}(object):
             post_params=form_params,
             files=local_var_files,
             response_type={{#returnType}}"{{returnType}}"{{/returnType}}{{^returnType}}None{{/returnType}},
-            auth_settings=auth_settings,
+            auth_settings=self.auth_settings,
             async_req=params.get("async_req"),
             _return_http_data_only=params.get("_return_http_data_only"),
             _preload_content=params.get("_preload_content", {{#vendorExtensions}}{{#x-binary-result}}False{{/x-binary-result}}{{^x-binary-result}}True{{/x-binary-result}}{{/vendorExtensions}}{{^vendorExtensions}}True{{/vendorExtensions}}),

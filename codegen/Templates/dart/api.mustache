@@ -54,7 +54,7 @@ class {{classname}} {
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
       MultipartRequestPlus? mp;
-      {{#formParams}}{{#notFile}}
+      {{#formParams}}{{^isFile}}
       if ({{paramName}} != null) {
         hasFields = true;
         {{#isCollectionFormatMulti}}
@@ -65,7 +65,7 @@ class {{classname}} {
         mp.fields['{{baseName}}'] = [parameterToString({{paramName}})];
         {{/isCollectionFormatMulti}}
       }
-      {{/notFile}}{{#isFile}}
+      {{/isFile}}{{#isFile}}
       mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
       {{#required}}
         hasFields = true;
@@ -84,8 +84,8 @@ class {{classname}} {
       }
     }
     else {
-    {{#formParams}}{{#notFile}}if ({{paramName}} != null)
-      formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
+    {{#formParams}}{{^isFile}}if ({{paramName}} != null)
+      formParams['{{baseName}}'] = parameterToString({{paramName}});{{/isFile}}
     {{/formParams}}
     }
     {{/hasFormParams}}
