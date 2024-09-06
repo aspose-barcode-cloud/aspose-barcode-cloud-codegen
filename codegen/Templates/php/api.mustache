@@ -380,8 +380,6 @@ use RuntimeException;
             }
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            {{/isCollectionFormatMulti}}
-            {{^isCollectionFormatMulti}}
             if (isset($request->{{paramName}})) {
                 $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($request->{{paramName}});
             }
@@ -425,10 +423,11 @@ use RuntimeException;
             $multipartContents = [];
             foreach ($formParams as $formParamName => $formParamValues) {
                 foreach ($formParamValues as $formParamValue) {
+                    $multipartFileName = {{#formParams}}{{#isFile}}str_contains($formParamName, 'file') ? $filename : {{/isFile}}{{/formParams}}'';
                     $multipartContents[] = [
                         'name' => $formParamName,
                         'contents' => $formParamValue,
-                        'filename' => $filename
+                        'filename' => $multipartFileName
                     ];
                 }
             }
@@ -438,10 +437,10 @@ use RuntimeException;
         } elseif ($headers['Content-Type'] === 'application/json') {
             $httpBody = \GuzzleHttp\json_encode($formParams);
 
-        }{{#formParams}}{{#isFile}} else {
-            // for HTTP post (form)
-            $httpBody = $formParams['{{baseName}}'][0];
-        }{{/isFile}}{{/formParams}}
+        } else {
+
+            $httpBody = ObjectSerializer::buildQuery($formParams);
+         }
         {{/hasFormParams}}
 
         if (!$this->config->getAccessToken()) {
@@ -519,7 +518,8 @@ use RuntimeException;
     private function _writeHeadersAndBody($logInfo, $headers, $body)
     {
         foreach ($headers as $name => $value) {
-            $logInfo .= $name . ': ' . $value . '\n';
+            $strValue = is_array($value) ? implode($value) : $value;
+            $logInfo .= $name . ': ' . $strValue . '\n';
         }
 
         return $logInfo .= 'Body: ' . $body . '\n';

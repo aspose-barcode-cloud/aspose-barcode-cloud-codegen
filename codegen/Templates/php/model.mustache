@@ -21,12 +21,12 @@ use Aspose\BarCode\ObjectSerializer;
 {{#isEnum}}
 class {{classname}}
 {
-{{#vendorExtensions}}{{#x-enumNames}}
+{{#allowableValues}}{{#values}}
   /// <summary>
   /// Enum value {{.}}
   /// </summary>
   const {{.}} =  "{{.}}";
-  {{/x-enumNames}}{{/vendorExtensions}}
+  {{/values}}{{/allowableValues}}
 }
 {{/isEnum}}
 {{^isEnum}}
