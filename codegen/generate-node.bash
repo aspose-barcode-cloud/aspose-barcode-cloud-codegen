@@ -12,8 +12,8 @@ fi
 
 # java -jar Tools/openapi-generator-cli.jar config-help -g typescript-node
 java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json
-# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugModels.ts.json
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugOperations.ts.json
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugModels.ts.json; exit
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugOperations.ts.json; exit
 # java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json 2> debugSupportingFiles.ts.txt
 
 mv "$tempDir/api.ts" "$targetDir/src/"

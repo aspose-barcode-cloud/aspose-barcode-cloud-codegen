@@ -1,6 +1,6 @@
 import { Configuration } from './Configuration';
-import { HttpClient, HttpOptions, HttpResponse, HttpResult } from './httpClient';
-import { Multipart, FormFile, FormParamsType } from './multipart';
+import { HttpClient, HttpOptions, HttpResponse, HttpResult, StringKeyWithStringValue } from './httpClient';
+import { Multipart, RequestFile, FormParamsType } from './multipart';
 
 export * from './models';
 
@@ -72,8 +72,8 @@ class ObjectSerializer {
             return data.toString();
         }
 
-        if (enumsMap[type]) {
-            return enumsMap[type][data];
+        if (enumsMap[type] && Object.values(enumsMap[type]).includes(data)) {
+            return data;
         }
 
         if (!typeMap[type]) {
@@ -212,12 +212,8 @@ export class {{classname}} {
         let headerParams: any = (Object as any).assign({}, this.defaultHeaders);
 {{#hasFormParams}}
         const formParams: FormParamsType = [];
+        let isMultipartForm: boolean = false;
 {{/hasFormParams}}
-{{#formParams}}
-    {{#isFile}}
-        const fileToUpload = (request.{{paramName}}==null) ? null : new FormFile('{{paramName}}', '{{paramName}}.png', request.{{paramName}});
-    {{/isFile}}
-{{/formParams}}
 
 {{#allParams}}
 {{#required}}
@@ -251,7 +247,9 @@ export class {{classname}} {
             {{/isListContainer}}
         }
     {{/isFile}}
-
+    {{#isFile}}
+    isMultipartForm = true;
+    {{/isFile}}
 {{/formParams}}
         const requestOptions: HttpOptions = {
             method: '{{httpMethod}}',
@@ -266,13 +264,26 @@ export class {{classname}} {
             encoding: null,
 {{/isResponseFile}}
         };
-{{#formParams}}
-{{#isFile}}
-        const multipartForm = new Multipart(formParams, fileToUpload == null ? [] : [fileToUpload]);
-        requestOptions.body = multipartForm.body;
-        requestOptions.headers = {...requestOptions.headers, ...multipartForm.headers}
-{{/isFile}}
-{{/formParams}}
+
+ {{#hasFormParams}}
+        if(isMultipartForm){
+            let fileArray = new Array<RequestFile>();
+            {{#formParams}}{{#isFile}}fileArray = request.{{paramName}} == null ? [] : [request.{{paramName}}];{{/isFile}}{{/formParams}}
+            const multipartForm = new Multipart(formParams, fileArray);
+            requestOptions.body = multipartForm.body;
+            requestOptions.headers = {...requestOptions.headers, ...multipartForm.headers}
+        }
+        else{
+            let mappedForm: StringKeyWithStringValue = {};
+            formParams.forEach(pair => {
+                if (pair.length === 2) {
+                    const [key, value] = pair;
+                    mappedForm[key] = value;
+                }
+            });
+             requestOptions.form = mappedForm;
+        }
+ {{/hasFormParams}}
 
         await this._configuration.authentication.applyToRequestAsync(requestOptions);
 
