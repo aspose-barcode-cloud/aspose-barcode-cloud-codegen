@@ -41,9 +41,9 @@ mv "$tempDir/lib/auth/oauth.dart" "$targetDir/lib/src/auth/"
 rm -rf "$targetDir/doc/"
 mkdir -p "$targetDir/doc/api/"
 
-mv $tempDir/docs/*Api.md $targetDir/doc/api/
+mv $tempDir/doc/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
-mv $tempDir/docs/*.md $targetDir/doc/models/
+mv $tempDir/doc/*.md $targetDir/doc/models/
 
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"

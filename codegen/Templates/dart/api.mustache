@@ -27,7 +27,7 @@ class {{classname}} {
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // create path and map variables
-    final String requestPath = "{{{path}}}".replaceAll("{format}","json"){{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}){{/pathParams}};
+    final String requestPath = "{{{path}}}"{{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}.toString()){{/pathParams}};
 
     // query params
     final List<QueryParam> queryParams = [];
@@ -53,7 +53,7 @@ class {{classname}} {
     {{#hasFormParams}}
     if(contentType.startsWith("multipart/form-data")) {
       bool hasFields = false;
-      MultipartRequestPlus? mp;
+      MultipartRequestPlus mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
       {{#formParams}}{{^isFile}}
       if ({{paramName}} != null) {
         hasFields = true;
@@ -66,7 +66,7 @@ class {{classname}} {
         {{/isCollectionFormatMulti}}
       }
       {{/isFile}}{{#isFile}}
-      mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
+      
       {{#required}}
         hasFields = true;
         mp.files.add({{paramName}});
