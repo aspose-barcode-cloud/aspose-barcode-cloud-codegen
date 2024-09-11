@@ -63,13 +63,28 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   @SerializedName(value = "{{name}}")
   {{/gson}}
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}}{{^required}} = null{{/required}};
+  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{defaultValue}}}{{/defaultValue}}{{/required}}{{^required}} = null{{/required}};
   {{/isContainer}}
   {{^isContainer}}
-  private {{{datatypeWithEnum}}} {{name}} = {{{defaultValue}}};
+  private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{defaultValue}}}{{/defaultValue}};
   {{/isContainer}}
-
   {{/vars}}
+
+
+    {{#hasRequired}}
+    /**
+     * {{{summary}}}.
+     *
+     * {{#requiredVars}}
+     * @param {{paramName}} {{{unescapedDescription}}}
+     {{/requiredVars}}*/
+    public {{classname}}({{#requiredVars}} {{{dataType}}} {{name}} {{^-last}},{{/-last}} {{/requiredVars}}) {
+    {{#requiredVars}}
+        this.{{name}} = {{name}};
+    {{/requiredVars}}
+    }
+    {{/hasRequired}}
+
   {{#parcelableModel}}
   public {{classname}}() {
   {{#parent}}

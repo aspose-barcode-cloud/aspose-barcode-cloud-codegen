@@ -19,16 +19,18 @@ import com.fasterxml.jackson.dataformat.xml.annotation.*;
 {{/withXml}}
 {{/jackson}}
 {{#withXml}}
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 {{/withXml}}
 {{#parcelableModel}}
 import android.os.Parcelable;
 import android.os.Parcel;
 {{/parcelableModel}}
 {{#useBeanValidation}}
-import javax.validation.constraints.*;
-import javax.validation.Valid;
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 {{/useBeanValidation}}
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 {{#models}}
 {{#model}}

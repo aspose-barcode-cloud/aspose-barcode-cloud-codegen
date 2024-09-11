@@ -10,8 +10,8 @@ import java.nio.file.Files;
 public class Configuration {
     public String ClientId = "Client Id from https://dashboard.aspose.cloud/applications";
     public String ClientSecret = "Client Secret from https://dashboard.aspose.cloud/applications";
-    public String ApiBaseUrl = "{{hostWithoutBasePath}}";
-    public String TokenUrl = ApiBaseUrl + "/connect/token";
+    public String ApiBaseUrl = "https://{{host}}";
+    public String TokenUrl = "{{#authMethods}}{{#-first}}{{tokenUrl}}{{/-first}}{{/authMethods}}";
     public String AccessToken = null;
 
     /** Build ApiClient from configuration. */
