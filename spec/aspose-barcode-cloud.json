@@ -30,8 +30,7 @@
           {
             "name": "DataType",
             "in": "query",
-            "description": "Type of data to encode.",
-            "required": true,
+            "description": "Type of data to encode.\r\nDefault value:  EncodeDataType.StringData.",
             "schema": {
               "$ref": "#/components/schemas/EncodeDataType"
             }
@@ -229,7 +228,6 @@
               "schema": {
                 "required": [
                   "Data",
-                  "DataType",
                   "barcodeType"
                 ],
                 "type": "object",
@@ -534,7 +532,7 @@
             }
           },
           {
-            "name": "url",
+            "name": "fileUrl",
             "in": "query",
             "description": "Url to barcode image",
             "required": true,
@@ -794,7 +792,7 @@
         "summary": "Scan barcode from file on server using GET requests with parameter in query string.",
         "parameters": [
           {
-            "name": "url",
+            "name": "fileUrl",
             "in": "query",
             "description": "Url to barcode image",
             "required": true,
@@ -1371,8 +1369,7 @@
       },
       "EncodeData": {
         "required": [
-          "data",
-          "dataType"
+          "data"
         ],
         "type": "object",
         "properties": {
@@ -1385,7 +1382,8 @@
             "description": "String represents data to encode"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Data to encode in barcode"
       },
       "EncodeDataType": {
         "enum": [
@@ -1448,17 +1446,17 @@
             },
             "description": "Array of decode types to find on barcode"
           },
-          "recognitionMode": {
-            "$ref": "#/components/schemas/RecognitionMode"
-          },
-          "imageKind": {
-            "$ref": "#/components/schemas/RecognitionImageKind"
-          },
           "fileBase64": {
             "maxLength": 28730982,
             "minLength": 1,
             "type": "string",
             "description": "Barcode image bytes encoded as base-64."
+          },
+          "recognitionMode": {
+            "$ref": "#/components/schemas/RecognitionMode"
+          },
+          "imageKind": {
+            "$ref": "#/components/schemas/RecognitionImageKind"
           }
         },
         "additionalProperties": false,

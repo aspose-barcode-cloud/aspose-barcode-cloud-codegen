@@ -14,7 +14,7 @@ fi
 # java -jar Tools/openapi-generator-cli.jar config-help -l go
 java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g go -t Templates/go -o $tempDir -c config-go.json
 # java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g go -t Templates/go -o $tempDir -c config-go.json > debugModels.go.json
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g go -t Templates/go -o $tempDir -c config-go.json > debugOperations.go.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g go -t Templates/go -o $tempDir -c config-go.json > debugOperations.go.json ; exit
 
 rm -rf "$targetDir/barcode"
 
