@@ -54,6 +54,21 @@
             "description": "Timeout of recognition process in milliseconds.\n Default value is 15_000 (15 seconds).\n Maximum value is 30_000 (1/2 minute).\n In case of a timeout RequestTimeout (408) status will be returned.\n Try reducing the image size to avoid timeout.",
             "format": "int32",
             "x-nullable": true
+          },
+          {
+            "type": "string",
+            "name": "checksumValidation",
+            "in": "formData",
+            "description": "Checksum validation setting. Default is ON.",
+            "x-schema": {
+              "$ref": "#/definitions/ChecksumValidation"
+            },
+            "x-nullable": false,
+            "enum": [
+              "Default",
+              "On",
+              "Off"
+            ]
           }
         ],
         "responses": {
@@ -3087,6 +3102,20 @@
         "mostCommonlyUsed"
       ]
     },
+    "ChecksumValidation": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Default",
+        "On",
+        "Off"
+      ],
+      "enum": [
+        "Default",
+        "On",
+        "Off"
+      ]
+    },
     "EncodeBarcodeType": {
       "type": "string",
       "description": "See EncodeTypes",
@@ -5140,20 +5169,6 @@
         "Version82",
         "Version83",
         "Version84"
-      ]
-    },
-    "ChecksumValidation": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "Default",
-        "On",
-        "Off"
-      ],
-      "enum": [
-        "Default",
-        "On",
-        "Off"
       ]
     },
     "PresetType": {
