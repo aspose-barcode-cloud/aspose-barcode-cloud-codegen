@@ -13,7 +13,7 @@ class JobSummary:
 
         :param filename: Use $GITHUB_STEP_SUMMARY inside GitHub
         """
-        self.__file: TextIO = open(filename, mode="wt")
+        self.__file: TextIO = open(filename, mode="wt", newline="\n")
         self._errors = []
         self._success = []
         self._lock = Lock()
@@ -30,7 +30,7 @@ class JobSummary:
 
     def _write_line(self, line):
         with self._lock:
-            self.__file.write(line)
+            self.__file.write(line.replace('\r', ''))
 
     @property
     def has_errors(self) -> bool:

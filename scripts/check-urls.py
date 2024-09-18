@@ -35,14 +35,9 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
     "http://schemas.android.com/tools": (Curl.COULDNT_RESOLVE_HOST, None),
     "https://api.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
     "https://api.aspose.cloud/v3.0": (Curl.HTTP_RETURNED_ERROR, 403),
-    "https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli": (
-        Curl.HTTP_RETURNED_ERROR,
-        403,
-    ),
-    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (
-        Curl.COULDNT_RESOLVE_HOST,
-        None,
-    ),
+    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (Curl.COULDNT_RESOLVE_HOST, None),
+    "https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli": (Curl.HTTP_RETURNED_ERROR, 403),
+    "https://www.npmjs.com/package/aspose-barcode-cloud-node": (Curl.HTTP_RETURNED_ERROR, 429),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
@@ -162,7 +157,7 @@ def create_new_task(url) -> Task:
 def process_finished_task(task) -> None:
     # print("Finish task:", task.url)
     expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
-    if task.ret_code == expected_ret_code:
+    if task.ret_code == 0 or task.ret_code == expected_ret_code:
         print("OK:", "'%s' %.2fs" % (task.url, task.age))
         JOB_SUMMARY.add_success(task.url)
         return
