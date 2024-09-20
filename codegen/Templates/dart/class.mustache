@@ -25,7 +25,7 @@ class {{classname}} {
     {{name}} = json['{{name}}'] == null ? null : DateTime.parse(json['{{name}}']);
   {{/isDateTime}}
   {{^isDateTime}}
-    {{name}} =
+    {{name}} = {{^required}} json['{{name}}'] == null ? null : {{/required}}
     {{#complexType}}
       {{#isArray}}{{complexType}}.listFromJson(json['{{name}}']){{/isArray}}{{^isArray}}
       {{#isMap}}{{complexType}}.mapFromJson(json['{{name}}']){{/isMap}}

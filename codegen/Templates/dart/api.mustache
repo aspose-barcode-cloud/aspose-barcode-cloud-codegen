@@ -100,7 +100,17 @@ class {{classname}} {
                                              authNames);
 
     if(response.statusCode >= 400) {
+    ApiErrorResponse error;
+    try
+    {
+      error = _apiClient.deserialize(response.body, 'ApiErrorResponse');
+    }
+    catch (e)
+    {
       throw ApiException(response.statusCode, response.body);
+    }
+      throw ApiException.withResponse(response.statusCode, response.reasonPhrase == null ? "Api response error" : response.reasonPhrase!, error);
+     
     } else {
       return
       {{#isListContainer}}
