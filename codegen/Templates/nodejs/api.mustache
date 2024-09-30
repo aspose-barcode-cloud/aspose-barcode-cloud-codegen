@@ -242,7 +242,7 @@ export class {{classname}} {
     {{^isFile}}
         if (request.{{paramName}} != null) {
             {{^isListContainer}}
-            formParams.push(['{{baseName}}', ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}')]);
+            formParams.push(['{{baseName}}', ObjectSerializer.serialize(request.{{paramName}}, {{#isString}}'string'{{/isString}}{{^isString}}'{{{dataType}}}'{{/isString}})]);
             {{/isListContainer}}
             {{#isListContainer}}
             for (const oneParam of request.{{paramName}}) {

@@ -1,12 +1,15 @@
 import contextlib
-from typing import TextIO
 from threading import Lock
+from typing import TextIO
 
 
 class JobSummary:
     """
     See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary
     """
+
+    _success: list[str]
+    _errors: list[str]
 
     def __init__(self, filename: str):
         """
@@ -30,7 +33,7 @@ class JobSummary:
 
     def _write_line(self, line):
         with self._lock:
-            self.__file.write(line.replace('\r', ''))
+            self.__file.write(line.replace("\r", ""))
 
     @property
     def has_errors(self) -> bool:
@@ -58,7 +61,7 @@ class JobSummary:
         )
 
 
-def test():
+def test() -> None:
     summary: JobSummary
     with contextlib.closing(JobSummary("test.md")) as summary:
         summary.add_header("Test results")

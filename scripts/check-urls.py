@@ -6,12 +6,12 @@ import sys
 import threading
 import time
 from queue import SimpleQueue
-from typing import Optional
 
 from github_job_summary import JobSummary
 
 """
-Read file names from stdin
+Read file names from stdin (feed from git ls-files)
+    see `check_all_urls.sh`
 Extract all URL-like strings
 Check them with CURL
 """
@@ -42,7 +42,7 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
 
-URLS_TO_IGNORE = frozenset(
+URLS_TO_IGNORE: frozenset[str] = frozenset(
     [
         "http://|https://|ftp://",
         "http://localhost:$port/",
@@ -73,7 +73,7 @@ URL_RE_PATTERN = r"(https*://[^%s]+)[%s]?" % (URL_END_CHARS, URL_END_CHARS)
 URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
 # URL : [Files]
-EXTRACTED_URLS_WITH_FILES: dict[str, [str]] = {k: [] for k in URLS_TO_IGNORE}
+EXTRACTED_URLS_WITH_FILES: dict[str, list[str]] = {k: [] for k in URLS_TO_IGNORE}
 
 
 def url_extractor(text, filename):
@@ -88,6 +88,8 @@ def url_extractor(text, filename):
 FILES_TO_IGNORE = frozenset(
     [
         ".jar",
+        ".jar",
+        ".jpg",
         ".png",
     ]
 )
@@ -179,12 +181,12 @@ def process_finished_task(task) -> None:
     JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
 
 
-WORKER_QUEUE = SimpleQueue()
+WORKER_QUEUE: SimpleQueue = SimpleQueue()
 
 
-def url_checker(num_workers=8):
+def url_checker(num_workers: int = 8) -> None:
     next_report_age_sec = 5
-    workers: list[Optional[Task]] = [None for _ in range(num_workers)]
+    workers: list[Task | None] = [None for _ in range(num_workers)]
 
     queue_is_empty = False
 
@@ -216,7 +218,7 @@ JOB_SUMMARY = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"
 JOB_SUMMARY.add_header("Test all URLs")
 
 
-def main(files: [str]) -> int:
+def main(files: list[str]) -> int:
     checker = threading.Thread(target=url_checker)
     checker.start()
 

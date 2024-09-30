@@ -244,22 +244,8 @@
             "type": "string",
             "name": "TextColor",
             "in": "query",
-            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
-          },
-          {
-            "type": "string",
-            "name": "FontSizeMode",
-            "in": "query",
-            "description": "Specify FontSizeMode. If FontSizeMode is set to Auto, font size will be calculated automatically based on xDimension value.\nIt is recommended to use FontSizeMode.Auto especially in AutoSizeMode.Nearest or AutoSizeMode.Interpolation.\nDefault value: FontSizeMode.Auto.",
-            "x-schema": {
-              "$ref": "#/definitions/FontMode"
-            },
-            "x-nullable": true,
-            "enum": [
-              "Auto",
-              "Manual"
-            ]
           },
           {
             "type": "boolean",
@@ -375,21 +361,21 @@
             "type": "string",
             "name": "BackColor",
             "in": "query",
-            "description": "Background color of the barcode image.\nDefault value: Color.White.",
+            "description": "Background color of the barcode image.\nDefault value: white.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BarColor",
             "in": "query",
-            "description": "Bars color.\nDefault value: Color.Black.",
+            "description": "Bars color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BorderColor",
             "in": "query",
-            "description": "Border color.\nDefault value: Color.Black.",
+            "description": "Border color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
@@ -693,22 +679,8 @@
             "type": "string",
             "name": "TextColor",
             "in": "query",
-            "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black.",
+            "description": "Specify the displaying CodeText's Color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
-          },
-          {
-            "type": "string",
-            "name": "FontSizeMode",
-            "in": "query",
-            "description": "Specify FontSizeMode. If FontSizeMode is set to Auto, font size will be calculated automatically based on xDimension value.\nIt is recommended to use FontSizeMode.Auto especially in AutoSizeMode.Nearest or AutoSizeMode.Interpolation.\nDefault value: FontSizeMode.Auto.",
-            "x-schema": {
-              "$ref": "#/definitions/FontMode"
-            },
-            "x-nullable": true,
-            "enum": [
-              "Auto",
-              "Manual"
-            ]
           },
           {
             "type": "boolean",
@@ -824,21 +796,21 @@
             "type": "string",
             "name": "BackColor",
             "in": "query",
-            "description": "Background color of the barcode image.\nDefault value: Color.White.",
+            "description": "Background color of the barcode image.\nDefault value: white.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BarColor",
             "in": "query",
-            "description": "Bars color.\nDefault value: Color.Black.",
+            "description": "Bars color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
             "type": "string",
             "name": "BorderColor",
             "in": "query",
-            "description": "Border color.\nDefault value: Color.Black.",
+            "description": "Border color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF",
             "x-nullable": true
           },
           {
@@ -3296,18 +3268,6 @@
         "Right"
       ]
     },
-    "FontMode": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "Auto",
-        "Manual"
-      ],
-      "enum": [
-        "Auto",
-        "Manual"
-      ]
-    },
     "AvailableGraphicsUnit": {
       "type": "string",
       "description": "Subset of GraphicsUnit.",
@@ -3454,7 +3414,7 @@
         },
         "TextColor": {
           "type": "string",
-          "description": "Specify the displaying CodeText's Color.\nDefault value: Color.Black."
+          "description": "Specify the displaying CodeText's Color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF"
         },
         "Font": {
           "description": "Specify the displaying Text's font.\nDefault value: Arial 5pt regular.\nIgnored if FontSizeMode is set to FontSizeMode.Auto.",
@@ -3535,15 +3495,15 @@
         },
         "BackColor": {
           "type": "string",
-          "description": "Background color of the barcode image.\nDefault value: Color.White."
+          "description": "Background color of the barcode image.\nDefault value: white.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF"
         },
         "BarColor": {
           "type": "string",
-          "description": "Bars color.\nDefault value: Color.Black."
+          "description": "Bars color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF"
         },
         "BorderColor": {
           "type": "string",
-          "description": "Border color.\nDefault value: Color.Black."
+          "description": "Border color.\nDefault value: black.\nUse named colors like: red, green, blue\nOr HTML colors like: #FF0000, #00FF00, #0000FF"
         },
         "BorderWidth": {
           "type": "number",
@@ -3662,7 +3622,7 @@
           "$ref": "#/definitions/PatchCodeParams"
         },
         "Code128": {
-          "description": "Code128 params.",
+          "description": "Code128 parameters",
           "$ref": "#/definitions/Code128Params"
         },
         "HanXin": {
@@ -3710,6 +3670,18 @@
         "Strikeout"
       ]
     },
+    "FontMode": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Auto",
+        "Manual"
+      ],
+      "enum": [
+        "Auto",
+        "Manual"
+      ]
+    },
     "Padding": {
       "type": "object",
       "description": "Padding around barcode.",
@@ -3752,7 +3724,7 @@
         },
         "Color": {
           "type": "string",
-          "description": "Text color."
+          "description": "Text color.\n \tDefault value: black\n \tUse named colors like: red, green, blue\n \tOr HTML colors like: #FF0000, #00FF00, #0000FF"
         },
         "Visible": {
           "type": "boolean",
