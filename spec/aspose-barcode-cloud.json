@@ -79,7 +79,7 @@
           {
             "name": "ForegroundColor",
             "in": "query",
-            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.Black.",
+            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "schema": {
               "type": "string"
             }
@@ -87,7 +87,7 @@
           {
             "name": "BackgroundColor",
             "in": "query",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.White.",
+            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "schema": {
               "type": "string"
             }
@@ -224,7 +224,7 @@
         "summary": "Generate barcode using POST request with parameters in url ecncoded form.",
         "requestBody": {
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "required": [
                   "Data",
@@ -257,11 +257,11 @@
                   },
                   "ForegroundColor": {
                     "type": "string",
-                    "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.Black."
+                    "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black."
                   },
                   "BackgroundColor": {
                     "type": "string",
-                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.White."
+                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White."
                   },
                   "Units": {
                     "$ref": "#/components/schemas/AvailableGraphicsUnit"
@@ -705,6 +705,7 @@
                   },
                   "file": {
                     "type": "string",
+                    "description": "Barcode image file",
                     "format": "binary"
                   },
                   "recognitionMode": {
@@ -945,6 +946,7 @@
                 "properties": {
                   "file": {
                     "type": "string",
+                    "description": "Barcode image file",
                     "format": "binary"
                   }
                 }
@@ -1102,12 +1104,12 @@
           },
           "foregroundColor": {
             "type": "string",
-            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.Black.",
+            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "nullable": true
           },
           "backgroundColor": {
             "type": "string",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: Color.AliceBlue or #FF000000\r\nDefault value: Color.White.",
+            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "nullable": true
           },
           "units": {

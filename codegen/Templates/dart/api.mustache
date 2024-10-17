@@ -51,12 +51,9 @@ class {{classname}} {
     final List<String> authNames = [{{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}}];
 
     {{#hasFormParams}}
-    if(contentType.startsWith("multipart/form-data")) {
-      bool hasFields = false;
       MultipartRequestPlus mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
       {{#formParams}}{{^isFile}}
       if ({{paramName}} != null) {
-        hasFields = true;
         {{#isCollectionFormatMulti}}
         final List<String> stringValues = {{paramName}}.map((i) => parameterToString(i)).toList();
         mp.fields['{{baseName}}'] = stringValues;
@@ -68,26 +65,17 @@ class {{classname}} {
       {{/isFile}}{{#isFile}}
       
       {{#required}}
-        hasFields = true;
         mp.files.add({{paramName}});
       {{/required}}
       {{^required}}
       if ({{paramName}} != null) {
-        hasFields = true;
         mp.files.add({{paramName}});
       }
       {{/required}}
 
       {{/isFile}}{{/formParams}}
-      if (hasFields) {
-        postBody = mp;
-      }
-    }
-    else {
-    {{#formParams}}{{^isFile}}if ({{paramName}} != null)
-      formParams['{{baseName}}'] = parameterToString({{paramName}});{{/isFile}}
-    {{/formParams}}
-    }
+      postBody = mp;
+    
     {{/hasFormParams}}
 
     final response = await _apiClient.invokeAPI(requestPath,

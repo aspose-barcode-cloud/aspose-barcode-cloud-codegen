@@ -780,8 +780,6 @@ public class ApiClient {
         RequestBody reqBody;
         if (!HttpMethod.permitsRequestBody(method)) {
             reqBody = null;
-        } else if ("application/x-www-form-urlencoded".equals(contentType)) {
-            reqBody = buildRequestBodyFormEncoding(formParams);
         } else if ("multipart/form-data".equals(contentType)) {
             reqBody = buildRequestBodyMultipart(formParams);
         } else if (body == null) {
@@ -872,20 +870,6 @@ public class ApiClient {
                 reqBuilder.header(header.getKey(), parameterToString(header.getValue()));
             }
         }
-    }
-
-    /**
-     * Build a form-encoding request body with the given form parameters.
-     *
-     * @param formParams Form parameters in the form of Map
-     * @return RequestBody
-     */
-    public RequestBody buildRequestBodyFormEncoding(Map<String, Object> formParams) {
-        FormEncodingBuilder formBuilder  = new FormEncodingBuilder();
-        for (Entry<String, Object> param : formParams.entrySet()) {
-            formBuilder.add(param.getKey(), parameterToString(param.getValue()));
-        }
-        return formBuilder.build();
     }
 
     /**

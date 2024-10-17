@@ -86,24 +86,26 @@ namespace {{packageName}}.Api
             {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
             {{/headerParams}}
             {{#formParams}}
-            {{#-first}}var formParams = new Dictionary<string, string>();
-            bool isMultipart = false; {{/-first}}
+            {{#-first}}var multipartContent = new MultipartFormDataContent();{{/-first}}
             {{^isEnum}}
             if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
             { {{/isEnum}}      {{#isEnum}}{{^required}}if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)  { {{/required}}{{/isEnum}}
                 {{#isFile}}
-                isMultipart = true;
-  
+                 {{^required}}
+            if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
+            { {{/required}} 
+                multipartContent.Add(new StreamContent(request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", "{{paramName}}.png");
+                {{^required}} } {{/required}}
                 {{/isFile}}
                 {{^isFile}}
                     {{#isCollectionFormatMulti}}
                     foreach (var oneParam in request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}})
                     {
-                        formParams.Add("{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", oneParam.ToString());
+                        multipartContent.Add(new StringContent(oneParam.ToString()), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}");
                     }
                     {{/isCollectionFormatMulti}}
                     {{#isPrimitiveType}}
-                    formParams.Add("{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", $"{request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}}");
+                    multipartContent.Add(new StringContent($"{request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}}"), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}");
                     {{/isPrimitiveType}}
                 {{/isFile}}
            {{^isEnum}} } {{/isEnum}}   {{#isEnum}}{{^required}} } {{/required}}{{/isEnum}}
@@ -117,43 +119,18 @@ namespace {{packageName}}.Api
             {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
             {{/queryParams}}
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
-            {{#hasFormParams}}
-            HttpContent formContent;
-            if(isMultipart)
-            {
-            var multipartContent = new MultipartFormDataContent();
-            {{#formParams}}
-             {{#isFile}}
-                        {{^required}}
-            if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
-            { {{/required}} 
-                multipartContent.Add(new StreamContent(request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", "{{paramName}}.png");
-                {{^required}} } {{/required}}
-                {{/isFile}}
-                {{/formParams}}
 
-                foreach(var param in formParams)
-                {
-                    multipartContent.Add(new StringContent($"{param.Value}"), param.Key);
-                }
-                formContent = multipartContent;
-            }
-            else
-            {
-                formContent = new FormUrlEncodedContent(formParams);
-            }
-            {{/hasFormParams}}
 {{#vendorExtensions}}{{#x-binary-result}}            return await _apiInvoker.InvokeBinaryApiAsync(
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}formContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = await _apiInvoker.InvokeApiAsync(
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = await _apiInvoker.InvokeApiAsync(
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 null,
-                {{#hasFormParams}}formContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
             if (response != null)
             {
@@ -168,7 +145,7 @@ namespace {{packageName}}.Api
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}formContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
         }
         {{/operation}}
     }
