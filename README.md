@@ -11,15 +11,16 @@ This repository contains templates and scripts for generating SDK code for all c
 
 The following SDKs are currently available:
 
-Directory                                                                                          | Description
--------------------------------------------------------------------------------------------------- | --------------------------------------------------------------
-[.NET SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet)                    | Barcode Cloud SDK for .NET Standard 2.0, .NET Framework 2.0 and higher
-[Node JS SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-node)                   | Barcode Cloud SDK for Node JS
-[PHP SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-php)                        | Barcode Cloud SDK for PHP
-[Python SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-python)                  | Barcode Cloud SDK for Python 2.7 and Python 3.4+
-[Go SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-go)                          | Barcode Cloud SDK for Go
-[Java SDK](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-java)                      | Barcode Cloud SDK for Java
-[Android application sample](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-android) | Barcode Cloud Android application sample
+Link to SDK                                                                          | Link to source code                                                                 | Description
+-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------ | --------------------------
+[.NET SDK](https://www.nuget.org/packages/Aspose.BarCode-Cloud/)                     | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet)  | Barcode Cloud SDK for .NET and dotnet
+[Node JS SDK](https://www.npmjs.com/package/aspose-barcode-cloud-node/)              | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-node)    | Barcode Cloud SDK for Node JS
+[PHP SDK](https://packagist.org/packages/aspose/barcode-cloud-php)                   | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-php)     | Barcode Cloud SDK for PHP
+[Python SDK](https://pypi.org/project/aspose-barcode-cloud/)                         | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-python)  | Barcode Cloud SDK for Python
+[Go SDK](https://pkg.go.dev/github.com/aspose-barcode-cloud/aspose-barcode-cloud-go) | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-go)      | Barcode Cloud SDK for Go
+[Java SDK](https://releases.aspose.cloud/java/repo/com/aspose/aspose-barcode-cloud/) | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-java)    | Barcode Cloud SDK for Java
+[Dart SDK](https://pub.dev/packages/aspose_barcode_cloud)                            | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dart)    | Barcode Cloud SDK for Dart and Flutter
+Android application sample                                                           | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-android) | Barcode Cloud Android application sample
 
 To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
 
