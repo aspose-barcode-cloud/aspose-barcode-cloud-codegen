@@ -1,8 +1,9 @@
 {
     "artifactVersion": "23.7.0",
     "npmName": "aspose-barcode-cloud-node",
-    "npmVersion": "24.9.0",
+    "npmVersion": "24.10.0",
     "packageName": "Aspose.BarCode.Cloud.Sdk",
-    "packageVersion": "24.9.0",
-    "supportsES6": true
+    "packageVersion": "24.10.0",
+    "supportsES6": true,
+    "targetFramework": "netstandard2.0"
 }
