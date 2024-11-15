@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Aspose.BarCode.Cloud v4.0 specification",
-    "description": "Hight quality barcodes generation and recognition API",
+    "description": "High quality barcodes generation and recognition API",
     "version": "4.0"
   },
   "servers": [
@@ -28,7 +28,7 @@
             }
           },
           {
-            "name": "DataType",
+            "name": "dataType",
             "in": "query",
             "description": "Type of data to encode.\r\nDefault value:  EncodeDataType.StringData.",
             "schema": {
@@ -36,7 +36,7 @@
             }
           },
           {
-            "name": "Data",
+            "name": "data",
             "in": "query",
             "description": "String represents data to encode",
             "required": true,
@@ -45,23 +45,15 @@
             }
           },
           {
-            "name": "ImageFormat",
+            "name": "imageFormat",
             "in": "query",
             "description": "Barcode output image format.\r\nDefault value: png",
             "schema": {
-              "$ref": "#/components/schemas/AvailableBarCodeImageFormat"
+              "$ref": "#/components/schemas/BarcodeImageFormat"
             }
           },
           {
-            "name": "TwoDDisplayText",
-            "in": "query",
-            "description": "Text that will be displayed instead of codetext in 2D barcodes.\r\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "TextLocation",
+            "name": "textLocation",
             "in": "query",
             "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\r\nDefault value: CodeLocation.Below.",
             "schema": {
@@ -69,66 +61,58 @@
             }
           },
           {
-            "name": "TextAlignment",
+            "name": "foregroundColor",
             "in": "query",
-            "description": "Text alignment.\r\nDefault value: TextAligment.Left",
-            "schema": {
-              "$ref": "#/components/schemas/TextAlignment"
-            }
-          },
-          {
-            "name": "ForegroundColor",
-            "in": "query",
-            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+            "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "BackgroundColor",
+            "name": "backgroundColor",
             "in": "query",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "Units",
+            "name": "units",
             "in": "query",
             "description": "Common Units for all measuring in query. Default units: pixel.",
             "schema": {
-              "$ref": "#/components/schemas/AvailableGraphicsUnit"
+              "$ref": "#/components/schemas/GraphicsUnit"
             }
           },
           {
-            "name": "Resolution",
+            "name": "resolution",
             "in": "query",
-            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.",
+            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
               "format": "float"
             }
           },
           {
-            "name": "ImageHeight",
+            "name": "imageHeight",
             "in": "query",
-            "description": "Height of the barcode image in given units. Default units: pixel.",
+            "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
               "format": "float"
             }
           },
           {
-            "name": "ImageWidth",
+            "name": "imageWidth",
             "in": "query",
-            "description": "Width of the barcode image in given units. Default units: pixel.",
+            "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
               "format": "float"
             }
           },
           {
-            "name": "RotationAngle",
+            "name": "rotationAngle",
             "in": "query",
             "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
             "schema": {
@@ -216,72 +200,65 @@
         "x-binary-result": true
       }
     },
-    "/barcode/generate-form": {
+    "/barcode/generate-multipart": {
       "post": {
         "tags": [
           "Generate"
         ],
-        "summary": "Generate barcode using POST request with parameters in url ecncoded form.",
+        "summary": "Generate barcode using POST request with parameters in multipart form.",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
                 "required": [
-                  "Data",
-                  "barcodeType"
+                  "barcodeType",
+                  "data"
                 ],
                 "type": "object",
                 "properties": {
                   "barcodeType": {
                     "$ref": "#/components/schemas/EncodeBarcodeType"
                   },
-                  "DataType": {
+                  "dataType": {
                     "$ref": "#/components/schemas/EncodeDataType"
                   },
-                  "Data": {
+                  "data": {
                     "type": "string",
                     "description": "String represents data to encode"
                   },
-                  "ImageFormat": {
-                    "$ref": "#/components/schemas/AvailableBarCodeImageFormat"
+                  "imageFormat": {
+                    "$ref": "#/components/schemas/BarcodeImageFormat"
                   },
-                  "TwoDDisplayText": {
-                    "type": "string",
-                    "description": "Text that will be displayed instead of codetext in 2D barcodes.\r\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode"
-                  },
-                  "TextLocation": {
+                  "textLocation": {
                     "$ref": "#/components/schemas/CodeLocation"
                   },
-                  "TextAlignment": {
-                    "$ref": "#/components/schemas/TextAlignment"
-                  },
-                  "ForegroundColor": {
+                  "foregroundColor": {
                     "type": "string",
-                    "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black."
+                    "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black."
                   },
-                  "BackgroundColor": {
+                  "backgroundColor": {
                     "type": "string",
-                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White."
+                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White."
                   },
-                  "Units": {
-                    "$ref": "#/components/schemas/AvailableGraphicsUnit"
+                  "units": {
+                    "$ref": "#/components/schemas/GraphicsUnit"
                   },
-                  "Resolution": {
+                  "resolution": {
                     "type": "number",
-                    "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.",
+                    "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
                     "format": "float"
                   },
-                  "ImageHeight": {
+                  "imageHeight": {
                     "type": "number",
-                    "description": "Height of the barcode image in given units. Default units: pixel.",
+                    "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
                     "format": "float"
                   },
-                  "ImageWidth": {
+                  "imageWidth": {
                     "type": "number",
-                    "description": "Width of the barcode image in given units. Default units: pixel.",
+                    "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
                     "format": "float"
                   },
-                  "RotationAngle": {
+                  "rotationAngle": {
                     "type": "integer",
                     "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
                     "format": "int32"
@@ -292,43 +269,37 @@
                 "barcodeType": {
                   "style": "form"
                 },
-                "DataType": {
+                "dataType": {
                   "style": "form"
                 },
-                "Data": {
+                "data": {
                   "style": "form"
                 },
-                "ImageFormat": {
+                "imageFormat": {
                   "style": "form"
                 },
-                "TwoDDisplayText": {
+                "textLocation": {
                   "style": "form"
                 },
-                "TextLocation": {
+                "foregroundColor": {
                   "style": "form"
                 },
-                "TextAlignment": {
+                "backgroundColor": {
                   "style": "form"
                 },
-                "ForegroundColor": {
+                "units": {
                   "style": "form"
                 },
-                "BackgroundColor": {
+                "resolution": {
                   "style": "form"
                 },
-                "Units": {
+                "imageHeight": {
                   "style": "form"
                 },
-                "Resolution": {
+                "imageWidth": {
                   "style": "form"
                 },
-                "ImageHeight": {
-                  "style": "form"
-                },
-                "ImageWidth": {
-                  "style": "form"
-                },
-                "RotationAngle": {
+                "rotationAngle": {
                   "style": "form"
                 }
               }
@@ -515,7 +486,7 @@
         "x-binary-result": true
       }
     },
-    "/barcode/recognize/{barcodeType}": {
+    "/barcode/recognize": {
       "get": {
         "tags": [
           "Recognize"
@@ -524,7 +495,7 @@
         "parameters": [
           {
             "name": "barcodeType",
-            "in": "path",
+            "in": "query",
             "description": "Type of barcode to recognize",
             "required": true,
             "schema": {
@@ -550,9 +521,9 @@
             }
           },
           {
-            "name": "imageKind",
+            "name": "recognitionImageKind",
             "in": "query",
-            "description": "Image kind",
+            "description": "Image kind for recognition",
             "schema": {
               "$ref": "#/components/schemas/RecognitionImageKind"
             }
@@ -684,7 +655,7 @@
         }
       }
     },
-    "/barcode/recognize-form": {
+    "/barcode/recognize-multipart": {
       "post": {
         "tags": [
           "Recognize"
@@ -711,7 +682,7 @@
                   "recognitionMode": {
                     "$ref": "#/components/schemas/RecognitionMode"
                   },
-                  "imageKind": {
+                  "recognitionImageKind": {
                     "$ref": "#/components/schemas/RecognitionImageKind"
                   }
                 }
@@ -726,7 +697,7 @@
                 "recognitionMode": {
                   "style": "form"
                 },
-                "imageKind": {
+                "recognitionImageKind": {
                   "style": "form"
                 }
               }
@@ -929,7 +900,7 @@
         }
       }
     },
-    "/barcode/scan-form": {
+    "/barcode/scan-multipart": {
       "post": {
         "tags": [
           "Scan"
@@ -1050,6 +1021,10 @@
         "description": "Api Error."
       },
       "ApiErrorResponse": {
+        "required": [
+          "error",
+          "requestId"
+        ],
         "type": "object",
         "properties": {
           "requestId": {
@@ -1064,7 +1039,7 @@
         "additionalProperties": false,
         "description": "ApiError Response"
       },
-      "AvailableBarCodeImageFormat": {
+      "BarcodeImageFormat": {
         "enum": [
           "Gif",
           "Jpeg",
@@ -1075,61 +1050,43 @@
         "type": "string",
         "description": "Specifies the file format of the image."
       },
-      "AvailableGraphicsUnit": {
-        "enum": [
-          "Pixel",
-          "Point",
-          "Inch",
-          "Millimeter"
-        ],
-        "type": "string",
-        "description": "Subset of Aspose.Drawing.GraphicsUnit."
-      },
       "BarcodeImageParams": {
         "type": "object",
         "properties": {
           "imageFormat": {
-            "$ref": "#/components/schemas/AvailableBarCodeImageFormat"
-          },
-          "twoDDisplayText": {
-            "type": "string",
-            "description": "Text that will be displayed instead of codetext in 2D barcodes.\r\nUsed for: Aztec, Pdf417, DataMatrix, QR, MaxiCode, DotCode",
-            "nullable": true
+            "$ref": "#/components/schemas/BarcodeImageFormat"
           },
           "textLocation": {
             "$ref": "#/components/schemas/CodeLocation"
           },
-          "textAlignment": {
-            "$ref": "#/components/schemas/TextAlignment"
-          },
           "foregroundColor": {
             "type": "string",
-            "description": "Specify the displaying bars and content Color. \r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+            "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "nullable": true
           },
           "backgroundColor": {
             "type": "string",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #. \r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "nullable": true
           },
           "units": {
-            "$ref": "#/components/schemas/AvailableGraphicsUnit"
+            "$ref": "#/components/schemas/GraphicsUnit"
           },
           "resolution": {
             "type": "number",
-            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.",
+            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
             "format": "float",
             "nullable": true
           },
           "imageHeight": {
             "type": "number",
-            "description": "Height of the barcode image in given units. Default units: pixel.",
+            "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
             "nullable": true
           },
           "imageWidth": {
             "type": "number",
-            "description": "Width of the barcode image in given units. Default units: pixel.",
+            "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
             "nullable": true
           },
@@ -1201,170 +1158,169 @@
       },
       "DecodeBarcodeType": {
         "enum": [
-          "mostCommonlyUsed",
+          "MostCommonlyUsed",
+          "QR",
           "AustraliaPost",
+          "AustralianPosteParcel",
           "Aztec",
-          "ISBN",
           "Codabar",
+          "CodablockF",
           "Code11",
           "Code128",
-          "GS1Code128",
+          "Code16K",
+          "Code32",
           "Code39",
           "Code39FullASCII",
           "Code93",
-          "Code93FullASCII",
+          "CompactPdf417",
+          "DataLogic2of5",
           "DataMatrix",
+          "DatabarExpanded",
+          "DatabarExpandedStacked",
+          "DatabarLimited",
+          "DatabarOmniDirectional",
+          "DatabarStacked",
+          "DatabarStackedOmniDirectional",
+          "DatabarTruncated",
           "DeutschePostIdentcode",
           "DeutschePostLeitcode",
+          "DotCode",
+          "DutchKIX",
           "EAN13",
           "EAN14",
           "EAN8",
+          "GS1Aztec",
+          "GS1Code128",
+          "GS1CompositeBar",
+          "GS1DataMatrix",
+          "GS1DotCode",
+          "GS1HanXin",
+          "GS1MicroPdf417",
+          "GS1QR",
+          "HanXin",
+          "HIBCAztecLIC",
+          "HIBCAztecPAS",
+          "HIBCCode128LIC",
+          "HIBCCode128PAS",
+          "HIBCCode39LIC",
+          "HIBCCode39PAS",
+          "HIBCDataMatrixLIC",
+          "HIBCDataMatrixPAS",
+          "HIBCQRLIC",
+          "HIBCQRPAS",
           "IATA2of5",
-          "Interleaved2of5",
-          "ISSN",
+          "ISBN",
           "ISMN",
-          "ItalianPost25",
+          "ISSN",
           "ITF14",
           "ITF6",
+          "Interleaved2of5",
+          "ItalianPost25",
           "MacroPdf417",
+          "Mailmark",
           "Matrix2of5",
+          "MaxiCode",
+          "MicrE13B",
+          "MicroPdf417",
+          "MicroQR",
           "MSI",
           "OneCode",
           "OPC",
           "PatchCode",
           "Pdf417",
-          "MicroPdf417",
+          "Pharmacode",
           "Planet",
           "Postnet",
           "PZN",
-          "QR",
-          "MicroQR",
           "RectMicroQR",
           "RM4SCC",
           "SCC14",
           "SSCC18",
           "Standard2of5",
           "Supplement",
+          "SwissPostParcel",
           "UPCA",
           "UPCE",
-          "VIN",
-          "Pharmacode",
-          "GS1DataMatrix",
-          "DatabarOmniDirectional",
-          "DatabarTruncated",
-          "DatabarLimited",
-          "DatabarExpanded",
-          "SwissPostParcel",
-          "AustralianPosteParcel",
-          "Code16K",
-          "DatabarStackedOmniDirectional",
-          "DatabarStacked",
-          "DatabarExpandedStacked",
-          "CompactPdf417",
-          "GS1QR",
-          "MaxiCode",
-          "MicrE13B",
-          "Code32",
-          "DataLogic2of5",
-          "DotCode",
-          "DutchKIX",
-          "CodablockF",
-          "Mailmark",
-          "GS1DotCode",
-          "HIBCCode39LIC",
-          "HIBCCode128LIC",
-          "HIBCAztecLIC",
-          "HIBCDataMatrixLIC",
-          "HIBCQRLIC",
-          "HIBCCode39PAS",
-          "HIBCCode128PAS",
-          "HIBCAztecPAS",
-          "HIBCDataMatrixPAS",
-          "HIBCQRPAS",
-          "HanXin",
-          "GS1HanXin",
-          "GS1Aztec",
-          "GS1CompositeBar",
-          "GS1MicroPdf417"
+          "VIN"
         ],
         "type": "string",
         "description": "See Aspose.BarCode.Aspose.BarCode.BarCodeRecognition.DecodeType"
       },
       "EncodeBarcodeType": {
         "enum": [
+          "QR",
+          "AustraliaPost",
+          "AustralianPosteParcel",
+          "Aztec",
           "Codabar",
+          "CodablockF",
           "Code11",
+          "Code128",
+          "Code16K",
+          "Code32",
           "Code39",
           "Code39FullASCII",
           "Code93",
-          "Code128",
-          "GS1Code128",
-          "EAN8",
-          "EAN13",
-          "EAN14",
-          "SCC14",
-          "SSCC18",
-          "UPCA",
-          "UPCE",
-          "ISBN",
-          "ISSN",
-          "ISMN",
-          "Standard2of5",
-          "Interleaved2of5",
-          "Matrix2of5",
-          "ItalianPost25",
-          "IATA2of5",
-          "ITF14",
-          "ITF6",
-          "MSI",
-          "VIN",
-          "DeutschePostIdentcode",
-          "DeutschePostLeitcode",
-          "OPC",
-          "PZN",
-          "Code16K",
-          "Pharmacode",
+          "DataLogic2of5",
           "DataMatrix",
-          "QR",
-          "Aztec",
-          "Pdf417",
-          "MacroPdf417",
-          "AustraliaPost",
-          "Postnet",
-          "Planet",
-          "OneCode",
-          "RM4SCC",
-          "DatabarOmniDirectional",
-          "DatabarTruncated",
-          "DatabarLimited",
           "DatabarExpanded",
-          "SingaporePost",
-          "GS1DataMatrix",
-          "AustralianPosteParcel",
-          "SwissPostParcel",
-          "PatchCode",
           "DatabarExpandedStacked",
+          "DatabarLimited",
+          "DatabarOmniDirectional",
           "DatabarStacked",
           "DatabarStackedOmniDirectional",
-          "MicroPdf417",
-          "GS1QR",
-          "MaxiCode",
-          "Code32",
-          "DataLogic2of5",
+          "DatabarTruncated",
+          "DeutschePostIdentcode",
+          "DeutschePostLeitcode",
           "DotCode",
           "DutchKIX",
+          "EAN13",
+          "EAN14",
+          "EAN8",
+          "GS1Aztec",
+          "GS1CodablockF",
+          "GS1Code128",
+          "GS1DataMatrix",
+          "GS1DotCode",
+          "GS1HanXin",
+          "GS1MicroPdf417",
+          "GS1QR",
+          "HanXin",
+          "IATA2of5",
+          "ISBN",
+          "ISMN",
+          "ISSN",
+          "ITF14",
+          "ITF6",
+          "Interleaved2of5",
+          "ItalianPost25",
+          "MSI",
+          "MacroPdf417",
+          "Mailmark",
+          "Matrix2of5",
+          "MaxiCode",
+          "MicroPdf417",
+          "MicroQR",
+          "OPC",
+          "OneCode",
+          "PZN",
+          "PatchCode",
+          "Pdf417",
+          "Pharmacode",
+          "Planet",
+          "Postnet",
+          "RM4SCC",
+          "RectMicroQR",
+          "SCC14",
+          "SSCC18",
+          "SingaporePost",
+          "Standard2of5",
+          "SwissPostParcel",
+          "UPCA",
+          "UPCE",
           "UpcaGs1Code128Coupon",
           "UpcaGs1DatabarCoupon",
-          "CodablockF",
-          "GS1CodablockF",
-          "Mailmark",
-          "GS1DotCode",
-          "HanXin",
-          "GS1HanXin",
-          "GS1Aztec",
-          "GS1MicroPdf417",
-          "RectMicroQR",
-          "MicroQR"
+          "VIN"
         ],
         "type": "string",
         "description": "See Aspose.BarCode.Generation.EncodeTypes"
@@ -1416,6 +1372,16 @@
         "additionalProperties": false,
         "description": "Barcode generation parameters"
       },
+      "GraphicsUnit": {
+        "enum": [
+          "Pixel",
+          "Point",
+          "Inch",
+          "Millimeter"
+        ],
+        "type": "string",
+        "description": "Subset of Aspose.Drawing.GraphicsUnit."
+      },
       "RecognitionImageKind": {
         "enum": [
           "Photo",
@@ -1457,7 +1423,7 @@
           "recognitionMode": {
             "$ref": "#/components/schemas/RecognitionMode"
           },
-          "imageKind": {
+          "recognitionImageKind": {
             "$ref": "#/components/schemas/RecognitionImageKind"
           }
         },
@@ -1495,20 +1461,12 @@
         },
         "additionalProperties": false,
         "description": "Scan barcode request."
-      },
-      "TextAlignment": {
-        "enum": [
-          "Left",
-          "Center",
-          "Right"
-        ],
-        "type": "string"
       }
     },
     "securitySchemes": {
       "JWT": {
         "type": "oauth2",
-        "description": "JWT Authorization header using the Bearer scheme. \\r\\n\\r\\n \n                      Enter 'Bearer' [space] and then your token in the text input below.\n                      \\r\\n\\r\\nExample: 'Bearer 12345abcdef'",
+        "description": "JWT Authorization header using the Bearer scheme.\n\nGo to https://dashboard.aspose.cloud/#/applications and choose application.\n\nUse client_id and client_secret from selected application to authorize and get AccessToken.\n\nAdd AccessToken to Authorization header in form 'Bearer [space] and then your token'.\n\nExample: 'Authorization: Bearer 12345abcdef'.",
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://id-qa.aspose.cloud/connect/token",
@@ -1517,5 +1475,10 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "JWT": [ ]
+    }
+  ]
 }
