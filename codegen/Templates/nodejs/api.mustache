@@ -1,5 +1,5 @@
 import { Configuration } from './Configuration';
-import { HttpClient, HttpOptions, HttpResponse, HttpResult, StringKeyWithStringValue } from './httpClient';
+import { HttpClient, HttpOptions, HttpResponse, HttpResult } from './httpClient';
 import { Multipart, RequestFile, FormParamsType } from './multipart';
 
 export * from './models';
@@ -216,9 +216,9 @@ export class {{classname}} {
 
 {{#allParams}}
 {{#required}}
-        // verify required parameter 'request.{{paramName}}' is not null or undefined
-        if (request.{{paramName}} == null) {
-            throw new Error('Required parameter request.{{paramName}} was null or undefined when calling {{nickname}}.');
+        // verify required parameter 'request.{{paramName}}{{#isFile}}Bytes{{/isFile}}' is not null or undefined
+        if (request.{{paramName}}{{#isFile}}Bytes{{/isFile}} == null) {
+            throw new Error('Required parameter request.{{paramName}}{{#isFile}}Bytes{{/isFile}} was null or undefined when calling {{nickname}}.');
         }
 
 {{/required}}
@@ -264,7 +264,7 @@ export class {{classname}} {
  {{#hasFormParams}}
 
             let fileArray = new Array<RequestFile>();
-            {{#formParams}}{{#isFile}}fileArray = request.{{paramName}} == null ? [] : [request.{{paramName}}];{{/isFile}}{{/formParams}}
+            {{#formParams}}{{#isFile}}fileArray = request.{{paramName}}Bytes == null ? [] : [new RequestFile('{{paramName}}', '', request.{{paramName}}Bytes)];{{/isFile}}{{/formParams}}
             const multipartForm = new Multipart(formParams, fileArray);
             requestOptions.body = multipartForm.body;
             requestOptions.headers = {...requestOptions.headers, ...multipartForm.headers}
