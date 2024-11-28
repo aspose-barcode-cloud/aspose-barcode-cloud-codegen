@@ -22,7 +22,7 @@ class {{classname}} {
   {{#isDeprecated}}
   @deprecated
   {{/isDeprecated}}
-  {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{{dataType}}}? {{paramName}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
+  {{#returnType}}Future<{{#isResponseFile}}Uint8List{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}> {{/returnType}}{{^returnType}}Future {{/returnType}}{{nickname}}({{#allParams}}{{#required}}{{^isFile}}{{{dataType}}} {{paramName}}{{/isFile}}{{#isFile}}Uint8List {{paramName}}Bytes{{/isFile}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}}{{#hasOptionalParams}}{ {{#allParams}}{{^required}}{{^isFile}}{{{dataType}}}? {{paramName}}{{/isFile}}{{#isFile}}Uint8List? {{paramName}}Bytes{{/isFile}}{{^-last}}, {{/-last}}{{/required}}{{/allParams}} }{{/hasOptionalParams}}) async {
     // ignore: prefer_final_locals
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
@@ -65,11 +65,11 @@ class {{classname}} {
       {{/isFile}}{{#isFile}}
       
       {{#required}}
-        mp.files.add({{paramName}});
+        mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       {{/required}}
       {{^required}}
       if ({{paramName}} != null) {
-        mp.files.add({{paramName}});
+        mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       }
       {{/required}}
 
