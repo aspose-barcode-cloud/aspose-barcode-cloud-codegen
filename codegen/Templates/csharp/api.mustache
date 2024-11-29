@@ -128,12 +128,8 @@ namespace {{packageName}}.Api
                 null,
                 {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
-            if (response != null)
-            {
-                return ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}}));
-            }
+            return response == null ? null : ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}}));
 
-            return null;
             {{/returnType}}
             {{^returnType}}
             await _apiInvoker.InvokeApiAsync(
