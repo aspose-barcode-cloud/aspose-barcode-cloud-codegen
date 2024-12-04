@@ -58,8 +58,8 @@ public class ApiClient {
     public final String apiVersion = "v{{appVersion}}";
     public final String clientVersion = "{{artifactVersion}}";
 
-    private String baseUrl = "{{hostWithoutBasePath}}";
-    private String tokenUrl = baseUrl + "/connect/token";
+    private String baseUrl = "https://{{host}}";
+    private String tokenUrl = "{{#authMethods}}{{#-first}}{{tokenUrl}}{{/-first}}{{/authMethods}}";
     private String clientId;
     private String clientSecret;
     private boolean debugging = false;
