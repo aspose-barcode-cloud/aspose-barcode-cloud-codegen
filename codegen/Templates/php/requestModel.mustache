@@ -2,7 +2,7 @@
 {{#operation}}
 /**
  * --------------------------------------------------------------------------------------------------------------------
- * <copyright company="Aspose" file="{{nickname}}Request.php">
+ * <copyright company="Aspose" file="{{nickname}}RequestWrapper.php">
  *   Copyright (c) 2024 Aspose Pty Ltd
  * </copyright>
  * --------------------------------------------------------------------------------------------------------------------
@@ -15,11 +15,11 @@ namespace Aspose\BarCode\Requests;
 /**
  * Request model for "{{nickname}}" operation.
  */
-class {{operationId}}Request
+class {{operationId}}RequestWrapper
 {
     {{#hasParams}}
     /**
-     * Initializes a new instance of the {{operationId}}Request class.
+     * Initializes a new instance of the {{operationId}}RequestWrapper class.
      *
      {{#allParams}}
      * @param {{^schema}}{{dataType}}{{/schema}}{{#schema}}{{dataType}}{{/schema}} ${{paramName}} {{#description}}{{{description}}}{{/description}}

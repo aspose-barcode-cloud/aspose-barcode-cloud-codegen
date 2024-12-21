@@ -72,13 +72,13 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
      * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
      */
-    public function {{operationId}}(Requests\{{operationId}}Request $request)
+    public function {{operationId}}(Requests\{{operationId}}RequestWrapper $request)
     {
         try {
             {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo($request);{{#returnType}}
@@ -100,16 +100,16 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
      * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP status code, HTTP response headers (array of strings)
      */
-    public function {{operationId}}WithHttpInfo(Requests\{{operationId}}Request $request)
+    public function {{operationId}}WithHttpInfo(Requests\{{operationId}}RequestWrapper $request)
     {
         $returnType = '{{returnType}}';
-        $request = $this->{{operationId}}Request($request);
+        $request = $this->{{operationId}}RequestWrapper($request);
 
         try {
             $options = $this->_createHttpClientOption();
@@ -178,12 +178,12 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function {{operationId}}Async(Requests\{{operationId}}Request $request)
+    public function {{operationId}}Async(Requests\{{operationId}}RequestWrapper $request)
     {
         return $this->{{operationId}}AsyncWithHttpInfo($request)
             ->then(
@@ -202,15 +202,15 @@ use RuntimeException;
      * {{.}}
      *
 {{/description}}
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function {{operationId}}AsyncWithHttpInfo(Requests\{{operationId}}Request $request)
+    public function {{operationId}}AsyncWithHttpInfo(Requests\{{operationId}}RequestWrapper $request)
     {
         $returnType = '{{returnType}}';
-        $request = $this->{{operationId}}Request($request);
+        $request = $this->{{operationId}}RequestWrapper($request);
 
         return $this->client
             ->sendAsync($request, $this->_createHttpClientOption())
@@ -259,12 +259,12 @@ use RuntimeException;
     /**
      * Create request for operation '{{{operationId}}}'
      *
-     * @param Requests\{{operationId}}Request $request is a request object for operation
+     * @param Requests\{{operationId}}RequestWrapper $request is a request object for operation
      *
      * @throws InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function {{operationId}}Request(Requests\{{operationId}}Request $request)
+    protected function {{operationId}}RequestWrapper(Requests\{{operationId}}RequestWrapper $request)
     {
         {{#allParams}}
         {{#required}}
@@ -276,37 +276,37 @@ use RuntimeException;
         {{#hasValidation}}
         {{#maxLength}}
         if (isset({{^required}}$request->{{paramName}) && {{/required}}strlen($request->{{paramName}}) > {{maxLength}}) {
-            throw new InvalidArgumentException("invalid length for \"$request->{{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
+            throw new InvalidArgumentException("invalid length for $request->{{paramName}} when calling {{classname}}.{{operationId}}, must be smaller than or equal to {{maxLength}}.");
         }
         {{/maxLength}}
         {{#minLength}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}strlen($request->{{paramName}}) < {{minLength}}) {
-            throw new InvalidArgumentException("invalid length for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
+            throw new InvalidArgumentException("invalid length for {{paramName}} when calling {{classname}}.{{operationId}}, must be bigger than or equal to {{minLength}}.");
         }
         {{/minLength}}
         {{#maximum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} >{{#exclusiveMaximum}}={{/exclusiveMaximum}} {{maximum}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must be smaller than {{^exclusiveMaximum}}or equal to {{/exclusiveMaximum}}{{maximum}}.");
         }
         {{/maximum}}
         {{#minimum}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}$request->{{paramName}} <{{#exclusiveMinimum}}={{/exclusiveMinimum}} {{minimum}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must be bigger than {{^exclusiveMinimum}}or equal to {{/exclusiveMinimum}}{{minimum}}.");
         }
         {{/minimum}}
         {{#pattern}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}!preg_match('{{{pattern}}}', $request->{{paramName}})) {
-            throw new InvalidArgumentException("invalid value for \"{{paramName}}\" when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, must conform to the pattern {{{pattern}}}.");
         }
         {{/pattern}}
         {{#maxItems}}
         if (isset({{^required}}${{paramName}}) && {{/required}}count(${{paramName}}) > {{maxItems}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{maxItems}}.");
         }
         {{/maxItems}}
         {{#minItems}}
         if (isset({{^required}}$request->{{paramName}}) && {{/required}}count($request->{{paramName}}) < {{minItems}}) {
-            throw new InvalidArgumentException("invalid value for \"${{paramName}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
+            throw new InvalidArgumentException("invalid value for {{paramName}} when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{minItems}}.");
         }
         {{/minItems}}
 

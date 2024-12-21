@@ -6,7 +6,7 @@ export * from './models';
 
 import { {{#models}} {{#model}}{{classname}},{{/model}} {{/models}} } from './models';
 
-import { {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}} {{operationIdCamelCase}}Request, {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}} } from './models';
+import { {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}} {{operationIdCamelCase}}RequestWrapper, {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}} } from './models';
 
 
 let primitives = ['string', 'boolean', 'double', 'integer', 'long', 'float', 'number', 'any'];
@@ -198,9 +198,9 @@ export class {{classname}} {
      {{#summary}}
      * @summary {{&summary}}
      {{/summary}}
-     * @param request {{operationIdCamelCase}}Request
+     * @param request {{operationIdCamelCase}}RequestWrapper
      */
-    public async {{nickname}}(request: {{operationIdCamelCase}}Request): Promise<{ response: HttpResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
+    public async {{nickname}}(request: {{operationIdCamelCase}}RequestWrapper): Promise<{ response: HttpResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
         const requestPath =
             this._configuration.getApiBaseUrl() +
             '{{{path}}}'{{#pathParams}}.replace(

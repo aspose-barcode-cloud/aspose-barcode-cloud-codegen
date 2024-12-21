@@ -56,7 +56,7 @@ public class {{classname}} {
     {{#operation}}
     /**
      * Build call for {{operationId}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -73,7 +73,7 @@ public class {{classname}} {
     @Deprecated
     {{/isDeprecated}}
     @SuppressWarnings("removal")
-    protected com.squareup.okhttp.Call {{operationId}}Call({{operationIdCamelCase}}Request request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    protected com.squareup.okhttp.Call {{operationId}}Call({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object {{localVariablePrefix}}postBody = {{#bodyParam}}request.{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
         // create path and map variables
@@ -129,7 +129,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    private com.squareup.okhttp.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}Request request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         {{^performBeanValidation}}
         {{#allParams}}{{#required}}
         // verify the required parameter 'request.{{paramName}}' is set
@@ -175,7 +175,7 @@ public class {{classname}} {
     /**
      * {{summary}}
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}{{#returnType}}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}{{#returnType}}
      * @return {{returnType}}{{/returnType}}
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#isDeprecated}}
@@ -189,7 +189,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{operationIdCamelCase}}Request request) throws ApiException {
+    public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{operationIdCamelCase}}RequestWrapper request) throws ApiException {
         {{#returnType}}ApiResponse<{{{returnType}}}> {{localVariablePrefix}}resp = {{/returnType}}{{operationId}}WithHttpInfo(request);{{#returnType}}
         return {{localVariablePrefix}}resp.getData();{{/returnType}}
     }
@@ -197,7 +197,7 @@ public class {{classname}} {
     /**
      * {{summary}}
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @return ApiResponse&lt;{{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}Void{{/returnType}}&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#isDeprecated}}
@@ -211,7 +211,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{operationIdCamelCase}}Request request) throws ApiException {
+    public ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{operationIdCamelCase}}RequestWrapper request) throws ApiException {
         com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, null, null);
         {{#returnType}}Type {{localVariablePrefix}}returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call, {{localVariablePrefix}}returnType);{{/returnType}}{{^returnType}}return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call);{{/returnType}}
@@ -220,7 +220,7 @@ public class {{classname}} {
     /**
      * {{summary}} (asynchronously)
      * {{notes}}
-     * @param request See {@link {{operationIdCamelCase}}Request}
+     * @param request See {@link {{operationIdCamelCase}}RequestWrapper}
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -235,7 +235,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public com.squareup.okhttp.Call {{operationId}}Async({{operationIdCamelCase}}Request request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
+    public com.squareup.okhttp.Call {{operationId}}Async({{operationIdCamelCase}}RequestWrapper request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -268,7 +268,7 @@ public class {{classname}} {
 {{#operations}}
 {{#operation}}
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="{{operationIdCamelCase}}Request.java">
+// <copyright company="Aspose" file="{{operationIdCamelCase}}RequestWrapper.java">
 //   Copyright (c) 2024 Aspose.BarCode for Cloud
 // </copyright>
 // <summary>
@@ -317,7 +317,7 @@ import com.aspose.barcode.cloud.model.ScanBase64Request;
 /**
  * {{{summary}}}
  */
-public class {{operationIdCamelCase}}Request {
+public class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
     /**
      * {{{unescapedDescription}}}.
@@ -332,7 +332,7 @@ public class {{operationIdCamelCase}}Request {
      * {{#requiredParams}}
      * @param {{paramName}} {{{unescapedDescription}}}
      {{/requiredParams}}*/
-    public {{operationIdCamelCase}}Request({{#requiredParams}} {{{dataType}}} {{paramName}} {{^-last}},{{/-last}} {{/requiredParams}}) {
+    public {{operationIdCamelCase}}RequestWrapper({{#requiredParams}} {{{dataType}}} {{paramName}} {{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
         this.{{paramName}} = {{paramName}};
     {{/requiredParams}}

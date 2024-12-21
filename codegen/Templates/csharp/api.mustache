@@ -7,7 +7,7 @@ using {{packageName}}.Interfaces;
 using {{packageName}}.Internal;
 using {{packageName}}.Internal.RequestHandlers;
 using {{packageName}}.Model;
-using {{packageName}}.Model.Requests;
+
 
 namespace {{packageName}}.Api
 {
@@ -61,18 +61,21 @@ namespace {{packageName}}.Api
         {
         }
         {{#operation}}
-
         /// <summary>
-        ///     {{summary}} {{notes}}
+        /// {{summary}} {{notes}}
         /// </summary>
-        /// <param name="request">Request. <see cref="{{nickname}}Request" /></param>
+        {{#allParams}}/// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
+        {{/allParams}}
         /// <returns>
         /// A task that represents the asynchronous operation. {{#returnType}}Task result type is  <see cref="{{returnType}}" /> {{/returnType}}
         /// </returns>
-        public async {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{nickname}}Request request)
+        {{#isDeprecated}}
+        [Obsolete]
+        {{/isDeprecated}}
+       public async {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}System.Threading.CancellationToken cancellationToken = default)
         {
 {{#allParams}}{{#required}}{{^isEnum}}            // verify the required parameter '{{paramName}}' is set
-            if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} == null)
+            if ({{paramName}} == null)
             {
                 throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
             }
@@ -88,37 +91,37 @@ namespace {{packageName}}.Api
             {{#formParams}}
             {{#-first}}var multipartContent = new MultipartFormDataContent();{{/-first}}
             {{^isEnum}}
-            if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
-            { {{/isEnum}}      {{#isEnum}}{{^required}}if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)  { {{/required}}{{/isEnum}}
+            if ({{paramName}} != null)
+            { {{/isEnum}}      {{#isEnum}}{{^required}}if ({{paramName}} != null)  { {{/required}}{{/isEnum}}
                 {{#isFile}}
                  {{^required}}
-            if (request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}} != null)
+            if ({{paramName}} != null)
             { {{/required}} 
-                multipartContent.Add(new StreamContent(request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}", "{{paramName}}.png");
+                multipartContent.Add(new StreamContent({{paramName}}), "{{paramName}}", "{{paramName}}.png");
                 {{^required}} } {{/required}}
                 {{/isFile}}
                 {{^isFile}}
                     {{#isCollectionFormatMulti}}
-                    foreach (var oneParam in request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}})
+                    foreach (var oneParam in {{paramName}})
                     {
-                        multipartContent.Add(new StringContent(oneParam.ToString()), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}");
+                        multipartContent.Add(new StringContent(oneParam.ToString()), "{{paramName}}");
                     }
                     {{/isCollectionFormatMulti}}
                     {{#isPrimitiveType}}
-                    multipartContent.Add(new StringContent($"{request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}}"), "{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}}");
+                    multipartContent.Add(new StringContent($"{ {{paramName}} }"), "{{paramName}}");
                     {{/isPrimitiveType}}
                 {{/isFile}}
            {{^isEnum}} } {{/isEnum}}   {{#isEnum}}{{^required}} } {{/required}}{{/isEnum}}
             {{/formParams}}
             {{#pathParams}}
-            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", {{paramName}});
             {{/pathParams}}
             {{#queryParams}}
             {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{#isBodyParam}}{{baseName}}{{/isBodyParam}}{{^isBodyParam}}{{nameInPascalCase}}{{/isBodyParam}});
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{paramName}});
             {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
             {{/queryParams}}
-            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
+            {{#hasBodyParam}}string postBody = SerializationHelper.Serialize({{bodyParam.paramName}}); // http body (model) parameter{{/hasBodyParam}}
 
 {{#vendorExtensions}}{{#x-binary-result}}            return await _apiInvoker.InvokeBinaryApiAsync(
                 resourcePath,
@@ -151,4 +154,3 @@ namespace {{packageName}}.Api
     }
     {{/operations}}
 }
-{{>requestModel}}

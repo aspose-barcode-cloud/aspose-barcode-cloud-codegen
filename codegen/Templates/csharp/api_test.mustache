@@ -1,26 +1,36 @@
 {{! Used as Interfaces.cs }}
 using System.Threading.Tasks;
 using {{packageName}}.Model;
-using {{packageName}}.Model.Requests;
+
 
 namespace {{packageName}}.Interfaces
 {   {{#operations}}
     /// <summary>
     ///     {{classname}} interface
     /// </summary>
-    public interface I{{classname}}
+       /// <summary>
+    /// Represents a collection of functions to interact with the API endpoints
+    /// </summary>
+    {{>visibility}} interface {{interfacePrefix}}{{classname}}
     {
         {{#operation}}
-
         /// <summary>
-        ///     {{summary}} {{notes}}
+        /// {{summary}}
         /// </summary>
-        /// <param name="request">Request. <see cref="{{nickname}}Request" /></param>
-        /// <returns>
-        ///     A task representing the asynchronous operation.{{#returnType}} The result is a <see cref="{{returnType}}" />.{{/returnType}}
-        /// </returns>
-        {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{nickname}}Request request);
+        /// <remarks>
+        /// {{notes}}
+        /// </remarks>
+        /// <exception cref="{{packageName}}.Api.ApiException">Thrown when fails to make API call</exception>
+        {{#allParams}}
+        /// <param name="{{paramName}}">{{description}}</param>
+        {{/allParams}}
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of {{returnType}}{{^returnType}}void{{/returnType}}</returns>
+        {{#isDeprecated}}
+        [Obsolete]
+        {{/isDeprecated}}
+        {{#returnType}}Task<{{{.}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{operationId}}Async({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}System.Threading.CancellationToken cancellationToken = default);
         {{/operation}}
     }
-    {{/operations}}
+{{/operations}}
 }

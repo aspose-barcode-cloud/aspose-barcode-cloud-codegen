@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Aspose.BarCode.Cloud v4.0 specification",
+    "title": "Aspose.BarCode.Cloud v4.0 Specification",
     "description": "High quality barcodes generation and recognition API",
     "version": "4.0"
   },
   "servers": [
     {
-      "url": "https://barcode.qa.aspose.cloud/v4.0"
+      "url": "https://api.aspose.cloud/v4.0"
     }
   ],
   "paths": {
@@ -17,6 +17,7 @@
           "Generate"
         ],
         "summary": "Generate barcode using GET request with parameters in route and query string.",
+        "operationId": "Generate",
         "parameters": [
           {
             "name": "barcodeType",
@@ -30,7 +31,7 @@
           {
             "name": "dataType",
             "in": "query",
-            "description": "Type of data to encode.\r\nDefault value:  EncodeDataType.StringData.",
+            "description": "Type of data to encode.\r\nDefault value: StringData.",
             "schema": {
               "$ref": "#/components/schemas/EncodeDataType"
             }
@@ -65,7 +66,8 @@
             "in": "query",
             "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "Black"
             }
           },
           {
@@ -73,7 +75,8 @@
             "in": "query",
             "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": "White"
             }
           },
           {
@@ -89,8 +92,11 @@
             "in": "query",
             "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
             "schema": {
+              "maximum": 100000,
+              "minimum": 1,
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "default": ""
             }
           },
           {
@@ -99,7 +105,8 @@
             "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "default": ""
             }
           },
           {
@@ -108,7 +115,8 @@
             "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "default": ""
             }
           },
           {
@@ -206,6 +214,7 @@
           "Generate"
         ],
         "summary": "Generate barcode using POST request with parameters in multipart form.",
+        "operationId": "GenerateMultipart",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -234,29 +243,36 @@
                   },
                   "foregroundColor": {
                     "type": "string",
-                    "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black."
+                    "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+                    "default": "Black"
                   },
                   "backgroundColor": {
                     "type": "string",
-                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White."
+                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+                    "default": "White"
                   },
                   "units": {
                     "$ref": "#/components/schemas/GraphicsUnit"
                   },
                   "resolution": {
+                    "maximum": 100000,
+                    "minimum": 1,
                     "type": "number",
                     "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
-                    "format": "float"
+                    "format": "float",
+                    "default": ""
                   },
                   "imageHeight": {
                     "type": "number",
                     "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
-                    "format": "float"
+                    "format": "float",
+                    "default": ""
                   },
                   "imageWidth": {
                     "type": "number",
                     "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
-                    "format": "float"
+                    "format": "float",
+                    "default": ""
                   },
                   "rotationAngle": {
                     "type": "integer",
@@ -391,6 +407,7 @@
           "Generate"
         ],
         "summary": "Generate barcode using POST request with parameters in body in json or xml format.",
+        "operationId": "GenerateBody",
         "requestBody": {
           "description": "Parameters of generation",
           "content": {
@@ -492,6 +509,7 @@
           "Recognize"
         ],
         "summary": "Recognize barcode from file on server using GET requests with parameters in route and query string.",
+        "operationId": "Recognize",
         "parameters": [
           {
             "name": "barcodeType",
@@ -587,6 +605,7 @@
           "Recognize"
         ],
         "summary": "Recognize barcode from file in request body using POST requests with parameters in body in json or xml format.",
+        "operationId": "RecognizeBase64",
         "requestBody": {
           "description": "Barcode recognition request",
           "content": {
@@ -661,6 +680,7 @@
           "Recognize"
         ],
         "summary": "Recognize barcode from file in request body using POST requests with parameters in multipart form.",
+        "operationId": "RecognizeMultipart",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -762,6 +782,7 @@
           "Scan"
         ],
         "summary": "Scan barcode from file on server using GET requests with parameter in query string.",
+        "operationId": "Scan",
         "parameters": [
           {
             "name": "fileUrl",
@@ -832,6 +853,7 @@
           "Scan"
         ],
         "summary": "Scan barcode from file in request body using POST requests with parameter in body in json or xml format.",
+        "operationId": "ScanBase64",
         "requestBody": {
           "description": "Barcode scan request",
           "content": {
@@ -906,6 +928,7 @@
           "Scan"
         ],
         "summary": "Scan barcode from file in request body using POST requests with parameter in multipart form.",
+        "operationId": "ScanMultipart",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -1041,11 +1064,11 @@
       },
       "BarcodeImageFormat": {
         "enum": [
-          "Gif",
-          "Jpeg",
           "Png",
+          "Jpeg",
+          "Svg",
           "Tiff",
-          "Svg"
+          "Gif"
         ],
         "type": "string",
         "description": "Specifies the file format of the image."
@@ -1062,32 +1085,39 @@
           "foregroundColor": {
             "type": "string",
             "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+            "default": "Black",
             "nullable": true
           },
           "backgroundColor": {
             "type": "string",
             "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+            "default": "White",
             "nullable": true
           },
           "units": {
             "$ref": "#/components/schemas/GraphicsUnit"
           },
           "resolution": {
+            "maximum": 100000,
+            "minimum": 1,
             "type": "number",
             "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
             "format": "float",
+            "default": "",
             "nullable": true
           },
           "imageHeight": {
             "type": "number",
             "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
+            "default": "",
             "nullable": true
           },
           "imageWidth": {
             "type": "number",
             "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
+            "default": "",
             "nullable": true
           },
           "rotationAngle": {
@@ -1469,7 +1499,7 @@
         "description": "JWT Authorization header using the Bearer scheme.\n\nGo to https://dashboard.aspose.cloud/#/applications and choose application.\n\nUse client_id and client_secret from selected application to authorize and get AccessToken.\n\nAdd AccessToken to Authorization header in form 'Bearer [space] and then your token'.\n\nExample: 'Authorization: Bearer 12345abcdef'.",
         "flows": {
           "clientCredentials": {
-            "tokenUrl": "https://id-qa.aspose.cloud/connect/token",
+            "tokenUrl": "https://id.aspose.cloud/connect/token",
             "scopes": { }
           }
         }
