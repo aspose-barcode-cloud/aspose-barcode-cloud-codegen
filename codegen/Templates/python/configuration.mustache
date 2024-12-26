@@ -270,17 +270,6 @@ class Configuration(object):
 {{/isOAuth}}{{/authMethods}}
         }
 
-    def to_debug_report(self):
-        """Gets the essential information for debugging.
-
-        :return: The report for debugging.
-        """
-        return "Python SDK Debug Report:\n" \
-               "OS: {env}\n" \
-               "Python Version: {pyversion}\n" \
-               "Version of the API: {{version}}\n" \
-               "SDK Package Version: {{packageVersion}}". \
-            format(env=sys.platform, pyversion=sys.version)
 
     @staticmethod
     def fetch_token(client_id, client_secret, token_url):
