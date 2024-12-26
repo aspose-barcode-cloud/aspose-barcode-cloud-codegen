@@ -77,7 +77,7 @@ namespace {{packageName}}.Api
                 throw new ApiException(400, "Missing required parameter '{{paramName}}' when calling {{nickname}}");
             }
 {{/required}}{{/allParams}}            // create path and map variables
-            string resourcePath = _configuration.GetApiRootUrl() + "{{path}}";
+            string resourcePath = _configuration.ApiRootUrl + "{{path}}";
             resourcePath = Regex
                 .Replace(resourcePath, "\\*", string.Empty)
                 .Replace("&amp;", "&")

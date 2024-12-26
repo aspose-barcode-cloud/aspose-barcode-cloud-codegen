@@ -7,11 +7,8 @@ which make || (
     exit 1
 )
 
-year=$(date +%y)
-month=$(date +%-m)
-
-major=${1:-$year}
-minor=${2:-$month}
+major=${1:-$(date +%y)}
+minor=${2:-$(date +%-m)}
 branch_name="release-${major}.${minor}"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
