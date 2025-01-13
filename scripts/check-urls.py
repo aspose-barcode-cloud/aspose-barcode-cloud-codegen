@@ -55,6 +55,7 @@ URLS_TO_IGNORE: frozenset[str] = frozenset(
         "http://tools.ietf.org/html/rfc2046",
         "http://tools.ietf.org/html/rfc2388",
         "http://urllib3.readthedocs.io/en/latest/advanced-usage.html",
+        "https://api.aspose.cloud",
         "https://api.aspose.cloud/v3.0/barcode/scan",
         "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet/releases/tag/v{{packageVersion}}",
         "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
