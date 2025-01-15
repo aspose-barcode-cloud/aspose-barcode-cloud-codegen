@@ -29,7 +29,7 @@ namespace {{packageName}}.Api
         {
             _configuration = configuration;
 
-            var requestHandlers = new List<IRequestHandler>();
+            List<IRequestHandler> requestHandlers = new List<IRequestHandler>();
             switch (_configuration.AuthType)
             {
                 case AuthType.JWT:
@@ -86,10 +86,10 @@ namespace {{packageName}}.Api
                 .Replace("&amp;", "&")
                 .Replace("/?", "?");
             {{#headerParams}}
-            {{#-first}}var headerParams = new Dictionary<string, string>();{{/-first}}
+            {{#-first}}Dictionary<string, string> headerParams = new Dictionary<string, string>();{{/-first}}
             {{/headerParams}}
             {{#formParams}}
-            {{#-first}}var multipartContent = new MultipartFormDataContent();{{/-first}}
+            {{#-first}}MultipartFormDataContent multipartContent = new MultipartFormDataContent();{{/-first}}
             {{^isEnum}}
             if ({{paramName}} != null)
             { {{/isEnum}}      {{#isEnum}}{{^required}}if ({{paramName}} != null)  { {{/required}}{{/isEnum}}
@@ -135,12 +135,8 @@ namespace {{packageName}}.Api
                 null,
                 {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
 
-            if (response != null)
-            {
-                return ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}}));
-            }
+             return response != null ? ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}})) : null;
 
-            return null;
             {{/returnType}}
             {{^returnType}}
             await _apiInvoker.InvokeApiAsync(

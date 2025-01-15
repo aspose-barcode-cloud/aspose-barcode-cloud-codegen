@@ -11,7 +11,7 @@ from datetime import datetime
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_CONFIG_DIR = os.path.join(SCRIPT_DIR, "..", "codegen")
 
-GO_VERSION_FORMAT = "1.{0}{1:02d}.{2}"
+GO_VERSION_FORMAT = "4.{0}{1:02d}.{2}"
 
 
 def set_android_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-android.json")):
@@ -29,7 +29,7 @@ def set_go_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-g
 
 def set_dart_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-dart.json")):
     config = read_config(filename)
-    pub_version = str.join(".", map(str, (1,) + new_version[:2]))
+    pub_version = str.join(".", map(str, (4,) + new_version[:2]))
     if new_version[2] > 0:
         pub_version += "+" + str(new_version[2])
     config["pubVersion"] = pub_version
