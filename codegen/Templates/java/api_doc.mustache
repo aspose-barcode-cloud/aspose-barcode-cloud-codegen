@@ -17,39 +17,6 @@ Method | HTTP request | Description
 
 {{notes}}{{/notes}}
 
-### {{operationId}} example
-
-```java
-// Import classes:{{#hasAuthMethods}}
-import {{{invokerPackage}}}.ApiClient;{{/hasAuthMethods}}
-import {{{invokerPackage}}}.ApiException;{{#hasAuthMethods}}
-import {{{invokerPackage}}}.Configuration;
-import {{{invokerPackage}}}.auth.*;{{/hasAuthMethods}}
-import {{{package}}}.{{{classname}}};
-
-public class Main {
-
-    public static void main(String[] args) {
-
-        ApiClient client = new ApiClient(
-            "Client Id from https://dashboard.aspose.cloud/applications",
-            "Client Secret from https://dashboard.aspose.cloud/applications"
-        );
-
-        {{{classname}}} api = new {{{classname}}}(client);
-        {{#requiredParams}}
-        {{{dataType}}} {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
-        {{/requiredParams}}
-        try {
-            {{#returnType}}{{{returnType}}} result = {{/returnType}}api.{{{operationId}}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}});{{#returnType}}
-            System.out.println(result);{{/returnType}}
-        } catch (ApiException e) {
-            System.err.println("Exception when calling {{{classname}}}.{{{operationId}}}");
-            e.printStackTrace();
-        }
-    }
-}
-```
 
 ### {{operationId}} parameters
 {{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#-last}}

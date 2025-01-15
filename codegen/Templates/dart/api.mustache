@@ -27,7 +27,7 @@ class {{classname}} {
     Object? postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
     // create path and map variables
-    final String requestPath = "{{{path}}}"{{#pathParams}}.replaceAll("{" + "{{baseName}}" + "}", {{{paramName}}}.toString()){{/pathParams}};
+    final String requestPath = "{{{path}}}"{{#pathParams}}.replaceAll('{' + '{{baseName}}' + '}', {{{paramName}}}.toString()){{/pathParams}};
 
     // query params
     final List<QueryParam> queryParams = [];
