@@ -13,8 +13,8 @@ fi
 # java -jar Tools/openapi-generator-cli.jar config-help -l java
 java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json
 # java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json > debugModels.java.json ; exit
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json > debugOperations.java.json
-# java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json > DdebugSupportingFiles.java.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json > debugOperations.java.json ; exit
+# java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g java -t Templates/java -o $tempDir -c config-java.json > DdebugSupportingFiles.java.json ; exit
 
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/GenerateApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
 python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/api/ScanApi.java $tempDir/src/main/java/com/aspose/barcode/cloud/requests/
