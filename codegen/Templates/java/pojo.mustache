@@ -76,7 +76,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
      * {{{summary}}}.
      *
      * {{#requiredVars}}
-     * @param {{paramName}} {{{unescapedDescription}}}
+     * @param {{name}} {{#unescapedDescription}}{{{unescapedDescription}}}{{/unescapedDescription}}{{^unescapedDescription}}Param of type {{dataType}}{{/unescapedDescription}}
      {{/requiredVars}}*/
     public {{classname}}({{#requiredVars}} {{{dataType}}} {{name}} {{^-last}},{{/-last}} {{/requiredVars}}) {
     {{#requiredVars}}

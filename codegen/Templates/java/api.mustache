@@ -73,7 +73,7 @@ public class {{classname}} {
     @Deprecated
     {{/isDeprecated}}
     @SuppressWarnings("removal")
-    protected com.squareup.okhttp.Call {{operationId}}Call({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    protected okhttp3.Call {{operationId}}Call({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object {{localVariablePrefix}}postBody = {{#bodyParam}}request.{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
 
         // create path and map variables
@@ -92,8 +92,8 @@ public class {{classname}} {
         {{localVariablePrefix}}headerParams.put("{{baseName}}", {{localVariablePrefix}}apiClient.parameterToString(request.{{paramName}}));{{/headerParams}}
 
         {{javaUtilPrefix}}Map<String, Object> {{localVariablePrefix}}formParams = new {{javaUtilPrefix}}HashMap<>();{{#formParams}}
-        if (request.{{paramName}} != null) {
-            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{paramName}});
+        if (request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} != null) {
+            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} );
         }
         {{/formParams}}
 
@@ -112,10 +112,10 @@ public class {{classname}} {
         {{localVariablePrefix}}headerParams.put("Content-Type", {{localVariablePrefix}}contentType);
 
         if(progressListener != null) {
-            {{localVariablePrefix}}apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+            {{localVariablePrefix}}apiClient.getHttpClient().networkInterceptors().add(new okhttp3.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain) throws IOException {
+                    okhttp3.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
                     .build();
@@ -129,18 +129,18 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    private com.squareup.okhttp.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private okhttp3.Call {{operationId}}ValidateBeforeCall({{operationIdCamelCase}}RequestWrapper request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         {{^performBeanValidation}}
         {{#allParams}}{{#required}}
-        // verify the required parameter 'request.{{paramName}}' is set
-        if (request.{{paramName}} == null) {
+        // verify the required parameter 'request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}}' is set
+        if (request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} == null) {
             throw new ApiException(
-                "Missing the required parameter 'request.{{paramName}}'" +
+                "Missing the required parameter 'request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}}'" +
                 " when calling {{operationId}}(...)");
         }
         {{/required}}{{/allParams}}
 
-        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
+        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
         return {{localVariablePrefix}}call;
 
         {{/performBeanValidation}}
@@ -155,7 +155,7 @@ public class {{classname}} {
                     parameterValues);
 
             if (violations.size() == 0) {
-                com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
+                okhttp3.Call {{localVariablePrefix}}call = {{operationId}}Call(request, progressListener, progressRequestListener);
                 return {{localVariablePrefix}}call;
 
             } else {
@@ -212,7 +212,7 @@ public class {{classname}} {
     @Deprecated
     {{/isDeprecated}}
     public ApiResponse<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{operationIdCamelCase}}RequestWrapper request) throws ApiException {
-        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, null, null);
+        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, null, null);
         {{#returnType}}Type {{localVariablePrefix}}returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call, {{localVariablePrefix}}returnType);{{/returnType}}{{^returnType}}return {{localVariablePrefix}}apiClient.execute({{localVariablePrefix}}call);{{/returnType}}
     }
@@ -235,7 +235,7 @@ public class {{classname}} {
     {{#isDeprecated}}
     @Deprecated
     {{/isDeprecated}}
-    public com.squareup.okhttp.Call {{operationId}}Async({{operationIdCamelCase}}RequestWrapper request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
+    public okhttp3.Call {{operationId}}Async({{operationIdCamelCase}}RequestWrapper request, final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -256,7 +256,7 @@ public class {{classname}} {
             };
         }
 
-        com.squareup.okhttp.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, progressListener, progressRequestListener);
+        okhttp3.Call {{localVariablePrefix}}call = {{operationId}}ValidateBeforeCall(request, progressListener, progressRequestListener);
         {{#returnType}}Type {{localVariablePrefix}}returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         {{localVariablePrefix}}apiClient.executeAsync({{localVariablePrefix}}call, {{localVariablePrefix}}returnType, callback);{{/returnType}}{{^returnType}}{{localVariablePrefix}}apiClient.executeAsync({{localVariablePrefix}}call, callback);{{/returnType}}
         return {{localVariablePrefix}}call;
@@ -322,7 +322,7 @@ public class {{operationIdCamelCase}}RequestWrapper {
     /**
      * {{{unescapedDescription}}}.
      */
-    public {{#required}}final{{/required}} {{{dataType}}} {{paramName}} {{^required}}{{#defaultValue}}={{{example}}}{{/defaultValue}}{{/required}};
+    public {{#required}}final{{/required}} {{{dataType}}} {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} {{^required}}{{#defaultValue}}={{{example}}}{{/defaultValue}}{{/required}};
     {{/allParams}}
 
     {{#requiredParams.0}}
@@ -330,11 +330,11 @@ public class {{operationIdCamelCase}}RequestWrapper {
      * {{{summary}}}.
      *
      * {{#requiredParams}}
-     * @param {{paramName}} {{{unescapedDescription}}}
+     * @param {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} {{#unescapedDescription}}{{unescapedDescription}}{{/unescapedDescription}}{{^unescapedDescription}}Param of type {{dataType}}{{/unescapedDescription}}
      {{/requiredParams}}*/
-    public {{operationIdCamelCase}}RequestWrapper({{#requiredParams}} {{{dataType}}} {{paramName}} {{^-last}},{{/-last}} {{/requiredParams}}) {
+    public {{operationIdCamelCase}}RequestWrapper({{#requiredParams}} {{{dataType}}} {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} {{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
-        this.{{paramName}} = {{paramName}};
+        this.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} = {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}};
     {{/requiredParams}}
     }
     {{/requiredParams.0}}

@@ -66,6 +66,7 @@ namespace {{packageName}}.Api
         /// </summary>
         {{#allParams}}/// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
         {{/allParams}}
+        /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous operation. {{#returnType}}Task result type is  <see cref="{{returnType}}" /> {{/returnType}}
         /// </returns>

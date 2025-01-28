@@ -11,7 +11,7 @@ class {{classname}} {
       {{#description}}
   /// {{description}}
       {{/description}}
-  // ignore: non_constant_identifier_names
+  // ignore: non_constant_identifier_names{{^description}}, public_member_api_docs{{/description}}
   static final {{classname}} {{.}} = {{classname}}._internal("{{.}}");
     {{/values}}
   {{/allowableValues}}
