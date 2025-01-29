@@ -21,7 +21,7 @@ echo "Update Swagger specification..."
 ./scripts/update_swagger_spec.bash
 
 echo "Switch to main all submodules for start new branch in the right place..."
-./scripts/switch_all_submodules_to_main.bash
+./scripts/switch_all_submodules_to_default.bash
 
 echo "Switching to ${branch_name}"
 git switch --create "${branch_name}" || git switch "${branch_name}"

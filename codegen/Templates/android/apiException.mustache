@@ -89,7 +89,8 @@ class MainActivity : AppCompatActivity() {
 
         client.readTimeout = 60_000
 
-        api = BarcodeApi(client)
+        generateApi = GenerateApi(client)
+        scanApi = ScanApi(client)
 
         barcodeTypeSpinner = findViewById(R.id.typeSpinner)
         populateBarcodeTypesSpinner()
@@ -257,13 +258,13 @@ class MainActivity : AppCompatActivity() {
                         type, barcodeTextEdit.text.toString());
 
         genRequest.imageFormat = BarcodeImageFormat.PNG;
-        genRequest.imageHeight = barcodeImgView.measuredHeight.toDouble()
-        genRequest.imageWidth = barcodeImgView.measuredWidth.toDouble()
+        genRequest.imageHeight = barcodeImgView.measuredHeight.toFloat()
+        genRequest.imageWidth = barcodeImgView.measuredWidth.toFloat()
 
 
         Thread {
             try {
-                val generated: File? = genApi.generate(genRequest);
+                val generated: File? = generateApi.generate(genRequest);
                 runOnUiThread {
                     val bitmap = BitmapFactory.decodeFile(generated!!.absolutePath)
                     barcodeImgView.setImageBitmap(bitmap)
