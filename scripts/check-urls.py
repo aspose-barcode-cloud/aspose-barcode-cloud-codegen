@@ -93,6 +93,7 @@ FILES_TO_IGNORE = frozenset(
         ".jar",
         ".jar",
         ".jpg",
+        ".jpeg",
         ".png",
     ]
 )
