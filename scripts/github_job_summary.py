@@ -21,7 +21,7 @@ class JobSummary:
         self._success = []
         self._lock = Lock()
 
-    def close(self):
+    def close(self) -> None:
         assert not self.__file.closed
         self.__file.close()
 
@@ -31,7 +31,7 @@ class JobSummary:
         lines = ["Errors:"] + self._errors
         return "\n\n".join(lines)
 
-    def _write_line(self, line):
+    def _write_line(self, line: str) -> None:
         with self._lock:
             self.__file.write(line.replace("\r", ""))
 
@@ -39,10 +39,10 @@ class JobSummary:
     def has_errors(self) -> bool:
         return bool(self._errors)
 
-    def add_header(self, text: str, level: int = 3):
+    def add_header(self, text: str, level: int = 3) -> None:
         self._write_line(f"{'#' * level} {text}\n\n")
 
-    def add_error(self, text: str):
+    def add_error(self, text: str) -> None:
         """
         See https://github.com/markdown-templates/markdown-emojis
         """
@@ -51,10 +51,10 @@ class JobSummary:
         self._errors.append(text)
         self._write_line(f"\n1. :x: {text}\n")
 
-    def add_success(self, text: str):
+    def add_success(self, text: str) -> None:
         self._success.append(text)
 
-    def finalize(self, format_str: str):
+    def finalize(self, format_str: str) -> None:
         total = len(self._success) + len(self._errors)
         self._write_line(
             "\n" + format_str.format(total=total, success=len(self._success), failed=len(self._errors)) + "\n"

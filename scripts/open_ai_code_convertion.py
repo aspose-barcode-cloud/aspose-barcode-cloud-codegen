@@ -6,10 +6,11 @@ import re
 
 # Environment Variables for OpenAI API Authentication
 client = OpenAI(
-    api_key = os.getenv("OPEN_AI_API_KEY"), 
-    organization = os.getenv("OPEN_AI_ORG_ID"),
-    project = os.getenv("OPEN_AI_PROJECT_ID")
-    )
+    api_key=os.getenv("OPEN_AI_API_KEY"),
+    organization=os.getenv("OPEN_AI_ORG_ID"),
+    project=os.getenv("OPEN_AI_PROJECT_ID"),
+)
+
 
 # Helper function to convert file content
 def convert_code(content, source_lang, target_lang, target_snippet):
@@ -34,8 +35,8 @@ def convert_code(content, source_lang, target_lang, target_snippet):
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful code conversion assistant."},
-                {"role": "user", "content": prompt}
-            ]
+                {"role": "user", "content": prompt},
+            ],
         )
         print("Getted response")
         return response.choices[0].message.content
@@ -57,21 +58,22 @@ def process_files(folder, source_ext, target_ext, source_lang, target_lang, targ
             if file.endswith(source_ext):
                 file_path = Path(root) / file
                 print(f"Processing file: {file_path}")
-                
-                with open(file_path, 'r') as f:
+
+                with open(file_path, "r") as f:
                     content = f.read()
-                
+
                 converted_content = convert_code(content, source_lang, target_lang, target_snippet)
                 if converted_content:
                     matches = re.findall(pattern, converted_content)
                     if matches:
                         converted_content = matches[0][0].strip()
                     target_file_path = file_path.with_suffix(target_ext)
-                    with open(target_file_path, 'w') as f:
+                    with open(target_file_path, "w") as f:
                         f.write(converted_content)
                     print(f"Converted file saved as: {target_file_path}")
                 else:
                     print(f"Failed to convert file: {file_path}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert source code files between programming languages.")
@@ -81,12 +83,12 @@ if __name__ == "__main__":
     parser.add_argument("source_lang", type=str, help="Source language (e.g., JavaScript).")
     parser.add_argument("target_lang", type=str, help="Target language (e.g., Python).")
     parser.add_argument("target_snippet_file", type=str, help="File containing a code snippet in the target language.")
-    
+
     args = parser.parse_args()
 
     # Read the target snippet from the provided file
     try:
-        with open(args.target_snippet_file, 'r') as snippet_file:
+        with open(args.target_snippet_file, "r") as snippet_file:
             target_snippet = snippet_file.read()
     except Exception as e:
         print(f"Error reading target snippet file: {e}")

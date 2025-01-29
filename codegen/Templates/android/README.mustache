@@ -10,7 +10,7 @@ Scan existing barcodes belonging to 60+ symbologies, including, *Codabar*, *PDF4
 
 ## BarCode Processing Features
 
-- [Generate](https://docs.aspose.cloud/barcode/generate-format-and-manipulate-a-barcode-using-cloud-storage/), scan and customize *1D* (linear), *2D* and *postal* barcodes.
+- [Generate](https://docs.aspose.cloud/barcode/v4.0/quickstart/#make-an-api-request-from-the-sdk-of-your-choice), scan and customize *1D* (linear), *2D* and *postal* barcodes.
 - Generate and recognize barcodes with the checksum option.
 - Fetch barcode as an image stream or save the barcode to the local disk.
 - Configure barcode height, width, angle quality, margin & resolution.
