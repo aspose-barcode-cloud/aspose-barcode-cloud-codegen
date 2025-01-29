@@ -5,6 +5,8 @@ import subprocess
 import sys
 import threading
 import time
+import typing
+import urllib.parse
 from queue import SimpleQueue
 
 from github_job_summary import JobSummary
@@ -29,49 +31,57 @@ class Curl:
 
 
 CURL_EXIT_CODES_AND_HTTP_CODES = {
-    "http://schemas.android.com/aapt": (Curl.COULDNT_RESOLVE_HOST, None),
-    "http://schemas.android.com/apk/res-auto": (Curl.COULDNT_RESOLVE_HOST, None),
-    "http://schemas.android.com/apk/res/android": (Curl.COULDNT_RESOLVE_HOST, None),
-    "http://schemas.android.com/tools": (Curl.COULDNT_RESOLVE_HOST, None),
     "https://api.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
     "https://api.aspose.cloud/v3.0": (Curl.HTTP_RETURNED_ERROR, 404),
-    "https://id.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
     "https://api.aspose.cloud/v4.0": (Curl.HTTP_RETURNED_ERROR, 404),
+    "https://api.aspose.cloud/v4.0/": (Curl.HTTP_RETURNED_ERROR, 404),
+    "https://id.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
     "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (Curl.COULDNT_RESOLVE_HOST, None),
-    "https://mvnrepository.com/artifact/io.swagger/swagger-codegen-cli": (Curl.HTTP_RETURNED_ERROR, 403),
-    "https://www.npmjs.com/package/aspose-barcode-cloud-node": (Curl.HTTP_RETURNED_ERROR, 429),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
 
 URLS_TO_IGNORE: frozenset[str] = frozenset(
     [
-        "http://|https://|ftp://",
-        "http://localhost:$port/",
-        "http://localhost:47972",
-        "http://localhost:47972/connect/token",
-        "http://localhost:47972/v3.0",
-        "http://localhost:47972/v3.0/barcode/swagger/spec",
-        "http://some",
-        "http://tools.ietf.org/html/rfc1341.html",
-        "http://tools.ietf.org/html/rfc2046",
-        "http://tools.ietf.org/html/rfc2388",
-        "http://urllib3.readthedocs.io/en/latest/advanced-usage.html",
         "https://api.aspose.cloud",
-        "https://api.aspose.cloud/v3.0/barcode/scan",
-        "https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-dotnet/releases/tag/v{{packageVersion}}",
-        "https://img.shields.io/badge/api-v{{appVersion}}-lightgrey",
-        "https://pypi.org/project/{{projectName}}/",
-        "https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.14/swagger-codegen-cli-2.4.14.jar",
-        "https://tools.ietf.org/html/rfc1521",
-        "https://unknown",
         "https://www.aspose.cloud/404",
-        "https://www.mojohaus.org/VERSIONS/RULE/2.1.0",
+    ]
+)
+
+IGNORE_DOMAINS: frozenset[str] = frozenset(
+    [
+        "central.sonatype.org",
+        "curl.se",
+        "dart.dev",
+        "getcomposer.org",
+        "go.dev",
+        "maven.apache.org",
+        "mvnrepository.com",
+        "mvnrepository.com",
+        "nodejs.org",
+        "packagist.org",
+        "pkg.go.dev",
+        "pub.dev",
+        "pypi.org",
+        "pypi.python.org",
+        "repo1.maven.org",
+        "tools.ietf.org",
+        "urllib3.readthedocs.io",
+        "www.apache.org",
+        "www.dartlang.org",
+        "www.gradle.org",
+        "www.mojohaus.org",
+        "www.npmjs.com",
+        "www.nuget.org",
+        "www.opensource.org",
+        "www.php.net",
+        "www.python.org",
+        "www.w3.org",
     ]
 )
 
 URL_END_CHARS = r",#\)\"'<>\*\s\\"
-URL_RE_PATTERN = r"(https*://[^%s]+)[%s]?" % (URL_END_CHARS, URL_END_CHARS)
+URL_RE_PATTERN = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
 # print(URL_RE_PATTERN)
 URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
@@ -79,8 +89,41 @@ URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 EXTRACTED_URLS_WITH_FILES: dict[str, list[str]] = {k: [] for k in URLS_TO_IGNORE}
 
 
-def url_extractor(text, filename):
+def valid_url(url: str) -> bool:
+    try:
+        parsed: urllib.parse.ParseResult = urllib.parse.urlparse(url)
+    except:
+        # Malformed URL
+        return False
+    else:
+        domain = parsed.netloc
+        if "." not in domain:
+            # Ignore "localhost" and other domains without .
+            return False
+        if domain in IGNORE_DOMAINS:
+            return False
+
+        if (
+            domain.endswith("android.com")
+            or domain.endswith(".google.com")
+            or domain.endswith(".microsoft.com")
+            or domain.endswith(".wikipedia.org")
+        ):
+            # Ignore popular domain
+            return False
+
+    if "{{" in url or "}}" in url:
+        # Ignore templates with {{var}}
+        return False
+
+    return True
+
+
+def url_extractor(text: str, filename: str) -> typing.Generator[str, None, None]:
     for url in URL_REGEX.findall(text):
+        if not valid_url(url):
+            # print("Ignore:", url)
+            continue
         if url not in EXTRACTED_URLS_WITH_FILES:
             EXTRACTED_URLS_WITH_FILES[url] = [filename]
             yield url
@@ -99,7 +142,7 @@ FILES_TO_IGNORE = frozenset(
 )
 
 
-def text_extractor(files):
+def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, None]:
     for filename in files:
         if os.path.splitext(filename)[1] in FILES_TO_IGNORE:
             continue
@@ -113,10 +156,12 @@ def text_extractor(files):
 
 
 class Task:
+    _proc: subprocess.Popen[bytes]
+    _stderr: str | None
     # To avoid 403 responses
     USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
-    def __init__(self, url):
+    def __init__(self, url: str):
         self.url = url
         self._proc = subprocess.Popen(
             [
@@ -155,12 +200,12 @@ class Task:
         return time.time() - self._started
 
 
-def create_new_task(url) -> Task:
+def create_new_task(url: str) -> Task:
     # print("Create task:", url)
     return Task(url)
 
 
-def process_finished_task(task) -> None:
+def process_finished_task(task: Task) -> None:
     # print("Finish task:", task.url)
     expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
     if task.ret_code == 0 or task.ret_code == expected_ret_code:
@@ -185,7 +230,7 @@ def process_finished_task(task) -> None:
     JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
 
 
-WORKER_QUEUE: SimpleQueue = SimpleQueue()
+WORKER_QUEUE: SimpleQueue[str | None] = SimpleQueue()
 
 
 def url_checker(num_workers: int = 8) -> None:
