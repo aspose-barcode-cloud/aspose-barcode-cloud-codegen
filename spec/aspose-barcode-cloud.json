@@ -56,7 +56,7 @@
           {
             "name": "textLocation",
             "in": "query",
-            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\r\nDefault value: CodeLocation.Below.",
+            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\r\nDefault value: Depends on BarcodeType. CodeLocation.Below for 1D Barcodes. CodeLocation.None for 2D Barcodes.",
             "schema": {
               "$ref": "#/components/schemas/CodeLocation"
             }
