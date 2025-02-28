@@ -44,9 +44,11 @@ mv "$tempDir/docs" "$targetDir/"
 
 mv "$tempDir/README.md" "$targetDir/README.template"
 mv "$tempDir/src/Aspose.BarCode.Cloud.Sdk/Aspose.BarCode.Cloud.Sdk.csproj" "$targetDir/src/Aspose.BarCode.Cloud.Sdk.csproj"
+cp "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csproj" "$targetDir/snippets/Snippets.csproj"
 cp "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csproj" "$targetDir/examples/GenerateQR/GenerateQR.csproj"
 mv "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csproj" "$targetDir/examples/ReadQR/ReadQR.csproj"
 
+mv "$tempDir/git_push.sh" "$targetDir/snippets/dependency.xml"
 
 rm -rf $tempDir
 pushd "$targetDir" && make after-gen && popd >/dev/null

@@ -41,6 +41,8 @@ mv $tempDir/pom.xml $targetDir
 cp ../LICENSE $targetDir
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
+mv "$tempDir/git_push.sh" "$targetDir/snippets/dependency.xml"
+
 rm -rf $tempDir
 
 pushd "$targetDir" && make after-gen && popd >/dev/null
