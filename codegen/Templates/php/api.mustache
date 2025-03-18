@@ -44,7 +44,7 @@ use RuntimeException;
      * @param Configuration|null $config configuration info
      * @param HeaderSelector|null $selector class for header selection
      */
-    public function __construct(ClientInterface $client = null, Configuration $config = null, HeaderSelector $selector = null)
+    public function __construct(?ClientInterface $client = null, ?Configuration $config = null, ?HeaderSelector $selector = null)
     {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -155,15 +155,10 @@ use RuntimeException;
             return [null, $statusCode, $response->getHeaders()];
             {{/returnType}}
         } catch (ApiException $e) {
-            switch ($e->getCode()) {
-        {{#responses}}
-            {{#dataType}}
-                {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), '{{dataType}}', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            {{/dataType}}
-        {{/responses}}
+            $code = $e->getCode();
+            if ($code >= 400 && $code < 500) {
+                $data = ObjectSerializer::deserialize($e->getResponseBody(), '\Aspose\BarCode\Model\ApiErrorResponse', $e->getResponseHeaders());
+                $e->setResponseObject($data);
             }
             throw $e;
         }

@@ -277,18 +277,17 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 			text:  string(responseBody),
 			StatusCode: httpResponse.StatusCode,
 		}
-		{{#responses}}{{#dataType}}
-		if httpResponse.StatusCode == {{{code}}} {
-			var v {{{dataType}}}
+		if httpResponse.StatusCode >= 400 && httpResponse.StatusCode < 500 {
+			var v ApiErrorResponse
 			err = a.client.decode(&v, responseBody, httpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return {{#returnType}}returnValue, {{/returnType}}httpResponse, newErr
+				return returnValue, httpResponse, newErr
 			}
 			newErr.model = v
-			return {{#returnType}}returnValue, {{/returnType}}httpResponse, newErr
+			return returnValue, httpResponse, newErr
 		}
-		{{/dataType}}{{/responses}}
+
 		return {{#returnType}}returnValue, {{/returnType}}httpResponse, newErr
 	}
 

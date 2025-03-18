@@ -8,3 +8,4 @@ codegen/.generated/
 codegen/debug*.json
 .idea/
 .vscode/
+.qodo
