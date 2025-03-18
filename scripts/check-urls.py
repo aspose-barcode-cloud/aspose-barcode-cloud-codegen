@@ -45,6 +45,7 @@ URLS_TO_IGNORE: frozenset[str] = frozenset(
     [
         "https://api.aspose.cloud",
         "https://www.aspose.cloud/404",
+        "https://www.aspose.cloud/404/",
     ]
 )
 
