@@ -10,6 +10,7 @@ import urllib.parse
 from queue import SimpleQueue
 
 from github_job_summary import JobSummary
+from subdomains import Subdomains
 
 """
 Read file names from stdin (feed from git ls-files)
@@ -17,6 +18,9 @@ Read file names from stdin (feed from git ls-files)
 Extract all URL-like strings
 Check them with CURL
 """
+
+# To avoid 403 responses
+USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
 
 class Curl:
@@ -49,35 +53,36 @@ URLS_TO_IGNORE: frozenset[str] = frozenset(
     ]
 )
 
-IGNORE_DOMAINS: frozenset[str] = frozenset(
+IGNORE_DOMAINS = Subdomains(
     [
-        "central.sonatype.org",
-        "curl.se",
-        "dart.dev",
-        "getcomposer.org",
-        "go.dev",
-        "maven.apache.org",
-        "mvnrepository.com",
-        "mvnrepository.com",
-        "nodejs.org",
-        "packagist.org",
-        "pkg.go.dev",
-        "pub.dev",
-        "pypi.org",
-        "pypi.python.org",
-        "repo1.maven.org",
-        "tools.ietf.org",
-        "urllib3.readthedocs.io",
-        "www.apache.org",
-        "www.dartlang.org",
-        "www.gradle.org",
-        "www.mojohaus.org",
-        "www.npmjs.com",
-        "www.nuget.org",
-        "www.opensource.org",
-        "www.php.net",
-        "www.python.org",
-        "www.w3.org",
+        ".android.com",
+        ".apache.org",
+        ".curl.se",
+        ".dart.dev",
+        ".dartlang.org",
+        ".getcomposer.org",
+        ".go.dev",
+        ".google.com",
+        ".gradle.org",
+        ".ietf.org",
+        ".maven.org",
+        ".microsoft.com",
+        ".mojohaus.org",
+        ".mvnrepository.com",
+        ".nodejs.org",
+        ".npmjs.com",
+        ".nuget.org",
+        ".opensource.org",
+        ".packagist.org",
+        ".php.net",
+        ".phpunit.de",
+        ".pub.dev",
+        ".pypi.org",
+        ".python.org",
+        ".readthedocs.io",
+        ".sonatype.org",
+        ".w3.org",
+        ".wikipedia.org",
     ]
 )
 
@@ -101,16 +106,7 @@ def valid_url(url: str) -> bool:
         if "." not in domain:
             # Ignore "localhost" and other domains without .
             return False
-        if domain in IGNORE_DOMAINS:
-            return False
-
-        if (
-            domain.endswith("android.com")
-            or domain.endswith(".google.com")
-            or domain.endswith(".microsoft.com")
-            or domain.endswith(".wikipedia.org")
-        ):
-            # Ignore popular domain
+        if IGNORE_DOMAINS.exists(domain):
             return False
 
     if "{{" in url or "}}" in url:
@@ -159,8 +155,6 @@ def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, 
 class Task:
     _proc: subprocess.Popen[bytes]
     _stderr: str | None
-    # To avoid 403 responses
-    USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
     def __init__(self, url: str):
         self.url = url
@@ -171,7 +165,7 @@ class Task:
                 "--output",
                 "-",
                 "--user-agent",
-                self.USER_AGENT,
+                USER_AGENT,
                 self.url,
             ],
             stdout=open(os.devnull, "w"),
@@ -256,7 +250,7 @@ def url_checker(num_workers: int = 8) -> None:
                 item = WORKER_QUEUE.get()
                 if item is None:
                     queue_is_empty = True
-                    print("URL queue is over")
+                    print("--- url queue is over ---")
                     break
                 url = item
                 workers[i] = create_new_task(url)
