@@ -45,8 +45,8 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
 
-REGEX_TO_IGNORE: list[re.Pattern] = [
-    re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues|pull)/.+$"),
+REGEX_TO_IGNORE: list[re.Pattern[str]] = [
+    re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues)/\S+$"),
 ]
 
 URLS_TO_IGNORE: frozenset[str] = frozenset(
