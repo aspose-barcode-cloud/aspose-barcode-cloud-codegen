@@ -1,14 +1,16 @@
 name: Check URLs
 
 on:
+  push:
+    branches:
+      - main
   # Run on each PR to main
   pull_request:
     branches:
       - main
   # And every day at 03:00 UTC
   schedule:
-    - cron: '0 3 * * *'
-
+    - cron: "0 3 * * *"
 
 jobs:
   check-urls:
