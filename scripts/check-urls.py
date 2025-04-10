@@ -45,6 +45,10 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
 
+REGEX_TO_IGNORE: list[re.Pattern] = [
+    re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues|pull)/.+$"),
+]
+
 URLS_TO_IGNORE: frozenset[str] = frozenset(
     [
         "https://api.aspose.cloud",
@@ -62,6 +66,7 @@ IGNORE_DOMAINS = Subdomains(
         ".dartlang.org",
         ".getcomposer.org",
         ".go.dev",
+        ".golang.org",
         ".google.com",
         ".gradle.org",
         ".ietf.org",
@@ -83,19 +88,21 @@ IGNORE_DOMAINS = Subdomains(
         ".sonatype.org",
         ".w3.org",
         ".wikipedia.org",
+        # Regular domains
+        "editorconfig.org",
     ]
 )
 
 URL_END_CHARS = r",#\)\"'<>\*\s\\"
 URL_RE_PATTERN = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
 # print(URL_RE_PATTERN)
-URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
+EXTRACT_URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
 # URL : [Files]
 EXTRACTED_URLS_WITH_FILES: dict[str, list[str]] = {k: [] for k in URLS_TO_IGNORE}
 
 
-def valid_url(url: str) -> bool:
+def should_check_url(url: str) -> bool:
     try:
         parsed: urllib.parse.ParseResult = urllib.parse.urlparse(url)
     except:
@@ -113,12 +120,17 @@ def valid_url(url: str) -> bool:
         # Ignore templates with {{var}}
         return False
 
+    for r in REGEX_TO_IGNORE:
+        if r.match(url):
+            # print("Ignore by regex", r.pattern, ":", url, file=sys.stderr)
+            return False
+
     return True
 
 
 def url_extractor(text: str, filename: str) -> typing.Generator[str, None, None]:
-    for url in URL_REGEX.findall(text):
-        if not valid_url(url):
+    for url in EXTRACT_URL_REGEX.findall(text):
+        if not should_check_url(url):
             # print("Ignore:", url)
             continue
         if url not in EXTRACTED_URLS_WITH_FILES:

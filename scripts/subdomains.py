@@ -11,17 +11,17 @@ class Subdomains:
         self.plain_domains = set()
 
         tmp_level_with_dom: defaultdict[int, list[tuple[str, ...]]] = collections.defaultdict(list)
-        for d in domains:
+        for d in map(self.normalize_domain, domains):
             if d.startswith("."):
                 level, parts = self.get_level(d)
                 tmp_level_with_dom[level].append(parts)
             else:
                 self.plain_domains.add(d)
-
         # Ensure sorted by level
         self.domains_by_levels = tuple((key, tmp_level_with_dom[key]) for key in sorted(tmp_level_with_dom.keys()))
 
     def exists(self, domain_name: str) -> bool:
+        domain_name = self.normalize_domain(domain_name)
         if domain_name in self.plain_domains:
             return True
 
@@ -48,11 +48,16 @@ class Subdomains:
         parts = domain_name.strip(".").split(".")
         return len(parts), tuple(reversed(parts))
 
+    @staticmethod
+    def normalize_domain(domain_name: str) -> str:
+        return domain_name.lower()
+
 
 def test() -> None:
-    sd = Subdomains([".very.long.domain.name", "android.com", ".google.com"])
+    sd = Subdomains([".very.long.domain.name", "android.com", ".google.com", "editorconfig.org"])
     assert sd.exists("test.google.com")
     assert not sd.exists("test.android.com")
+    assert sd.exists("EditorConfig.org")
 
 
 if __name__ == "__main__":
