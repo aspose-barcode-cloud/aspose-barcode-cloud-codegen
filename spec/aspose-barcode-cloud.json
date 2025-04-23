@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.4",
   "info": {
     "title": "Aspose.BarCode.Cloud v4.0 Specification",
     "description": "High quality barcodes generation and recognition API",
@@ -95,8 +95,7 @@
               "maximum": 100000,
               "minimum": 1,
               "type": "number",
-              "format": "float",
-              "default": ""
+              "format": "float"
             }
           },
           {
@@ -105,8 +104,7 @@
             "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
-              "format": "float",
-              "default": ""
+              "format": "float"
             }
           },
           {
@@ -115,8 +113,7 @@
             "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "schema": {
               "type": "number",
-              "format": "float",
-              "default": ""
+              "format": "float"
             }
           },
           {
@@ -274,20 +271,17 @@
                     "minimum": 1,
                     "type": "number",
                     "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
-                    "format": "float",
-                    "default": ""
+                    "format": "float"
                   },
                   "imageHeight": {
                     "type": "number",
                     "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
-                    "format": "float",
-                    "default": ""
+                    "format": "float"
                   },
                   "imageWidth": {
                     "type": "number",
                     "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
-                    "format": "float",
-                    "default": ""
+                    "format": "float"
                   },
                   "rotationAngle": {
                     "type": "integer",
@@ -1153,30 +1147,45 @@
           "code": {
             "type": "string",
             "description": "Gets or sets api error code.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Code"
+            }
           },
           "message": {
             "type": "string",
             "description": "Gets or sets error message.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Message"
+            }
           },
           "description": {
             "type": "string",
             "description": "Gets or sets error description.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Description"
+            }
           },
           "dateTime": {
             "type": "string",
             "description": "Gets or sets server datetime.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "DateTime"
+            }
           },
           "innerError": {
             "$ref": "#/components/schemas/ApiError"
           }
         },
         "additionalProperties": false,
-        "description": "Api Error."
+        "description": "Api Error.",
+        "xml": {
+          "name": "ApiError"
+        }
       },
       "ApiErrorResponse": {
         "required": [
@@ -1188,14 +1197,20 @@
           "requestId": {
             "type": "string",
             "description": "Gets or sets request Id.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "RequestId"
+            }
           },
           "error": {
             "$ref": "#/components/schemas/ApiError"
           }
         },
         "additionalProperties": false,
-        "description": "ApiError Response"
+        "description": "ApiError Response",
+        "xml": {
+          "name": "ApiErrorResponse"
+        }
       },
       "BarcodeImageFormat": {
         "enum": [
@@ -1206,7 +1221,10 @@
           "Gif"
         ],
         "type": "string",
-        "description": "Specifies the file format of the image."
+        "description": "Specifies the file format of the image.",
+        "xml": {
+          "name": "ImageFormat"
+        }
       },
       "BarcodeImageParams": {
         "type": "object",
@@ -1221,13 +1239,19 @@
             "type": "string",
             "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
             "default": "Black",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "ForegroundColor"
+            }
           },
           "backgroundColor": {
             "type": "string",
             "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
             "default": "White",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "BackgroundColor"
+            }
           },
           "units": {
             "$ref": "#/components/schemas/GraphicsUnit"
@@ -1238,32 +1262,47 @@
             "type": "number",
             "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
             "format": "float",
-            "default": "",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Resolution"
+            },
+            "example": 96
           },
           "imageHeight": {
             "type": "number",
             "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
-            "default": "",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "ImageHeight"
+            },
+            "example": 200
           },
           "imageWidth": {
             "type": "number",
             "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
             "format": "float",
-            "default": "",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "ImageWidth"
+            },
+            "example": 200
           },
           "rotationAngle": {
             "type": "integer",
             "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
             "format": "int32",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "RotationAngle"
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Barcode image optional parameters"
+        "description": "Barcode image optional parameters",
+        "xml": {
+          "name": "BarcodeImageParams"
+        }
       },
       "BarcodeResponse": {
         "type": "object",
@@ -1271,12 +1310,18 @@
           "barcodeValue": {
             "type": "string",
             "description": "Barcode data.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "BarcodeValue"
+            }
           },
           "type": {
             "type": "string",
             "description": "Type of the barcode.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Type"
+            }
           },
           "region": {
             "type": "array",
@@ -1284,16 +1329,26 @@
               "$ref": "#/components/schemas/RegionPoint"
             },
             "description": "Region with barcode.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Region",
+              "wrapped": true
+            }
           },
           "checksum": {
             "type": "string",
             "description": "Checksum of barcode.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Checksum"
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Represents information about barcode."
+        "description": "Represents information about barcode.",
+        "xml": {
+          "name": "BarcodeResponse"
+        }
       },
       "BarcodeResponseList": {
         "required": [
@@ -1307,11 +1362,18 @@
               "$ref": "#/components/schemas/BarcodeResponse"
             },
             "description": "List of barcodes which are present in image.",
-            "nullable": true
+            "nullable": true,
+            "xml": {
+              "name": "Barcodes",
+              "wrapped": true
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Represents information about barcode list."
+        "description": "Represents information about barcode list.",
+        "xml": {
+          "name": "BarcodeResponseList"
+        }
       },
       "CodeLocation": {
         "enum": [
@@ -1319,7 +1381,10 @@
           "Above",
           "None"
         ],
-        "type": "string"
+        "type": "string",
+        "xml": {
+          "name": "TextLocation"
+        }
       },
       "DecodeBarcodeType": {
         "enum": [
@@ -1409,7 +1474,10 @@
           "VIN"
         ],
         "type": "string",
-        "description": "See Aspose.BarCode.Aspose.BarCode.BarCodeRecognition.DecodeType"
+        "description": "See Aspose.BarCode.Aspose.BarCode.BarCodeRecognition.DecodeType",
+        "xml": {
+          "name": "DecodeBarcodeType"
+        }
       },
       "EncodeBarcodeType": {
         "enum": [
@@ -1488,7 +1556,10 @@
           "VIN"
         ],
         "type": "string",
-        "description": "See Aspose.BarCode.Generation.EncodeTypes"
+        "description": "See Aspose.BarCode.Generation.EncodeTypes",
+        "xml": {
+          "name": "BarcodeType"
+        }
       },
       "EncodeData": {
         "required": [
@@ -1502,11 +1573,17 @@
           "data": {
             "minLength": 1,
             "type": "string",
-            "description": "String represents data to encode"
+            "description": "String represents data to encode",
+            "xml": {
+              "name": "Data"
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Data to encode in barcode"
+        "description": "Data to encode in barcode",
+        "xml": {
+          "name": "EncodeData"
+        }
       },
       "EncodeDataType": {
         "enum": [
@@ -1515,7 +1592,10 @@
           "HexBytes"
         ],
         "type": "string",
-        "description": "Types of data can be encoded to barcode"
+        "description": "Types of data can be encoded to barcode",
+        "xml": {
+          "name": "DataType"
+        }
       },
       "GenerateParams": {
         "required": [
@@ -1535,7 +1615,10 @@
           }
         },
         "additionalProperties": false,
-        "description": "Barcode generation parameters"
+        "description": "Barcode generation parameters",
+        "xml": {
+          "name": "GenerateParams"
+        }
       },
       "GraphicsUnit": {
         "enum": [
@@ -1545,7 +1628,10 @@
           "Millimeter"
         ],
         "type": "string",
-        "description": "Subset of Aspose.Drawing.GraphicsUnit."
+        "description": "Subset of Aspose.Drawing.GraphicsUnit.",
+        "xml": {
+          "name": "Units"
+        }
       },
       "RecognitionImageKind": {
         "enum": [
@@ -1554,7 +1640,10 @@
           "ClearImage"
         ],
         "type": "string",
-        "description": "Kind of image to recognize"
+        "description": "Kind of image to recognize",
+        "xml": {
+          "name": "RecognitionImageKind"
+        }
       },
       "RecognitionMode": {
         "enum": [
@@ -1563,7 +1652,10 @@
           "Excellent"
         ],
         "type": "string",
-        "description": "Recognition mode."
+        "description": "Recognition mode.",
+        "xml": {
+          "name": "RecognitionMode"
+        }
       },
       "RecognizeBase64Request": {
         "required": [
@@ -1577,13 +1669,20 @@
             "items": {
               "$ref": "#/components/schemas/DecodeBarcodeType"
             },
-            "description": "Array of decode types to find on barcode"
+            "description": "Array of decode types to find on barcode",
+            "xml": {
+              "name": "BarcodeTypes",
+              "wrapped": true
+            }
           },
           "fileBase64": {
             "maxLength": 28730982,
             "minLength": 1,
             "type": "string",
-            "description": "Barcode image bytes encoded as base-64."
+            "description": "Barcode image bytes encoded as base-64.",
+            "xml": {
+              "name": "FileBase64"
+            }
           },
           "recognitionMode": {
             "$ref": "#/components/schemas/RecognitionMode"
@@ -1593,7 +1692,10 @@
           }
         },
         "additionalProperties": false,
-        "description": "Barcode recognize request"
+        "description": "Barcode recognize request",
+        "xml": {
+          "name": "RecognizeBase64Request"
+        }
       },
       "RegionPoint": {
         "type": "object",
@@ -1601,16 +1703,25 @@
           "x": {
             "type": "integer",
             "description": "X-coordinate",
-            "format": "int32"
+            "format": "int32",
+            "xml": {
+              "name": "X"
+            }
           },
           "y": {
             "type": "integer",
             "description": "Y-coordinate",
-            "format": "int32"
+            "format": "int32",
+            "xml": {
+              "name": "Y"
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Wrapper around Drawing.Point for proper specification."
+        "description": "Wrapper around Drawing.Point for proper specification.",
+        "xml": {
+          "name": "Point"
+        }
       },
       "ScanBase64Request": {
         "required": [
@@ -1621,11 +1732,17 @@
           "fileBase64": {
             "minLength": 1,
             "type": "string",
-            "description": "Barcode image bytes encoded as base-64."
+            "description": "Barcode image bytes encoded as base-64.",
+            "xml": {
+              "name": "FileBase64"
+            }
           }
         },
         "additionalProperties": false,
-        "description": "Scan barcode request."
+        "description": "Scan barcode request.",
+        "xml": {
+          "name": "ScanBase64Request"
+        }
       }
     },
     "securitySchemes": {
