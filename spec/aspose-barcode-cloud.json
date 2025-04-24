@@ -31,7 +31,7 @@
           {
             "name": "dataType",
             "in": "query",
-            "description": "Type of data to encode.\r\nDefault value: StringData.",
+            "description": "Type of data to encode.\nDefault value: StringData.",
             "schema": {
               "$ref": "#/components/schemas/EncodeDataType"
             }
@@ -48,7 +48,7 @@
           {
             "name": "imageFormat",
             "in": "query",
-            "description": "Barcode output image format.\r\nDefault value: png",
+            "description": "Barcode output image format.\nDefault value: png",
             "schema": {
               "$ref": "#/components/schemas/BarcodeImageFormat"
             }
@@ -56,7 +56,7 @@
           {
             "name": "textLocation",
             "in": "query",
-            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\r\nDefault value: Depends on BarcodeType. CodeLocation.Below for 1D Barcodes. CodeLocation.None for 2D Barcodes.",
+            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\nDefault value: Depends on BarcodeType. CodeLocation.Below for 1D Barcodes. CodeLocation.None for 2D Barcodes.",
             "schema": {
               "$ref": "#/components/schemas/CodeLocation"
             }
@@ -64,7 +64,7 @@
           {
             "name": "foregroundColor",
             "in": "query",
-            "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+            "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
             "schema": {
               "type": "string",
               "default": "Black"
@@ -73,7 +73,7 @@
           {
             "name": "backgroundColor",
             "in": "query",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
             "schema": {
               "type": "string",
               "default": "White"
@@ -90,7 +90,7 @@
           {
             "name": "resolution",
             "in": "query",
-            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
+            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
             "schema": {
               "maximum": 100000,
               "minimum": 1,
@@ -101,7 +101,7 @@
           {
             "name": "imageHeight",
             "in": "query",
-            "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+            "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
             "schema": {
               "type": "number",
               "format": "float"
@@ -110,7 +110,7 @@
           {
             "name": "imageWidth",
             "in": "query",
-            "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+            "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
             "schema": {
               "type": "number",
               "format": "float"
@@ -119,7 +119,7 @@
           {
             "name": "rotationAngle",
             "in": "query",
-            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -255,12 +255,12 @@
                   },
                   "foregroundColor": {
                     "type": "string",
-                    "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+                    "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
                     "default": "Black"
                   },
                   "backgroundColor": {
                     "type": "string",
-                    "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+                    "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
                     "default": "White"
                   },
                   "units": {
@@ -270,22 +270,22 @@
                     "maximum": 100000,
                     "minimum": 1,
                     "type": "number",
-                    "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
+                    "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
                     "format": "float"
                   },
                   "imageHeight": {
                     "type": "number",
-                    "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+                    "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
                     "format": "float"
                   },
                   "imageWidth": {
                     "type": "number",
-                    "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+                    "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
                     "format": "float"
                   },
                   "rotationAngle": {
                     "type": "integer",
-                    "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
+                    "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
                     "format": "int32"
                   }
                 }
@@ -1237,7 +1237,7 @@
           },
           "foregroundColor": {
             "type": "string",
-            "description": "Specify the displaying bars and content Color.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: Black.",
+            "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
             "default": "Black",
             "nullable": true,
             "xml": {
@@ -1246,7 +1246,7 @@
           },
           "backgroundColor": {
             "type": "string",
-            "description": "Background color of the barcode image.\r\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\r\nFor example: AliceBlue or #FF000000\r\nDefault value: White.",
+            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
             "default": "White",
             "nullable": true,
             "xml": {
@@ -1260,7 +1260,7 @@
             "maximum": 100000,
             "minimum": 1,
             "type": "number",
-            "description": "Resolution of the BarCode image.\r\nOne value for both dimensions.\r\nDefault value: 96 dpi.\r\nDecimal separator is dot.",
+            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1270,7 +1270,7 @@
           },
           "imageHeight": {
             "type": "number",
-            "description": "Height of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+            "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1280,7 +1280,7 @@
           },
           "imageWidth": {
             "type": "number",
-            "description": "Width of the barcode image in given units. Default units: pixel.\r\nDecimal separator is dot.",
+            "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1290,7 +1290,7 @@
           },
           "rotationAngle": {
             "type": "integer",
-            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\r\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\r\nDefault value: 0.",
+            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "format": "int32",
             "nullable": true,
             "xml": {
