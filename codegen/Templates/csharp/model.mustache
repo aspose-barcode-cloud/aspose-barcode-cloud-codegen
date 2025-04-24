@@ -8,8 +8,7 @@ using Aspose.BarCode.Cloud.Sdk.Interfaces;
 using Aspose.BarCode.Cloud.Sdk.Internal;
 {{/isEnum}}
 {{#isEnum}}
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 {{/isEnum}}
 
 namespace {{packageName}}.Model
@@ -19,7 +18,7 @@ namespace {{packageName}}.Model
     /// <summary>
     ///     {{description}}
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum {{classname}}{{#parent}} : {{{parent}}}{{/parent}}
     { {{#allowableValues}}{{#values}}
         /// <summary>
