@@ -12,6 +12,10 @@ format-black:
 update:
 	./scripts/update_swagger_spec.bash
 
+.PHONY: start-release
+start-release:
+	./scripts/start-release.bash
+
 .PHONY: openapi
 openapi:
 	curl "https://converter.swagger.io/api/convert?url=https://api.aspose.cloud/v3.0/barcode/swagger/spec" | jq '.' > spec/aspose-barcode-cloud-openapi.json
