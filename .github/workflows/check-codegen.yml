@@ -4,9 +4,9 @@ name: Check pull request
 # events but only for the main branch
 on:
   push:
-    branches: [main]
+    branches: [ v3 ]
   pull_request:
-    branches: [main]
+    branches: [ v3 ]
 
 jobs:
   check-submodules:
