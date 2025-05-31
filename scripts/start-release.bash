@@ -7,12 +7,9 @@ which make || (
     exit 1
 )
 
-year=$(date +%y)
-month=$(date +%-m)
-
-major=${1:-$year}
-minor=${2:-$month}
-branch_name="release-${major}.${minor}"
+major="24"
+minor="13"
+branch_name="release-v3-${major}.${minor}"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 pushd "${SCRIPT_DIR}/.."
@@ -20,8 +17,8 @@ pushd "${SCRIPT_DIR}/.."
 echo "Update Swagger specification..."
 ./scripts/update_swagger_spec.bash
 
-echo "Switch to main all submodules for start new branch in the right place..."
-./scripts/switch_all_submodules_to_main.bash
+echo "Switch all submodules to v3 for start new branch in the right place..."
+./scripts/switch-submodules-to-v3.bash
 
 echo "Switching to ${branch_name}"
 git switch --create "${branch_name}" || git switch "${branch_name}"
