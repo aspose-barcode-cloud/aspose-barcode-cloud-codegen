@@ -19,7 +19,7 @@ jobs:
 
       - name: Check all submodules up-to-date
         run: |
-          git submodule update --recursive --remote
+          ./scripts/switch-submodules-to-v3.bash
           git diff --exit-code
 
   check-swagger:
