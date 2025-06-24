@@ -40,7 +40,6 @@ CURL_EXIT_CODES_AND_HTTP_CODES = {
     "https://api.aspose.cloud/v4.0": (Curl.HTTP_RETURNED_ERROR, 404),
     "https://api.aspose.cloud/v4.0/": (Curl.HTTP_RETURNED_ERROR, 404),
     "https://id.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
-    "https://barcode.qa.aspose.cloud/v3.0/barcode/swagger/spec": (Curl.COULDNT_RESOLVE_HOST, None),
     # TODO: Temporary fix
     "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
 }
@@ -88,7 +87,9 @@ IGNORE_DOMAINS = Subdomains(
         ".sonatype.org",
         ".w3.org",
         ".wikipedia.org",
+
         # Regular domains
+        "barcode.qa.aspose.cloud",
         "editorconfig.org",
     ]
 )
