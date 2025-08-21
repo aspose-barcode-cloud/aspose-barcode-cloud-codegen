@@ -547,7 +547,7 @@
         "tags": [
           "Recognize"
         ],
-        "summary": "Recognize barcode from file on server using GET requests with parameters in route and query string.",
+        "summary": "Recognize barcode from file on server in the Internet using GET requests with parameter in query string.\nFor recognizing files from your hard drive use `recognize-body` or `recognize-multipart` endpoints instead.",
         "operationId": "Recognize",
         "parameters": [
           {
@@ -865,7 +865,7 @@
         "tags": [
           "Scan"
         ],
-        "summary": "Scan barcode from file on server using GET requests with parameter in query string.",
+        "summary": "Scan barcode from file on server in the Internet using GET requests with parameter in query string.\nFor scaning files from your hard drive use `scan-body` or `scan-multipart` endpoints instead.",
         "operationId": "Scan",
         "parameters": [
           {
