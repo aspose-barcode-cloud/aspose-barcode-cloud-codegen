@@ -174,7 +174,9 @@ class Task:
         self._proc = subprocess.Popen(
             [
                 "curl",
-                "-sSf",
+                "--fail",
+                "--silent",
+                "--show-error",
                 "--output",
                 "-",
                 "--user-agent",
