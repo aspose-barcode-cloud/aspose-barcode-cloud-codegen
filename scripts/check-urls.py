@@ -1,3 +1,4 @@
+import contextlib
 import fileinput
 import os
 import re
@@ -7,7 +8,7 @@ import threading
 import time
 import typing
 import urllib.parse
-from queue import SimpleQueue
+from queue import Queue, Empty
 
 from github_job_summary import JobSummary
 from subdomains import Subdomains
@@ -21,6 +22,10 @@ Check them with CURL
 
 # To avoid 403 responses
 USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
+
+CONNECT_TIMEOUT_SEC = 5
+MAX_TIME_SEC = 10
+JOIN_TIMEOUT_SEC = 120
 
 
 class Curl:
@@ -87,7 +92,6 @@ IGNORE_DOMAINS = Subdomains(
         ".sonatype.org",
         ".w3.org",
         ".wikipedia.org",
-
         # Regular domains
         "barcode.qa.aspose.cloud",
         "editorconfig.org",
@@ -157,12 +161,13 @@ def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, 
         if os.path.splitext(filename)[1] in FILES_TO_IGNORE:
             continue
 
-        with open(filename, "r", encoding="utf-8") as f:
-            try:
-                yield filename, f.read()
-            except UnicodeDecodeError:
-                print("Cant read '%s'" % filename, file=sys.stderr)
-                raise
+        with contextlib.suppress(IsADirectoryError, FileNotFoundError):
+            with open(filename, "r", encoding="utf-8") as f:
+                try:
+                    yield filename, f.read()
+                except UnicodeDecodeError:
+                    print("Cant read '%s'" % filename, file=sys.stderr)
+                    raise
 
 
 class Task:
@@ -177,6 +182,10 @@ class Task:
                 "-sSf",
                 "--output",
                 "-",
+                "--connect-timeout",
+                str(CONNECT_TIMEOUT_SEC),
+                "--max-time",
+                str(MAX_TIME_SEC),
                 "--user-agent",
                 USER_AGENT,
                 self.url,
@@ -238,7 +247,7 @@ def process_finished_task(task: Task) -> None:
     JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
 
 
-WORKER_QUEUE: SimpleQueue[str | None] = SimpleQueue()
+WORKER_QUEUE: Queue[str | None] = Queue()
 
 
 def url_checker(num_workers: int = 8) -> None:
@@ -260,7 +269,11 @@ def url_checker(num_workers: int = 8) -> None:
 
         if not queue_is_empty:
             for i in (i for (i, w) in enumerate(workers) if w is None):
-                item = WORKER_QUEUE.get()
+                # Avoid blocking forever if the queue is currently empty
+                try:
+                    item = WORKER_QUEUE.get_nowait()
+                except Empty:
+                    break
                 if item is None:
                     queue_is_empty = True
                     print("--- url queue is over ---")
@@ -276,7 +289,7 @@ JOB_SUMMARY.add_header("Test all URLs")
 
 
 def main(files: list[str]) -> int:
-    checker = threading.Thread(target=url_checker)
+    checker = threading.Thread(target=url_checker, daemon=True)
     checker.start()
 
     for filename, text in text_extractor(files):
@@ -284,7 +297,13 @@ def main(files: list[str]) -> int:
             # print("In:", url)
             WORKER_QUEUE.put_nowait(url)
     WORKER_QUEUE.put_nowait(None)
-    checker.join()
+    checker.join(timeout=JOIN_TIMEOUT_SEC)
+    if checker.is_alive():
+        print(
+            f"URL checker did not finish within {JOIN_TIMEOUT_SEC}s; exiting early.",
+            file=sys.stderr,
+            flush=True,
+        )
 
     JOB_SUMMARY.finalize("Checked {total} failed **{failed}**\nGood={success}")
     if JOB_SUMMARY.has_errors:
