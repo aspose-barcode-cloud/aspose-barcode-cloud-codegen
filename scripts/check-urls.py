@@ -11,7 +11,6 @@ import urllib.parse
 from github_job_summary import JobSummary
 from subdomains import Subdomains
 from curl_wrapper import EXIT_CODES as CURL_EXIT_CODES
-from curl_wrapper import CurlWrapper
 from url_checker import UrlChecker
 
 """
@@ -21,9 +20,9 @@ Extract all URL-like strings
 Check them with CURL
 """
 
-JOIN_TIMEOUT_SEC = 120
+JOIN_TIMEOUT_SEC: int = 120
 
-CURL_EXIT_CODES_AND_HTTP_CODES = {
+CURL_EXIT_CODES_AND_HTTP_CODES: dict[str, tuple[int, int | None]] = {
     "https://api.aspose.cloud/connect/token": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 400),
     "https://api.aspose.cloud/v3.0": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
     "https://api.aspose.cloud/v4.0": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
@@ -45,7 +44,7 @@ URLS_TO_IGNORE: frozenset[str] = frozenset(
     ]
 )
 
-IGNORE_DOMAINS = Subdomains(
+IGNORE_DOMAINS: Subdomains = Subdomains(
     [
         ".android.com",
         ".apache.org",
@@ -82,10 +81,10 @@ IGNORE_DOMAINS = Subdomains(
     ]
 )
 
-URL_END_CHARS = r",#\)\"'<>\*\s\\"
-URL_RE_PATTERN = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
+URL_END_CHARS: str = r",#\)\"'<>\*\s\\"
+URL_RE_PATTERN: str = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
 # print(URL_RE_PATTERN)
-EXTRACT_URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
+EXTRACT_URL_REGEX: re.Pattern[str] = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
 # URL : [Files]
 EXTRACTED_URLS_WITH_FILES: dict[str, list[str]] = {k: [] for k in URLS_TO_IGNORE}
@@ -129,7 +128,7 @@ def url_extractor(text: str, filename: str) -> typing.Generator[str, None, None]
             EXTRACTED_URLS_WITH_FILES[url].append(filename)
 
 
-FILES_TO_IGNORE = frozenset(
+FILES_TO_IGNORE: frozenset[str] = frozenset(
     [
         ".jar",
         ".jar",
@@ -154,38 +153,13 @@ def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, 
                     raise
 
 
-def process_finished_task(task) -> None:
-    # print("Finish task:", task.url)
-    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
-    if task.ret_code == 0 or task.ret_code == expected_ret_code:
-        print("OK:", "'%s' %.2fs" % (task.url, task.age))
-        JOB_SUMMARY.add_success(task.url)
-        return
-
-    if task.ret_code == CURL_EXIT_CODES.HTTP_RETURNED_ERROR and expected_http_code:
-        # Try parse stderr for HTTP code
-        match = CurlWrapper.CURL_STDERR_HTTP_RE.match(task.stderr)
-        assert match, "Unexpected output: %s" % task.stderr
-        http_code = int(match.groupdict()["http_code"])
-        if http_code == expected_http_code:
-            print("OK HTTP:", "'%s' %.2fs" % (task.url, task.age))
-            JOB_SUMMARY.add_success(task.url)
-            return
-
-    print(
-        "Expected %d got %d for '%s': %s" % (expected_ret_code, task.ret_code, task.url, task.stderr),
-        file=sys.stderr,
-    )
-    JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
-
-
-JOB_SUMMARY = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
+JOB_SUMMARY: JobSummary = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
 JOB_SUMMARY.add_header("Test all URLs")
 
 
 def main(files: list[str]) -> int:
     url_checker = UrlChecker(
-        on_finish=process_finished_task,
+        expectations=CURL_EXIT_CODES_AND_HTTP_CODES,
     )
 
     # Setup signal handlers for graceful shutdown
@@ -211,6 +185,14 @@ def main(files: list[str]) -> int:
             file=sys.stderr,
             flush=True,
         )
+
+    # Collect results and write summary
+    for res in url_checker.results:
+        if res.ok:
+            JOB_SUMMARY.add_success(res.url)
+        else:
+            files = EXTRACTED_URLS_WITH_FILES.get(res.url, [])
+            JOB_SUMMARY.add_error(f"Broken URL '{res.url}': {res.stderr}Files: {files}")
 
     JOB_SUMMARY.finalize("Checked {total} failed **{failed}**\nGood={success}")
     if JOB_SUMMARY.has_errors:
