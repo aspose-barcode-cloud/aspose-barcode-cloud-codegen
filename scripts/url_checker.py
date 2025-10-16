@@ -3,7 +3,9 @@ import sys
 import time
 from dataclasses import dataclass
 from queue import Queue, Empty
-from typing import Callable, Optional
+from typing import Callable, Optional, Iterable
+from types import TracebackType
+import threading
 
 from curl_wrapper import CurlWrapper, EXIT_CODES
 
@@ -39,12 +41,16 @@ class UrlChecker:
         self.stop_event = False
         self.next_report_age_sec = 5
         self.results: list[CheckResult] = []
+        self._thread: threading.Thread | None = None
+        self._closed: bool = False
 
     def add_url(self, url: str) -> None:
         self.queue.put_nowait(url)
 
     def close(self) -> None:
-        self.queue.put_nowait(None)
+        if not self._closed:
+            self._closed = True
+            self.queue.put_nowait(None)
 
     def stop(self) -> None:
         self.stop_event = True
@@ -94,6 +100,46 @@ class UrlChecker:
                     self.workers[i] = self.worker_factory(url)
             time.sleep(0.2)
         print("Worker finished")
+
+    # Context management and user-friendly API
+    def start(self) -> "UrlChecker":
+        if self._thread is not None:
+            return self
+        self._thread = threading.Thread(target=self.run, daemon=True)
+        self._thread.start()
+        return self
+
+    def __enter__(self) -> "UrlChecker":
+        return self.start()
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        tb: TracebackType | None,
+    ) -> None:
+        # Ensure we signal end of input and wait for completion
+        self.close()
+        self.wait()
+
+    def wait(self, join_timeout_sec: float | None = None) -> None:
+        # Ensure end-of-input signaled before waiting
+        self.close()
+        t = self._thread
+        if t is None:
+            return
+        if join_timeout_sec is not None:
+            t.join(timeout=join_timeout_sec)
+            if t.is_alive():
+                # Try to stop gracefully and inform user
+                self.stop()
+                print(
+                    f"URL checker did not finish within {join_timeout_sec}s; exiting early.",
+                    file=sys.stderr,
+                    flush=True,
+                )
+        else:
+            t.join()
 
     def _process_finished(self, task: CurlWrapper) -> None:
         expected_ret_code, expected_http_code = self.expectations.get(task.url, (0, None))

@@ -20,7 +20,7 @@ Extract all URL-like strings
 Check them with CURL
 """
 
-JOIN_TIMEOUT_SEC: int = 120
+JOIN_TIMEOUT_SEC = 120
 
 CURL_EXIT_CODES_AND_HTTP_CODES: dict[str, tuple[int, int | None]] = {
     "https://api.aspose.cloud/connect/token": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 400),
@@ -36,7 +36,7 @@ REGEX_TO_IGNORE: list[re.Pattern[str]] = [
     re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues)/\S+$"),
 ]
 
-URLS_TO_IGNORE: frozenset[str] = frozenset(
+URLS_TO_IGNORE = frozenset(
     [
         "https://api.aspose.cloud",
         "https://www.aspose.cloud/404",
@@ -44,7 +44,7 @@ URLS_TO_IGNORE: frozenset[str] = frozenset(
     ]
 )
 
-IGNORE_DOMAINS: Subdomains = Subdomains(
+IGNORE_DOMAINS = Subdomains(
     [
         ".android.com",
         ".apache.org",
@@ -81,10 +81,10 @@ IGNORE_DOMAINS: Subdomains = Subdomains(
     ]
 )
 
-URL_END_CHARS: str = r",#\)\"'<>\*\s\\"
-URL_RE_PATTERN: str = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
+URL_END_CHARS = r",#\)\"'<>\*\s\\"
+URL_RE_PATTERN = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
 # print(URL_RE_PATTERN)
-EXTRACT_URL_REGEX: re.Pattern[str] = re.compile(URL_RE_PATTERN, re.MULTILINE)
+EXTRACT_URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
 
 # URL : [Files]
 EXTRACTED_URLS_WITH_FILES: dict[str, list[str]] = {k: [] for k in URLS_TO_IGNORE}
@@ -128,7 +128,7 @@ def url_extractor(text: str, filename: str) -> typing.Generator[str, None, None]
             EXTRACTED_URLS_WITH_FILES[url].append(filename)
 
 
-FILES_TO_IGNORE: frozenset[str] = frozenset(
+FILES_TO_IGNORE = frozenset(
     [
         ".jar",
         ".jar",
@@ -153,7 +153,7 @@ def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, 
                     raise
 
 
-JOB_SUMMARY: JobSummary = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
+JOB_SUMMARY = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
 JOB_SUMMARY.add_header("Test all URLs")
 
 
@@ -162,32 +162,15 @@ def main(files: list[str]) -> int:
         expectations=CURL_EXIT_CODES_AND_HTTP_CODES,
     )
 
-    # Setup signal handlers for graceful shutdown
-    def _handle_signal(_sig: int, _frame: typing.Any) -> None:
-        url_checker.stop()
-
-    with contextlib.suppress(Exception):
-        signal.signal(signal.SIGINT, _handle_signal)
-        signal.signal(signal.SIGTERM, _handle_signal)
-
-    checker = threading.Thread(target=url_checker.run, daemon=True)
-    checker.start()
-
-    for filename, text in text_extractor(files):
-        for url in url_extractor(text, filename):
-            # print("In:", url)
-            url_checker.add_url(url)
-    url_checker.close()
-    checker.join(timeout=JOIN_TIMEOUT_SEC)
-    if checker.is_alive():
-        print(
-            f"URL checker did not finish within {JOIN_TIMEOUT_SEC}s; exiting early.",
-            file=sys.stderr,
-            flush=True,
-        )
+    with url_checker.start() as checker:
+        for filename, text in text_extractor(files):
+            for url in url_extractor(text, filename):
+                checker.add_url(url)
+        checker.wait(JOIN_TIMEOUT_SEC)
+    results = url_checker.results
 
     # Collect results and write summary
-    for res in url_checker.results:
+    for res in results:
         if res.ok:
             JOB_SUMMARY.add_success(res.url)
         else:
