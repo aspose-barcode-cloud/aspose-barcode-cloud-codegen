@@ -9,7 +9,11 @@ from typing import Optional
 DEFAULT_USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
 
 
-class EXIT_CODES:
+class CurlExitCodes:
+    """
+    See: https://curl.se/libcurl/c/libcurl-errors.html
+    """
+
     OK = 0
     COULDNT_RESOLVE_HOST = 6
     HTTP_RETURNED_ERROR = 22
@@ -18,7 +22,6 @@ class EXIT_CODES:
 class CurlWrapper:
     """
     Encapsulates a single curl execution with timeouts and helpers.
-    See: https://curl.se/libcurl/c/libcurl-errors.html
     """
 
     CURL_STDERR_HTTP_RE = re.compile(r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)")

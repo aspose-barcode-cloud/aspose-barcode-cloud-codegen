@@ -1,13 +1,13 @@
 import contextlib
 import sys
+import threading
 import time
 from dataclasses import dataclass
 from queue import Queue, Empty
-from typing import Callable, Optional, Iterable
 from types import TracebackType
-import threading
+from typing import Callable, Optional
 
-from curl_wrapper import CurlWrapper, EXIT_CODES
+from curl_wrapper import CurlWrapper, CurlExitCodes
 
 
 @dataclass
@@ -47,17 +47,17 @@ class UrlChecker:
     def add_url(self, url: str) -> None:
         self.queue.put_nowait(url)
 
-    def close(self) -> None:
+    def _close(self) -> None:
         if not self._closed:
             self._closed = True
             self.queue.put_nowait(None)
 
-    def stop(self) -> None:
+    def _stop(self) -> None:
         self.stop_event = True
         with contextlib.suppress(Exception):
             self.queue.put_nowait(None)
 
-    def run(self) -> None:
+    def _run(self) -> None:
         queue_is_empty = False
         while not queue_is_empty or any(self.workers):
             # Graceful stop: cancel running curls
@@ -105,7 +105,7 @@ class UrlChecker:
     def start(self) -> "UrlChecker":
         if self._thread is not None:
             return self
-        self._thread = threading.Thread(target=self.run, daemon=True)
+        self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
         return self
 
@@ -119,12 +119,12 @@ class UrlChecker:
         tb: TracebackType | None,
     ) -> None:
         # Ensure we signal end of input and wait for completion
-        self.close()
+        self._close()
         self.wait()
 
     def wait(self, join_timeout_sec: float | None = None) -> None:
         # Ensure end-of-input signaled before waiting
-        self.close()
+        self._close()
         t = self._thread
         if t is None:
             return
@@ -132,7 +132,7 @@ class UrlChecker:
             t.join(timeout=join_timeout_sec)
             if t.is_alive():
                 # Try to stop gracefully and inform user
-                self.stop()
+                self._stop()
                 print(
                     f"URL checker did not finish within {join_timeout_sec}s; exiting early.",
                     file=sys.stderr,
@@ -155,7 +155,7 @@ class UrlChecker:
             stderr_out = ""
         else:
             # If curl reports HTTP error (22), attempt to parse HTTP code to compare
-            if task.ret_code == EXIT_CODES.HTTP_RETURNED_ERROR and expected_http_code:
+            if task.ret_code == CurlExitCodes.HTTP_RETURNED_ERROR and expected_http_code:
                 match = CurlWrapper.CURL_STDERR_HTTP_RE.match(task.stderr)
                 assert match, "Unexpected output: %s" % task.stderr
                 http_code_val = int(match.groupdict()["http_code"])

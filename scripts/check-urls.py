@@ -1,16 +1,14 @@
 import contextlib
 import fileinput
-import signal
 import os
 import re
 import sys
-import threading
 import typing
 import urllib.parse
 
 from github_job_summary import JobSummary
 from subdomains import Subdomains
-from curl_wrapper import EXIT_CODES as CURL_EXIT_CODES
+from curl_wrapper import CurlExitCodes
 from url_checker import UrlChecker
 
 """
@@ -22,14 +20,14 @@ Check them with CURL
 
 JOIN_TIMEOUT_SEC = 120
 
-CURL_EXIT_CODES_AND_HTTP_CODES: dict[str, tuple[int, int | None]] = {
-    "https://api.aspose.cloud/connect/token": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 400),
-    "https://api.aspose.cloud/v3.0": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
-    "https://api.aspose.cloud/v4.0": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
-    "https://api.aspose.cloud/v4.0/": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
-    "https://id.aspose.cloud/connect/token": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 400),
+EXIT_CODE_EXPECTATIONS: dict[str, tuple[int, int | None]] = {
+    "https://api.aspose.cloud/connect/token": (CurlExitCodes.HTTP_RETURNED_ERROR, 400),
+    "https://api.aspose.cloud/v3.0": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://api.aspose.cloud/v4.0": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://api.aspose.cloud/v4.0/": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://id.aspose.cloud/connect/token": (CurlExitCodes.HTTP_RETURNED_ERROR, 400),
     # TODO: Temporary fix
-    "https://dashboard.aspose.cloud/applications": (CURL_EXIT_CODES.HTTP_RETURNED_ERROR, 404),
+    "https://dashboard.aspose.cloud/applications": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
 }
 
 REGEX_TO_IGNORE: list[re.Pattern[str]] = [
@@ -159,7 +157,7 @@ JOB_SUMMARY.add_header("Test all URLs")
 
 def main(files: list[str]) -> int:
     url_checker = UrlChecker(
-        expectations=CURL_EXIT_CODES_AND_HTTP_CODES,
+        expectations=EXIT_CODE_EXPECTATIONS,
     )
 
     with url_checker.start() as checker:
@@ -174,8 +172,8 @@ def main(files: list[str]) -> int:
         if res.ok:
             JOB_SUMMARY.add_success(res.url)
         else:
-            files = EXTRACTED_URLS_WITH_FILES.get(res.url, [])
-            JOB_SUMMARY.add_error(f"Broken URL '{res.url}': {res.stderr}Files: {files}")
+            src_files = EXTRACTED_URLS_WITH_FILES.get(res.url, [])
+            JOB_SUMMARY.add_error(f"Broken URL '{res.url}': {res.stderr}Files: {src_files}")
 
     JOB_SUMMARY.finalize("Checked {total} failed **{failed}**\nGood={success}")
     if JOB_SUMMARY.has_errors:
