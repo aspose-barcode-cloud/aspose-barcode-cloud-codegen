@@ -2,16 +2,14 @@ import contextlib
 import fileinput
 import os
 import re
-import subprocess
 import sys
-import threading
-import time
 import typing
 import urllib.parse
-from queue import Queue, Empty
 
 from github_job_summary import JobSummary
 from subdomains import Subdomains
+from curl_wrapper import CurlExitCodes
+from url_checker import UrlChecker
 
 """
 Read file names from stdin (feed from git ls-files)
@@ -20,40 +18,23 @@ Extract all URL-like strings
 Check them with CURL
 """
 
-# To avoid 403 responses
-USER_AGENT = "Googlebot/2.1 (+http://www.google.com/bot.html)"
-
-CONNECT_TIMEOUT_SEC = 5
-MAX_TIME_SEC = 10
 JOIN_TIMEOUT_SEC = 120
 
-
-class Curl:
-    """
-    See: https://curl.se/libcurl/c/libcurl-errors.html
-    """
-
-    CURL_STDERR_HTTP_RE = re.compile(r"^curl: \(22\) The requested URL returned error: (?P<http_code>\d+)")
-    OK = 0
-    COULDNT_RESOLVE_HOST = 6
-    HTTP_RETURNED_ERROR = 22
-
-
-CURL_EXIT_CODES_AND_HTTP_CODES = {
-    "https://api.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
-    "https://api.aspose.cloud/v3.0": (Curl.HTTP_RETURNED_ERROR, 404),
-    "https://api.aspose.cloud/v4.0": (Curl.HTTP_RETURNED_ERROR, 404),
-    "https://api.aspose.cloud/v4.0/": (Curl.HTTP_RETURNED_ERROR, 404),
-    "https://id.aspose.cloud/connect/token": (Curl.HTTP_RETURNED_ERROR, 400),
+EXIT_CODE_EXPECTATIONS: dict[str, tuple[int, int | None]] = {
+    "https://api.aspose.cloud/connect/token": (CurlExitCodes.HTTP_RETURNED_ERROR, 400),
+    "https://api.aspose.cloud/v3.0": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://api.aspose.cloud/v4.0": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://api.aspose.cloud/v4.0/": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://id.aspose.cloud/connect/token": (CurlExitCodes.HTTP_RETURNED_ERROR, 400),
     # TODO: Temporary fix
-    "https://dashboard.aspose.cloud/applications": (Curl.HTTP_RETURNED_ERROR, 404),
+    "https://dashboard.aspose.cloud/applications": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
 }
 
 REGEX_TO_IGNORE: list[re.Pattern[str]] = [
     re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues)/\S+$"),
 ]
 
-URLS_TO_IGNORE: frozenset[str] = frozenset(
+URLS_TO_IGNORE = frozenset(
     [
         "https://api.aspose.cloud",
         "https://www.aspose.cloud/404",
@@ -170,140 +151,29 @@ def text_extractor(files: list[str]) -> typing.Generator[tuple[str, str], None, 
                     raise
 
 
-class Task:
-    _proc: subprocess.Popen[bytes]
-    _stderr: str | None
-
-    def __init__(self, url: str):
-        self.url = url
-        self._proc = subprocess.Popen(
-            [
-                "curl",
-                "-sSf",
-                "--output",
-                "-",
-                "--connect-timeout",
-                str(CONNECT_TIMEOUT_SEC),
-                "--max-time",
-                str(MAX_TIME_SEC),
-                "--user-agent",
-                USER_AGENT,
-                self.url,
-            ],
-            stdout=open(os.devnull, "w"),
-            stderr=subprocess.PIPE,
-        )
-        self._stderr = None
-        self._started = time.time()
-
-    @property
-    def running(self) -> bool:
-        return self._proc.poll() is None
-
-    @property
-    def ret_code(self) -> int:
-        assert not self.running
-        return self._proc.returncode
-
-    @property
-    def stderr(self) -> str:
-        assert not self.running
-        if self._stderr is None:
-            self._stderr = self._proc.stderr.read().decode()
-        return self._stderr
-
-    @property
-    def age(self) -> float:
-        return time.time() - self._started
-
-
-def create_new_task(url: str) -> Task:
-    # print("Create task:", url)
-    return Task(url)
-
-
-def process_finished_task(task: Task) -> None:
-    # print("Finish task:", task.url)
-    expected_ret_code, expected_http_code = CURL_EXIT_CODES_AND_HTTP_CODES.get(task.url, (0, None))
-    if task.ret_code == 0 or task.ret_code == expected_ret_code:
-        print("OK:", "'%s' %.2fs" % (task.url, task.age))
-        JOB_SUMMARY.add_success(task.url)
-        return
-
-    if task.ret_code == Curl.HTTP_RETURNED_ERROR and expected_http_code:
-        # Try parse stderr for HTTP code
-        match = Curl.CURL_STDERR_HTTP_RE.match(task.stderr)
-        assert match, "Unexpected output: %s" % task.stderr
-        http_code = int(match.groupdict()["http_code"])
-        if http_code == expected_http_code:
-            print("OK HTTP:", "'%s' %.2fs" % (task.url, task.age))
-            JOB_SUMMARY.add_success(task.url)
-            return
-
-    print(
-        "Expected %d got %d for '%s': %s" % (expected_ret_code, task.ret_code, task.url, task.stderr),
-        file=sys.stderr,
-    )
-    JOB_SUMMARY.add_error(f"Broken URL '{task.url}': {task.stderr}Files: {EXTRACTED_URLS_WITH_FILES[task.url]}")
-
-
-WORKER_QUEUE: Queue[str | None] = Queue()
-
-
-def url_checker(num_workers: int = 8) -> None:
-    next_report_age_sec = 5
-    workers: list[Task | None] = [None for _ in range(num_workers)]
-
-    queue_is_empty = False
-
-    while not queue_is_empty or any(workers):
-        for i, task in enumerate(workers):
-            if task is None:
-                continue
-            if not task.running:
-                process_finished_task(task)
-                workers[i] = None
-            elif task.age > next_report_age_sec:
-                print("Long request: '%s' %.2fs" % (task.url, task.age))
-                next_report_age_sec += 3
-
-        if not queue_is_empty:
-            for i in (i for (i, w) in enumerate(workers) if w is None):
-                # Avoid blocking forever if the queue is currently empty
-                try:
-                    item = WORKER_QUEUE.get_nowait()
-                except Empty:
-                    break
-                if item is None:
-                    queue_is_empty = True
-                    print("--- url queue is over ---")
-                    break
-                url = item
-                workers[i] = create_new_task(url)
-        time.sleep(0.2)
-    print("Worker finished")
-
-
 JOB_SUMMARY = JobSummary(os.environ.get("GITHUB_STEP_SUMMARY", "step_summary.md"))
 JOB_SUMMARY.add_header("Test all URLs")
 
 
 def main(files: list[str]) -> int:
-    checker = threading.Thread(target=url_checker, daemon=True)
-    checker.start()
+    url_checker = UrlChecker(
+        expectations=EXIT_CODE_EXPECTATIONS,
+    )
 
-    for filename, text in text_extractor(files):
-        for url in url_extractor(text, filename):
-            # print("In:", url)
-            WORKER_QUEUE.put_nowait(url)
-    WORKER_QUEUE.put_nowait(None)
-    checker.join(timeout=JOIN_TIMEOUT_SEC)
-    if checker.is_alive():
-        print(
-            f"URL checker did not finish within {JOIN_TIMEOUT_SEC}s; exiting early.",
-            file=sys.stderr,
-            flush=True,
-        )
+    with url_checker.start() as checker:
+        for filename, text in text_extractor(files):
+            for url in url_extractor(text, filename):
+                checker.add_url(url)
+        checker.wait(JOIN_TIMEOUT_SEC)
+    results = url_checker.results
+
+    # Collect results and write summary
+    for res in results:
+        if res.ok:
+            JOB_SUMMARY.add_success(res.url)
+        else:
+            src_files = EXTRACTED_URLS_WITH_FILES.get(res.url, [])
+            JOB_SUMMARY.add_error(f"Broken URL '{res.url}': {res.stderr}Files: {src_files}")
 
     JOB_SUMMARY.finalize("Checked {total} failed **{failed}**\nGood={success}")
     if JOB_SUMMARY.has_errors:
