@@ -48,6 +48,7 @@ cp "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csp
 cp "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csproj" "$targetDir/examples/GenerateQR/GenerateQR.csproj"
 mv "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Aspose.BarCode.Cloud.Sdk.Test.csproj" "$targetDir/examples/ReadQR/ReadQR.csproj"
 
+mv "$tempDir/appveyor.yml" "$targetDir/NetFrameworkTests/Aspose.BarCode.Cloud.Sdk.NetFrameworkTests.csproj"
 mv "$tempDir/git_push.sh" "$targetDir/snippets/dependency.xml"
 
 rm -rf $tempDir
