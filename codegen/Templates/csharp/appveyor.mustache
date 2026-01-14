@@ -13,6 +13,16 @@
         <None Remove="TestResults\**"/>
     </ItemGroup>
     <ItemGroup>
+      <Compile Include="..\Tests\ApiExceptionTests.cs" Link="ApiExceptionTests.cs" />
+      <Compile Include="..\Tests\ConfigurationTests.cs" Link="ConfigurationTests.cs" />
+      <Compile Include="..\Tests\GenerateAndThenRecognize.cs" Link="GenerateAndThenRecognize.cs" />
+      <Compile Include="..\Tests\GenerateTests.cs" Link="GenerateTests.cs" />
+      <Compile Include="..\Tests\JwtAuthTests.cs" Link="JwtAuthTests.cs" />
+      <Compile Include="..\Tests\RecognizeTests.cs" Link="RecognizeTests.cs" />
+      <Compile Include="..\Tests\ScanTests.cs" Link="ScanTests.cs" />
+      <Compile Include="..\Tests\TestsBase.cs" Link="TestsBase.cs" />
+    </ItemGroup>
+    <ItemGroup>
         <PackageReference Include="Moq" Version="4.20.70"/>
         <PackageReference Include="NUnit" Version="3.14.0"/>
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0"/>
