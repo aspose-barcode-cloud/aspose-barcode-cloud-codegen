@@ -64,9 +64,11 @@ export class {{operationIdCamelCase}}RequestWrapper {
     {{/allParams}}
 
     {{#requiredParams.0}}
-    /**{{#requiredParams}}
+    /**
+    {{#requiredParams}}
      * @param {{paramName}}{{#isFile}}Bytes{{/isFile}} {{{unescapedDescription}}}
-     {{/requiredParams}}*/
+    {{/requiredParams}}
+     */
     constructor({{#requiredParams}} {{paramName}}{{#isFile}}Bytes{{/isFile}} : {{^isFile}}{{{dataType}}}{{/isFile}}{{#isFile}}Buffer{{/isFile}}{{^-last}},{{/-last}} {{/requiredParams}}) {
     {{#requiredParams}}
         this.{{paramName}}{{#isFile}}Bytes{{/isFile}} = {{paramName}}{{#isFile}}Bytes{{/isFile}};
