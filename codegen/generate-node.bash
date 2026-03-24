@@ -11,19 +11,19 @@ then
 fi
 
 # java -jar Tools/openapi-generator-cli.jar config-help -g typescript-node
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json
-# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugModels.ts.json; exit
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json > debugOperations.ts.json; exit
-# java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config.json 2> debugSupportingFiles.ts.txt
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json > debugModels.ts.json; exit
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json > debugOperations.ts.json; exit
+# java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json 2> debugSupportingFiles.ts.txt
 
 mv "$tempDir/api.ts" "$targetDir/src/"
 mv "$tempDir/package.json" "$targetDir/"
 mv "$tempDir/git_push.sh" "$targetDir/src/models.ts"
 
 # Use typescript-node one more time because typescript-node does not generate docs
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json
-#java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugModels.node.json
-#java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config.json > debugOperations.node.json
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json
+#java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json > debugModels.node.json
+#java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json > debugOperations.node.json
 
 mv "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
 mv "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"

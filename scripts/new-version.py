@@ -42,13 +42,13 @@ def set_java_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config
     save_config(config, filename)
 
 
-def set_net_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.json")):
+def set_net_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-dotnet.json")):
     config = read_config(filename)
     config["packageVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
 
 
-def set_node_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config.json")):
+def set_node_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-node.json")):
     config = read_config(filename)
     config["npmVersion"] = str.join(".", map(str, new_version))
     save_config(config, filename)
