@@ -411,10 +411,20 @@ export class {{classname}} {
 {{#operation}}
 
     /**
+    {{#summary}}
+     * {{&summary}}
+    {{/summary}}
+    {{^summary}}
+    {{#notes}}
      * {{&notes}}
-     {{#summary}}
-     * @summary {{&summary}}
-     {{/summary}}
+    {{/notes}}
+    {{/summary}}
+    {{#summary}}
+    {{#notes}}
+     *
+     * {{&notes}}
+    {{/notes}}
+    {{/summary}}
      * @param request {{operationIdCamelCase}}RequestWrapper
      */
     public async {{nickname}}(request: {{operationIdCamelCase}}RequestWrapper): Promise<{ response: ApiResponse; {{#returnType}}body: {{{returnType}}}; {{/returnType}}{{^returnType}}body?: any; {{/returnType}} }> {
