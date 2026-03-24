@@ -124,7 +124,17 @@
   ],
   "author": "Aspose.BarCode Team",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
@@ -137,7 +147,9 @@
     "cover": "npx jest --coverage",
     "lint": "npx eslint src test snippets",
     "format": "npx eslint src test snippets eslint.config.mjs --fix",
-    "prepare": "npx tsup",
+    "build": "npx tsup",
+    "build:min": "npx tsup --minify --outDir dist/min --no-dts",
+    "prepare": "npm run build",
     "check-updates": "ncu -u --enginesNode"
   },
   "prettier": {
@@ -152,9 +164,9 @@
     "format": ["cjs", "esm"],
     "dts": true,
     "splitting": false,
-    "sourcemap": true,
+    "sourcemap": false,
     "clean": true,
-    "minify": true
+    "minify": false
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
@@ -162,12 +174,12 @@
     "@typescript-eslint/parser": "^8.40.0",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-prettier": "^5.5.5",
     "npm-check-updates": "^17.1.18",
-    "prettier": "^3.6.2",
-    "ts-jest": "^29.4.1",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
     "tslib": "^2.8.1",
-    "tsup": "^8.5.0",
+    "tsup": "^8.5.1",
     "uuid": "^13.0.0"
   },
   "bugs": {

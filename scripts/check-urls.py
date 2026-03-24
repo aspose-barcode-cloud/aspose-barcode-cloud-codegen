@@ -77,6 +77,7 @@ IGNORE_DOMAINS = Subdomains(
         # Regular domains
         "barcode.qa.aspose.cloud",
         "editorconfig.org",
+        "example.com",
     ]
 )
 

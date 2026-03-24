@@ -40,4 +40,4 @@ cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf "${tempDir}"
 
-pushd "${targetDir}" && make after-gen && popd >/dev/null
+pushd "${targetDir}" && PHP_CS_FIXER_IGNORE_ENV=1 make after-gen && popd >/dev/null

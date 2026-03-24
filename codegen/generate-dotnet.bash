@@ -13,9 +13,9 @@ fi
 
 # Templates src https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources/csharp
 # Generate Operations and Models for Debug purposes
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config.json > debugOperations.cs.json ; exit
-# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config.json > debugModels.cs.json ; exit
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config.json
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json > debugOperations.cs.json ; exit
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json > debugModels.cs.json ; exit
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json
 
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/GenerateApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/ScanApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/

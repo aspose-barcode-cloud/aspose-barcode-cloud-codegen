@@ -78,7 +78,7 @@ public class {{classname}} {
 
         // create path and map variables
         String {{localVariablePrefix}}path = "{{{path}}}"{{#pathParams}}
-            .replaceAll("\\{" + "{{baseName}}" + "}", request.{{{paramName}}}.toString()){{/pathParams}};
+            .replace("{" + "{{baseName}}" + "}", request.{{{paramName}}}.toString()){{/pathParams}};
 
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}queryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}collectionQueryParams = new {{javaUtilPrefix}}ArrayList<>();{{#queryParams}}
