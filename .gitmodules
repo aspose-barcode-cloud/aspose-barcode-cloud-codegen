@@ -1,24 +1,24 @@
 [submodule "submodules/dotnet"]
 	path = submodules/dotnet
-	url = ../aspose-barcode-cloud-dotnet
+	url = ../Aspose.BarCode-Cloud-SDK-for-.NET
 [submodule "submodules/go"]
 	path = submodules/go
 	url = ../aspose-barcode-cloud-go
 [submodule "submodules/node"]
 	path = submodules/node
-	url = ../aspose-barcode-cloud-node
+	url = ../Aspose.BarCode-Cloud-SDK-for-Node.js
 [submodule "submodules/php"]
 	path = submodules/php
-	url = ../aspose-barcode-cloud-php
+	url = ../Aspose.BarCode-Cloud-SDK-for-PHP
 [submodule "submodules/python"]
 	path = submodules/python
-	url = ../aspose-barcode-cloud-python
+	url = ../Aspose.BarCode-Cloud-SDK-for-Python
 [submodule "submodules/java"]
 	path = submodules/java
-	url = ../aspose-barcode-cloud-java
+	url = ../Aspose.BarCode-Cloud-SDK-for-Java
 [submodule "submodules/android"]
 	path = submodules/android
-	url = ../aspose-barcode-cloud-android
+	url = ../Aspose.BarCode-Cloud-SDK-for-Android
 [submodule "submodules/dart"]
 	path = submodules/dart
-	url = ../aspose-barcode-cloud-dart
+	url = ../Aspose.BarCode-Cloud-SDK-for-Dart
