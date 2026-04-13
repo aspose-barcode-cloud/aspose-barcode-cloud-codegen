@@ -13,9 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
+          persist-credentials: true
 
       - name: Check all submodules up-to-date
         run: |
@@ -26,6 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check-submodules]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Check existing swagger specification is up-to-date
         run: curl https://api.aspose.cloud/v4.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
