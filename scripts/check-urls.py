@@ -81,7 +81,7 @@ IGNORE_DOMAINS = Subdomains(
     ]
 )
 
-URL_END_CHARS = r",#\)\"'<>\*\s\\"
+URL_END_CHARS = r",#\)\"'<>\*\s\\`"
 URL_RE_PATTERN = r"(https*://[^{0}]+)[{0}]?".format(URL_END_CHARS)
 # print(URL_RE_PATTERN)
 EXTRACT_URL_REGEX = re.compile(URL_RE_PATTERN, re.MULTILINE)
