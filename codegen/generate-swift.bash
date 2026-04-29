@@ -19,6 +19,12 @@ mkdir -p "$targetDir/Sources"
 rm -rf "$targetDir/Sources/AsposeBarcodeCloud"
 mv "$tempDir/Sources/AsposeBarcodeCloud" "$targetDir/Sources/AsposeBarcodeCloud"
 
+# OpenAPI Generator 7.8.0 emits Apple-only imports for the URLSession client
+# when compiling on Linux. Keep the generated client SwiftPM-compatible in WSL.
+perl -0pi -e 's/import Foundation\n#if !os\(macOS\)\nimport MobileCoreServices\n#endif/import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n#if canImport(MobileCoreServices)\nimport MobileCoreServices\n#endif/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
+perl -0pi -e 's/        } else {\n            if let uti = UTTypeCreatePreferredIdentifierForTag/        } else {\n            #if canImport(MobileCoreServices)\n            if let uti = UTTypeCreatePreferredIdentifierForTag/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
+perl -0pi -e 's/                return mimetype as String\n            }\n            return "application\/octet-stream"/                return mimetype as String\n            }\n            #endif\n            return "application\/octet-stream"/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
+
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"
 

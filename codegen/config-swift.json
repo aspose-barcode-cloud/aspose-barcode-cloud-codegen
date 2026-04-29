@@ -5,5 +5,6 @@
     "mapFileBinaryToData": true,
     "projectName": "AsposeBarcodeCloud",
     "swiftPackagePath": "Sources/AsposeBarcodeCloud",
+    "useClasses": true,
     "useSPMFileStructure": true
 }
