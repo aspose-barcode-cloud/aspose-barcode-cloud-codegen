@@ -1,0 +1,9 @@
+{
+    "allowUnicodeIdentifiers": true,
+    "enumUnknownDefaultCase": true,
+    "hideGenerationTimestamp": true,
+    "mapFileBinaryToData": true,
+    "projectName": "AsposeBarcodeCloud",
+    "swiftPackagePath": "Sources/AsposeBarcodeCloud",
+    "useSPMFileStructure": true
+}

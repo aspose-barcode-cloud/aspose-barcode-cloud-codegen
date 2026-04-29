@@ -62,3 +62,7 @@ php:
 .PHONY: python
 python:
 	cd codegen && ./generate-python.bash
+
+.PHONY: swift
+swift:
+	cd codegen && ./generate-swift.bash
