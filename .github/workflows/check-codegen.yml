@@ -15,12 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          submodules: recursive
           persist-credentials: true
 
       - name: Check all submodules up-to-date
+        env:
+          SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
         run: |
-          git submodule update --recursive --remote
+          ./scripts/checkout-submodules.bash --remote
           git diff --exit-code
 
   check-swagger:
@@ -35,8 +36,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
+
+      - name: Checkout submodules
+        env:
+          SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
+        run: ./scripts/checkout-submodules.bash
 
       - uses: actions/setup-java@v5
         with:

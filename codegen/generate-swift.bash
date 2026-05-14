@@ -45,3 +45,5 @@ mv "$tempDir/.openapi-generator/FILES" "$targetDir/.openapi-generator/"
 cp ../LICENSE "$targetDir/"
 
 rm -rf "$tempDir"
+
+pushd "$targetDir" && make after-gen && popd >/dev/null

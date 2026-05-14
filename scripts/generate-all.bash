@@ -4,20 +4,9 @@ set -euo pipefail
 
 pushd "$( dirname "${BASH_SOURCE[0]}" )/../codegen"
 
-generators=(
-    android
-    dart
-    dotnet
-    go
-    java
-    node
-    php
-    python
-)
-
-for gen in "${generators[@]}"
+for gen in generate-*.bash
 do
-    "./generate-${gen}.bash"
+    "./${gen}"
 done
 
 popd >/dev/null
