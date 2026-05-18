@@ -19,9 +19,10 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Checkout submodules
+        working-directory: ${{ github.workspace }}
         env:
           SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
-        run: ./scripts/checkout-submodules.bash
+        run: bash scripts/checkout-submodules.bash
 
       - name: Check all URLs
         run: ./scripts/check_all_urls.sh

@@ -18,10 +18,11 @@ jobs:
           persist-credentials: true
 
       - name: Check all submodules up-to-date
+        working-directory: ${{ github.workspace }}
         env:
           SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
         run: |
-          ./scripts/checkout-submodules.bash --remote
+          bash scripts/checkout-submodules.bash --remote
           git diff --exit-code
 
   check-swagger:
@@ -44,9 +45,10 @@ jobs:
         run: apt-get update && apt-get install -y make openssh-client python3
 
       - name: Checkout submodules
+        working-directory: ${{ github.workspace }}
         env:
           SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
-        run: ./scripts/checkout-submodules.bash
+        run: bash scripts/checkout-submodules.bash
 
       - uses: actions/setup-java@v5
         with:
@@ -79,9 +81,10 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Checkout submodules
+        working-directory: ${{ github.workspace }}
         env:
           SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
-        run: ./scripts/checkout-submodules.bash
+        run: bash scripts/checkout-submodules.bash
 
       - name: Show Swift version
         run: swift --version

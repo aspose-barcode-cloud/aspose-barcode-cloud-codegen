@@ -6,7 +6,16 @@ if [ "$#" -gt 0 ]; then
     submodule_args+=("$@")
 fi
 
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+script_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+repo_root="${GITHUB_WORKSPACE:-$script_root}"
+if ! git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    repo_root="$script_root"
+fi
+
+if ! git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Cannot locate git repository root for submodule checkout." >&2
+    exit 1
+fi
 
 if [ -n "${SWIFT_SUBMODULE_DEPLOY_KEY:-}" ]; then
     ssh_dir="$HOME/.ssh"
