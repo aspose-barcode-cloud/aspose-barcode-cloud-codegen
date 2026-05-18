@@ -10,17 +10,17 @@ then
     rm -rf "$tempDir"
 fi
 
+# Templates src https://github.com/OpenAPITools/openapi-generator/tree/v7.8.0/modules/openapi-generator/src/main/resources/swift5
 # java -jar Tools/openapi-generator-cli.jar config-help -g swift5 ; exit 1
-# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -o "$tempDir" -c config-swift.json > debugModels.swift.json ; exit
-# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -o "$tempDir" -c config-swift.json > debugOperations.swift.json ; exit
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -o "$tempDir" -c config-swift.json
+# java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -t Templates/swift -o "$tempDir" -c config-swift.json > debugModels.swift.json ; exit
+# java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -t Templates/swift -o "$tempDir" -c config-swift.json > debugOperations.swift.json ; exit
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g swift5 -t Templates/swift -o "$tempDir" -c config-swift.json
 
 mkdir -p "$targetDir/Sources"
 rm -rf "$targetDir/Sources/AsposeBarcodeCloud"
 mv "$tempDir/Sources/AsposeBarcodeCloud" "$targetDir/Sources/AsposeBarcodeCloud"
 
-cp Support/swift/*.swift "$targetDir/Sources/AsposeBarcodeCloud/"
-python3 Tools/patch-swift-generated.py "$targetDir" config-swift.json
+mv "$tempDir/README.md" "$targetDir/README.md"
 
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"

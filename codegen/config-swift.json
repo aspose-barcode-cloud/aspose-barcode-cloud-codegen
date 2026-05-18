@@ -1,6 +1,12 @@
 {
     "allowUnicodeIdentifiers": true,
     "enumUnknownDefaultCase": true,
+    "files": {
+        "AsposeBarcodeCloudClient.mustache": {
+            "destinationFilename": "Sources/AsposeBarcodeCloud/AsposeBarcodeCloudClient.swift",
+            "templateType": "SupportingFiles"
+        }
+    },
     "hideGenerationTimestamp": true,
     "mapFileBinaryToData": true,
     "packageVersion": "26.4.0",
