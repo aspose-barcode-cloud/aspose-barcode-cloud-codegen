@@ -36,13 +36,8 @@ jobs:
   check-swift-codegen-linux:
     runs-on: ubuntu-latest
     needs: [check-submodules]
-    container:
-      image: swift:6.0
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install Linux CI tools
-        run: apt-get update && apt-get install -y make openssh-client python3
 
       - name: Checkout submodules
         working-directory: ${{ github.workspace }}
