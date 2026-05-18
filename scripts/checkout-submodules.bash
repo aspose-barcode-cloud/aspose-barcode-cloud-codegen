@@ -6,6 +6,9 @@ if [ "$#" -gt 0 ]; then
     submodule_args+=("$@")
 fi
 
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
 if [ -n "${SWIFT_SUBMODULE_DEPLOY_KEY:-}" ]; then
     ssh_dir="$HOME/.ssh"
     key_file="$ssh_dir/aspose_barcode_cloud_swift_submodule"
