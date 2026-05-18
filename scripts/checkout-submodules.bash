@@ -7,7 +7,6 @@ if [ "$#" -gt 0 ]; then
 fi
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$repo_root"
 
 if [ -n "${SWIFT_SUBMODULE_DEPLOY_KEY:-}" ]; then
     ssh_dir="$HOME/.ssh"
@@ -19,8 +18,8 @@ if [ -n "${SWIFT_SUBMODULE_DEPLOY_KEY:-}" ]; then
     chmod 600 "$key_file"
     ssh-keyscan github.com >> "$ssh_dir/known_hosts" 2>/dev/null
 
-    git config submodule.submodules/swift.url git@github.com:aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift.git
+    git -C "$repo_root" config --local submodule.submodules/swift.url git@github.com:aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift.git
     export GIT_SSH_COMMAND="ssh -i $key_file -o IdentitiesOnly=yes -o UserKnownHostsFile=$ssh_dir/known_hosts"
 fi
 
-git submodule update "${submodule_args[@]}"
+git -C "$repo_root" submodule update "${submodule_args[@]}"
