@@ -19,18 +19,8 @@ mkdir -p "$targetDir/Sources"
 rm -rf "$targetDir/Sources/AsposeBarcodeCloud"
 mv "$tempDir/Sources/AsposeBarcodeCloud" "$targetDir/Sources/AsposeBarcodeCloud"
 
-# OpenAPI Generator 7.8.0 emits Apple-only imports for the URLSession client
-# when compiling on Linux. Keep the generated client SwiftPM-compatible in WSL.
-perl -0pi -e 's/import Foundation\n#if !os\(macOS\)\nimport MobileCoreServices\n#endif/import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n#if canImport(MobileCoreServices)\nimport MobileCoreServices\n#endif/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
-perl -0pi -e 's/        } else {\n            if let uti = UTTypeCreatePreferredIdentifierForTag/        } else {\n            #if canImport(MobileCoreServices)\n            if let uti = UTTypeCreatePreferredIdentifierForTag/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
-perl -0pi -e 's/                return mimetype as String\n            }\n            return "application\/octet-stream"/                return mimetype as String\n            }\n            #endif\n            return "application\/octet-stream"/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
-
-# Keep the generated runtime warning-free under current Swift toolchains.
-perl -0pi -e 's/extension String: CodingKey \{/extension Swift.String: Swift.CodingKey {/' "$targetDir/Sources/AsposeBarcodeCloud/Extensions.swift"
-perl -0pi -e 's/}\s*\z/}\n\n#if compiler(>=5.5)\nextension OpenISO8601DateFormatter: \@unchecked Sendable {}\n#endif\n/' "$targetDir/Sources/AsposeBarcodeCloud/OpenISO8601DateFormatter.swift"
-perl -0pi -e 's/\n            #else\n            return "application\/octet-stream"\s*\n            #endif/\n            #endif/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
-perl -0pi -e 's/private class SessionDelegate/private final class SessionDelegate/' "$targetDir/Sources/AsposeBarcodeCloud/URLSessionImplementations.swift"
 cp Support/swift/*.swift "$targetDir/Sources/AsposeBarcodeCloud/"
+python3 Tools/patch-swift-generated.py "$targetDir" config-swift.json
 
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"

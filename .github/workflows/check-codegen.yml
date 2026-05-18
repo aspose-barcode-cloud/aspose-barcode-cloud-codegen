@@ -32,10 +32,16 @@ jobs:
       - name: Check existing swagger specification is up-to-date
         run: curl https://api.aspose.cloud/v4.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
 
-  check-swift-codegen:
-    runs-on: macos-latest
+  check-swift-codegen-linux:
+    runs-on: ubuntu-latest
+    needs: [check-submodules]
+    container:
+      image: swift:6.0
     steps:
       - uses: actions/checkout@v6
+
+      - name: Install Linux CI tools
+        run: apt-get update && apt-get install -y make openssh-client python3
 
       - name: Checkout submodules
         env:
@@ -56,12 +62,38 @@ jobs:
       - name: Check Swift SDK generation is reproducible
         run: git diff --exit-code
 
-      - name: Run Swift tests
+      - name: Build Swift example
         working-directory: submodules/swift
-        run: make test
+        run: swift build --product GenerateAndScanExample
 
       - name: Run Swift live integration tests
         working-directory: submodules/swift
         run: make integration-test
         env:
           TEST_CONFIGURATION_ACCESS_TOKEN: ${{ secrets.TEST_CONFIGURATION_ACCESS_TOKEN }}
+
+  check-swift-macos:
+    runs-on: macos-latest
+    needs: [check-swift-codegen-linux]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Checkout submodules
+        env:
+          SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
+        run: ./scripts/checkout-submodules.bash
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Build Swift SDK
+        working-directory: submodules/swift
+        run: make build
+
+      - name: Run Swift tests
+        working-directory: submodules/swift
+        run: make test
+
+      - name: Build Swift example
+        working-directory: submodules/swift
+        run: swift build --product GenerateAndScanExample

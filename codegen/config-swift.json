@@ -3,6 +3,7 @@
     "enumUnknownDefaultCase": true,
     "hideGenerationTimestamp": true,
     "mapFileBinaryToData": true,
+    "packageVersion": "26.4.0",
     "projectName": "AsposeBarcodeCloud",
     "swiftPackagePath": "Sources/AsposeBarcodeCloud",
     "useClasses": true,
