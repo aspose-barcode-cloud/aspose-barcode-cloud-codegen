@@ -3,7 +3,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-public enum AsposeBarcodeCloudClientError: Error, CustomStringConvertible {
+public enum AsposeBarcodeCloudClientError: Error, CustomStringConvertible, @unchecked Sendable {
     case missingCredentials
     case invalidTokenURL(String)
     case invalidTokenResponse
@@ -29,7 +29,19 @@ public enum AsposeBarcodeCloudClientError: Error, CustomStringConvertible {
     }
 }
 
-public final class AsposeBarcodeCloudConfiguration {
+public enum AsposeBarcodeCloudAPI {
+    public static var basePath: String {
+        get { AsposeBarcodeCloudAPIConfiguration.shared.basePath }
+        set { AsposeBarcodeCloudAPIConfiguration.shared.basePath = newValue }
+    }
+
+    public static var customHeaders: [String: String] {
+        get { AsposeBarcodeCloudAPIConfiguration.shared.customHeaders }
+        set { AsposeBarcodeCloudAPIConfiguration.shared.customHeaders = newValue }
+    }
+}
+
+public final class AsposeBarcodeCloudConfiguration: @unchecked Sendable {
     public static let defaultHost = "https://api.aspose.cloud/v4.0"
     public static let defaultTokenURL = "https://id.aspose.cloud/connect/token"
     public static let defaultSdkName = "swift sdk"
@@ -90,12 +102,12 @@ public final class AsposeBarcodeCloudConfiguration {
     }
 }
 
-public typealias AsposeBarcodeCloudTokenFetcher = (
+public typealias AsposeBarcodeCloudTokenFetcher = @Sendable (
     AsposeBarcodeCloudConfiguration,
-    @escaping (Result<String, AsposeBarcodeCloudClientError>) -> Void
+    @escaping @Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void
 ) -> Void
 
-public final class AsposeBarcodeCloudClient {
+public final class AsposeBarcodeCloudClient: @unchecked Sendable {
     public let configuration: AsposeBarcodeCloudConfiguration
     private let tokenFetcher: AsposeBarcodeCloudTokenFetcher
 
@@ -143,7 +155,7 @@ public final class AsposeBarcodeCloudClient {
         }
     }
 
-    public func authorize(completion: @escaping (Result<String, AsposeBarcodeCloudClientError>) -> Void) {
+    public func authorize(completion: @escaping @Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void) {
         if let accessToken = configuration.accessToken, !accessToken.isEmpty {
             apply()
             completion(.success(accessToken))
@@ -165,16 +177,16 @@ public final class AsposeBarcodeCloudClient {
     @discardableResult
     public func authorize() throws -> String {
         let semaphore = DispatchSemaphore(value: 0)
-        var tokenResult: Result<String, AsposeBarcodeCloudClientError>?
+        let tokenResult = OpenAPIMutex<Result<String, AsposeBarcodeCloudClientError>?>(nil)
 
         authorize { result in
-            tokenResult = result
+            tokenResult.withValue { $0 = result }
             semaphore.signal()
         }
 
         semaphore.wait()
 
-        switch tokenResult {
+        switch tokenResult.value {
         case let .success(accessToken):
             return accessToken
         case let .failure(error):
@@ -199,7 +211,7 @@ public final class AsposeBarcodeCloudClient {
 
     private static func defaultTokenFetcher(
         configuration: AsposeBarcodeCloudConfiguration,
-        completion: @escaping (Result<String, AsposeBarcodeCloudClientError>) -> Void
+        completion: @escaping @Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void
     ) {
         let request: URLRequest
         do {

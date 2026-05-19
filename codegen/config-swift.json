@@ -8,9 +8,11 @@
         }
     },
     "hideGenerationTimestamp": true,
+    "library": "urlsession",
     "mapFileBinaryToData": true,
     "packageVersion": "26.4.0",
     "projectName": "AsposeBarcodeCloud",
+    "responseAs": "AsyncAwait,ObjcBlock",
     "swiftPackagePath": "Sources/AsposeBarcodeCloud",
     "useClasses": true,
     "useSPMFileStructure": true

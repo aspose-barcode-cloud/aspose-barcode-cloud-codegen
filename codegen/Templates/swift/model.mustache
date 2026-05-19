@@ -5,10 +5,7 @@
 // https://openapi-generator.tech
 //
 
-import Foundation
-#if canImport(AnyCodable)
-import AnyCodable
-#endif{{#useVapor}}
+import Foundation{{#useVapor}}
 import Vapor{{/useVapor}}
 {{#swiftUseApiNamespace}}
 
@@ -27,4 +24,6 @@ extension {{projectName}}API {
 {{> modelObject}}{{/isEnum}}{{/isArray}}{{/vendorExtensions.x-is-one-of-interface}}{{/model}}{{/models}}
 {{#swiftUseApiNamespace}}
 }
-{{/swiftUseApiNamespace}}
+{{/swiftUseApiNamespace}}{{#models}}{{#model}}{{#vendorExtensions.x-swift-identifiable}}
+extension {{#swiftUseApiNamespace}}{{projectName}}API.{{/swiftUseApiNamespace}}{{{classname}}}: Identifiable {}
+{{/vendorExtensions.x-swift-identifiable}}{{/model}}{{/models}}

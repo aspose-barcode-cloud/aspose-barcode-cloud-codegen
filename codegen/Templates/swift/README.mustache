@@ -5,8 +5,8 @@ This repository contains the Swift SDK for Aspose.BarCode Cloud.
 ## Requirements
 
 - Swift Package Manager
-- iOS 11.0 or later
-- macOS 10.13 or later
+- iOS 13.0 or later
+- macOS 10.15 or later
 
 ## Usage
 

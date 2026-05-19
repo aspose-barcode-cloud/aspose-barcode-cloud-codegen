@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:6.0
 
 import PackageDescription
 
@@ -9,10 +9,10 @@ let package = Package(
         .macOS(.v10_15),
         {{/useVapor}}
         {{^useVapor}}
-        .iOS(.v11),
-        .macOS(.v10_13),
-        .tvOS(.v11),
-        .watchOS(.v4),
+        .iOS(.v13),
+        .macOS(.v10_15),
+        .tvOS(.v13),
+        .watchOS(.v6),
         {{/useVapor}}
     ],
     products: [
@@ -21,21 +21,24 @@ let package = Package(
             name: "{{projectName}}",
             targets: ["{{projectName}}"]
         ),
+        .executable(
+            name: "GenerateAndScanExample",
+            targets: ["GenerateAndScanExample"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Flight-School/AnyCodable", .upToNextMajor(from: "0.6.1")),
         {{#useAlamofire}}
-        .package(url: "https://github.com/Alamofire/Alamofire", .upToNextMajor(from: "5.7.0")),
+        .package(url: "https://github.com/Alamofire/Alamofire", .upToNextMajor(from: "5.10.2")),
         {{/useAlamofire}}
         {{#usePromiseKit}}
-        .package(url: "https://github.com/mxcl/PromiseKit", .upToNextMajor(from: "6.15.3")),
+        .package(url: "https://github.com/mxcl/PromiseKit", .upToNextMajor(from: "8.1.2")),
         {{/usePromiseKit}}
         {{#useRxSwift}}
-        .package(url: "https://github.com/ReactiveX/RxSwift", .upToNextMajor(from: "6.2.0")),
+        .package(url: "https://github.com/ReactiveX/RxSwift", .upToNextMajor(from: "6.8.0")),
         {{/useRxSwift}}
         {{#useVapor}}
-        .package(url: "https://github.com/vapor/vapor", from: "4.0.0")
+        .package(url: "https://github.com/vapor/vapor", from: "4.99.0"),
         {{/useVapor}}
     ],
     targets: [
@@ -43,8 +46,19 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "{{projectName}}",
-            dependencies: ["AnyCodable", {{#useVapor}}"Vapor", {{/useVapor}}{{#useAlamofire}}"Alamofire", {{/useAlamofire}}{{#usePromiseKit}}"PromiseKit", {{/usePromiseKit}}{{#useRxSwift}}"RxSwift"{{/useRxSwift}}],
+            dependencies: [{{#useVapor}}.product(name: "Vapor", package: "vapor"){{/useVapor}}{{#useAlamofire}}"Alamofire", {{/useAlamofire}}{{#usePromiseKit}}"PromiseKit", {{/usePromiseKit}}{{#useRxSwift}}"RxSwift"{{/useRxSwift}}],
             path: "{{swiftPackagePath}}{{^swiftPackagePath}}{{#useSPMFileStructure}}Sources/{{projectName}}{{/useSPMFileStructure}}{{^useSPMFileStructure}}{{projectName}}/Classes{{/useSPMFileStructure}}{{/swiftPackagePath}}"
         ),
-    ]
+        .executableTarget(
+            name: "GenerateAndScanExample",
+            dependencies: ["{{projectName}}"],
+            path: "Examples/GenerateAndScan"
+        ),
+        .testTarget(
+            name: "{{projectName}}Tests",
+            dependencies: ["{{projectName}}"],
+            path: "Tests/{{projectName}}Tests"
+        ),
+    ],
+    swiftLanguageModes: [.v6]
 )
