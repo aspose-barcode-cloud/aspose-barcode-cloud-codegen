@@ -17,8 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
+
+      - name: Checkout submodules
+        working-directory: ${{ github.workspace }}
+        env:
+          SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
+        run: bash scripts/checkout-submodules.bash
 
       - name: Check all URLs
         run: ./scripts/check_all_urls.sh

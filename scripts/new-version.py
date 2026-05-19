@@ -66,6 +66,12 @@ def set_python_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "conf
     save_config(config, filename)
 
 
+def set_swift_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-swift.json")):
+    config = read_config(filename)
+    config["packageVersion"] = str.join(".", map(str, new_version))
+    save_config(config, filename)
+
+
 def read_config(filename):
     with open(filename, "rb") as rf:
         config = json.load(rf)
@@ -90,6 +96,7 @@ def main(new_versions):
     set_node_version(new_version)
     set_php_version(new_version)
     set_python_version(new_version)
+    set_swift_version(new_version)
 
 
 def parse_args():

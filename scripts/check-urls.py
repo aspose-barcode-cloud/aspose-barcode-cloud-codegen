@@ -37,6 +37,8 @@ REGEX_TO_IGNORE: list[re.Pattern[str]] = [
 URLS_TO_IGNORE = frozenset(
     [
         "https://api.aspose.cloud",
+        # Temporary while the Swift SDK repository is private during bootstrap.
+        "https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift.git",
         "https://www.aspose.cloud/404",
         "https://www.aspose.cloud/404/",
     ]
@@ -61,6 +63,7 @@ IGNORE_DOMAINS = Subdomains(
         ".mvnrepository.com",
         ".nodejs.org",
         ".npmjs.com",
+        ".openapi-generator.tech",
         ".nuget.org",
         ".opensource.org",
         ".packagist.org",
