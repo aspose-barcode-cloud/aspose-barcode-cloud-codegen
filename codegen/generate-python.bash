@@ -11,7 +11,17 @@ then
 fi
 
 # java -jar Tools/openapi-generator-cli.jar config-help -g python
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json
+
+# Restore pre-7.22.0 Python generator behavior for binary payloads:
+#   --type-mappings file=bytearray
+#       In 7.8.0 the Python generator already mapped OpenAPI `file` type to
+#       `bytearray`; in 7.22.0 the default changed, so we map it back
+#       explicitly.
+#   --language-specific-primitives bytearray
+#       Tell the generator that `bytearray` is a built-in primitive (not a
+#       user model). Without this it would emit `from .bytearray import
+#       bytearray` and a stub model file alongside the SDK code.
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json --type-mappings file=bytearray --language-specific-primitives bytearray
 # java -DdebugMorms -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json > debugMorms.py.json
 # java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t Templates/python -o $tempDir -c config-python.json > debugOperations.py.json ; exit
 

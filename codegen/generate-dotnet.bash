@@ -15,7 +15,7 @@ fi
 # Generate Operations and Models for Debug purposes
 # java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json > debugOperations.cs.json ; exit
 # java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json > debugModels.cs.json ; exit
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json
+java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t Templates/csharp -o $tempDir -c config-dotnet.json --library restsharp
 
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/GenerateApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/ScanApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
@@ -33,7 +33,12 @@ rm -rf $targetDir/src/Api/*Api.cs
 mv $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/*.cs $targetDir/src/Api/
 
 for ifile in "$tempDir/src/Aspose.BarCode.Cloud.Sdk.Test/Api/"*.cs; do
-     new_name=$targetDir/src/Interfaces/I$(basename "$ifile" | sed 's/Tests//')
+     base=$(basename "$ifile")
+     # Skip new-in-7.22.0 test stubs that don't map to actual SDK interfaces
+     case "$base" in
+          ApiBaseTests.cs|DependencyInjectionTests.cs) continue ;;
+     esac
+     new_name=$targetDir/src/Interfaces/I$(echo "$base" | sed 's/Tests//')
      mv "$ifile" "$new_name"
 done
 
