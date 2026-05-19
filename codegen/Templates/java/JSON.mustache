@@ -9,8 +9,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonElement;
-import io.gsonfire.GsonFireBuilder;
-import io.gsonfire.TypeSelector;
 {{#joda}}
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -47,8 +45,7 @@ public class JSON {
     private Gson gson;
 
     private static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder();
-        GsonBuilder builder = fireBuilder.createGsonBuilder();
+        GsonBuilder builder = new GsonBuilder();
         {{#disableHtmlEscaping}}
         builder.disableHtmlEscaping();
         {{/disableHtmlEscaping}}
