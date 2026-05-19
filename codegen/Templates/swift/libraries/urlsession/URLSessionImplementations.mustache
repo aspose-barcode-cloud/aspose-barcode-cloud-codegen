@@ -640,6 +640,7 @@ private class FormDataEncoding: ParameterEncoding {
             if let utType = UTType(filenameExtension: pathExtension) {
                 return utType.preferredMIMEType ?? "application/octet-stream"
             }
+            return "application/octet-stream"
             #else
             return "application/octet-stream"
             #endif
