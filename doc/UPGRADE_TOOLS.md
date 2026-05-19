@@ -11,5 +11,5 @@ Origin templates <https://github.com/OpenAPITools/openapi-generator/tree/master/
 Repository <https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli>
 
 ```sh
-curl 'https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.8.0/openapi-generator-cli-7.8.0.jar' -Lo codegen/Tools/openapi-generator-cli.jar
+curl 'https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.22.0/openapi-generator-cli-7.22.0.jar' -Lo codegen/Tools/openapi-generator-cli.jar
 ```

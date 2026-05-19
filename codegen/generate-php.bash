@@ -22,6 +22,8 @@ python Tools/split-php-file.py "${tempDir}/lib/Api/RecognizeApi.php" "${tempDir}
 
 rm -f "${targetDir}/src/Aspose/BarCode/"*Api.php
 mv "${tempDir}/lib/Api/"* "${targetDir}/src/Aspose/BarCode"
+# Drop FormDataProcessor.php (new in 7.22.0, unreferenced by the rest of the SDK)
+rm -f "${tempDir}/lib/FormDataProcessor.php"
 mv "${tempDir}/lib/"*.php "${targetDir}/src/Aspose/BarCode"
 
 rm -f "${targetDir}/src/Aspose/BarCode/Model/"*
@@ -32,6 +34,11 @@ mv "${tempDir}/lib/Requests/"* "${targetDir}/src/Aspose/BarCode/Requests/"
 
 rm -rf "${targetDir}/docs/"*
 mv "${tempDir}/docs/"* "${targetDir}/docs"
+
+# Collapse the doubled namespace prefix introduced by openapi-generator 7.9.0+
+# (see PR #19567). The remaining single namespace is valid PHP / valid Markdown
+# everywhere it appears, just more verbose than what 7.8.0 emitted.
+sed -i 's|\\Aspose\\BarCode\\Model\\\\Aspose\\BarCode\\Model\\|\\Aspose\\BarCode\\Model\\|g' "${targetDir}/docs/Api/"*.md
 
 mv "${tempDir}/README.md" "${targetDir}/README.template"
 cp ../LICENSE "${targetDir}/"
