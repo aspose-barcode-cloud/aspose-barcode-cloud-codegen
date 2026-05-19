@@ -1,7 +1,6 @@
 /**
  * {{#description}}{{.}}{{/description}}{{^description}}{{classname}}{{/description}}
- */{{#description}}
-@ApiModel(description = "{{{description}}}"){{/description}}
+ */
 {{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}{{>xmlAnnotation}}
 
 {{#notNullJacksonAnnotation}}@JsonInclude(JsonInclude.Include.NON_NULL){{/notNullJacksonAnnotation}}
@@ -154,7 +153,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{/maximum}}
    * @return {{name}}
    */
-{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}  @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{nameInCamelCase}}}")
+{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}
 {{#vendorExtensions.extraAnnotation}}
   {{{vendorExtensions.extraAnnotation}}}
 {{/vendorExtensions.extraAnnotation}}
