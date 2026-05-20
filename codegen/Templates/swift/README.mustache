@@ -33,8 +33,12 @@ let client = AsposeBarcodeCloudClient(
     clientId: "your-client-id",
     clientSecret: "your-client-secret"
 )
+```
 
-try client.authorize()
+The OAuth access token is fetched lazily on the first API call. To warm it up at app start, await the explicit method:
+
+```swift
+_ = try await client.authorize()
 ```
 
 If you already have an access token, configure the SDK directly:
@@ -43,7 +47,7 @@ If you already have an access token, configure the SDK directly:
 let client = AsposeBarcodeCloudClient(accessToken: "your-access-token")
 ```
 
-`AsposeBarcodeCloudClient` owns a per-instance `apiConfiguration` and sets `Authorization`, `x-aspose-client`, and `x-aspose-client-version` headers on it. Pass `client.apiConfiguration` to each API call so the headers are applied.
+`AsposeBarcodeCloudClient` owns a per-instance `apiConfiguration` and sets `x-aspose-client` and `x-aspose-client-version` headers on it. The bundled `BarcodeAuthInterceptor` injects the `Authorization` header on each authenticated request. Pass `client.apiConfiguration` to each API call so the headers are applied.
 
 ### Generate
 
