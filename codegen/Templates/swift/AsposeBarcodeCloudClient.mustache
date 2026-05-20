@@ -29,18 +29,6 @@ public enum AsposeBarcodeCloudClientError: Error, CustomStringConvertible, @unch
     }
 }
 
-public enum AsposeBarcodeCloudAPI {
-    public static var basePath: String {
-        get { AsposeBarcodeCloudAPIConfiguration.shared.basePath }
-        set { AsposeBarcodeCloudAPIConfiguration.shared.basePath = newValue }
-    }
-
-    public static var customHeaders: [String: String] {
-        get { AsposeBarcodeCloudAPIConfiguration.shared.customHeaders }
-        set { AsposeBarcodeCloudAPIConfiguration.shared.customHeaders = newValue }
-    }
-}
-
 public final class AsposeBarcodeCloudConfiguration: @unchecked Sendable {
     public static let defaultHost = "https://api.aspose.cloud/v4.0"
     public static let defaultTokenURL = "https://id.aspose.cloud/connect/token"
@@ -109,6 +97,7 @@ public typealias AsposeBarcodeCloudTokenFetcher = @Sendable (
 
 public final class AsposeBarcodeCloudClient: @unchecked Sendable {
     public let configuration: AsposeBarcodeCloudConfiguration
+    public let apiConfiguration: AsposeBarcodeCloudAPIConfiguration
     private let tokenFetcher: AsposeBarcodeCloudTokenFetcher
 
     public init(
@@ -117,6 +106,16 @@ public final class AsposeBarcodeCloudClient: @unchecked Sendable {
     ) {
         self.configuration = configuration
         self.tokenFetcher = tokenFetcher ?? AsposeBarcodeCloudClient.defaultTokenFetcher
+        self.apiConfiguration = AsposeBarcodeCloudAPIConfiguration(
+            basePath: configuration.host,
+            customHeaders: [
+                "x-aspose-client": configuration.sdkName,
+                "x-aspose-client-version": configuration.sdkVersion,
+            ]
+        )
+        if let accessToken = configuration.accessToken, !accessToken.isEmpty {
+            apiConfiguration.customHeaders["Authorization"] = "Bearer \(accessToken)"
+        }
     }
 
     public convenience init(
@@ -144,15 +143,17 @@ public final class AsposeBarcodeCloudClient: @unchecked Sendable {
     }
 
     public func apply() {
-        AsposeBarcodeCloudAPI.basePath = configuration.host
-        AsposeBarcodeCloudAPI.customHeaders["x-aspose-client"] = configuration.sdkName
-        AsposeBarcodeCloudAPI.customHeaders["x-aspose-client-version"] = configuration.sdkVersion
+        apiConfiguration.basePath = configuration.host
+        var headers = apiConfiguration.customHeaders
+        headers["x-aspose-client"] = configuration.sdkName
+        headers["x-aspose-client-version"] = configuration.sdkVersion
 
         if let accessToken = configuration.accessToken, !accessToken.isEmpty {
-            AsposeBarcodeCloudAPI.customHeaders["Authorization"] = "Bearer \(accessToken)"
+            headers["Authorization"] = "Bearer \(accessToken)"
         } else {
-            AsposeBarcodeCloudAPI.customHeaders.removeValue(forKey: "Authorization")
+            headers.removeValue(forKey: "Authorization")
         }
+        apiConfiguration.customHeaders = headers
     }
 
     public func authorize(completion: @escaping @Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void) {
@@ -194,11 +195,6 @@ public final class AsposeBarcodeCloudClient: @unchecked Sendable {
         case .none:
             throw AsposeBarcodeCloudClientError.invalidTokenResponse
         }
-    }
-
-    public static func resetGlobalConfiguration() {
-        AsposeBarcodeCloudAPI.basePath = AsposeBarcodeCloudConfiguration.defaultHost
-        AsposeBarcodeCloudAPI.customHeaders.removeAll()
     }
 
     private struct TokenResponse: Decodable {

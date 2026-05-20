@@ -41,10 +41,9 @@ If you already have an access token, configure the SDK directly:
 
 ```swift
 let client = AsposeBarcodeCloudClient(accessToken: "your-access-token")
-client.apply()
 ```
 
-`AsposeBarcodeCloudClient` sets `Authorization`, `x-aspose-client`, and `x-aspose-client-version` headers for generated requests.
+`AsposeBarcodeCloudClient` owns a per-instance `apiConfiguration` and sets `Authorization`, `x-aspose-client`, and `x-aspose-client-version` headers on it. Pass `client.apiConfiguration` to each API call so the headers are applied.
 
 ### Generate
 
@@ -52,7 +51,8 @@ client.apply()
 GenerateAPI.generate(
     barcodeType: .qr,
     data: "Aspose.BarCode Cloud",
-    imageFormat: .png
+    imageFormat: .png,
+    apiConfiguration: client.apiConfiguration
 ) { data, error in
     if let error = error {
         print(error)
@@ -71,7 +71,8 @@ Use `scanBase64` when the SDK should detect barcode types automatically, or `rec
 let imageBase64 = generatedPngData.base64EncodedString()
 
 ScanAPI.scanBase64(
-    scanBase64Request: ScanBase64Request(fileBase64: imageBase64)
+    scanBase64Request: ScanBase64Request(fileBase64: imageBase64),
+    apiConfiguration: client.apiConfiguration
 ) { response, error in
     if let error = error {
         print(error)
@@ -86,7 +87,10 @@ let request = RecognizeBase64Request(
     fileBase64: imageBase64
 )
 
-RecognizeAPI.recognizeBase64(recognizeBase64Request: request) { response, error in
+RecognizeAPI.recognizeBase64(
+    recognizeBase64Request: request,
+    apiConfiguration: client.apiConfiguration
+) { response, error in
     if let error = error {
         print(error)
         return
