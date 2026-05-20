@@ -43,6 +43,29 @@ extension URLSession: URLSessionProtocol {
 
 extension URLSessionDataTask: URLSessionDataTaskProtocol {}
 
+{{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} enum URLSessionRequestBuilderError: Error, CustomStringConvertible, Sendable {
+    case unsupportedHTTPMethod(String)
+    case unsupportedMediaType(String)
+    case unsupportedResponseBodyType(String)
+    case unprocessableMultipartValue(key: String, valueDescription: String)
+    case unprocessableBody(description: String)
+
+    {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} var description: String {
+        switch self {
+        case let .unsupportedHTTPMethod(method):
+            return "Unsupported HTTP method: \(method)"
+        case let .unsupportedMediaType(contentType):
+            return "Unsupported media type: \(contentType)"
+        case let .unsupportedResponseBodyType(typeName):
+            return "Unsupported response body type: \(typeName)"
+        case let .unprocessableMultipartValue(key, valueDescription):
+            return "Unprocessable multipart value for key \(key): \(valueDescription)"
+        case let .unprocessableBody(description):
+            return "Unprocessable request body: \(description)"
+        }
+    }
+}
+
 {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} final class URLSessionRequestBuilderFactory: RequestBuilderFactory, Sendable {
     {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} init() {}
 
@@ -125,7 +148,10 @@ fileprivate class URLSessionRequestBuilderConfiguration: @unchecked Sendable {
         let urlSession = createURLSession()
 
         guard let xMethod = HTTPMethod(rawValue: method) else {
-            fatalError("Unsupported Http method - \(method)")
+            apiConfiguration.apiResponseQueue.async {
+                completion(.failure(ErrorResponse.error(-3, nil, nil, URLSessionRequestBuilderError.unsupportedHTTPMethod(self.method))))
+            }
+            return requestTask
         }
 
         let encoding: ParameterEncoding
@@ -146,7 +172,10 @@ fileprivate class URLSessionRequestBuilderConfiguration: @unchecked Sendable {
             } else if contentType.hasPrefix("application/octet-stream") || contentType.hasPrefix("image/") {
                 encoding = OctetStreamEncoding()
             } else {
-                fatalError("Unsupported Media Type - \(contentType)")
+                apiConfiguration.apiResponseQueue.async {
+                    completion(.failure(ErrorResponse.error(-4, nil, nil, URLSessionRequestBuilderError.unsupportedMediaType(contentType))))
+                }
+                return requestTask
             }
         }
 
@@ -267,7 +296,10 @@ fileprivate class URLSessionRequestBuilderConfiguration: @unchecked Sendable {
             completion(.success(Response(response: httpResponse, body: result, bodyData: data)))
 
         default:
-            fatalError("Unsupported Response Body Type - \(String(describing: T.self))")
+            let typeName = String(describing: T.self)
+            let error = URLSessionRequestBuilderError.unsupportedResponseBodyType(typeName)
+            apiConfiguration.interceptor.didComplete(urlRequest: urlRequest, urlSession: urlSession, requestBuilder: self, data: data, response: httpResponse, result: .failure(ErrorResponse.error(-5, data, httpResponse, error)))
+            completion(.failure(ErrorResponse.error(-5, data, httpResponse, error)))
         }
 
     }
@@ -554,7 +586,7 @@ private class FormDataEncoding: ParameterEncoding {
                     }
 
                 default:
-                    fatalError("Unprocessable value \(value) with key \(key)")
+                    throw URLSessionRequestBuilderError.unprocessableMultipartValue(key: key, valueDescription: String(describing: value))
                 }
             }
         }
@@ -704,7 +736,7 @@ private class OctetStreamEncoding: ParameterEncoding {
         case let data as Data:
             urlRequest.httpBody = data
         default:
-            fatalError("Unprocessable body \(body)")
+            throw URLSessionRequestBuilderError.unprocessableBody(description: String(describing: body))
         }
 
         return urlRequest
