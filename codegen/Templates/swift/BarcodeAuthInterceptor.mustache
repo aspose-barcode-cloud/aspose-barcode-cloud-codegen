@@ -1,0 +1,115 @@
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+final class BarcodeAuthInterceptor: OpenAPIInterceptor, @unchecked Sendable {
+    private let configuration: AsposeBarcodeCloudConfiguration
+    private let tokenFetcher: AsposeBarcodeCloudTokenFetcher
+    private let state: OpenAPIMutex<State>
+
+    private struct State {
+        var token: String?
+        var inFlightFetch: Bool
+        var pendingWaiters: [@Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void]
+    }
+
+    init(
+        configuration: AsposeBarcodeCloudConfiguration,
+        tokenFetcher: @escaping AsposeBarcodeCloudTokenFetcher
+    ) {
+        self.configuration = configuration
+        self.tokenFetcher = tokenFetcher
+        let initialToken = configuration.accessToken.flatMap { $0.isEmpty ? nil : $0 }
+        self.state = OpenAPIMutex(State(
+            token: initialToken,
+            inFlightFetch: false,
+            pendingWaiters: []
+        ))
+    }
+
+    func intercept<T>(
+        urlRequest: URLRequest,
+        urlSession: URLSessionProtocol,
+        requestBuilder: RequestBuilder<T>,
+        completion: @Sendable @escaping (Result<URLRequest, any Error>) -> Void
+    ) {
+        guard requestBuilder.requiresAuthentication else {
+            completion(.success(urlRequest))
+            return
+        }
+
+        ensureToken { result in
+            switch result {
+            case let .success(token):
+                var modified = urlRequest
+                modified.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                completion(.success(modified))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func retry<T>(
+        urlRequest: URLRequest,
+        urlSession: URLSessionProtocol,
+        requestBuilder: RequestBuilder<T>,
+        data: Data?,
+        response: URLResponse?,
+        error: any Error,
+        completion: @Sendable @escaping (OpenAPIInterceptorRetry) -> Void
+    ) {
+        completion(.dontRetry)
+    }
+
+    func ensureToken(completion: @escaping @Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void) {
+        enum Action {
+            case immediate(Result<String, AsposeBarcodeCloudClientError>)
+            case wait
+            case startFetch
+        }
+
+        var action: Action = .wait
+        state.withValue { state in
+            if let token = state.token, !token.isEmpty {
+                action = .immediate(.success(token))
+                return
+            }
+            state.pendingWaiters.append(completion)
+            if state.inFlightFetch {
+                action = .wait
+            } else {
+                state.inFlightFetch = true
+                action = .startFetch
+            }
+        }
+
+        switch action {
+        case let .immediate(result):
+            completion(result)
+        case .wait:
+            break
+        case .startFetch:
+            tokenFetcher(configuration) { [weak self] result in
+                self?.deliverToken(result)
+            }
+        }
+    }
+
+    private func deliverToken(_ result: Result<String, AsposeBarcodeCloudClientError>) {
+        var waiters: [@Sendable (Result<String, AsposeBarcodeCloudClientError>) -> Void] = []
+        state.withValue { state in
+            state.inFlightFetch = false
+            if case let .success(token) = result {
+                state.token = token
+                self.configuration.accessToken = token
+            }
+            waiters = state.pendingWaiters
+            state.pendingWaiters.removeAll()
+        }
+        for waiter in waiters {
+            waiter(result)
+        }
+    }
+}

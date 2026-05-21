@@ -5,6 +5,18 @@
         "AsposeBarcodeCloudClient.mustache": {
             "destinationFilename": "Sources/AsposeBarcodeCloud/AsposeBarcodeCloudClient.swift",
             "templateType": "SupportingFiles"
+        },
+        "AsposeBarcodeCloudClientError.mustache": {
+            "destinationFilename": "Sources/AsposeBarcodeCloud/AsposeBarcodeCloudClientError.swift",
+            "templateType": "SupportingFiles"
+        },
+        "AsposeBarcodeCloudConfiguration.mustache": {
+            "destinationFilename": "Sources/AsposeBarcodeCloud/AsposeBarcodeCloudConfiguration.swift",
+            "templateType": "SupportingFiles"
+        },
+        "BarcodeAuthInterceptor.mustache": {
+            "destinationFilename": "Sources/AsposeBarcodeCloud/Infrastructure/BarcodeAuthInterceptor.swift",
+            "templateType": "SupportingFiles"
         }
     },
     "hideGenerationTimestamp": true,

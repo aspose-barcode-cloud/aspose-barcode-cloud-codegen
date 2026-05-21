@@ -1,0 +1,65 @@
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+public final class AsposeBarcodeCloudConfiguration: @unchecked Sendable {
+    public static let defaultHost = "https://api.aspose.cloud/v4.0"
+    public static let defaultTokenURL = "https://id.aspose.cloud/connect/token"
+    public static let defaultSdkName = "swift sdk"
+    public static let defaultSdkVersion = "{{packageVersion}}"
+
+    public var host: String
+    public var tokenURL: String
+    public var accessToken: String?
+    public var clientId: String?
+    public var clientSecret: String?
+    public var sdkName: String
+    public var sdkVersion: String
+    public var timeoutInterval: TimeInterval
+
+    public init(
+        accessToken: String? = nil,
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        host: String = AsposeBarcodeCloudConfiguration.defaultHost,
+        tokenURL: String = AsposeBarcodeCloudConfiguration.defaultTokenURL,
+        sdkName: String = AsposeBarcodeCloudConfiguration.defaultSdkName,
+        sdkVersion: String = AsposeBarcodeCloudConfiguration.defaultSdkVersion,
+        timeoutInterval: TimeInterval = 300
+    ) {
+        self.accessToken = accessToken
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.host = host
+        self.tokenURL = tokenURL
+        self.sdkName = sdkName
+        self.sdkVersion = sdkVersion
+        self.timeoutInterval = timeoutInterval
+    }
+
+    public func makeTokenRequest() throws -> URLRequest {
+        guard let clientId = clientId, !clientId.isEmpty,
+              let clientSecret = clientSecret, !clientSecret.isEmpty else {
+            throw AsposeBarcodeCloudClientError.missingCredentials
+        }
+
+        guard let url = URL(string: tokenURL) else {
+            throw AsposeBarcodeCloudClientError.invalidTokenURL(tokenURL)
+        }
+
+        var components = URLComponents()
+        components.queryItems = [
+            URLQueryItem(name: "grant_type", value: "client_credentials"),
+            URLQueryItem(name: "client_id", value: clientId),
+            URLQueryItem(name: "client_secret", value: clientSecret),
+        ]
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = timeoutInterval
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = components.percentEncodedQuery?.data(using: .utf8)
+        return request
+    }
+}
