@@ -21,7 +21,7 @@ rm -rf "$targetDir/Sources/AsposeBarcodeCloud"
 mv "$tempDir/Sources/AsposeBarcodeCloud" "$targetDir/Sources/AsposeBarcodeCloud"
 
 mv "$tempDir/Package.swift" "$targetDir/Package.swift"
-mv "$tempDir/README.md" "$targetDir/README.md"
+mv "$tempDir/README.md" "$targetDir/README.template"
 
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"
