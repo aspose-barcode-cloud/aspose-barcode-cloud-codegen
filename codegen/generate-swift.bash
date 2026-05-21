@@ -26,12 +26,7 @@ mv "$tempDir/README.md" "$targetDir/README.md"
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"
 
-mv "$tempDir/.openapi-generator-ignore" "$targetDir/"
 mv "$tempDir/.swiftformat" "$targetDir/"
-
-mkdir -p "$targetDir/.openapi-generator"
-mv "$tempDir/.openapi-generator/VERSION" "$targetDir/.openapi-generator/"
-mv "$tempDir/.openapi-generator/FILES" "$targetDir/.openapi-generator/"
 
 cp ../LICENSE "$targetDir/"
 
