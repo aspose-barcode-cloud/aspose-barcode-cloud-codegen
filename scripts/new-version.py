@@ -10,8 +10,16 @@ from datetime import datetime
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_CONFIG_DIR = os.path.join(SCRIPT_DIR, "..", "codegen")
+SUBMODULES_DIR = os.path.join(SCRIPT_DIR, "..", "submodules")
 
 GO_VERSION_FORMAT = "4.{0}{1:02d}.{2}"
+
+
+def get_dart_pub_version(new_version):
+    pub_version = str.join(".", map(str, (4,) + new_version[:2]))
+    if new_version[2] > 0:
+        pub_version += "+" + str(new_version[2])
+    return pub_version
 
 
 def set_android_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-android.json")):
@@ -29,11 +37,31 @@ def set_go_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-g
 
 def set_dart_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-dart.json")):
     config = read_config(filename)
-    pub_version = str.join(".", map(str, (4,) + new_version[:2]))
-    if new_version[2] > 0:
-        pub_version += "+" + str(new_version[2])
-    config["pubVersion"] = pub_version
+    config["pubVersion"] = get_dart_pub_version(new_version)
     save_config(config, filename)
+
+
+def update_dart_changelog(new_version, filename=os.path.join(SUBMODULES_DIR, "dart", "CHANGELOG.md")):
+    pub_version = get_dart_pub_version(new_version)
+    entry_header = "## {}".format(pub_version)
+
+    with open(filename, "r", encoding="utf-8") as rf:
+        changelog = rf.read()
+
+    if entry_header in changelog:
+        return
+
+    release_month = datetime(2000 + new_version[0], new_version[1], 1).strftime("%B %Y")
+    entry = "{}\n\n* {} Release\n\n".format(entry_header, release_month)
+    title = "# CHANGELOG\n\n"
+
+    if changelog.startswith(title):
+        changelog = title + entry + changelog[len(title):]
+    else:
+        changelog = entry + changelog
+
+    with open(filename, "w", encoding="utf-8") as wf:
+        wf.write(changelog)
 
 
 def set_java_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "config-java.json")):
@@ -90,6 +118,7 @@ def main(new_versions):
 
     set_android_version(new_version)
     set_dart_version(new_version)
+    update_dart_changelog(new_version)
     set_go_version(new_version)
     set_java_version(new_version)
     set_net_version(new_version)
