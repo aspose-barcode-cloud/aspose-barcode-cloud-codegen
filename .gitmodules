@@ -22,3 +22,7 @@
 [submodule "submodules/dart"]
 	path = submodules/dart
 	url = ../Aspose.BarCode-Cloud-SDK-for-Dart
+[submodule "submodules/swift"]
+	path = submodules/swift
+	url = ../Aspose.BarCode-Cloud-SDK-for-Swift
+	branch = main

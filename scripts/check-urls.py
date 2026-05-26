@@ -61,6 +61,7 @@ IGNORE_DOMAINS = Subdomains(
         ".mvnrepository.com",
         ".nodejs.org",
         ".npmjs.com",
+        ".openapi-generator.tech",
         ".nuget.org",
         ".opensource.org",
         ".packagist.org",
