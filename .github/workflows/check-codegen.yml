@@ -15,14 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          submodules: recursive
           persist-credentials: true
 
       - name: Check all submodules up-to-date
-        working-directory: ${{ github.workspace }}
-        env:
-          SWIFT_SUBMODULE_DEPLOY_KEY: ${{ secrets.SWIFT_SUBMODULE_DEPLOY_KEY }}
         run: |
-          bash scripts/checkout-submodules.bash --remote
+          git submodule update --recursive --remote
           git diff --exit-code
 
   check-swagger:
