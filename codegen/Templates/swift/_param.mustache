@@ -1,0 +1,1 @@
+"{{baseName}}": {{#isQueryParam}}(wrappedValue: {{/isQueryParam}}{{#isBinary}}{{paramName}}{{/isBinary}}{{^isBinary}}{{paramName}}{{^required}}?{{/required}}.asParameter(codableHelper: apiConfiguration.codableHelper){{/isBinary}}{{#isQueryParam}}, isExplode: {{isExplode}}){{/isQueryParam}}
