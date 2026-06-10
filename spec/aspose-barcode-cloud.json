@@ -16,7 +16,7 @@
         "tags": [
           "Generate"
         ],
-        "summary": "Generate barcode using GET request with parameters in route and query string.",
+        "summary": "Generate a barcode using a GET request with parameters in the route and query string.",
         "operationId": "Generate",
         "parameters": [
           {
@@ -39,7 +39,7 @@
           {
             "name": "data",
             "in": "query",
-            "description": "String represents data to encode",
+            "description": "String that represents the data to encode.",
             "required": true,
             "schema": {
               "type": "string"
@@ -48,7 +48,7 @@
           {
             "name": "imageFormat",
             "in": "query",
-            "description": "Barcode output image format.\nDefault value: png",
+            "description": "Barcode output image format.\nDefault value: png.",
             "schema": {
               "$ref": "#/components/schemas/BarcodeImageFormat"
             }
@@ -56,7 +56,7 @@
           {
             "name": "textLocation",
             "in": "query",
-            "description": "Specify the displaying Text Location, set to CodeLocation.None to hide CodeText.\nDefault value: Depends on BarcodeType. CodeLocation.Below for 1D Barcodes. CodeLocation.None for 2D Barcodes.",
+            "description": "Specify the displayed text location. Set to CodeLocation.None to hide CodeText.\nDefault value depends on BarcodeType: CodeLocation.Below for 1D barcodes and CodeLocation.None for 2D barcodes.",
             "schema": {
               "$ref": "#/components/schemas/CodeLocation"
             }
@@ -64,7 +64,7 @@
           {
             "name": "foregroundColor",
             "in": "query",
-            "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
+            "description": "Specify the display color for bars and content.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: Black.",
             "schema": {
               "type": "string",
               "default": "Black"
@@ -73,7 +73,7 @@
           {
             "name": "backgroundColor",
             "in": "query",
-            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
+            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: White.",
             "schema": {
               "type": "string",
               "default": "White"
@@ -82,7 +82,7 @@
           {
             "name": "units",
             "in": "query",
-            "description": "Common Units for all measuring in query. Default units: pixel.",
+            "description": "Common units for all measurements. Default units: pixels.",
             "schema": {
               "$ref": "#/components/schemas/GraphicsUnit"
             }
@@ -90,7 +90,7 @@
           {
             "name": "resolution",
             "in": "query",
-            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
+            "description": "Resolution of the barcode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is a dot.",
             "schema": {
               "maximum": 100000,
               "minimum": 1,
@@ -101,7 +101,7 @@
           {
             "name": "imageHeight",
             "in": "query",
-            "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+            "description": "Height of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "schema": {
               "type": "number",
               "format": "float"
@@ -110,7 +110,7 @@
           {
             "name": "imageWidth",
             "in": "query",
-            "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+            "description": "Width of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "schema": {
               "type": "number",
               "format": "float"
@@ -119,10 +119,174 @@
           {
             "name": "rotationAngle",
             "in": "query",
-            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+            "description": "Barcode image rotation angle, measured in degrees. For example, RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle is not equal to 90, 180, 270, or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "qrEncodeMode",
+            "in": "query",
+            "description": "QR barcode encode mode.",
+            "schema": {
+              "$ref": "#/components/schemas/QREncodeMode"
+            }
+          },
+          {
+            "name": "qrErrorLevel",
+            "in": "query",
+            "description": "QR barcode error correction level.",
+            "schema": {
+              "$ref": "#/components/schemas/QRErrorLevel"
+            }
+          },
+          {
+            "name": "qrVersion",
+            "in": "query",
+            "description": "QR barcode version. Automatically selects the smallest version that fits the data.",
+            "schema": {
+              "$ref": "#/components/schemas/QRVersion"
+            }
+          },
+          {
+            "name": "qrECIEncoding",
+            "in": "query",
+            "description": "ECI encoding for QR barcode data.",
+            "schema": {
+              "$ref": "#/components/schemas/ECIEncodings"
+            }
+          },
+          {
+            "name": "qrAspectRatio",
+            "in": "query",
+            "description": "QR barcode aspect ratio. Values: 0 to 1.",
+            "schema": {
+              "maximum": 1,
+              "minimum": 0.001,
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "microQRVersion",
+            "in": "query",
+            "description": "MicroQR barcode version. Used when BarcodeType is MicroQR.",
+            "schema": {
+              "$ref": "#/components/schemas/MicroQRVersion"
+            }
+          },
+          {
+            "name": "rectMicroQrVersion",
+            "in": "query",
+            "description": "RectMicroQR barcode version. Used when BarcodeType is RectMicroQR.",
+            "schema": {
+              "$ref": "#/components/schemas/RectMicroQRVersion"
+            }
+          },
+          {
+            "name": "code128EncodeMode",
+            "in": "query",
+            "description": "Code128 barcode encode mode. Controls which Code 128 subset (A, B, C, or mix) is used.",
+            "schema": {
+              "$ref": "#/components/schemas/Code128EncodeMode"
+            }
+          },
+          {
+            "name": "pdf417EncodeMode",
+            "in": "query",
+            "description": "PDF417 barcode encode mode.",
+            "schema": {
+              "$ref": "#/components/schemas/Pdf417EncodeMode"
+            }
+          },
+          {
+            "name": "pdf417ErrorLevel",
+            "in": "query",
+            "description": "PDF417 barcode error correction level.",
+            "schema": {
+              "$ref": "#/components/schemas/Pdf417ErrorLevel"
+            }
+          },
+          {
+            "name": "pdf417Truncate",
+            "in": "query",
+            "description": "Whether to use truncated PDF417 format (removes right-side stop pattern).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pdf417Columns",
+            "in": "query",
+            "description": "Number of columns in the PDF417 barcode. Values between 1 and 30. 0 for auto.",
+            "schema": {
+              "maximum": 30,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pdf417Rows",
+            "in": "query",
+            "description": "Number of rows in the PDF417 barcode. Values between 3 and 90. 0 for automatic.",
+            "schema": {
+              "maximum": 90,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pdf417AspectRatio",
+            "in": "query",
+            "description": "PDF417 barcode aspect ratio (height/width of the barcode module). Values are defined by the standard: 2 to 5 for MicroPdf417; 3 to 5 for Pdf417 and MacroPdf417.",
+            "schema": {
+              "maximum": 10,
+              "minimum": 2,
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "pdf417ECIEncoding",
+            "in": "query",
+            "description": "ECI encoding for PDF417 barcode data.",
+            "schema": {
+              "$ref": "#/components/schemas/ECIEncodings"
+            }
+          },
+          {
+            "name": "pdf417IsReaderInitialization",
+            "in": "query",
+            "description": "Whether the barcode is used for reader initialization (programming).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pdf417MacroCharacters",
+            "in": "query",
+            "description": "Macro character to prepend (structured append).",
+            "schema": {
+              "$ref": "#/components/schemas/MacroCharacter"
+            }
+          },
+          {
+            "name": "pdf417IsLinked",
+            "in": "query",
+            "description": "Whether to use linked mode (for MicroPdf417).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pdf417IsCode128Emulation",
+            "in": "query",
+            "description": "Whether to use Code128 emulation for MicroPdf417.",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -225,7 +389,7 @@
         "tags": [
           "Generate"
         ],
-        "summary": "Generate barcode using POST request with parameters in multipart form.",
+        "summary": "Generate a barcode using a POST request with parameters in a multipart form.",
         "operationId": "GenerateMultipart",
         "requestBody": {
           "content": {
@@ -245,7 +409,7 @@
                   },
                   "data": {
                     "type": "string",
-                    "description": "String represents data to encode"
+                    "description": "String that represents the data to encode."
                   },
                   "imageFormat": {
                     "$ref": "#/components/schemas/BarcodeImageFormat"
@@ -255,12 +419,12 @@
                   },
                   "foregroundColor": {
                     "type": "string",
-                    "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
+                    "description": "Specify the display color for bars and content.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: Black.",
                     "default": "Black"
                   },
                   "backgroundColor": {
                     "type": "string",
-                    "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
+                    "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: White.",
                     "default": "White"
                   },
                   "units": {
@@ -270,23 +434,100 @@
                     "maximum": 100000,
                     "minimum": 1,
                     "type": "number",
-                    "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
+                    "description": "Resolution of the barcode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is a dot.",
                     "format": "float"
                   },
                   "imageHeight": {
                     "type": "number",
-                    "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+                    "description": "Height of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
                     "format": "float"
                   },
                   "imageWidth": {
                     "type": "number",
-                    "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+                    "description": "Width of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
                     "format": "float"
                   },
                   "rotationAngle": {
                     "type": "integer",
-                    "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+                    "description": "Barcode image rotation angle, measured in degrees. For example, RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle is not equal to 90, 180, 270, or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
                     "format": "int32"
+                  },
+                  "qrEncodeMode": {
+                    "$ref": "#/components/schemas/QREncodeMode"
+                  },
+                  "qrErrorLevel": {
+                    "$ref": "#/components/schemas/QRErrorLevel"
+                  },
+                  "qrVersion": {
+                    "$ref": "#/components/schemas/QRVersion"
+                  },
+                  "qrECIEncoding": {
+                    "$ref": "#/components/schemas/ECIEncodings"
+                  },
+                  "qrAspectRatio": {
+                    "maximum": 1,
+                    "minimum": 0.001,
+                    "type": "number",
+                    "description": "QR barcode aspect ratio. Values: 0 to 1.",
+                    "format": "float"
+                  },
+                  "microQRVersion": {
+                    "$ref": "#/components/schemas/MicroQRVersion"
+                  },
+                  "rectMicroQrVersion": {
+                    "$ref": "#/components/schemas/RectMicroQRVersion"
+                  },
+                  "code128EncodeMode": {
+                    "$ref": "#/components/schemas/Code128EncodeMode"
+                  },
+                  "pdf417EncodeMode": {
+                    "$ref": "#/components/schemas/Pdf417EncodeMode"
+                  },
+                  "pdf417ErrorLevel": {
+                    "$ref": "#/components/schemas/Pdf417ErrorLevel"
+                  },
+                  "pdf417Truncate": {
+                    "type": "boolean",
+                    "description": "Whether to use truncated PDF417 format (removes right-side stop pattern)."
+                  },
+                  "pdf417Columns": {
+                    "maximum": 30,
+                    "minimum": 0,
+                    "type": "integer",
+                    "description": "Number of columns in the PDF417 barcode. Values between 1 and 30. 0 for auto.",
+                    "format": "int32"
+                  },
+                  "pdf417Rows": {
+                    "maximum": 90,
+                    "minimum": 0,
+                    "type": "integer",
+                    "description": "Number of rows in the PDF417 barcode. Values between 3 and 90. 0 for automatic.",
+                    "format": "int32"
+                  },
+                  "pdf417AspectRatio": {
+                    "maximum": 10,
+                    "minimum": 2,
+                    "type": "number",
+                    "description": "PDF417 barcode aspect ratio (height/width of the barcode module). Values are defined by the standard: 2 to 5 for MicroPdf417; 3 to 5 for Pdf417 and MacroPdf417.",
+                    "format": "float"
+                  },
+                  "pdf417ECIEncoding": {
+                    "$ref": "#/components/schemas/ECIEncodings"
+                  },
+                  "pdf417IsReaderInitialization": {
+                    "type": "boolean",
+                    "description": "Whether the barcode is used for reader initialization (programming)."
+                  },
+                  "pdf417MacroCharacters": {
+                    "$ref": "#/components/schemas/MacroCharacter"
+                  },
+                  "pdf417IsLinked": {
+                    "type": "boolean",
+                    "description": "Whether to use linked mode (for MicroPdf417)."
+                  },
+                  "pdf417IsCode128Emulation": {
+                    "type": "boolean",
+                    "description": "Whether to use Code128 emulation for MicroPdf417."
                   }
                 }
               },
@@ -325,6 +566,63 @@
                   "style": "form"
                 },
                 "rotationAngle": {
+                  "style": "form"
+                },
+                "qrEncodeMode": {
+                  "style": "form"
+                },
+                "qrErrorLevel": {
+                  "style": "form"
+                },
+                "qrVersion": {
+                  "style": "form"
+                },
+                "qrECIEncoding": {
+                  "style": "form"
+                },
+                "qrAspectRatio": {
+                  "style": "form"
+                },
+                "microQRVersion": {
+                  "style": "form"
+                },
+                "rectMicroQrVersion": {
+                  "style": "form"
+                },
+                "code128EncodeMode": {
+                  "style": "form"
+                },
+                "pdf417EncodeMode": {
+                  "style": "form"
+                },
+                "pdf417ErrorLevel": {
+                  "style": "form"
+                },
+                "pdf417Truncate": {
+                  "style": "form"
+                },
+                "pdf417Columns": {
+                  "style": "form"
+                },
+                "pdf417Rows": {
+                  "style": "form"
+                },
+                "pdf417AspectRatio": {
+                  "style": "form"
+                },
+                "pdf417ECIEncoding": {
+                  "style": "form"
+                },
+                "pdf417IsReaderInitialization": {
+                  "style": "form"
+                },
+                "pdf417MacroCharacters": {
+                  "style": "form"
+                },
+                "pdf417IsLinked": {
+                  "style": "form"
+                },
+                "pdf417IsCode128Emulation": {
                   "style": "form"
                 }
               }
@@ -430,10 +728,10 @@
         "tags": [
           "Generate"
         ],
-        "summary": "Generate barcode using POST request with parameters in body in json or xml format.",
+        "summary": "Generate a barcode using a POST request with parameters in the request body in JSON or XML format.",
         "operationId": "GenerateBody",
         "requestBody": {
-          "description": "Parameters of generation",
+          "description": "Generation parameters.",
           "content": {
             "application/json": {
               "schema": {
@@ -547,13 +845,13 @@
         "tags": [
           "Recognize"
         ],
-        "summary": "Recognize barcode from file on server in the Internet using GET requests with parameter in query string.\nFor recognizing files from your hard drive use `recognize-body` or `recognize-multipart` endpoints instead.",
+        "summary": "Recognize a barcode from a file on an Internet server using a GET request with a query string parameter.\nFor recognizing files from your hard drive, use `recognize-body` or `recognize-multipart` endpoints instead.",
         "operationId": "Recognize",
         "parameters": [
           {
             "name": "barcodeType",
             "in": "query",
-            "description": "Type of barcode to recognize",
+            "description": "Type of barcode to recognize.",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/DecodeBarcodeType"
@@ -562,7 +860,7 @@
           {
             "name": "fileUrl",
             "in": "query",
-            "description": "Url to barcode image",
+            "description": "URL to the barcode image.",
             "required": true,
             "schema": {
               "type": "string",
@@ -572,7 +870,7 @@
           {
             "name": "recognitionMode",
             "in": "query",
-            "description": "Recognition mode",
+            "description": "Recognition mode.",
             "schema": {
               "$ref": "#/components/schemas/RecognitionMode"
             }
@@ -580,7 +878,7 @@
           {
             "name": "recognitionImageKind",
             "in": "query",
-            "description": "Image kind for recognition",
+            "description": "Image kind for recognition.",
             "schema": {
               "$ref": "#/components/schemas/RecognitionImageKind"
             }
@@ -658,10 +956,10 @@
         "tags": [
           "Recognize"
         ],
-        "summary": "Recognize barcode from file in request body using POST requests with parameters in body in json or xml format.",
+        "summary": "Recognize a barcode from a file in the request body using a POST request with JSON or XML body parameters.",
         "operationId": "RecognizeBase64",
         "requestBody": {
-          "description": "Barcode recognition request",
+          "description": "Barcode recognition request.",
           "content": {
             "application/json": {
               "schema": {
@@ -748,7 +1046,7 @@
         "tags": [
           "Recognize"
         ],
-        "summary": "Recognize barcode from file in request body using POST requests with parameters in multipart form.",
+        "summary": "Recognize a barcode from a file in the request body using a POST request with multipart form parameters.",
         "operationId": "RecognizeMultipart",
         "requestBody": {
           "content": {
@@ -765,7 +1063,7 @@
                   },
                   "file": {
                     "type": "string",
-                    "description": "Barcode image file",
+                    "description": "Barcode image file.",
                     "format": "binary"
                   },
                   "recognitionMode": {
@@ -865,13 +1163,13 @@
         "tags": [
           "Scan"
         ],
-        "summary": "Scan barcode from file on server in the Internet using GET requests with parameter in query string.\nFor scaning files from your hard drive use `scan-body` or `scan-multipart` endpoints instead.",
+        "summary": "Scan a barcode from a file on an Internet server using a GET request with a query string parameter.\nFor scanning files from your hard drive, use `scan-body` or `scan-multipart` endpoints instead.",
         "operationId": "Scan",
         "parameters": [
           {
             "name": "fileUrl",
             "in": "query",
-            "description": "Url to barcode image",
+            "description": "URL to the barcode image.",
             "required": true,
             "schema": {
               "type": "string",
@@ -951,10 +1249,10 @@
         "tags": [
           "Scan"
         ],
-        "summary": "Scan barcode from file in request body using POST requests with parameter in body in json or xml format.",
+        "summary": "Scan a barcode from a file in the request body using a POST request with a JSON or XML body parameter.",
         "operationId": "ScanBase64",
         "requestBody": {
-          "description": "Barcode scan request",
+          "description": "Barcode scan request.",
           "content": {
             "application/json": {
               "schema": {
@@ -1041,7 +1339,7 @@
         "tags": [
           "Scan"
         ],
-        "summary": "Scan barcode from file in request body using POST requests with parameter in multipart form.",
+        "summary": "Scan a barcode from a file in the request body using a POST request with a multipart form parameter.",
         "operationId": "ScanMultipart",
         "requestBody": {
           "content": {
@@ -1054,7 +1352,7 @@
                 "properties": {
                   "file": {
                     "type": "string",
-                    "description": "Barcode image file",
+                    "description": "Barcode image file.",
                     "format": "binary"
                   }
                 }
@@ -1237,7 +1535,7 @@
           },
           "foregroundColor": {
             "type": "string",
-            "description": "Specify the displaying bars and content Color.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: Black.",
+            "description": "Specify the display color for bars and content.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: Black.",
             "default": "Black",
             "nullable": true,
             "xml": {
@@ -1246,7 +1544,7 @@
           },
           "backgroundColor": {
             "type": "string",
-            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value started with #.\nFor example: AliceBlue or #FF000000\nDefault value: White.",
+            "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: White.",
             "default": "White",
             "nullable": true,
             "xml": {
@@ -1260,7 +1558,7 @@
             "maximum": 100000,
             "minimum": 1,
             "type": "number",
-            "description": "Resolution of the BarCode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is dot.",
+            "description": "Resolution of the barcode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is a dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1270,7 +1568,7 @@
           },
           "imageHeight": {
             "type": "number",
-            "description": "Height of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+            "description": "Height of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1280,7 +1578,7 @@
           },
           "imageWidth": {
             "type": "number",
-            "description": "Width of the barcode image in given units. Default units: pixel.\nDecimal separator is dot.",
+            "description": "Width of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "format": "float",
             "nullable": true,
             "xml": {
@@ -1290,7 +1588,7 @@
           },
           "rotationAngle": {
             "type": "integer",
-            "description": "BarCode image rotation angle, measured in degree, e.g. RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle NOT equal to 90, 180, 270 or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
+            "description": "Barcode image rotation angle, measured in degrees. For example, RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle is not equal to 90, 180, 270, or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "format": "int32",
             "nullable": true,
             "xml": {
@@ -1299,7 +1597,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Barcode image optional parameters",
+        "description": "Optional barcode image parameters.",
         "xml": {
           "name": "BarcodeImageParams"
         }
@@ -1328,7 +1626,7 @@
             "items": {
               "$ref": "#/components/schemas/RegionPoint"
             },
-            "description": "Region with barcode.",
+            "description": "Region with the barcode.",
             "nullable": true,
             "xml": {
               "name": "Region",
@@ -1337,7 +1635,7 @@
           },
           "checksum": {
             "type": "string",
-            "description": "Checksum of barcode.",
+            "description": "Checksum of the barcode.",
             "nullable": true,
             "xml": {
               "name": "Checksum"
@@ -1345,7 +1643,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Represents information about barcode.",
+        "description": "Represents information about a barcode.",
         "xml": {
           "name": "BarcodeResponse"
         }
@@ -1361,7 +1659,7 @@
             "items": {
               "$ref": "#/components/schemas/BarcodeResponse"
             },
-            "description": "List of barcodes which are present in image.",
+            "description": "List of barcodes that are present in the image.",
             "nullable": true,
             "xml": {
               "name": "Barcodes",
@@ -1370,9 +1668,38 @@
           }
         },
         "additionalProperties": false,
-        "description": "Represents information about barcode list.",
+        "description": "Represents information about a barcode list.",
         "xml": {
           "name": "BarcodeResponseList"
+        }
+      },
+      "Code128EncodeMode": {
+        "enum": [
+          "Auto",
+          "CodeA",
+          "CodeB",
+          "CodeAB",
+          "CodeC",
+          "CodeAC",
+          "CodeBC"
+        ],
+        "type": "string",
+        "description": "Code128 barcode encode mode. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/code128encodemode/",
+        "xml": {
+          "name": "Code128EncodeMode"
+        }
+      },
+      "Code128Params": {
+        "type": "object",
+        "properties": {
+          "code128EncodeMode": {
+            "$ref": "#/components/schemas/Code128EncodeMode"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Optional Code128 barcode generation parameters.",
+        "xml": {
+          "name": "Code128Params"
         }
       },
       "CodeLocation": {
@@ -1474,9 +1801,52 @@
           "VIN"
         ],
         "type": "string",
-        "description": "See Aspose.BarCode.BarCodeRecognition.DecodeType",
+        "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.barcoderecognition/decodetype/",
         "xml": {
           "name": "DecodeBarcodeType"
+        }
+      },
+      "ECIEncodings": {
+        "enum": [
+          "NONE",
+          "ISO_8859_1",
+          "ISO_8859_2",
+          "ISO_8859_3",
+          "ISO_8859_4",
+          "ISO_8859_5",
+          "ISO_8859_6",
+          "ISO_8859_7",
+          "ISO_8859_8",
+          "ISO_8859_9",
+          "ISO_8859_10",
+          "ISO_8859_11",
+          "ISO_8859_13",
+          "ISO_8859_14",
+          "ISO_8859_15",
+          "ISO_8859_16",
+          "Shift_JIS",
+          "Win1250",
+          "Win1251",
+          "Win1252",
+          "Win1256",
+          "UTF16BE",
+          "UTF8",
+          "US_ASCII",
+          "Big5",
+          "GB2312",
+          "EUC_KR",
+          "GBK",
+          "GB18030",
+          "UTF16LE",
+          "UTF32BE",
+          "UTF32LE",
+          "INVARIANT",
+          "BINARY"
+        ],
+        "type": "string",
+        "description": "ECI encoding identifiers. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/eciencodings/",
+        "xml": {
+          "name": "ECIEncodings"
         }
       },
       "EncodeBarcodeType": {
@@ -1556,7 +1926,7 @@
           "VIN"
         ],
         "type": "string",
-        "description": "See Aspose.BarCode.Generation.EncodeTypes",
+        "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.generation/encodetypes/",
         "xml": {
           "name": "BarcodeType"
         }
@@ -1573,14 +1943,14 @@
           "data": {
             "minLength": 1,
             "type": "string",
-            "description": "String represents data to encode",
+            "description": "String that represents the data to encode.",
             "xml": {
               "name": "Data"
             }
           }
         },
         "additionalProperties": false,
-        "description": "Data to encode in barcode",
+        "description": "Data to encode in a barcode.",
         "xml": {
           "name": "EncodeData"
         }
@@ -1592,7 +1962,7 @@
           "HexBytes"
         ],
         "type": "string",
-        "description": "Types of data can be encoded to barcode",
+        "description": "Types of data that can be encoded into a barcode.",
         "xml": {
           "name": "DataType"
         }
@@ -1612,10 +1982,19 @@
           },
           "barcodeImageParams": {
             "$ref": "#/components/schemas/BarcodeImageParams"
+          },
+          "qrParams": {
+            "$ref": "#/components/schemas/QrParams"
+          },
+          "code128Params": {
+            "$ref": "#/components/schemas/Code128Params"
+          },
+          "pdf417Params": {
+            "$ref": "#/components/schemas/Pdf417Params"
           }
         },
         "additionalProperties": false,
-        "description": "Barcode generation parameters",
+        "description": "Barcode generation parameters.",
         "xml": {
           "name": "GenerateParams"
         }
@@ -1628,9 +2007,268 @@
           "Millimeter"
         ],
         "type": "string",
-        "description": "Subset of Aspose.Drawing.GraphicsUnit.",
+        "description": "Subset of https://reference.aspose.com/drawing/net/system.drawing/graphicsunit/",
         "xml": {
           "name": "Units"
+        }
+      },
+      "MacroCharacter": {
+        "enum": [
+          "None",
+          "Macro05",
+          "Macro06"
+        ],
+        "type": "string",
+        "description": "PDF417 macro character mode. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/macrocharacter/",
+        "xml": {
+          "name": "MacroCharacter"
+        }
+      },
+      "MicroQRVersion": {
+        "enum": [
+          "Auto",
+          "M1",
+          "M2",
+          "M3",
+          "M4"
+        ],
+        "type": "string",
+        "description": "MicroQR barcode version. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/microqrversion/",
+        "xml": {
+          "name": "MicroQRVersion"
+        }
+      },
+      "Pdf417EncodeMode": {
+        "enum": [
+          "Auto",
+          "Binary",
+          "ECI",
+          "Extended"
+        ],
+        "type": "string",
+        "description": "PDF417 barcode encode mode. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/pdf417encodemode/",
+        "xml": {
+          "name": "Pdf417EncodeMode"
+        }
+      },
+      "Pdf417ErrorLevel": {
+        "enum": [
+          "Level0",
+          "Level1",
+          "Level2",
+          "Level3",
+          "Level4",
+          "Level5",
+          "Level6",
+          "Level7",
+          "Level8"
+        ],
+        "type": "string",
+        "description": "PDF417 barcode error correction level. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/pdf417errorlevel/",
+        "xml": {
+          "name": "Pdf417ErrorLevel"
+        }
+      },
+      "Pdf417Params": {
+        "type": "object",
+        "properties": {
+          "pdf417EncodeMode": {
+            "$ref": "#/components/schemas/Pdf417EncodeMode"
+          },
+          "pdf417ErrorLevel": {
+            "$ref": "#/components/schemas/Pdf417ErrorLevel"
+          },
+          "pdf417Truncate": {
+            "type": "boolean",
+            "description": "Whether to use truncated PDF417 format (removes right-side stop pattern).",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417Truncate"
+            }
+          },
+          "pdf417Columns": {
+            "maximum": 30,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Number of columns in the PDF417 barcode. Values between 1 and 30. 0 for auto.",
+            "format": "int32",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417Columns"
+            }
+          },
+          "pdf417Rows": {
+            "maximum": 90,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Number of rows in the PDF417 barcode. Values between 3 and 90. 0 for automatic.",
+            "format": "int32",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417Rows"
+            }
+          },
+          "pdf417AspectRatio": {
+            "maximum": 10,
+            "minimum": 2,
+            "type": "number",
+            "description": "PDF417 barcode aspect ratio (height/width of the barcode module). Values are defined by the standard: 2 to 5 for MicroPdf417; 3 to 5 for Pdf417 and MacroPdf417.",
+            "format": "float",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417AspectRatio"
+            }
+          },
+          "pdf417ECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "pdf417IsReaderInitialization": {
+            "type": "boolean",
+            "description": "Whether the barcode is used for reader initialization (programming).",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417IsReaderInitialization"
+            }
+          },
+          "pdf417MacroCharacters": {
+            "$ref": "#/components/schemas/MacroCharacter"
+          },
+          "pdf417IsLinked": {
+            "type": "boolean",
+            "description": "Whether to use linked mode (for MicroPdf417).",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417IsLinked"
+            }
+          },
+          "pdf417IsCode128Emulation": {
+            "type": "boolean",
+            "description": "Whether to use Code128 emulation for MicroPdf417.",
+            "nullable": true,
+            "xml": {
+              "name": "Pdf417IsCode128Emulation"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Optional PDF417 barcode generation parameters. Applies to Pdf417, MacroPdf417, MicroPdf417, and GS1MicroPdf417 barcode types.",
+        "xml": {
+          "name": "Pdf417Params"
+        }
+      },
+      "QREncodeMode": {
+        "enum": [
+          "Auto",
+          "Extended",
+          "Binary",
+          "ECI"
+        ],
+        "type": "string",
+        "description": "QR barcode encode mode. Subset of https://reference.aspose.com/barcode/net/aspose.barcode.generation/qrencodemode/\nObsolete members (Bytes, Utf8BOM, Utf16BEBOM, ECIEncoding, ExtendedCodetext) are omitted.",
+        "xml": {
+          "name": "QREncodeMode"
+        }
+      },
+      "QRErrorLevel": {
+        "enum": [
+          "LevelL",
+          "LevelM",
+          "LevelQ",
+          "LevelH"
+        ],
+        "type": "string",
+        "description": "QR barcode error correction level. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/qrerrorlevel/",
+        "xml": {
+          "name": "QRErrorLevel"
+        }
+      },
+      "QRVersion": {
+        "enum": [
+          "Auto",
+          "Version01",
+          "Version02",
+          "Version03",
+          "Version04",
+          "Version05",
+          "Version06",
+          "Version07",
+          "Version08",
+          "Version09",
+          "Version10",
+          "Version11",
+          "Version12",
+          "Version13",
+          "Version14",
+          "Version15",
+          "Version16",
+          "Version17",
+          "Version18",
+          "Version19",
+          "Version20",
+          "Version21",
+          "Version22",
+          "Version23",
+          "Version24",
+          "Version25",
+          "Version26",
+          "Version27",
+          "Version28",
+          "Version29",
+          "Version30",
+          "Version31",
+          "Version32",
+          "Version33",
+          "Version34",
+          "Version35",
+          "Version36",
+          "Version37",
+          "Version38",
+          "Version39",
+          "Version40"
+        ],
+        "type": "string",
+        "description": "QR barcode version. Subset of https://reference.aspose.com/barcode/net/aspose.barcode.generation/qrversion/\nMicroQR versions (VersionM1–VersionM4) are omitted; use Aspose.BarCode.Cloud.DTO.Enums.MicroQRVersion instead.",
+        "xml": {
+          "name": "QRVersion"
+        }
+      },
+      "QrParams": {
+        "type": "object",
+        "properties": {
+          "qrEncodeMode": {
+            "$ref": "#/components/schemas/QREncodeMode"
+          },
+          "qrErrorLevel": {
+            "$ref": "#/components/schemas/QRErrorLevel"
+          },
+          "qrVersion": {
+            "$ref": "#/components/schemas/QRVersion"
+          },
+          "qrECIEncoding": {
+            "$ref": "#/components/schemas/ECIEncodings"
+          },
+          "qrAspectRatio": {
+            "maximum": 1,
+            "minimum": 0.001,
+            "type": "number",
+            "description": "QR barcode aspect ratio. Values: 0 to 1.",
+            "format": "float",
+            "nullable": true,
+            "xml": {
+              "name": "QrAspectRatio"
+            }
+          },
+          "microQRVersion": {
+            "$ref": "#/components/schemas/MicroQRVersion"
+          },
+          "rectMicroQrVersion": {
+            "$ref": "#/components/schemas/RectMicroQRVersion"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Optional QR barcode generation parameters. Applies to QR, GS1QR, MicroQR, and RectMicroQR barcode types.",
+        "xml": {
+          "name": "QrParams"
         }
       },
       "RecognitionImageKind": {
@@ -1669,7 +2307,7 @@
             "items": {
               "$ref": "#/components/schemas/DecodeBarcodeType"
             },
-            "description": "Array of decode types to find on barcode",
+            "description": "Array of barcode decode types to find.",
             "xml": {
               "name": "BarcodeTypes",
               "wrapped": true
@@ -1692,9 +2330,51 @@
           }
         },
         "additionalProperties": false,
-        "description": "Barcode recognize request",
+        "description": "Barcode recognition request.",
         "xml": {
           "name": "RecognizeBase64Request"
+        }
+      },
+      "RectMicroQRVersion": {
+        "enum": [
+          "Auto",
+          "R7x43",
+          "R7x59",
+          "R7x77",
+          "R7x99",
+          "R7x139",
+          "R9x43",
+          "R9x59",
+          "R9x77",
+          "R9x99",
+          "R9x139",
+          "R11x27",
+          "R11x43",
+          "R11x59",
+          "R11x77",
+          "R11x99",
+          "R11x139",
+          "R13x27",
+          "R13x43",
+          "R13x59",
+          "R13x77",
+          "R13x99",
+          "R13x139",
+          "R15x43",
+          "R15x59",
+          "R15x77",
+          "R15x99",
+          "R15x139",
+          "R17x43",
+          "R17x59",
+          "R17x77",
+          "R17x99",
+          "R17x139"
+        ],
+        "type": "string",
+        "description": "RectMicroQR barcode version. Mirrors https://reference.aspose.com/barcode/net/aspose.barcode.generation/rectmicroqrversion/",
+        "xml": {
+          "name": "RectMicroQRVersion"
         }
       },
       "RegionPoint": {
