@@ -32,6 +32,7 @@ EXIT_CODE_EXPECTATIONS: dict[str, tuple[int, int | None]] = {
 
 REGEX_TO_IGNORE: list[re.Pattern[str]] = [
     re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues)/\S+$"),
+    re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/releases/tag/\S+$"),
 ]
 
 URLS_TO_IGNORE = frozenset(
