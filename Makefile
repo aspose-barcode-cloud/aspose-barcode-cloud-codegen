@@ -12,6 +12,14 @@ format-black:
 update:
 	./scripts/update_swagger_spec.bash
 
+# Inject parameter-group vendor extensions into the spec so the SDK templates
+# emit grouped generate() methods. `update` runs this automatically after the
+# fetch; this target re-applies it standalone (e.g. before regenerating without
+# a re-fetch). Idempotent.
+.PHONY: spec-param-groups
+spec-param-groups:
+	python scripts/inject-param-groups.py spec/aspose-barcode-cloud.json
+
 .PHONY: start-release
 start-release:
 	./scripts/start-release.bash
