@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.4",
+  "openapi": "3.1.1",
   "info": {
     "title": "Aspose.BarCode.Cloud v4.0 Specification",
     "description": "High quality barcodes generation and recognition API",
@@ -25,6 +25,7 @@
             "description": "Type of barcode to generate.",
             "required": true,
             "schema": {
+              "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.generation/encodetypes/",
               "$ref": "#/components/schemas/EncodeBarcodeType"
             }
           },
@@ -33,6 +34,7 @@
             "in": "query",
             "description": "Type of data to encode.\nDefault value: StringData.",
             "schema": {
+              "default": "StringData",
               "$ref": "#/components/schemas/EncodeDataType"
             }
           },
@@ -50,6 +52,7 @@
             "in": "query",
             "description": "Barcode output image format.\nDefault value: png.",
             "schema": {
+              "default": "Png",
               "$ref": "#/components/schemas/BarcodeImageFormat"
             },
             "x-param-group-snake": "barcode_image_params",
@@ -449,11 +452,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -464,11 +469,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -479,11 +486,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -541,9 +550,12 @@
                 "type": "object",
                 "properties": {
                   "barcodeType": {
+                    "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.generation/encodetypes/",
                     "$ref": "#/components/schemas/EncodeBarcodeType"
                   },
                   "dataType": {
+                    "description": "Type of data to encode.\nDefault value: StringData.",
+                    "default": "StringData",
                     "$ref": "#/components/schemas/EncodeDataType"
                   },
                   "data": {
@@ -551,22 +563,46 @@
                     "description": "String that represents the data to encode."
                   },
                   "imageFormat": {
+                    "description": "Barcode output image format.\nDefault value: png.",
+                    "default": "Png",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams",
                     "$ref": "#/components/schemas/BarcodeImageFormat"
                   },
                   "textLocation": {
+                    "description": "Specify the displayed text location. Set to CodeLocation.None to hide CodeText.\nDefault value depends on BarcodeType: CodeLocation.Below for 1D barcodes and CodeLocation.None for 2D barcodes.",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams",
                     "$ref": "#/components/schemas/CodeLocation"
                   },
                   "foregroundColor": {
                     "type": "string",
                     "description": "Specify the display color for bars and content.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: Black.",
-                    "default": "Black"
+                    "default": "Black",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "backgroundColor": {
                     "type": "string",
                     "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: White.",
-                    "default": "White"
+                    "default": "White",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "units": {
+                    "description": "Common units for all measurements. Default units: pixels.",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams",
                     "$ref": "#/components/schemas/GraphicsUnit"
                   },
                   "resolution": {
@@ -574,33 +610,69 @@
                     "minimum": 1,
                     "type": "number",
                     "description": "Resolution of the barcode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is a dot.",
-                    "format": "float"
+                    "format": "float",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "imageHeight": {
                     "type": "number",
                     "description": "Height of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
-                    "format": "float"
+                    "format": "float",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "imageWidth": {
                     "type": "number",
                     "description": "Width of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
-                    "format": "float"
+                    "format": "float",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "rotationAngle": {
                     "type": "integer",
                     "description": "Barcode image rotation angle, measured in degrees. For example, RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle is not equal to 90, 180, 270, or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
-                    "format": "int32"
+                    "format": "int32",
+                    "x-param-group-snake": "barcode_image_params",
+                    "x-param-group-camel": "barcodeImageParams",
+                    "x-param-group-pascal": "BarcodeImageParams",
+                    "x-param-group-type": "BarcodeImageParams"
                   },
                   "qrEncodeMode": {
+                    "description": "QR barcode encode mode.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/QREncodeMode"
                   },
                   "qrErrorLevel": {
+                    "description": "QR barcode error correction level.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/QRErrorLevel"
                   },
                   "qrVersion": {
+                    "description": "QR barcode version. Automatically selects the smallest version that fits the data.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/QRVersion"
                   },
                   "qrECIEncoding": {
+                    "description": "ECI encoding for QR barcode data.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/ECIEncodings"
                   },
                   "qrAspectRatio": {
@@ -608,65 +680,132 @@
                     "minimum": 0.001,
                     "type": "number",
                     "description": "QR barcode aspect ratio. Values: 0 to 1.",
-                    "format": "float"
+                    "format": "float",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams"
                   },
                   "microQRVersion": {
+                    "description": "MicroQR barcode version. Used when BarcodeType is MicroQR.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/MicroQRVersion"
                   },
                   "rectMicroQrVersion": {
+                    "description": "RectMicroQR barcode version. Used when BarcodeType is RectMicroQR.",
+                    "x-param-group-snake": "qr_params",
+                    "x-param-group-camel": "qrParams",
+                    "x-param-group-pascal": "QrParams",
+                    "x-param-group-type": "QrParams",
                     "$ref": "#/components/schemas/RectMicroQRVersion"
                   },
                   "code128EncodeMode": {
+                    "description": "Code128 barcode encode mode. Controls which Code 128 subset (A, B, C, or mix) is used.",
+                    "x-param-group-snake": "code128_params",
+                    "x-param-group-camel": "code128Params",
+                    "x-param-group-pascal": "Code128Params",
+                    "x-param-group-type": "Code128Params",
                     "$ref": "#/components/schemas/Code128EncodeMode"
                   },
                   "pdf417EncodeMode": {
+                    "description": "PDF417 barcode encode mode.",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params",
                     "$ref": "#/components/schemas/Pdf417EncodeMode"
                   },
                   "pdf417ErrorLevel": {
+                    "description": "PDF417 barcode error correction level.",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params",
                     "$ref": "#/components/schemas/Pdf417ErrorLevel"
                   },
                   "pdf417Truncate": {
                     "type": "boolean",
-                    "description": "Whether to use truncated PDF417 format (removes right-side stop pattern)."
+                    "description": "Whether to use truncated PDF417 format (removes right-side stop pattern).",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417Columns": {
                     "maximum": 30,
                     "minimum": 0,
                     "type": "integer",
                     "description": "Number of columns in the PDF417 barcode. Values between 1 and 30. 0 for auto.",
-                    "format": "int32"
+                    "format": "int32",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417Rows": {
                     "maximum": 90,
                     "minimum": 0,
                     "type": "integer",
                     "description": "Number of rows in the PDF417 barcode. Values between 3 and 90. 0 for automatic.",
-                    "format": "int32"
+                    "format": "int32",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417AspectRatio": {
                     "maximum": 10,
                     "minimum": 2,
                     "type": "number",
                     "description": "PDF417 barcode aspect ratio (height/width of the barcode module). Values are defined by the standard: 2 to 5 for MicroPdf417; 3 to 5 for Pdf417 and MacroPdf417.",
-                    "format": "float"
+                    "format": "float",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417ECIEncoding": {
+                    "description": "ECI encoding for PDF417 barcode data.",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params",
                     "$ref": "#/components/schemas/ECIEncodings"
                   },
                   "pdf417IsReaderInitialization": {
                     "type": "boolean",
-                    "description": "Whether the barcode is used for reader initialization (programming)."
+                    "description": "Whether the barcode is used for reader initialization (programming).",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417MacroCharacters": {
+                    "description": "Macro character to prepend (structured append).",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params",
                     "$ref": "#/components/schemas/MacroCharacter"
                   },
                   "pdf417IsLinked": {
                     "type": "boolean",
-                    "description": "Whether to use linked mode (for MicroPdf417)."
+                    "description": "Whether to use linked mode (for MicroPdf417).",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   },
                   "pdf417IsCode128Emulation": {
                     "type": "boolean",
-                    "description": "Whether to use Code128 emulation for MicroPdf417."
+                    "description": "Whether to use Code128 emulation for MicroPdf417.",
+                    "x-param-group-snake": "pdf417_params",
+                    "x-param-group-camel": "pdf417Params",
+                    "x-param-group-pascal": "Pdf417Params",
+                    "x-param-group-type": "Pdf417Params"
                   }
                 }
               },
@@ -815,11 +954,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -830,11 +971,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -845,11 +988,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -859,7 +1004,34 @@
             "description": "Internal Server Error"
           }
         },
-        "x-binary-result": true
+        "x-binary-result": true,
+        "x-param-groups": [
+          {
+            "camel": "barcodeImageParams",
+            "snake": "barcode_image_params",
+            "pascal": "BarcodeImageParams",
+            "type": "BarcodeImageParams"
+          },
+          {
+            "camel": "qrParams",
+            "snake": "qr_params",
+            "pascal": "QrParams",
+            "type": "QrParams"
+          },
+          {
+            "camel": "code128Params",
+            "snake": "code128_params",
+            "pascal": "Code128Params",
+            "type": "Code128Params"
+          },
+          {
+            "camel": "pdf417Params",
+            "snake": "pdf417_params",
+            "pascal": "Pdf417Params",
+            "type": "Pdf417Params"
+          }
+        ],
+        "x-has-param-groups": true
       }
     },
     "/barcode/generate-body": {
@@ -874,11 +1046,13 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "Barcode generation parameters.",
                 "$ref": "#/components/schemas/GenerateParams"
               }
             },
             "application/xml": {
               "schema": {
+                "description": "Barcode generation parameters.",
                 "$ref": "#/components/schemas/GenerateParams"
               }
             }
@@ -932,11 +1106,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -947,11 +1123,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -962,11 +1140,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -993,6 +1173,7 @@
             "description": "Type of barcode to recognize.",
             "required": true,
             "schema": {
+              "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.barcoderecognition/decodetype/",
               "$ref": "#/components/schemas/DecodeBarcodeType"
             }
           },
@@ -1011,6 +1192,7 @@
             "in": "query",
             "description": "Recognition mode.",
             "schema": {
+              "description": "Recognition mode.",
               "$ref": "#/components/schemas/RecognitionMode"
             }
           },
@@ -1019,6 +1201,7 @@
             "in": "query",
             "description": "Image kind for recognition.",
             "schema": {
+              "description": "Kind of image to recognize",
               "$ref": "#/components/schemas/RecognitionImageKind"
             }
           }
@@ -1029,11 +1212,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1044,11 +1229,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1059,11 +1246,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1074,11 +1263,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1102,11 +1293,13 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "Barcode recognition request.",
                 "$ref": "#/components/schemas/RecognizeBase64Request"
               }
             },
             "application/xml": {
               "schema": {
+                "description": "Barcode recognition request.",
                 "$ref": "#/components/schemas/RecognizeBase64Request"
               }
             }
@@ -1119,11 +1312,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1134,11 +1329,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1149,11 +1346,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1164,11 +1363,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1198,6 +1399,7 @@
                 "type": "object",
                 "properties": {
                   "barcodeType": {
+                    "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.barcoderecognition/decodetype/",
                     "$ref": "#/components/schemas/DecodeBarcodeType"
                   },
                   "file": {
@@ -1206,9 +1408,11 @@
                     "format": "binary"
                   },
                   "recognitionMode": {
+                    "description": "Recognition mode.",
                     "$ref": "#/components/schemas/RecognitionMode"
                   },
                   "recognitionImageKind": {
+                    "description": "Image kind for recognition.",
                     "$ref": "#/components/schemas/RecognitionImageKind"
                   }
                 }
@@ -1236,11 +1440,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1251,11 +1457,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1266,11 +1474,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1281,11 +1491,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1322,11 +1534,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1337,11 +1551,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1352,11 +1568,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1367,11 +1585,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1395,11 +1615,13 @@
           "content": {
             "application/json": {
               "schema": {
+                "description": "Scan barcode request.",
                 "$ref": "#/components/schemas/ScanBase64Request"
               }
             },
             "application/xml": {
               "schema": {
+                "description": "Scan barcode request.",
                 "$ref": "#/components/schemas/ScanBase64Request"
               }
             }
@@ -1412,11 +1634,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1427,11 +1651,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1442,11 +1668,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1457,11 +1685,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1510,11 +1740,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "Represents information about a barcode list.",
                   "$ref": "#/components/schemas/BarcodeResponseList"
                 }
               }
@@ -1525,11 +1757,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1540,11 +1774,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1555,11 +1791,13 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               },
               "application/xml": {
                 "schema": {
+                  "description": "ApiError Response",
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
@@ -1582,39 +1820,48 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Gets or sets api error code.",
-            "nullable": true,
             "xml": {
               "name": "Code"
             }
           },
           "message": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Gets or sets error message.",
-            "nullable": true,
             "xml": {
               "name": "Message"
             }
           },
           "description": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Gets or sets error description.",
-            "nullable": true,
             "xml": {
               "name": "Description"
             }
           },
           "dateTime": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Gets or sets server datetime.",
             "format": "date-time",
-            "nullable": true,
             "xml": {
               "name": "DateTime"
             }
           },
           "innerError": {
+            "description": "Gets or sets inner error.",
             "$ref": "#/components/schemas/ApiError"
           }
         },
@@ -1632,14 +1879,17 @@
         "type": "object",
         "properties": {
           "requestId": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Gets or sets request Id.",
-            "nullable": true,
             "xml": {
               "name": "RequestId"
             }
           },
           "error": {
+            "description": "Gets or sets error.",
             "$ref": "#/components/schemas/ApiError"
           }
         },
@@ -1667,69 +1917,85 @@
         "type": "object",
         "properties": {
           "imageFormat": {
+            "description": "Barcode output image format.\nDefault value: png.",
+            "default": "Png",
             "$ref": "#/components/schemas/BarcodeImageFormat"
           },
           "textLocation": {
+            "description": "Specify the displayed text location. Set to CodeLocation.None to hide CodeText.\nDefault value depends on BarcodeType: CodeLocation.Below for 1D barcodes and CodeLocation.None for 2D barcodes.",
             "$ref": "#/components/schemas/CodeLocation"
           },
           "foregroundColor": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Specify the display color for bars and content.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: Black.",
             "default": "Black",
-            "nullable": true,
             "xml": {
               "name": "ForegroundColor"
             }
           },
           "backgroundColor": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Background color of the barcode image.\nValue: Color name from https://reference.aspose.com/drawing/net/system.drawing/color/ or ARGB value starting with #.\nFor example: AliceBlue or #FF000000.\nDefault value: White.",
             "default": "White",
-            "nullable": true,
             "xml": {
               "name": "BackgroundColor"
             }
           },
           "units": {
+            "description": "Common units for all measurements. Default units: pixels.",
             "$ref": "#/components/schemas/GraphicsUnit"
           },
           "resolution": {
             "maximum": 100000,
             "minimum": 1,
-            "type": "number",
+            "type": [
+              "null",
+              "number"
+            ],
             "description": "Resolution of the barcode image.\nOne value for both dimensions.\nDefault value: 96 dpi.\nDecimal separator is a dot.",
             "format": "float",
-            "nullable": true,
             "xml": {
               "name": "Resolution"
             },
             "example": 96
           },
           "imageHeight": {
-            "type": "number",
+            "type": [
+              "null",
+              "number"
+            ],
             "description": "Height of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "format": "float",
-            "nullable": true,
             "xml": {
               "name": "ImageHeight"
             },
             "example": 200
           },
           "imageWidth": {
-            "type": "number",
+            "type": [
+              "null",
+              "number"
+            ],
             "description": "Width of the barcode image in the specified units. Default units: pixels.\nDecimal separator is a dot.",
             "format": "float",
-            "nullable": true,
             "xml": {
               "name": "ImageWidth"
             },
             "example": 200
           },
           "rotationAngle": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
             "description": "Barcode image rotation angle, measured in degrees. For example, RotationAngle = 0 or RotationAngle = 360 means no rotation.\nIf RotationAngle is not equal to 90, 180, 270, or 0, it may increase the difficulty for the scanner to read the image.\nDefault value: 0.",
             "format": "int32",
-            "nullable": true,
             "xml": {
               "name": "RotationAngle"
             }
@@ -1745,37 +2011,46 @@
         "type": "object",
         "properties": {
           "barcodeValue": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Barcode data.",
-            "nullable": true,
             "xml": {
               "name": "BarcodeValue"
             }
           },
           "type": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Type of the barcode.",
-            "nullable": true,
             "xml": {
               "name": "Type"
             }
           },
           "region": {
-            "type": "array",
+            "type": [
+              "null",
+              "array"
+            ],
             "items": {
+              "description": "Wrapper around Drawing.Point for proper specification.",
               "$ref": "#/components/schemas/RegionPoint"
             },
             "description": "Region with the barcode.",
-            "nullable": true,
             "xml": {
               "name": "Region",
               "wrapped": true
             }
           },
           "checksum": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "description": "Checksum of the barcode.",
-            "nullable": true,
             "xml": {
               "name": "Checksum"
             }
@@ -1794,12 +2069,15 @@
         "type": "object",
         "properties": {
           "barcodes": {
-            "type": "array",
+            "type": [
+              "null",
+              "array"
+            ],
             "items": {
+              "description": "Represents information about a barcode.",
               "$ref": "#/components/schemas/BarcodeResponse"
             },
             "description": "List of barcodes that are present in the image.",
-            "nullable": true,
             "xml": {
               "name": "Barcodes",
               "wrapped": true
@@ -1832,6 +2110,7 @@
         "type": "object",
         "properties": {
           "code128EncodeMode": {
+            "description": "Code128 barcode encode mode. Controls which Code 128 subset (A, B, C, or mix) is used.",
             "$ref": "#/components/schemas/Code128EncodeMode"
           }
         },
@@ -2077,6 +2356,8 @@
         "type": "object",
         "properties": {
           "dataType": {
+            "description": "Type of data to encode.\nDefault value: StringData.",
+            "default": "StringData",
             "$ref": "#/components/schemas/EncodeDataType"
           },
           "data": {
@@ -2114,21 +2395,27 @@
         "type": "object",
         "properties": {
           "barcodeType": {
+            "description": "Barcode type.",
             "$ref": "#/components/schemas/EncodeBarcodeType"
           },
           "encodeData": {
+            "description": "Data to encode into a barcode.",
             "$ref": "#/components/schemas/EncodeData"
           },
           "barcodeImageParams": {
+            "description": "Optional barcode image parameters.",
             "$ref": "#/components/schemas/BarcodeImageParams"
           },
           "qrParams": {
+            "description": "Optional QR barcode generation parameters.",
             "$ref": "#/components/schemas/QrParams"
           },
           "code128Params": {
+            "description": "Optional Code128 barcode generation parameters.",
             "$ref": "#/components/schemas/Code128Params"
           },
           "pdf417Params": {
+            "description": "Optional PDF417 barcode generation parameters.",
             "$ref": "#/components/schemas/Pdf417Params"
           }
         },
@@ -2212,15 +2499,19 @@
         "type": "object",
         "properties": {
           "pdf417EncodeMode": {
+            "description": "PDF417 barcode encode mode.",
             "$ref": "#/components/schemas/Pdf417EncodeMode"
           },
           "pdf417ErrorLevel": {
+            "description": "PDF417 barcode error correction level.",
             "$ref": "#/components/schemas/Pdf417ErrorLevel"
           },
           "pdf417Truncate": {
-            "type": "boolean",
+            "type": [
+              "null",
+              "boolean"
+            ],
             "description": "Whether to use truncated PDF417 format (removes right-side stop pattern).",
-            "nullable": true,
             "xml": {
               "name": "Pdf417Truncate"
             }
@@ -2228,10 +2519,12 @@
           "pdf417Columns": {
             "maximum": 30,
             "minimum": 0,
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
             "description": "Number of columns in the PDF417 barcode. Values between 1 and 30. 0 for auto.",
             "format": "int32",
-            "nullable": true,
             "xml": {
               "name": "Pdf417Columns"
             }
@@ -2239,10 +2532,12 @@
           "pdf417Rows": {
             "maximum": 90,
             "minimum": 0,
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
             "description": "Number of rows in the PDF417 barcode. Values between 3 and 90. 0 for automatic.",
             "format": "int32",
-            "nullable": true,
             "xml": {
               "name": "Pdf417Rows"
             }
@@ -2250,40 +2545,50 @@
           "pdf417AspectRatio": {
             "maximum": 10,
             "minimum": 2,
-            "type": "number",
+            "type": [
+              "null",
+              "number"
+            ],
             "description": "PDF417 barcode aspect ratio (height/width of the barcode module). Values are defined by the standard: 2 to 5 for MicroPdf417; 3 to 5 for Pdf417 and MacroPdf417.",
             "format": "float",
-            "nullable": true,
             "xml": {
               "name": "Pdf417AspectRatio"
             }
           },
           "pdf417ECIEncoding": {
+            "description": "ECI encoding for PDF417 barcode data.",
             "$ref": "#/components/schemas/ECIEncodings"
           },
           "pdf417IsReaderInitialization": {
-            "type": "boolean",
+            "type": [
+              "null",
+              "boolean"
+            ],
             "description": "Whether the barcode is used for reader initialization (programming).",
-            "nullable": true,
             "xml": {
               "name": "Pdf417IsReaderInitialization"
             }
           },
           "pdf417MacroCharacters": {
+            "description": "Macro character to prepend (structured append).",
             "$ref": "#/components/schemas/MacroCharacter"
           },
           "pdf417IsLinked": {
-            "type": "boolean",
+            "type": [
+              "null",
+              "boolean"
+            ],
             "description": "Whether to use linked mode (for MicroPdf417).",
-            "nullable": true,
             "xml": {
               "name": "Pdf417IsLinked"
             }
           },
           "pdf417IsCode128Emulation": {
-            "type": "boolean",
+            "type": [
+              "null",
+              "boolean"
+            ],
             "description": "Whether to use Code128 emulation for MicroPdf417.",
-            "nullable": true,
             "xml": {
               "name": "Pdf417IsCode128Emulation"
             }
@@ -2375,32 +2680,40 @@
         "type": "object",
         "properties": {
           "qrEncodeMode": {
+            "description": "QR barcode encode mode.",
             "$ref": "#/components/schemas/QREncodeMode"
           },
           "qrErrorLevel": {
+            "description": "QR barcode error correction level.",
             "$ref": "#/components/schemas/QRErrorLevel"
           },
           "qrVersion": {
+            "description": "QR barcode version. Automatically selects the smallest version that fits the data.",
             "$ref": "#/components/schemas/QRVersion"
           },
           "qrECIEncoding": {
+            "description": "ECI encoding for QR barcode data.",
             "$ref": "#/components/schemas/ECIEncodings"
           },
           "qrAspectRatio": {
             "maximum": 1,
             "minimum": 0.001,
-            "type": "number",
+            "type": [
+              "null",
+              "number"
+            ],
             "description": "QR barcode aspect ratio. Values: 0 to 1.",
             "format": "float",
-            "nullable": true,
             "xml": {
               "name": "QrAspectRatio"
             }
           },
           "microQRVersion": {
+            "description": "MicroQR barcode version. Used when BarcodeType is MicroQR.",
             "$ref": "#/components/schemas/MicroQRVersion"
           },
           "rectMicroQrVersion": {
+            "description": "RectMicroQR barcode version. Used when BarcodeType is RectMicroQR.",
             "$ref": "#/components/schemas/RectMicroQRVersion"
           }
         },
@@ -2444,6 +2757,7 @@
           "barcodeTypes": {
             "type": "array",
             "items": {
+              "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.barcoderecognition/decodetype/",
               "$ref": "#/components/schemas/DecodeBarcodeType"
             },
             "description": "Array of barcode decode types to find.",
@@ -2462,9 +2776,11 @@
             }
           },
           "recognitionMode": {
+            "description": "Barcode recognition mode.",
             "$ref": "#/components/schemas/RecognitionMode"
           },
           "recognitionImageKind": {
+            "description": "Image kind for recognition.",
             "$ref": "#/components/schemas/RecognitionImageKind"
           }
         },
