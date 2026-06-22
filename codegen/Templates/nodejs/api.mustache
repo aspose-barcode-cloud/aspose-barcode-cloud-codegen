@@ -451,10 +451,18 @@ export class {{classname}} {
 {{/required}}
 {{/allParams}}
 {{#queryParams}}
+{{^vendorExtensions.x-param-group-camel}}
         if (request.{{paramName}} != null) {
             queryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, "{{{dataType}}}");
         }
 
+{{/vendorExtensions.x-param-group-camel}}
+{{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}}?.{{paramName}} != null) {
+            queryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{vendorExtensions.x-param-group-camel}}.{{paramName}}, "{{{dataType}}}");
+        }
+
+{{/vendorExtensions.x-param-group-camel}}
 {{/queryParams}}
 {{#headerParams}}
         headerParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');

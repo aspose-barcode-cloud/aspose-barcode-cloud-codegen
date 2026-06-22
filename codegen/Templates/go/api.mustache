@@ -23,8 +23,9 @@ type {{classname}}Service service
 
 {{#hasOptionalParams}}
 //{{{classname}}}{{{nickname}}}Opts - Optional Parameters for {{{classname}}}{{{nickname}}}
-type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}
-{{#isPrimitiveType}}	{{vendorExtensions.x-export-param-name}} optional.{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-export-param-name}} optional.Interface{{/isPrimitiveType}}{{/required}}{{/allParams}}
+type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}{{^vendorExtensions.x-param-group-pascal}}
+{{#isPrimitiveType}}	{{vendorExtensions.x-export-param-name}} optional.{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-export-param-name}} optional.Interface{{/isPrimitiveType}}{{/vendorExtensions.x-param-group-pascal}}{{/required}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+	{{pascal}} optional.Interface{{/vendorExtensions.x-param-groups}}
 }
 {{/hasOptionalParams}}
 
@@ -108,6 +109,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	queryParams.Add("{{baseName}}", parameterToString({{paramName}}, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
 	{{/required}}
 	{{^required}}
+	{{^vendorExtensions.x-param-group-pascal}}
 	if optionals != nil && optionals.{{vendorExtensions.x-export-param-name}}.IsSet() {
 		{{#isCollectionFormatMulti}}
 		values := reflect.ValueOf(optionals.{{vendorExtensions.x-export-param-name}}.Value());
@@ -120,6 +122,12 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		queryParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-export-param-name}}.Value(), "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
 		{{/isCollectionFormatMulti}}
 	}
+	{{/vendorExtensions.x-param-group-pascal}}
+	{{#vendorExtensions.x-param-group-pascal}}
+	if optionals != nil && optionals.{{vendorExtensions.x-param-group-pascal}}.IsSet() {
+		queryParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-param-group-pascal}}.Value().({{vendorExtensions.x-param-group-type}}).{{vendorExtensions.x-export-param-name}}, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+	}
+	{{/vendorExtensions.x-param-group-pascal}}
 	{{/required}}
 	{{/queryParams}}
 	{{/hasQueryParams}}

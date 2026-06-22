@@ -64,8 +64,11 @@ namespace {{packageName}}.Api
         /// <summary>
         /// {{summary}} {{notes}}
         /// </summary>
-        {{#allParams}}/// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
+        {{#allParams}}{{^vendorExtensions.x-param-group-camel}}/// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>{{/vendorExtensions.x-param-group-camel}}
         {{/allParams}}
+        {{#vendorExtensions.x-param-groups}}
+        /// <param name="{{camel}}">Grouped parameters of type {{type}} (optional)</param>
+        {{/vendorExtensions.x-param-groups}}
         /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous operation. {{#returnType}}Task result type is  <see cref="{{returnType}}" /> {{/returnType}}
@@ -73,7 +76,7 @@ namespace {{packageName}}.Api
         {{#isDeprecated}}
         [Obsolete]
         {{/isDeprecated}}
-       public async {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}System.Threading.CancellationToken cancellationToken = default)
+       public async {{#returnType}}Task<{{{returnType}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{nickname}}Async({{#allParams}}{{^vendorExtensions.x-param-group-camel}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}, {{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}{{type}} {{camel}} = default, {{/vendorExtensions.x-param-groups}}System.Threading.CancellationToken cancellationToken = default)
         {
 {{#allParams}}{{#required}}{{^isEnum}}            // verify the required parameter '{{paramName}}' is set
             if ({{paramName}} == null)
@@ -119,7 +122,7 @@ namespace {{packageName}}.Api
             {{/pathParams}}
             {{#queryParams}}
             {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{paramName}});
+            {{^vendorExtensions.x-param-group-camel}}resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{paramName}});{{/vendorExtensions.x-param-group-camel}}{{#vendorExtensions.x-param-group-camel}}resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{vendorExtensions.x-param-group-camel}}?.{{nameInPascalCase}});{{/vendorExtensions.x-param-group-camel}}
             {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
             {{/queryParams}}
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize({{bodyParam.paramName}}); // http body (model) parameter{{/hasBodyParam}}

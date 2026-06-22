@@ -333,6 +333,7 @@ use RuntimeException;
         }
         {{/collectionFormat}}
         {{^collectionFormat}}
+        {{^vendorExtensions.x-param-group-snake}}
         if (isset($request->{{paramName}})) {
             $queryParamName = lcfirst('{{baseName}}');
             $queryParamValue = is_bool($request->{{paramName}}) ? ($request->{{paramName}} ? 'true' : 'false') : $request->{{paramName}};
@@ -342,6 +343,19 @@ use RuntimeException;
                 $queryParams[$queryParamName] = ObjectSerializer::toQueryValue($queryParamValue);
             }
         }
+        {{/vendorExtensions.x-param-group-snake}}
+        {{#vendorExtensions.x-param-group-snake}}
+        $groupValue = $request->{{vendorExtensions.x-param-group-snake}} === null ? null : $request->{{vendorExtensions.x-param-group-snake}}['{{paramName}}'];
+        if (isset($groupValue)) {
+            $queryParamName = lcfirst('{{baseName}}');
+            $queryParamValue = is_bool($groupValue) ? ($groupValue ? 'true' : 'false') : $groupValue;
+            if (strpos($resourcePath, '{' . $queryParamName . '}') !== false) {
+                $resourcePath = str_replace('{' . $queryParamName . '}', ObjectSerializer::toPathValue($queryParamValue), $resourcePath);
+            } else {
+                $queryParams[$queryParamName] = ObjectSerializer::toQueryValue($queryParamValue);
+            }
+        }
+        {{/vendorExtensions.x-param-group-snake}}
         {{/collectionFormat}}
     {{/queryParams}}
     {{#headerParams}}

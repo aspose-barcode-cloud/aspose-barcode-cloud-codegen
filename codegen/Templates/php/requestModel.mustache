@@ -18,6 +18,7 @@ namespace Aspose\BarCode\Requests;
 class {{operationId}}RequestWrapper
 {
     {{#hasParams}}
+    {{^vendorExtensions.x-has-param-groups}}
     /**
      * Initializes a new instance of the {{operationId}}RequestWrapper class.
      *
@@ -41,6 +42,53 @@ class {{operationId}}RequestWrapper
 
     {{/-last}}
     {{/allParams}}
+    {{/vendorExtensions.x-has-param-groups}}
+    {{#vendorExtensions.x-has-param-groups}}
+    /**
+     * Initializes a new instance of the {{operationId}}RequestWrapper class.
+     *
+     {{#allParams}}
+     {{^vendorExtensions.x-param-group-snake}}
+     * @param {{^schema}}{{dataType}}{{/schema}}{{#schema}}{{dataType}}{{/schema}} ${{paramName}} {{#description}}{{{description}}}{{/description}}
+     {{/vendorExtensions.x-param-group-snake}}
+     {{/allParams}}
+     {{#vendorExtensions.x-param-groups}}
+     * @param \Aspose\BarCode\Model\{{type}} ${{snake}} Grouped parameters for {{pascal}}.
+     {{/vendorExtensions.x-param-groups}}
+     */
+    public function __construct({{#allParams}}{{^vendorExtensions.x-param-group-snake}}${{paramName}}{{^required}} = null{{/required}}, {{/vendorExtensions.x-param-group-snake}}{{/allParams}}{{#vendorExtensions.x-param-groups}}${{snake}} = null{{^-last}}, {{/-last}}{{/vendorExtensions.x-param-groups}})
+    {
+        {{#allParams}}
+        {{^vendorExtensions.x-param-group-snake}}
+        $this->{{paramName}} = ${{paramName}};
+        {{/vendorExtensions.x-param-group-snake}}
+        {{/allParams}}
+        {{#vendorExtensions.x-param-groups}}
+        $this->{{snake}} = ${{snake}};
+        {{/vendorExtensions.x-param-groups}}
+    }
+
+    {{#allParams}}
+    {{^vendorExtensions.x-param-group-snake}}
+    /**
+     * {{^description}}Gets or sets {{paramName}}{{/description}}{{#description}}{{{description}}}{{/description}}
+     */
+    public ${{paramName}};
+
+    {{/vendorExtensions.x-param-group-snake}}
+    {{/allParams}}
+    {{#vendorExtensions.x-param-groups}}
+    /**
+     * Grouped parameters for {{pascal}}.
+     *
+     * @var \Aspose\BarCode\Model\{{type}}|null
+     */
+    public ${{snake}};
+    {{^-last}}
+
+    {{/-last}}
+    {{/vendorExtensions.x-param-groups}}
+    {{/vendorExtensions.x-has-param-groups}}
     {{/hasParams}}
 }
 {{/operation}}

@@ -51,7 +51,11 @@
             "description": "Barcode output image format.\nDefault value: png.",
             "schema": {
               "$ref": "#/components/schemas/BarcodeImageFormat"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "textLocation",
@@ -59,7 +63,11 @@
             "description": "Specify the displayed text location. Set to CodeLocation.None to hide CodeText.\nDefault value depends on BarcodeType: CodeLocation.Below for 1D barcodes and CodeLocation.None for 2D barcodes.",
             "schema": {
               "$ref": "#/components/schemas/CodeLocation"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "foregroundColor",
@@ -68,7 +76,11 @@
             "schema": {
               "type": "string",
               "default": "Black"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "backgroundColor",
@@ -77,7 +89,11 @@
             "schema": {
               "type": "string",
               "default": "White"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "units",
@@ -85,7 +101,11 @@
             "description": "Common units for all measurements. Default units: pixels.",
             "schema": {
               "$ref": "#/components/schemas/GraphicsUnit"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "resolution",
@@ -96,7 +116,11 @@
               "minimum": 1,
               "type": "number",
               "format": "float"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "imageHeight",
@@ -105,7 +129,11 @@
             "schema": {
               "type": "number",
               "format": "float"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "imageWidth",
@@ -114,7 +142,11 @@
             "schema": {
               "type": "number",
               "format": "float"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "rotationAngle",
@@ -123,7 +155,11 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
+            },
+            "x-param-group-snake": "barcode_image_params",
+            "x-param-group-camel": "barcodeImageParams",
+            "x-param-group-pascal": "BarcodeImageParams",
+            "x-param-group-type": "BarcodeImageParams"
           },
           {
             "name": "qrEncodeMode",
@@ -131,7 +167,11 @@
             "description": "QR barcode encode mode.",
             "schema": {
               "$ref": "#/components/schemas/QREncodeMode"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "qrErrorLevel",
@@ -139,7 +179,11 @@
             "description": "QR barcode error correction level.",
             "schema": {
               "$ref": "#/components/schemas/QRErrorLevel"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "qrVersion",
@@ -147,7 +191,11 @@
             "description": "QR barcode version. Automatically selects the smallest version that fits the data.",
             "schema": {
               "$ref": "#/components/schemas/QRVersion"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "qrECIEncoding",
@@ -155,7 +203,11 @@
             "description": "ECI encoding for QR barcode data.",
             "schema": {
               "$ref": "#/components/schemas/ECIEncodings"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "qrAspectRatio",
@@ -166,7 +218,11 @@
               "minimum": 0.001,
               "type": "number",
               "format": "float"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "microQRVersion",
@@ -174,7 +230,11 @@
             "description": "MicroQR barcode version. Used when BarcodeType is MicroQR.",
             "schema": {
               "$ref": "#/components/schemas/MicroQRVersion"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "rectMicroQrVersion",
@@ -182,7 +242,11 @@
             "description": "RectMicroQR barcode version. Used when BarcodeType is RectMicroQR.",
             "schema": {
               "$ref": "#/components/schemas/RectMicroQRVersion"
-            }
+            },
+            "x-param-group-snake": "qr_params",
+            "x-param-group-camel": "qrParams",
+            "x-param-group-pascal": "QrParams",
+            "x-param-group-type": "QrParams"
           },
           {
             "name": "code128EncodeMode",
@@ -190,7 +254,11 @@
             "description": "Code128 barcode encode mode. Controls which Code 128 subset (A, B, C, or mix) is used.",
             "schema": {
               "$ref": "#/components/schemas/Code128EncodeMode"
-            }
+            },
+            "x-param-group-snake": "code128_params",
+            "x-param-group-camel": "code128Params",
+            "x-param-group-pascal": "Code128Params",
+            "x-param-group-type": "Code128Params"
           },
           {
             "name": "pdf417EncodeMode",
@@ -198,7 +266,11 @@
             "description": "PDF417 barcode encode mode.",
             "schema": {
               "$ref": "#/components/schemas/Pdf417EncodeMode"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417ErrorLevel",
@@ -206,7 +278,11 @@
             "description": "PDF417 barcode error correction level.",
             "schema": {
               "$ref": "#/components/schemas/Pdf417ErrorLevel"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417Truncate",
@@ -214,7 +290,11 @@
             "description": "Whether to use truncated PDF417 format (removes right-side stop pattern).",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417Columns",
@@ -225,7 +305,11 @@
               "minimum": 0,
               "type": "integer",
               "format": "int32"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417Rows",
@@ -236,7 +320,11 @@
               "minimum": 0,
               "type": "integer",
               "format": "int32"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417AspectRatio",
@@ -247,7 +335,11 @@
               "minimum": 2,
               "type": "number",
               "format": "float"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417ECIEncoding",
@@ -255,7 +347,11 @@
             "description": "ECI encoding for PDF417 barcode data.",
             "schema": {
               "$ref": "#/components/schemas/ECIEncodings"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417IsReaderInitialization",
@@ -263,7 +359,11 @@
             "description": "Whether the barcode is used for reader initialization (programming).",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417MacroCharacters",
@@ -271,7 +371,11 @@
             "description": "Macro character to prepend (structured append).",
             "schema": {
               "$ref": "#/components/schemas/MacroCharacter"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417IsLinked",
@@ -279,7 +383,11 @@
             "description": "Whether to use linked mode (for MicroPdf417).",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           },
           {
             "name": "pdf417IsCode128Emulation",
@@ -287,7 +395,11 @@
             "description": "Whether to use Code128 emulation for MicroPdf417.",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-param-group-snake": "pdf417_params",
+            "x-param-group-camel": "pdf417Params",
+            "x-param-group-pascal": "Pdf417Params",
+            "x-param-group-type": "Pdf417Params"
           }
         ],
         "responses": {
@@ -381,7 +493,34 @@
             "description": "Internal Server Error"
           }
         },
-        "x-binary-result": true
+        "x-binary-result": true,
+        "x-param-groups": [
+          {
+            "camel": "barcodeImageParams",
+            "snake": "barcode_image_params",
+            "pascal": "BarcodeImageParams",
+            "type": "BarcodeImageParams"
+          },
+          {
+            "camel": "qrParams",
+            "snake": "qr_params",
+            "pascal": "QrParams",
+            "type": "QrParams"
+          },
+          {
+            "camel": "code128Params",
+            "snake": "code128_params",
+            "pascal": "Code128Params",
+            "type": "Code128Params"
+          },
+          {
+            "camel": "pdf417Params",
+            "snake": "pdf417_params",
+            "pascal": "Pdf417Params",
+            "type": "Pdf417Params"
+          }
+        ],
+        "x-has-param-groups": true
       }
     },
     "/barcode/generate-multipart": {
@@ -2432,7 +2571,7 @@
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://id.aspose.cloud/connect/token",
-            "scopes": { }
+            "scopes": {}
           }
         }
       }
@@ -2440,7 +2579,7 @@
   },
   "security": [
     {
-      "JWT": [ ]
+      "JWT": []
     }
   ]
 }

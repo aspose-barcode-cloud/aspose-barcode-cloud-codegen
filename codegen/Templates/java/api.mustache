@@ -82,9 +82,16 @@ public class {{classname}} {
 
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}queryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}collectionQueryParams = new {{javaUtilPrefix}}ArrayList<>();{{#queryParams}}
+        {{^vendorExtensions.x-param-group-camel}}
         if (request.{{paramName}} != null) {
             {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{paramName}}));
         }
+        {{/vendorExtensions.x-param-group-camel}}
+        {{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}()));
+        }
+        {{/vendorExtensions.x-param-group-camel}}
         {{/queryParams}}
 
         {{javaUtilPrefix}}Map<String, String> {{localVariablePrefix}}headerParams = new {{javaUtilPrefix}}HashMap<>();{{#headerParams}}
@@ -332,11 +339,19 @@ import com.aspose.barcode.cloud.model.ScanBase64Request;
  */
 public class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
+    {{^vendorExtensions.x-param-group-camel}}
     /**
      * {{{unescapedDescription}}}.
      */
     public {{#required}}final{{/required}} {{{dataType}}} {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} {{^required}}{{#defaultValue}}={{{example}}}{{/defaultValue}}{{/required}};
+    {{/vendorExtensions.x-param-group-camel}}
     {{/allParams}}
+    {{#vendorExtensions.x-param-groups}}
+    /**
+     * Grouped {{type}} parameters.
+     */
+    public {{type}} {{camel}};
+    {{/vendorExtensions.x-param-groups}}
 
     {{#requiredParams.0}}
     /**
