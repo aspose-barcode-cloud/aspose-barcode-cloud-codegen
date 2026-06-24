@@ -125,7 +125,9 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	{{/vendorExtensions.x-param-group-pascal}}
 	{{#vendorExtensions.x-param-group-pascal}}
 	if optionals != nil && optionals.{{vendorExtensions.x-param-group-pascal}}.IsSet() {
-		queryParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-param-group-pascal}}.Value().({{vendorExtensions.x-param-group-type}}).{{vendorExtensions.x-export-param-name}}, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+		if {{paramName}}Value := optionals.{{vendorExtensions.x-param-group-pascal}}.Value().({{vendorExtensions.x-param-group-type}}).{{vendorExtensions.x-export-param-name}}; !reflect.ValueOf({{paramName}}Value).IsZero() {
+			queryParams.Add("{{baseName}}", parameterToString({{paramName}}Value, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+		}
 	}
 	{{/vendorExtensions.x-param-group-pascal}}
 	{{/required}}
@@ -203,6 +205,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	formParams.Add("{{baseName}}", parameterToString({{paramName}}, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
 {{/required}}
 {{^required}}
+	{{^vendorExtensions.x-param-group-pascal}}
 	if optionals != nil && optionals.{{vendorExtensions.x-export-param-name}}.IsSet() {
 		{{#isCollectionFormatMulti}}
 		values := reflect.ValueOf(optionals.{{vendorExtensions.x-export-param-name}}.Value());
@@ -215,6 +218,14 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		formParams.Add("{{baseName}}", parameterToString(optionals.{{vendorExtensions.x-export-param-name}}.Value(), "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
 		{{/isCollectionFormatMulti}}
 	}
+	{{/vendorExtensions.x-param-group-pascal}}
+	{{#vendorExtensions.x-param-group-pascal}}
+	if optionals != nil && optionals.{{vendorExtensions.x-param-group-pascal}}.IsSet() {
+		if {{paramName}}Value := optionals.{{vendorExtensions.x-param-group-pascal}}.Value().({{vendorExtensions.x-param-group-type}}).{{vendorExtensions.x-export-param-name}}; !reflect.ValueOf({{paramName}}Value).IsZero() {
+			formParams.Add("{{baseName}}", parameterToString({{paramName}}Value, "{{#collectionFormat}}{{collectionFormat}}{{/collectionFormat}}"))
+		}
+	}
+	{{/vendorExtensions.x-param-group-pascal}}
 {{/required}}
 {{/isFile}}
 {{/formParams}}
