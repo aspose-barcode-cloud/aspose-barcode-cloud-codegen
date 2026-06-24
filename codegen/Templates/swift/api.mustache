@@ -289,7 +289,7 @@ extension {{projectName}}API {
             {{#hasFormParams}}
         let localVariableFormParams: [String: (any Sendable)?] = [
                 {{#formParams}}
-            {{> _param}},
+            {{^vendorExtensions.x-param-group-camel}}{{> _param}},{{/vendorExtensions.x-param-group-camel}}{{#vendorExtensions.x-param-group-camel}}"{{baseName}}": {{vendorExtensions.x-param-group-camel}}?.{{paramName}}?.asParameter(codableHelper: apiConfiguration.codableHelper),{{/vendorExtensions.x-param-group-camel}}
                 {{/formParams}}
         ]
 
