@@ -390,9 +390,17 @@ use RuntimeException;
             }
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
+            {{^vendorExtensions.x-param-group-snake}}
             if (isset($request->{{paramName}})) {
                 $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($request->{{paramName}});
             }
+            {{/vendorExtensions.x-param-group-snake}}
+            {{#vendorExtensions.x-param-group-snake}}
+            $groupValue = $request->{{vendorExtensions.x-param-group-snake}} === null ? null : $request->{{vendorExtensions.x-param-group-snake}}['{{paramName}}'];
+            if (isset($groupValue)) {
+                $formParams['{{baseName}}'][] = ObjectSerializer::toFormValue($groupValue);
+            }
+            {{/vendorExtensions.x-param-group-snake}}
             {{/isCollectionFormatMulti}}
         {{/isFile}}
         {{/formParams}}
