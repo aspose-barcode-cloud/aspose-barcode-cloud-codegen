@@ -99,9 +99,16 @@ public class {{classname}} {
         {{localVariablePrefix}}headerParams.put("{{baseName}}", {{localVariablePrefix}}apiClient.parameterToString(request.{{paramName}}));{{/headerParams}}
 
         {{javaUtilPrefix}}Map<String, Object> {{localVariablePrefix}}formParams = new {{javaUtilPrefix}}HashMap<>();{{#formParams}}
+        {{^vendorExtensions.x-param-group-camel}}
         if (request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} != null) {
             {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} );
         }
+        {{/vendorExtensions.x-param-group-camel}}
+        {{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}());
+        }
+        {{/vendorExtensions.x-param-group-camel}}
         {{/formParams}}
 
         final String[] {{localVariablePrefix}}accepts = {
