@@ -114,6 +114,12 @@ class {{classname}}(object):
             params["{{paramName}}"] = params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}}
 {{/vendorExtensions.x-param-group-snake}}
 {{/queryParams}}
+{{#formParams}}
+{{#vendorExtensions.x-param-group-snake}}
+        if "{{vendorExtensions.x-param-group-snake}}" in params and params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}} is not None:
+            params["{{paramName}}"] = params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}}
+{{/vendorExtensions.x-param-group-snake}}
+{{/formParams}}
 {{/vendorExtensions.x-has-param-groups}}
 {{#allParams}}
 {{#required}}
