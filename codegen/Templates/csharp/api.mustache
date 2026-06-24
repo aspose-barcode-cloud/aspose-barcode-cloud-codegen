@@ -64,7 +64,10 @@ namespace {{packageName}}.Api
         /// <summary>
         /// {{summary}} {{notes}}
         /// </summary>
-        {{#allParams}}{{^vendorExtensions.x-param-group-camel}}/// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>{{/vendorExtensions.x-param-group-camel}}
+        {{#allParams}}
+        {{^vendorExtensions.x-param-group-camel}}
+        /// <param name="{{paramName}}">{{description}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
+        {{/vendorExtensions.x-param-group-camel}}
         {{/allParams}}
         {{#vendorExtensions.x-param-groups}}
         /// <param name="{{camel}}">Grouped parameters of type {{type}} (optional)</param>
@@ -90,17 +93,22 @@ namespace {{packageName}}.Api
                 .Replace("&amp;", "&")
                 .Replace("/?", "?");
             {{#headerParams}}
-            {{#-first}}Dictionary<string, string> headerParams = new Dictionary<string, string>();{{/-first}}
+            {{#-first}}
+            Dictionary<string, string> headerParams = new Dictionary<string, string>();
+            {{/-first}}
             {{/headerParams}}
             {{#formParams}}
-            {{#-first}}MultipartFormDataContent multipartContent = new MultipartFormDataContent();{{/-first}}
+            {{#-first}}
+            MultipartFormDataContent multipartContent = new MultipartFormDataContent();
+            {{/-first}}
+            {{^vendorExtensions.x-param-group-camel}}
             {{^isEnum}}
             if ({{paramName}} != null)
             { {{/isEnum}}      {{#isEnum}}{{^required}}if ({{paramName}} != null)  { {{/required}}{{/isEnum}}
                 {{#isFile}}
                  {{^required}}
             if ({{paramName}} != null)
-            { {{/required}} 
+            { {{/required}}
                 multipartContent.Add(new StreamContent({{paramName}}), "{{paramName}}", "{{paramName}}.png");
                 {{^required}} } {{/required}}
                 {{/isFile}}
@@ -116,14 +124,25 @@ namespace {{packageName}}.Api
                     {{/isPrimitiveType}}
                 {{/isFile}}
            {{^isEnum}} } {{/isEnum}}   {{#isEnum}}{{^required}} } {{/required}}{{/isEnum}}
+            {{/vendorExtensions.x-param-group-camel}}
+            {{#vendorExtensions.x-param-group-camel}}
+            if ({{vendorExtensions.x-param-group-camel}}?.{{nameInPascalCase}} != null)
+            {
+                multipartContent.Add(new StringContent($"{ {{vendorExtensions.x-param-group-camel}}?.{{nameInPascalCase}} }"), "{{paramName}}");
+            }
+            {{/vendorExtensions.x-param-group-camel}}
             {{/formParams}}
             {{#pathParams}}
             resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", {{paramName}});
             {{/pathParams}}
             {{#queryParams}}
-            {{#-first}}#pragma warning disable CS0618 // Type or member is obsolete{{/-first}}
+            {{#-first}}
+            #pragma warning disable CS0618 // Type or member is obsolete
+            {{/-first}}
             {{^vendorExtensions.x-param-group-camel}}resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{paramName}});{{/vendorExtensions.x-param-group-camel}}{{#vendorExtensions.x-param-group-camel}}resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", {{vendorExtensions.x-param-group-camel}}?.{{nameInPascalCase}});{{/vendorExtensions.x-param-group-camel}}
-            {{#-last}}#pragma warning restore CS0618 // Type or member is obsolete{{/-last}}
+            {{#-last}}
+            #pragma warning restore CS0618 // Type or member is obsolete
+            {{/-last}}
             {{/queryParams}}
             {{#hasBodyParam}}string postBody = SerializationHelper.Serialize({{bodyParam.paramName}}); // http body (model) parameter{{/hasBodyParam}}
 
