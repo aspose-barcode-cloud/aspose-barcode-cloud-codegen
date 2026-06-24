@@ -59,7 +59,9 @@ class {{classname}} {
 
     {{#hasFormParams}}
       MultipartRequestPlus mp = MultipartRequestPlus('{{httpMethod}}', Uri.parse(requestPath));
-      {{#formParams}}{{^isFile}}
+      {{#formParams}}
+      {{^vendorExtensions.x-param-group-camel}}
+      {{^isFile}}
       if ({{paramName}} != null) {
         {{#isCollectionFormatMulti}}
         final List<String> stringValues = {{paramName}}.map((i) => parameterToString(i)).toList();
@@ -69,8 +71,8 @@ class {{classname}} {
         mp.fields['{{baseName}}'] = [parameterToString({{paramName}})];
         {{/isCollectionFormatMulti}}
       }
-      {{/isFile}}{{#isFile}}
-      
+      {{/isFile}}
+      {{#isFile}}
       {{#required}}
         mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       {{/required}}
@@ -79,10 +81,16 @@ class {{classname}} {
         mp.files.add(MultipartFile.fromBytes("{{paramName}}", {{paramName}}Bytes.toList(), filename: "somefile.xyz"));
       }
       {{/required}}
-
-      {{/isFile}}{{/formParams}}
+      {{/isFile}}
+      {{/vendorExtensions.x-param-group-camel}}
+      {{#vendorExtensions.x-param-group-camel}}
+      if ({{vendorExtensions.x-param-group-camel}}?.{{paramName}} != null) {
+        mp.fields['{{baseName}}'] = [parameterToString({{vendorExtensions.x-param-group-camel}}!.{{paramName}})];
+      }
+      {{/vendorExtensions.x-param-group-camel}}
+      {{/formParams}}
       postBody = mp;
-    
+
     {{/hasFormParams}}
 
     final response = await _apiClient.invokeAPI(requestPath,
