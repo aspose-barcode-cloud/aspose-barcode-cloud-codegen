@@ -88,8 +88,8 @@ public class {{classname}} {
         }
         {{/vendorExtensions.x-param-group-camel}}
         {{#vendorExtensions.x-param-group-camel}}
-        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}() != null) {
-            {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}()));
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}()));
         }
         {{/vendorExtensions.x-param-group-camel}}
         {{/queryParams}}
@@ -105,8 +105,8 @@ public class {{classname}} {
         }
         {{/vendorExtensions.x-param-group-camel}}
         {{#vendorExtensions.x-param-group-camel}}
-        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}() != null) {
-            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.{{#isBoolean}}isget{{/isBoolean}}{{^isBoolean}}get{{/isBoolean}}{{nameInPascalCase}}());
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}());
         }
         {{/vendorExtensions.x-param-group-camel}}
         {{/formParams}}
