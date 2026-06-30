@@ -1,0 +1,23 @@
+Pod::Spec.new do |s|
+  s.name = '{{projectName}}'
+  s.version = '{{packageVersion}}'
+  s.summary = 'Aspose.BarCode Cloud SDK for Swift'
+  s.description = 'Swift SDK for Aspose.BarCode Cloud barcode generation and recognition APIs.'
+  s.homepage = 'https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift'
+  s.license = { :type => 'MIT', :file => 'LICENSE' }
+  s.authors = { 'Aspose' => 'support@aspose.cloud' }
+
+  s.source = {
+    :git => 'https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift.git',
+    :tag => "v#{s.version}"
+  }
+
+  s.module_name = '{{projectName}}'
+  s.swift_versions = ['6.0']
+  s.ios.deployment_target = '13.0'
+  s.osx.deployment_target = '10.15'
+  s.tvos.deployment_target = '13.0'
+  s.watchos.deployment_target = '6.0'
+  s.source_files = 'Sources/{{projectName}}/**/*.swift'
+  s.requires_arc = true
+end

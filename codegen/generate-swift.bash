@@ -21,6 +21,7 @@ rm -rf "$targetDir/Sources/AsposeBarcodeCloud"
 mv "$tempDir/Sources/AsposeBarcodeCloud" "$targetDir/Sources/AsposeBarcodeCloud"
 
 mv "$tempDir/Package.swift" "$targetDir/Package.swift"
+mv "$tempDir/AsposeBarcodeCloud.podspec" "$targetDir/AsposeBarcodeCloud.podspec"
 mv "$tempDir/README.md" "$targetDir/README.template"
 
 rm -rf "$targetDir/docs"

@@ -56,8 +56,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -87,8 +88,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - returns: Promise<{{{returnType}}}{{#returnType}}{{#isResponseOptional}}?{{/isResponseOptional}}{{/returnType}}{{^returnType}}Void{{/returnType}}>
      */
@@ -117,8 +119,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - returns: Observable<{{{returnType}}}{{#returnType}}{{#isResponseOptional}}?{{/isResponseOptional}}{{/returnType}}{{^returnType}}Void{{/returnType}}>
      */
@@ -154,8 +157,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - returns: AnyPublisher<{{{returnType}}}{{#returnType}}{{#isResponseOptional}}?{{/isResponseOptional}}{{/returnType}}{{^returnType}}Void{{/returnType}}, Error>
      */
@@ -197,8 +201,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - returns: {{{returnType}}}{{#returnType}}{{#isResponseOptional}}?{{/isResponseOptional}}{{/returnType}}{{^returnType}}Void{{/returnType}}
      */
@@ -214,8 +219,9 @@ extension {{projectName}}API {
     /**
 {{#summary}}
      {{{.}}}
-{{/summary}}{{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}{{#apiStaticMethod}}
+{{/summary}}{{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}{{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.{{/apiStaticMethod}}
      - parameter completion: completion handler to receive the result
      */
