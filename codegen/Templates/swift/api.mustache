@@ -266,9 +266,9 @@ extension {{projectName}}API {
      {{#externalDocs}}
      - externalDocs: {{.}}
      {{/externalDocs}}
-     {{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-     {{/allParams}}
+     {{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{.}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}
      {{#apiStaticMethod}}
      - parameter apiConfiguration: The configuration for the http request.
      {{/apiStaticMethod}}
@@ -349,9 +349,9 @@ extension {{projectName}}API {
      {{#externalDocs}}
      - externalDocs: {{.}}
      {{/externalDocs}}
-     {{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{{.}}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-     {{/allParams}}
+     {{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{{.}}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}
      - returns: `EventLoopFuture` of `ClientResponse`{{#description}} {{{.}}}{{/description}}
      */
     {{#isDeprecated}}
@@ -429,9 +429,9 @@ extension {{projectName}}API {
      {{#externalDocs}}
      - externalDocs: {{.}}
      {{/externalDocs}}
-     {{#allParams}}
-     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{{.}}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-     {{/allParams}}
+     {{#allParams}}{{^vendorExtensions.x-param-group-camel}}
+     - parameter {{paramName}}: ({{#isFormParam}}form{{/isFormParam}}{{#isQueryParam}}query{{/isQueryParam}}{{#isPathParam}}path{{/isPathParam}}{{#isHeaderParam}}header{{/isHeaderParam}}{{#isBodyParam}}body{{/isBodyParam}}){{#description}} {{{.}}}{{/description}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}
+     - parameter {{camel}}: ({{type}}) Grouped {{camel}} parameters.{{/vendorExtensions.x-param-groups}}
      - returns: `EventLoopFuture` of `{{#lambda.titlecase}}{{operationId}}{{/lambda.titlecase}}`{{#description}} {{{.}}}{{/description}}
      */
     {{#isDeprecated}}
