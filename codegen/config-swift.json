@@ -17,6 +17,10 @@
         "BarcodeAuthInterceptor.mustache": {
             "destinationFilename": "Sources/AsposeBarcodeCloud/Infrastructure/BarcodeAuthInterceptor.swift",
             "templateType": "SupportingFiles"
+        },
+        "spi.mustache": {
+            "destinationFilename": ".spi.yml",
+            "templateType": "SupportingFiles"
         }
     },
     "hideGenerationTimestamp": true,
