@@ -2887,7 +2887,7 @@
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://id.aspose.cloud/connect/token",
-            "scopes": {}
+            "scopes": { }
           }
         }
       }
@@ -2895,7 +2895,7 @@
   },
   "security": [
     {
-      "JWT": []
+      "JWT": [ ]
     }
   ]
 }
