@@ -70,25 +70,31 @@ To use Aspose Barcode Cloud for Android you need to register an account with [As
 
 ## Getting Started
 
-- Open project in Android Studio
+- Open project in Android Studio.
 
-- Go to file *app/src/main/java/com/example/asposebarcodecloud/MainActivity.kt* and set *clientId* and *clientSecret* to apropriate values from <https://dashboard.aspose.cloud/applications>
+- Go to `app/src/main/java/com/aspose/barcode/cloud/demo_app/MainActivity.kt` and set your `clientId` and `clientSecret` from <https://dashboard.aspose.cloud/applications>.
 
-- Build project and run application on connected device or emulator.
+- Build the project and run the app on a connected device or emulator.
 
-## Generate Code128 BbarCode in Android using Java
+## Generate QR Barcode in Android using Kotlin
 
-```java
-    // Get your ClientId and ClientSecret from https://dashboard.aspose.cloud (free registration required).
-    ApiClient client = new ApiClient("MY_CLIENT_ID", "MY_CLIENT_SECRET");
+```kotlin
+val client = ApiClient("MY_CLIENT_ID", "MY_CLIENT_SECRET")
+val generateApi = GenerateApi(client)
 
-    BarcodeApi api = new BarcodeApi(client);
+val request = GenerateRequestWrapper(EncodeBarcodeType.QR, "text example")
+request.barcodeImageParams = BarcodeImageParams().apply {
+    imageFormat = BarcodeImageFormat.PNG
+}
+request.qrParams = QrParams().apply {
+    qrEncodeMode = QREncodeMode.AUTO
+    qrErrorLevel = QRErrorLevel.LEVEL_M
+    qrVersion = QRVersion.AUTO
+    qrAspectRatio = 0.75f
+}
 
-    String type = "code128";
-    String text = "text example";
-
-    File result = api.getBarcodeGenerate(type, text);
-    System.out.println(result);
+val result = generateApi.generate(request)
+println(result?.absolutePath)
 ```
 
 ## Licensing

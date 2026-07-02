@@ -29,7 +29,12 @@ import com.aspose.barcode.cloud.ApiException
 import com.aspose.barcode.cloud.api.GenerateApi
 import com.aspose.barcode.cloud.api.ScanApi
 import com.aspose.barcode.cloud.model.BarcodeImageFormat
+import com.aspose.barcode.cloud.model.BarcodeImageParams
 import com.aspose.barcode.cloud.model.EncodeBarcodeType
+import com.aspose.barcode.cloud.model.QREncodeMode
+import com.aspose.barcode.cloud.model.QRErrorLevel
+import com.aspose.barcode.cloud.model.QRVersion
+import com.aspose.barcode.cloud.model.QrParams
 import com.aspose.barcode.cloud.requests.GenerateRequestWrapper
 import com.aspose.barcode.cloud.requests.ScanMultipartRequestWrapper
 import com.google.android.material.snackbar.Snackbar
@@ -227,9 +232,20 @@ class MainActivity : AppCompatActivity() {
         val type = EncodeBarcodeType.fromValue(barcodeTypeSpinner.selectedItem.toString())
 
         val genRequest = GenerateRequestWrapper(type, barcodeTextEdit.text.toString())
-        genRequest.imageFormat = BarcodeImageFormat.PNG
-        genRequest.imageHeight = barcodeImgView.measuredHeight.toFloat()
-        genRequest.imageWidth = barcodeImgView.measuredWidth.toFloat()
+        genRequest.barcodeImageParams = BarcodeImageParams().apply {
+            imageFormat = BarcodeImageFormat.PNG
+            imageHeight = barcodeImgView.measuredHeight.toFloat()
+            imageWidth = barcodeImgView.measuredWidth.toFloat()
+        }
+
+        if (type == EncodeBarcodeType.QR) {
+            genRequest.qrParams = QrParams().apply {
+                qrEncodeMode = QREncodeMode.AUTO
+                qrErrorLevel = QRErrorLevel.LEVEL_M
+                qrVersion = QRVersion.AUTO
+                qrAspectRatio = 0.75f
+            }
+        }
 
         Thread {
             try {
