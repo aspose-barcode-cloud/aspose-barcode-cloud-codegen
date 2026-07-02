@@ -19,7 +19,10 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g go -t Tem
 rm -rf "$targetDir/barcode"
 
 mkdir -p "$targetDir/barcode/jwt"
-mv "$tempDir/response.go" "$targetDir/barcode/jwt/jwt.go"
+# jwt.go is emitted directly via the "files" config; drop the generator's default
+# response.go so the wildcard move below doesn't pull it into the SDK.
+rm -f "$tempDir/response.go"
+mv "$tempDir/jwt.go" "$targetDir/barcode/jwt/jwt.go"
 
 mv $tempDir/*.go $targetDir/barcode/
 

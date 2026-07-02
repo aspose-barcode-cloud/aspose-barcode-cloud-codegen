@@ -8,6 +8,12 @@
     "developerName": "Denis Averin",
     "developerOrganization": "Aspose",
     "developerOrganizationUrl": "https://www.aspose.cloud",
+    "files": {
+        "dependency.xml.mustache": {
+            "destinationFilename": "dependency.xml",
+            "templateType": "SupportingFiles"
+        }
+    },
     "groupId": "com.aspose",
     "hideGenerationTimestamp": true,
     "invokerPackage": "com.aspose.barcode.cloud",
