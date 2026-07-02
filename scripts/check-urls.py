@@ -41,6 +41,8 @@ REGEX_TO_IGNORE: list[re.Pattern[str]] = [
 URLS_TO_IGNORE = frozenset(
     [
         "https://api.aspose.cloud",
+        "https://api.aspose.cloud/{version}",
+        "https://api.aspose.cloud/v5.0",
         "https://www.aspose.cloud/404",
         "https://www.aspose.cloud/404/",
     ]
