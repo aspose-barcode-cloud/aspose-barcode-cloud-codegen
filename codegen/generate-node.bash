@@ -10,6 +10,9 @@ then
      rm -rf $tempDir
 fi
 
+# typescript-node does not generate docs on its own, so the SDK's models.ts,
+# docs and README are emitted as user-defined supporting files (see the "files"
+# section in config-node.json). This keeps everything in a single generator run.
 # java -jar Tools/openapi-generator-cli.jar config-help -g typescript-node
 java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json
 # java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json > debugModels.ts.json; exit
@@ -17,17 +20,11 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescrip
 # java -DdebugSupportingFiles -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs -o $tempDir -c config-node.json 2> debugSupportingFiles.ts.txt
 
 mv "$tempDir/api.ts" "$targetDir/src/"
+mv "$tempDir/src/models.ts" "$targetDir/src/models.ts"
 mv "$tempDir/package.json" "$targetDir/"
-mv "$tempDir/git_push.sh" "$targetDir/src/models.ts"
-
-# Use typescript-node one more time because typescript-node does not generate docs
-java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json
-#java -DdebugModels -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json > debugModels.node.json
-#java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g typescript-node -t Templates/nodejs/docs -o $tempDir/docs -c config-node.json > debugOperations.node.json
-
-mv "$tempDir/docs/api.ts" "$targetDir/docs/index.md"
-mv "$tempDir/docs/git_push.sh" "$targetDir/docs/models.md"
-mv "$tempDir/docs/tsconfig.json" "$targetDir/README.template"
+mv "$tempDir/docs/index.md" "$targetDir/docs/index.md"
+mv "$tempDir/docs/models.md" "$targetDir/docs/models.md"
+mv "$tempDir/README.template" "$targetDir/README.template"
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
