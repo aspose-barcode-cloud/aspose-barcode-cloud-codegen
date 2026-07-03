@@ -6,9 +6,9 @@ import sys
 import typing
 import urllib.parse
 
+from curl_wrapper import CurlExitCodes
 from github_job_summary import JobSummary
 from subdomains import Subdomains
-from curl_wrapper import CurlExitCodes
 from url_checker import UrlChecker
 
 """
@@ -27,16 +27,22 @@ EXIT_CODE_EXPECTATIONS: dict[str, tuple[int, int | None]] = {
     "https://api.aspose.cloud/v4.0/": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
     "https://id.aspose.cloud/connect/token": (CurlExitCodes.HTTP_RETURNED_ERROR, 400),
     # TODO: Temporary fix
-    "https://dashboard.aspose.cloud/applications": (CurlExitCodes.HTTP_RETURNED_ERROR, 404),
+    "https://dashboard.aspose.cloud/applications": (
+        CurlExitCodes.HTTP_RETURNED_ERROR,
+        404,
+    ),
 }
 
 REGEX_TO_IGNORE: list[re.Pattern[str]] = [
     re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/(?:blob|issues)/\S+$"),
+    re.compile(r"^https://github\.com/(?P<user>[^/]+)/(?P<repo>[^/]+)/releases/tag/\S+$"),
 ]
 
 URLS_TO_IGNORE = frozenset(
     [
         "https://api.aspose.cloud",
+        "https://api.aspose.cloud/{version}",
+        "https://api.aspose.cloud/v5.0",
         "https://www.aspose.cloud/404",
         "https://www.aspose.cloud/404/",
     ]
@@ -49,6 +55,7 @@ IGNORE_DOMAINS = Subdomains(
         ".curl.se",
         ".dart.dev",
         ".dartlang.org",
+        ".example",
         ".getcomposer.org",
         ".go.dev",
         ".golang.org",
@@ -61,8 +68,8 @@ IGNORE_DOMAINS = Subdomains(
         ".mvnrepository.com",
         ".nodejs.org",
         ".npmjs.com",
-        ".openapi-generator.tech",
         ".nuget.org",
+        ".openapi-generator.tech",
         ".opensource.org",
         ".packagist.org",
         ".php.net",

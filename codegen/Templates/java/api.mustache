@@ -82,9 +82,16 @@ public class {{classname}} {
 
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}queryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}collectionQueryParams = new {{javaUtilPrefix}}ArrayList<>();{{#queryParams}}
+        {{^vendorExtensions.x-param-group-camel}}
         if (request.{{paramName}} != null) {
             {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{paramName}}));
         }
+        {{/vendorExtensions.x-param-group-camel}}
+        {{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}{{#collectionFormat}}collectionQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll({{localVariablePrefix}}apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}()));
+        }
+        {{/vendorExtensions.x-param-group-camel}}
         {{/queryParams}}
 
         {{javaUtilPrefix}}Map<String, String> {{localVariablePrefix}}headerParams = new {{javaUtilPrefix}}HashMap<>();{{#headerParams}}
@@ -92,9 +99,16 @@ public class {{classname}} {
         {{localVariablePrefix}}headerParams.put("{{baseName}}", {{localVariablePrefix}}apiClient.parameterToString(request.{{paramName}}));{{/headerParams}}
 
         {{javaUtilPrefix}}Map<String, Object> {{localVariablePrefix}}formParams = new {{javaUtilPrefix}}HashMap<>();{{#formParams}}
+        {{^vendorExtensions.x-param-group-camel}}
         if (request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} != null) {
             {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} );
         }
+        {{/vendorExtensions.x-param-group-camel}}
+        {{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}} != null && request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}() != null) {
+            {{localVariablePrefix}}formParams.put("{{baseName}}", request.{{vendorExtensions.x-param-group-camel}}.get{{nameInPascalCase}}());
+        }
+        {{/vendorExtensions.x-param-group-camel}}
         {{/formParams}}
 
         final String[] {{localVariablePrefix}}accepts = {
@@ -300,12 +314,25 @@ import java.util.List;
 import java.net.URI;
 import com.aspose.barcode.cloud.model.BarcodeImageFormat;
 import com.aspose.barcode.cloud.model.BarcodeImageParams;
+import com.aspose.barcode.cloud.model.Code128EncodeMode;
+import com.aspose.barcode.cloud.model.Code128Params;
 import com.aspose.barcode.cloud.model.EncodeBarcodeType;
 import com.aspose.barcode.cloud.model.EncodeData;
 import com.aspose.barcode.cloud.model.EncodeDataType;
+import com.aspose.barcode.cloud.model.ECIEncodings;
 import com.aspose.barcode.cloud.model.GenerateParams;
 import com.aspose.barcode.cloud.model.DecodeBarcodeType;
 import com.aspose.barcode.cloud.model.GraphicsUnit;
+import com.aspose.barcode.cloud.model.MacroCharacter;
+import com.aspose.barcode.cloud.model.MicroQRVersion;
+import com.aspose.barcode.cloud.model.Pdf417EncodeMode;
+import com.aspose.barcode.cloud.model.Pdf417ErrorLevel;
+import com.aspose.barcode.cloud.model.Pdf417Params;
+import com.aspose.barcode.cloud.model.QREncodeMode;
+import com.aspose.barcode.cloud.model.QRErrorLevel;
+import com.aspose.barcode.cloud.model.QRVersion;
+import com.aspose.barcode.cloud.model.QrParams;
+import com.aspose.barcode.cloud.model.RectMicroQRVersion;
 import com.aspose.barcode.cloud.model.RecognitionMode;
 import com.aspose.barcode.cloud.model.TextAlignment;
 import com.aspose.barcode.cloud.model.RecognitionImageKind;
@@ -319,11 +346,19 @@ import com.aspose.barcode.cloud.model.ScanBase64Request;
  */
 public class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
+    {{^vendorExtensions.x-param-group-camel}}
     /**
      * {{{unescapedDescription}}}.
      */
     public {{#required}}final{{/required}} {{{dataType}}} {{^isModel}}{{baseName}}{{/isModel}}{{#isModel}}{{paramName}}{{/isModel}} {{^required}}{{#defaultValue}}={{{example}}}{{/defaultValue}}{{/required}};
+    {{/vendorExtensions.x-param-group-camel}}
     {{/allParams}}
+    {{#vendorExtensions.x-param-groups}}
+    /**
+     * Grouped {{type}} parameters.
+     */
+    public {{type}} {{camel}};
+    {{/vendorExtensions.x-param-groups}}
 
     {{#requiredParams.0}}
     /**

@@ -41,7 +41,7 @@ mv $tempDir/pom.xml $targetDir
 cp ../LICENSE $targetDir
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
-mv "$tempDir/git_push.sh" "$targetDir/snippets/dependency.xml"
+mv "$tempDir/dependency.xml" "$targetDir/snippets/dependency.xml"
 
 rm -rf $tempDir
 

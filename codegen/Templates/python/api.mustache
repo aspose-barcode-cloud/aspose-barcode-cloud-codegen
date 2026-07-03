@@ -22,7 +22,7 @@ class {{classname}}(object):
         self.auth_settings = [{{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}}]
 {{#operation}}
 
-    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{paramName}}{{^required}}={{#defaultValue}}{{#isBoolean}}None{{/isBoolean}}{{^isBoolean}}{{{example}}}{{/isBoolean}}{{/defaultValue}}{{^defaultValue}}None{{/defaultValue}}{{/required}}, {{/allParams}}{{/sortParamsByRequiredFlag}}async_req=False, **kwargs):
+    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{^vendorExtensions.x-param-group-snake}}{{paramName}}{{^required}}={{#defaultValue}}{{#isBoolean}}None{{/isBoolean}}{{^isBoolean}}{{{example}}}{{/isBoolean}}{{/defaultValue}}{{^defaultValue}}None{{/defaultValue}}{{/required}}, {{/vendorExtensions.x-param-group-snake}}{{/allParams}}{{#vendorExtensions.x-param-groups}}{{snake}}=None, {{/vendorExtensions.x-param-groups}}{{/sortParamsByRequiredFlag}}async_req=False, **kwargs):
         """{{#summary}}{{{.}}}{{/summary}}{{^summary}}{{operationId}}{{/summary}}
 
 {{#notes}}
@@ -39,8 +39,13 @@ class {{classname}}(object):
         >>> result = thread.get()
 
 {{#allParams}}
+{{^vendorExtensions.x-param-group-snake}}
         :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}} # noqa: E501
+{{/vendorExtensions.x-param-group-snake}}
 {{/allParams}}
+{{#vendorExtensions.x-param-groups}}
+        :param {{type}} {{snake}}: Grouped {{type}} parameters. # noqa: E501
+{{/vendorExtensions.x-param-groups}}
         :param async_req bool
         :return: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
                  If the method is called asynchronously,
@@ -48,9 +53,9 @@ class {{classname}}(object):
         """
         kwargs["_return_http_data_only"] = True
         if async_req:
-            return self.{{operationId}}_with_http_info({{#sortParamsByRequiredFlag}}{{#allParams}}{{paramName}}{{^required}}={{paramName}}{{/required}}, {{/allParams}}{{/sortParamsByRequiredFlag}}**kwargs)
+            return self.{{operationId}}_with_http_info({{#sortParamsByRequiredFlag}}{{#allParams}}{{^vendorExtensions.x-param-group-snake}}{{paramName}}{{^required}}={{paramName}}{{/required}}, {{/vendorExtensions.x-param-group-snake}}{{/allParams}}{{#vendorExtensions.x-param-groups}}{{snake}}={{snake}}, {{/vendorExtensions.x-param-groups}}{{/sortParamsByRequiredFlag}}**kwargs)
         else:
-            (data) = self.{{operationId}}_with_http_info({{#sortParamsByRequiredFlag}}{{#allParams}}{{paramName}}{{^required}}={{paramName}}{{/required}}, {{/allParams}}{{/sortParamsByRequiredFlag}}**kwargs)
+            (data) = self.{{operationId}}_with_http_info({{#sortParamsByRequiredFlag}}{{#allParams}}{{^vendorExtensions.x-param-group-snake}}{{paramName}}{{^required}}={{paramName}}{{/required}}, {{/vendorExtensions.x-param-group-snake}}{{/allParams}}{{#vendorExtensions.x-param-groups}}{{snake}}={{snake}}, {{/vendorExtensions.x-param-groups}}{{/sortParamsByRequiredFlag}}**kwargs)
             return data
 
     def {{operationId}}_with_http_info(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}**kwargs):
@@ -79,7 +84,12 @@ class {{classname}}(object):
                  returns the request thread.
         """
 
+{{#vendorExtensions.x-has-param-groups}}
+        all_params = { {{#allParams}}{{^vendorExtensions.x-param-group-snake}}"{{paramName}}", {{/vendorExtensions.x-param-group-snake}}{{/allParams}}{{#vendorExtensions.x-param-groups}}"{{snake}}", {{/vendorExtensions.x-param-groups}} }
+{{/vendorExtensions.x-has-param-groups}}
+{{^vendorExtensions.x-has-param-groups}}
         all_params = { {{#allParams}}"{{paramName}}"{{^-last}}, {{/-last}}{{/allParams}} }
+{{/vendorExtensions.x-has-param-groups}}
         all_params.add("async_req")
         all_params.add("_return_http_data_only")
         all_params.add("_preload_content")
@@ -97,6 +107,20 @@ class {{classname}}(object):
 
             params[key] = val
         del params["kwargs"]
+{{#vendorExtensions.x-has-param-groups}}
+{{#queryParams}}
+{{#vendorExtensions.x-param-group-snake}}
+        if "{{vendorExtensions.x-param-group-snake}}" in params and params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}} is not None:
+            params["{{paramName}}"] = params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}}
+{{/vendorExtensions.x-param-group-snake}}
+{{/queryParams}}
+{{#formParams}}
+{{#vendorExtensions.x-param-group-snake}}
+        if "{{vendorExtensions.x-param-group-snake}}" in params and params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}} is not None:
+            params["{{paramName}}"] = params["{{vendorExtensions.x-param-group-snake}}"].{{paramName}}
+{{/vendorExtensions.x-param-group-snake}}
+{{/formParams}}
+{{/vendorExtensions.x-has-param-groups}}
 {{#allParams}}
 {{#required}}
         # verify the required parameter "{{paramName}}" is set

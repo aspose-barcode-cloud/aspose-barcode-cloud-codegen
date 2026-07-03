@@ -22,14 +22,17 @@ namespace {{packageName}}.Interfaces
         /// </remarks>
         /// <exception cref="{{packageName}}.Api.ApiException">Thrown when fails to make API call</exception>
         {{#allParams}}
-        /// <param name="{{paramName}}">{{description}}</param>
+        {{^vendorExtensions.x-param-group-camel}}/// <param name="{{paramName}}">{{description}}</param>{{/vendorExtensions.x-param-group-camel}}
         {{/allParams}}
+        {{#vendorExtensions.x-param-groups}}
+        /// <param name="{{camel}}">Grouped parameters of type {{type}}</param>
+        {{/vendorExtensions.x-param-groups}}
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of {{returnType}}{{^returnType}}void{{/returnType}}</returns>
         {{#isDeprecated}}
         [Obsolete]
         {{/isDeprecated}}
-        {{#returnType}}Task<{{{.}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{operationId}}Async({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}System.Threading.CancellationToken cancellationToken = default);
+        {{#returnType}}Task<{{{.}}}>{{/returnType}}{{^returnType}}Task{{/returnType}} {{operationId}}Async({{#allParams}}{{^vendorExtensions.x-param-group-camel}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}, {{/vendorExtensions.x-param-group-camel}}{{/allParams}}{{#vendorExtensions.x-param-groups}}{{type}} {{camel}} = default, {{/vendorExtensions.x-param-groups}}System.Threading.CancellationToken cancellationToken = default);
         {{/operation}}
     }
 {{/operations}}

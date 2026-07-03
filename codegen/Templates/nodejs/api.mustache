@@ -451,10 +451,18 @@ export class {{classname}} {
 {{/required}}
 {{/allParams}}
 {{#queryParams}}
+{{^vendorExtensions.x-param-group-camel}}
         if (request.{{paramName}} != null) {
             queryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, "{{{dataType}}}");
         }
 
+{{/vendorExtensions.x-param-group-camel}}
+{{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}}?.{{paramName}} != null) {
+            queryParameters['{{baseName}}'] = ObjectSerializer.serialize(request.{{vendorExtensions.x-param-group-camel}}.{{paramName}}, "{{{dataType}}}");
+        }
+
+{{/vendorExtensions.x-param-group-camel}}
 {{/queryParams}}
 {{#headerParams}}
         headerParams['{{baseName}}'] = ObjectSerializer.serialize(request.{{paramName}}, '{{{dataType}}}');
@@ -462,6 +470,7 @@ export class {{classname}} {
 
 {{#formParams}}
     {{^isFile}}
+    {{^vendorExtensions.x-param-group-camel}}
         if (request.{{paramName}} != null) {
             {{^isListContainer}}
             formParams.push(['{{baseName}}', ObjectSerializer.serialize(request.{{paramName}}, {{#isString}}'string'{{/isString}}{{^isString}}'{{{dataType}}}'{{/isString}})]);
@@ -472,6 +481,12 @@ export class {{classname}} {
             }
             {{/isListContainer}}
         }
+    {{/vendorExtensions.x-param-group-camel}}
+    {{#vendorExtensions.x-param-group-camel}}
+        if (request.{{vendorExtensions.x-param-group-camel}}?.{{paramName}} != null) {
+            formParams.push(['{{baseName}}', ObjectSerializer.serialize(request.{{vendorExtensions.x-param-group-camel}}.{{paramName}}, {{#isString}}'string'{{/isString}}{{^isString}}'{{{dataType}}}'{{/isString}})]);
+        }
+    {{/vendorExtensions.x-param-group-camel}}
     {{/isFile}}
 {{/formParams}}
         const requestOptions: ApiRequestOptions = {

@@ -18,16 +18,16 @@ java -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g android
 mv "$tempDir/README.md" "$targetDir"
 mv "$tempDir/.gitignore" "$targetDir"
 mv "$tempDir/build.gradle" "$targetDir"
-mv "$tempDir/git_push.sh" "$targetDir/gradle.properties"
-mv "$tempDir/pom.xml" "$targetDir/settings.gradle"
-mv "$tempDir/gradlew" "$targetDir/app/build.gradle"
+mv "$tempDir/gradle.properties" "$targetDir/gradle.properties"
+mv "$tempDir/settings.gradle" "$targetDir/settings.gradle"
+mv "$tempDir/app/build.gradle" "$targetDir/app/build.gradle"
 
 mv "$tempDir/src/main/AndroidManifest.xml" "$targetDir/app/src/main/"
 
 exampleDir="$targetDir/app/src/main/java/com/aspose/barcode/cloud/demo_app"
 rm -rf ${exampleDir:?}/*
 mkdir -p "$exampleDir" || true
-mv "$tempDir/src/main/java/com/aspose/barcode/cloud/demo_app/ApiException.java" "$exampleDir/MainActivity.kt"
+mv "$tempDir/MainActivity.kt" "$exampleDir/MainActivity.kt"
 
 cp ../LICENSE "$targetDir/"
 

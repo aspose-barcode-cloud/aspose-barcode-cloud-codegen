@@ -4,7 +4,21 @@
     "androidSdkVersion": "36",
     "apiPackage": "com.aspose.barcode.cloud.demo_app",
     "artifactId": "Android Application for Barcode Processing in the Cloud via REST API",
-    "artifactVersion": "26.5.0",
+    "artifactVersion": "26.6.0",
+    "files": {
+        "gradle.properties.mustache": {
+            "destinationFilename": "gradle.properties",
+            "templateType": "SupportingFiles"
+        },
+        "app-build.gradle.mustache": {
+            "destinationFilename": "app/build.gradle",
+            "templateType": "SupportingFiles"
+        },
+        "MainActivity.kt.mustache": {
+            "destinationFilename": "MainActivity.kt",
+            "templateType": "SupportingFiles"
+        }
+    },
     "groupId": "com.aspose",
     "invokerPackage": "com.aspose.barcode.cloud.demo_app",
     "modelPackage": "com.aspose.barcode.cloud.demo_app.model"

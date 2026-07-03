@@ -1,4 +1,10 @@
 {
+    "files": {
+        "jwt.mustache": {
+            "destinationFilename": "jwt.go",
+            "templateType": "SupportingFiles"
+        }
+    },
     "packageName": "barcode",
-    "packageVersion": "4.2605.0"
+    "packageVersion": "4.2606.0"
 }

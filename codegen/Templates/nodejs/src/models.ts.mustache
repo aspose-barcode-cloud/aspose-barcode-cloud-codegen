@@ -57,11 +57,19 @@ export class {{classname}} {
  */
 export class {{operationIdCamelCase}}RequestWrapper {
     {{#allParams}}
+    {{^vendorExtensions.x-param-group-camel}}
     /**
      * {{{unescapedDescription}}}
      */
     '{{paramName}}{{#isFile}}Bytes{{/isFile}}'{{^required}}?{{/required}}: {{^isFile}}{{{dataType}}}{{/isFile}}{{#isFile}}Buffer{{/isFile}}{{#defaultValue}}={{#isString}}"{{{.}}}"{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}};
+    {{/vendorExtensions.x-param-group-camel}}
     {{/allParams}}
+    {{#vendorExtensions.x-param-groups}}
+    /**
+     * Grouped parameters for {{pascal}}.
+     */
+    '{{camel}}'?: {{type}};
+    {{/vendorExtensions.x-param-groups}}
 
     {{#requiredParams.0}}
     /**

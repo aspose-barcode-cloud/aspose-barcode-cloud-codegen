@@ -17,12 +17,16 @@
         "BarcodeAuthInterceptor.mustache": {
             "destinationFilename": "Sources/AsposeBarcodeCloud/Infrastructure/BarcodeAuthInterceptor.swift",
             "templateType": "SupportingFiles"
+        },
+        "spi.mustache": {
+            "destinationFilename": ".spi.yml",
+            "templateType": "SupportingFiles"
         }
     },
     "hideGenerationTimestamp": true,
     "library": "urlsession",
     "mapFileBinaryToData": true,
-    "packageVersion": "26.5.0",
+    "packageVersion": "26.6.0",
     "projectName": "AsposeBarcodeCloud",
     "responseAs": "AsyncAwait,ObjcBlock",
     "swiftPackagePath": "Sources/AsposeBarcodeCloud",
