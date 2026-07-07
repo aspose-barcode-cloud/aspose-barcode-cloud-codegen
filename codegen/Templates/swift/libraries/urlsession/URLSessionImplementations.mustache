@@ -80,7 +80,14 @@ extension URLSessionDataTask: URLSessionDataTaskProtocol {}
 
 fileprivate class URLSessionRequestBuilderConfiguration: @unchecked Sendable {
     private init() {
-        defaultURLSession = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: nil)
+        // On Linux (swift-corelibs-foundation) URLRequest.timeoutInterval is not
+        // honored; the effective timeout is the session configuration's
+        // timeoutIntervalForRequest, which defaults to 60s. Raise it so slower
+        // operations (e.g. multipart uploads) are not cut off prematurely.
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 300
+        configuration.timeoutIntervalForResource = 300
+        defaultURLSession = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
     }
 
     static let shared = URLSessionRequestBuilderConfiguration()
