@@ -138,9 +138,15 @@ make integration-test
 Alternatively, keep credentials in local environment variables:
 
 ```bash
-cp .env.integration.example .env.integration
-# Fill TEST_CONFIGURATION_CLIENT_ID and TEST_CONFIGURATION_CLIENT_SECRET, or TEST_CONFIGURATION_ACCESS_TOKEN.
+export TEST_CONFIGURATION_CLIENT_ID='...' TEST_CONFIGURATION_CLIENT_SECRET='...'
+# or: export TEST_CONFIGURATION_ACCESS_TOKEN='...'
 make integration-test
+```
+
+Run documentation snippets with the same credentials:
+
+```bash
+make snippets-test
 ```
 
 Run the sample program:
