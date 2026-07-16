@@ -1,10 +1,7 @@
 {
-    "npmName": "aspose-barcode-cloud-node",
-    "npmVersion": "26.6.0",
-    "supportsES6": true,
     "files": {
-        "src/models.ts.mustache": {
-            "destinationFilename": "src/models.ts",
+        "README.template.mustache": {
+            "destinationFilename": "README.template",
             "templateType": "SupportingFiles"
         },
         "docs/index.md.mustache": {
@@ -15,9 +12,12 @@
             "destinationFilename": "docs/models.md",
             "templateType": "SupportingFiles"
         },
-        "README.template.mustache": {
-            "destinationFilename": "README.template",
+        "src/models.ts.mustache": {
+            "destinationFilename": "src/models.ts",
             "templateType": "SupportingFiles"
         }
-    }
+    },
+    "npmName": "aspose-barcode-cloud-node",
+    "npmVersion": "26.7.0",
+    "supportsES6": true
 }
