@@ -7,8 +7,8 @@ mapped to how **this** codegen repository satisfies each one.
 Source: the legacy internal wiki page "Cloud SDK Requirements". Where the
 original wording is obsolete it is updated to current reality — for example
 the OAuth 1 `AppSID`/`AppKey` credentials are now OAuth 2
-`clientId`/`clientSecret`, and the base URL `https://api.aspose.com/v1.1` is
-now `https://api.aspose.cloud/v4.0`.
+`clientId`/`clientSecret`, and the base URL is now
+`https://api.aspose.cloud/v4.0`.
 
 | Requirement | Document |
 |-------------|----------|
