@@ -27,6 +27,8 @@ cp ../LICENSE "$targetDir/src/LICENSE.txt"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf "$targetDir/src/Model/"
+# AbstractOpenAPISchema: oneOf/anyOf base class this spec never uses (no polymorphic models).
+rm -f "$tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/AbstractOpenAPISchema.cs"
 mv "$tempDir/src/Aspose.BarCode.Cloud.Sdk/Model" "$targetDir/src"
 
 rm -rf $targetDir/src/Api/*Api.cs

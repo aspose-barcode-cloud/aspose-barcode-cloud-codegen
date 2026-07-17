@@ -6,13 +6,13 @@ let package = Package(
     name: "{{projectName}}",
     platforms: [
         {{#useVapor}}
-        .macOS(.v10_15),
+        .macOS(.v12),
         {{/useVapor}}
         {{^useVapor}}
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .tvOS(.v13),
-        .watchOS(.v6),
+        .iOS(.v15),
+        .macOS(.v12),
+        .tvOS(.v15),
+        .watchOS(.v8),
         {{/useVapor}}
     ],
     products: [
@@ -51,9 +51,14 @@ let package = Package(
             path: "Examples/GenerateAndScan"
         ),
         .testTarget(
-            name: "{{projectName}}Tests",
+            name: "{{projectName}}UnitTests",
             dependencies: ["{{projectName}}"],
-            path: "Tests/{{projectName}}Tests"
+            path: "Tests/{{projectName}}UnitTests"
+        ),
+        .testTarget(
+            name: "{{projectName}}IntegrationTests",
+            dependencies: ["{{projectName}}"],
+            path: "Tests/{{projectName}}IntegrationTests"
         ),
     ],
     swiftLanguageModes: [.v6]

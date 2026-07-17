@@ -21,7 +21,7 @@ public enum AsposeBarcodeCloudClientError: Error, CustomStringConvertible, @unch
             }
             return "Token request failed with status \(statusCode)"
         case let .transportError(error):
-            return error.localizedDescription
+            return String(describing: error)
         }
     }
 }

@@ -5,8 +5,8 @@ This repository contains the Swift SDK for Aspose.BarCode Cloud.
 ## Requirements
 
 - Swift Package Manager
-- iOS 13.0 or later
-- macOS 10.15 or later
+- iOS 15.0 or later
+- macOS 12.0 or later
 
 ## Usage
 
@@ -135,12 +135,19 @@ cp Tests/configuration.example.json Tests/configuration.json
 make integration-test
 ```
 
-Alternatively, keep credentials in local environment variables:
+Alternatively, export credentials as environment variables:
 
 ```bash
-cp .env.integration.example .env.integration
-# Fill TEST_CONFIGURATION_CLIENT_ID and TEST_CONFIGURATION_CLIENT_SECRET, or TEST_CONFIGURATION_ACCESS_TOKEN.
+export TEST_CONFIGURATION_CLIENT_ID='<Your-Client-Id>'
+export TEST_CONFIGURATION_CLIENT_SECRET='<Your-Client-Secret>'
+# Or export TEST_CONFIGURATION_ACCESS_TOKEN='<Your-Access-Token>'.
 make integration-test
+```
+
+Run documentation snippets with the same credentials:
+
+```bash
+make snippets-test
 ```
 
 Run the sample program:

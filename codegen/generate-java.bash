@@ -24,6 +24,8 @@ python Tools/split-java-file.py $tempDir/src/main/java/com/aspose/barcode/cloud/
 rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/api/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/api/* $targetDir/src/main/java/com/aspose/barcode/cloud/api
 rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/model/*
+# AbstractOpenApiSchema: oneOf/anyOf scaffolding this spec never uses (no polymorphic models).
+rm -f "$tempDir/src/main/java/com/aspose/barcode/cloud/model/AbstractOpenApiSchema.java"
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/model/* $targetDir/src/main/java/com/aspose/barcode/cloud/model
 rm -rf $targetDir/src/main/java/com/aspose/barcode/cloud/requests/*
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/requests/* $targetDir/src/main/java/com/aspose/barcode/cloud/requests
@@ -31,6 +33,9 @@ rm -f $targetDir/src/main/java/com/aspose/barcode/cloud/*.java
 # Ignore some files
 rm "$tempDir/src/main/java/com/aspose/barcode/cloud/GzipRequestInterceptor.java"
 rm "$tempDir/src/main/java/com/aspose/barcode/cloud/StringUtil.java"
+# ServerConfiguration/ServerVariable: multi-server URL scaffolding; ApiClient uses a single fixed base path.
+rm "$tempDir/src/main/java/com/aspose/barcode/cloud/ServerConfiguration.java"
+rm "$tempDir/src/main/java/com/aspose/barcode/cloud/ServerVariable.java"
 mv $tempDir/src/main/java/com/aspose/barcode/cloud/*.java $targetDir/src/main/java/com/aspose/barcode/cloud
 
 rm -rf ${targetDir}/docs/*

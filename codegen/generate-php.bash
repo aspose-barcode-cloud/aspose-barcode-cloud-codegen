@@ -27,6 +27,9 @@ rm -f "${tempDir}/lib/FormDataProcessor.php"
 mv "${tempDir}/lib/"*.php "${targetDir}/src/Aspose/BarCode"
 
 rm -f "${targetDir}/src/Aspose/BarCode/Model/"*
+# Drop ModelInterface.php: an orphan swagger-codegen interface that no generated model
+# implements (models declare only ArrayAccess). Unused; keeping it ships dead surface.
+rm -f "${tempDir}/lib/Model/ModelInterface.php"
 mv "${tempDir}/lib/Model/"* "${targetDir}/src/Aspose/BarCode/Model"
 
 rm -f "${targetDir}/src/Aspose/BarCode/Requests/"*
