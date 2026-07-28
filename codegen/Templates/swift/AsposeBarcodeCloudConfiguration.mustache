@@ -26,7 +26,7 @@ public final class AsposeBarcodeCloudConfiguration: @unchecked Sendable {
         tokenURL: String = AsposeBarcodeCloudConfiguration.defaultTokenURL,
         sdkName: String = AsposeBarcodeCloudConfiguration.defaultSdkName,
         sdkVersion: String = AsposeBarcodeCloudConfiguration.defaultSdkVersion,
-        timeoutInterval: TimeInterval = 300
+        timeoutInterval: TimeInterval = 60
     ) {
         self.accessToken = accessToken
         self.clientId = clientId

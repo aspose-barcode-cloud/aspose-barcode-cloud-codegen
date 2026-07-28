@@ -3,6 +3,7 @@
 from __future__ import division, print_function
 
 import argparse
+import collections
 import json
 import os
 import sys
@@ -101,15 +102,19 @@ def set_swift_version(new_version, filename=os.path.join(BASE_CONFIG_DIR, "confi
 
 
 def read_config(filename):
+    # Preserve the on-disk key order so a version bump round-trips to a minimal,
+    # stable diff instead of reshuffling hand-ordered keys.
     with open(filename, "rb") as rf:
-        config = json.load(rf)
+        config = json.load(rf, object_pairs_hook=collections.OrderedDict)
     return config
 
 
 def save_config(config, filename):
+    # Keep key order (no sort_keys) and always end with a single trailing newline
+    # so releases produce stable, POSIX-friendly JSON.
     with open(filename, "wb") as wf:
-        string = json.dumps(config, indent=4, separators=(",", ": "), sort_keys=True)
-        wf.write(string.replace("\r", "").encode("utf-8"))
+        string = json.dumps(config, indent=4, separators=(",", ": "))
+        wf.write((string.replace("\r", "") + "\n").encode("utf-8"))
 
 
 def main(new_versions):

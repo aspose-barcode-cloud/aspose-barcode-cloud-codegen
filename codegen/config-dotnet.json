@@ -1,15 +1,15 @@
 {
     "files": {
-        "dependency.xml.mustache": {
-            "destinationFilename": "dependency.xml",
-            "templateType": "SupportingFiles"
-        },
         "NetFrameworkTests.csproj.mustache": {
             "destinationFilename": "NetFrameworkTests.csproj",
+            "templateType": "SupportingFiles"
+        },
+        "dependency.xml.mustache": {
+            "destinationFilename": "dependency.xml",
             "templateType": "SupportingFiles"
         }
     },
     "packageName": "Aspose.BarCode.Cloud.Sdk",
-    "packageVersion": "26.6.0",
+    "packageVersion": "26.7.0",
     "targetFramework": "netstandard2.0"
 }

@@ -34,8 +34,12 @@ final class BarcodeAuthInterceptor: OpenAPIInterceptor, @unchecked Sendable {
         requestBuilder: RequestBuilder<T>,
         completion: @Sendable @escaping (Result<URLRequest, any Error>) -> Void
     ) {
+        let timeoutInterval = configuration.timeoutInterval
+
         guard requestBuilder.requiresAuthentication else {
-            completion(.success(urlRequest))
+            var modified = urlRequest
+            modified.timeoutInterval = timeoutInterval
+            completion(.success(modified))
             return
         }
 
@@ -43,6 +47,7 @@ final class BarcodeAuthInterceptor: OpenAPIInterceptor, @unchecked Sendable {
             switch result {
             case let .success(token):
                 var modified = urlRequest
+                modified.timeoutInterval = timeoutInterval
                 modified.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
                 completion(.success(modified))
             case let .failure(error):

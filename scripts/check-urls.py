@@ -55,6 +55,8 @@ IGNORE_DOMAINS = Subdomains(
         ".curl.se",
         ".dart.dev",
         ".dartlang.org",
+        ".example.com",
+        ".example.test",
         ".example",
         ".getcomposer.org",
         ".go.dev",
@@ -85,7 +87,6 @@ IGNORE_DOMAINS = Subdomains(
         # Regular domains
         "barcode.qa.aspose.cloud",
         "editorconfig.org",
-        "example.com",
     ]
 )
 

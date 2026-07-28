@@ -28,6 +28,12 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g python -t
 rm -rf $targetDir/aspose_barcode_cloud/*
 cp -r $tempDir/aspose_barcode_cloud/* $targetDir/aspose_barcode_cloud/
 
+# Drop orphan modules emitted by the upstream python generator template that this
+# SDK does not use: exceptions.py (this SDK raises aspose_barcode_cloud.rest.ApiException
+# instead) and api_response.py (imports pydantic, which is not a dependency). Nothing
+# imports either module; keeping them only breaks `import` and dilutes coverage.
+rm -f "$targetDir/aspose_barcode_cloud/exceptions.py" "$targetDir/aspose_barcode_cloud/api_response.py"
+
 rm -rf $targetDir/docs/*
 cp $tempDir/docs/* $targetDir/docs/
 
