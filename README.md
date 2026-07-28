@@ -20,6 +20,7 @@ Link to SDK                                                                     
 [Go SDK](https://pkg.go.dev/github.com/aspose-barcode-cloud/aspose-barcode-cloud-go) | [Source code](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-go)      | Barcode Cloud SDK for Go
 [Java SDK](https://releases.aspose.cloud/java/repo/com/aspose/aspose-barcode-cloud/) | [Source code](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Java)    | Barcode Cloud SDK for Java
 [Dart SDK](https://pub.dev/packages/aspose_barcode_cloud)                            | [Source code](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Dart)    | Barcode Cloud SDK for Dart and Flutter
+[Swift SDK](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/releases/latest) | [Source code](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift) | Barcode Cloud SDK for Swift on Apple platforms and Linux
 Android application sample                                                           | [Source code](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Android) | Barcode Cloud Android application sample
 
 To use these SDKs, you will need Client Id and Client Secret which can be looked up at [Aspose Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) (free registration in Aspose Cloud is required for this).
