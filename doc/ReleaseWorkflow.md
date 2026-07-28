@@ -7,6 +7,7 @@ Requirements
 Windows: Bash, WSL, Python3, Java runtime
 WSL: Debian (or Ubuntu) Bullseye
 Debian packages: list in file `./doc/deb_packages.list`. To install run `./scripts/install-all-packages.bash` in your Debian on WSL
+Swift SDK: Swift 6.0 or newer and `swiftformat`
 
 Steps:
 1. Call `./scripts/start-release.bash`
@@ -14,8 +15,8 @@ Steps:
     create a `release-<version>` branch for each submodule,
     and update versions in `config*.json`.
 
-2. Run `make-all.cmd`
-    It will generate all SDKs with updated version and template.
+2. Run `make sdk`
+    It will generate all SDKs with the updated versions and templates.
 
 3. Update the organization secret
    [`TEST_CONFIGURATION_ACCESS_TOKEN`](https://github.com/organizations/aspose-barcode-cloud/settings/secrets/actions).
@@ -32,10 +33,11 @@ Steps:
    Dart, and other SDKs whose tags do not use the standard `vYY.MM.P` form.
 
 7. Publish the packages to their appropriate registries (NuGet, the Aspose
-   Java repository, npm, PyPI, Packagist, pub.dev, Go modules). Packages are
-   signed at publish time as a per-registry concern — e.g. NuGet packages are
-   signed with a code-signing certificate — so confirm the signing setup for
-   each registry.
+   Java repository, npm, PyPI, Packagist, pub.dev, Go modules). SwiftPM consumes
+   the Swift SDK directly from the Git tag created in phase 2, so it has no
+   separate package upload step. Package signing remains a per-registry
+   concern — e.g. NuGet packages are signed at publish time with a
+   code-signing certificate — so confirm the signing setup for each registry.
 
 8. Phase 3: after the package is available, promote the GitHub prerelease to
    the stable latest release. Include the changelog and release notes.
