@@ -11,8 +11,8 @@ Requirement
 How this repository satisfies it
 --------------------------------
 
-Every `codegen/generate-<sdk>.bash` ends by running `make after-gen` inside the
-SDK submodule:
+Every SDK generator except the Android demo app ends by running
+`make after-gen` inside the SDK submodule:
 
 ```bash
 pushd "$targetDir" && make after-gen && popd >/dev/null
@@ -23,6 +23,7 @@ pushd "$targetDir" && make after-gen && popd >/dev/null
 
 | SDK    | `make format` runs |
 |--------|--------------------|
+| Dart   | `dart format .` |
 | Swift  | `swiftformat .` |
 | Python | `black --line-length=120 … tests/ scripts/ snippets/ …` |
 | .NET   | `dotnet format` |
@@ -31,8 +32,9 @@ pushd "$targetDir" && make after-gen && popd >/dev/null
 | Node   | `npm run format` (Prettier) |
 | PHP    | php-cs-fixer |
 
-Because `make after-gen` formats everything, a freshly generated SDK is always
-in the formatter's canonical form.
+For these SDKs, `make after-gen` formats everything, so freshly generated code
+is in the formatter's canonical form. Android is excluded because this
+repository generates a demo app for it rather than an SDK package.
 
 Hand-written tests and generation
 ----------------------------------

@@ -8,15 +8,20 @@ default (mainline) branch. The default branch is `main` for every SDK **except `
 
 | SDK | Repository | Default (base) branch |
 |-----|------------|-----------------------|
-| android | `aspose-barcode-cloud-android` | `main` |
-| dart | `aspose-barcode-cloud-dart` | `main` |
-| dotnet | `aspose-barcode-cloud-dotnet` | `main` |
-| go | `aspose-barcode-cloud-go` | `v4` |
-| java | `aspose-barcode-cloud-java` | `main` |
-| node | `aspose-barcode-cloud-node` | `main` |
-| php | `aspose-barcode-cloud-php` | `main` |
-| python | `aspose-barcode-cloud-python` | `main` |
-| swift | `Aspose.BarCode-Cloud-SDK-for-Swift` | `main` |
+| android | [`Aspose.BarCode-Cloud-SDK-for-Android`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Android) | `main` |
+| dart | [`Aspose.BarCode-Cloud-SDK-for-Dart`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Dart) | `main` |
+| dotnet | [`Aspose.BarCode-Cloud-SDK-for-.NET`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-.NET) | `main` |
+| go | [`aspose-barcode-cloud-go`](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-go) | `v4` |
+| java | [`Aspose.BarCode-Cloud-SDK-for-Java`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Java) | `main` |
+| node | [`Aspose.BarCode-Cloud-SDK-for-Node.js`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Node.js) | `main` |
+| php | [`Aspose.BarCode-Cloud-SDK-for-PHP`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP) | `main` |
+| python | [`Aspose.BarCode-Cloud-SDK-for-Python`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python) | `main` |
+| swift | [`Aspose.BarCode-Cloud-SDK-for-Swift`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift) | `main` |
 
-Release work lands on a `release-<version>` branch (e.g. `release-26.7`) cut from the default branch, and
-is opened as a **draft** pull request titled `Release <version>` back into that SDK's default branch.
+Release work lands on a `release-<major>.<minor>` branch (e.g.
+`release-26.7`) cut from the default branch. If the release has a non-zero
+patch component, include it in the branch name (e.g. `release-26.7.1`).
+
+Open the release branch as a **draft** pull request back into the SDK's
+default branch. Use the SDK's full package version in the title, for example
+`Release 26.7.0`.

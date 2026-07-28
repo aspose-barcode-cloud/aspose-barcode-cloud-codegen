@@ -27,8 +27,8 @@ Configuration settings
 
 | Setting | Notes |
 |---------|-------|
-| `clientId` (mandatory) | OAuth 2 client id |
-| `clientSecret` (mandatory) | OAuth 2 client secret |
+| `clientId` | OAuth 2 client id; required when `accessToken` is not supplied |
+| `clientSecret` | OAuth 2 client secret; required when `accessToken` is not supplied |
 | `host` (optional) | defaults to `https://api.aspose.cloud/v4.0`; override for private cloud / test |
 | `debug` (optional, per-SDK) | e.g. .NET debug logging; not a universal flag |
 
@@ -37,7 +37,7 @@ Additional settings exposed by the client configuration:
 * `accessToken` — supply a token directly and skip the OAuth exchange
 * `tokenURL` — OAuth token endpoint (`https://id.aspose.cloud/connect/token`)
 * `sdkName` / `sdkVersion` — feed the `x-aspose-client*` headers
-* request timeout — e.g. Swift `timeoutInterval` (default 300s)
+* request timeout — e.g. Swift `timeoutInterval` (default 60s)
 
 See [authentication.md](authentication.md) for how `clientId`/`clientSecret`
 become a bearer token.
