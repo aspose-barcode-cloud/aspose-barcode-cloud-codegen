@@ -81,6 +81,7 @@ IGNORE_DOMAINS = Subdomains(
         ".python.org",
         ".readthedocs.io",
         ".sonatype.org",
+        ".stackoverflow.com",
         ".swagger.io",
         ".w3.org",
         ".wikipedia.org",
