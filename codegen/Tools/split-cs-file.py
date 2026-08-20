@@ -21,7 +21,10 @@ def main(src_file: typing.IO[str], dst_dir: str) -> None:
         if e.errno != errno.EEXIST:
             raise
 
-    for match in reversed(list(SPLIT_RE.finditer(remaining))[1:]):
+    found = list(reversed(list(SPLIT_RE.finditer(remaining))[1:]))
+    if not found:
+        raise SystemExit("No parts matching regex '%s' found in %s" % (SPLIT_RE.pattern, src_file.name))
+    for match in found:
         start_pos = match.span()[0]
 
         with open(os.path.join(dst_dir, match.groupdict()["file"]), "wt") as out_f:

@@ -22,7 +22,8 @@ def main(src_file: typing.IO[str], dst_dir: str) -> None:
             raise
 
     found = list(reversed(list(SPLIT_RE.finditer(remaining))[1:]))
-    assert found, "No parts matching regex '%s' found" % SPLIT_RE.pattern
+    if not found:
+        raise SystemExit("No parts matching regex '%s' found in %s" % (SPLIT_RE.pattern, src_file.name))
     for match in found:
         filename = match.groupdict()["file"]
         classname = os.path.splitext(filename)[0]
