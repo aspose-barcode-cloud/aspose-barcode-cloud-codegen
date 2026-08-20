@@ -6,7 +6,12 @@ format: format-black
 
 .PHONY: format-black
 format-black:
-	python -m black --line-length=120 --exclude submodules -v .
+	python -m black --line-length=120 --extend-exclude submodules -v .
+
+# Type check our own scripts, SDKs in submodules have their own checks
+.PHONY: mypy
+mypy:
+	python -m mypy --config-file $(CURDIR)/mypy.ini .
 
 .PHONY: update
 update:

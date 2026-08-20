@@ -10,3 +10,4 @@ bin/
 codegen/.generated/
 codegen/debug*.json
 obj/
+.mypy_cache/

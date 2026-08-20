@@ -4,6 +4,7 @@ import argparse
 import errno
 import os
 import re
+import typing
 
 SPLIT_RE = re.compile(
     r'//\s+[-]+\n//\s+<copyright company="Aspose" file="(?P<file>.+?\.java)">',
@@ -11,7 +12,7 @@ SPLIT_RE = re.compile(
 )
 
 
-def main(src_file, dst_dir):
+def main(src_file: typing.IO[str], dst_dir: str) -> None:
     remaining = src_file.read()
     try:
         os.makedirs(dst_dir)
@@ -34,14 +35,14 @@ def main(src_file, dst_dir):
     src_file.close()
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("src_file", type=argparse.FileType("rt+"))
     parser.add_argument("dst_dir", type=str)
-    args = parser.parse_args()
 
-    return vars(args)
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    main(**parse_args())
+    parsed_args = parse_args()
+    main(parsed_args.src_file, parsed_args.dst_dir)
