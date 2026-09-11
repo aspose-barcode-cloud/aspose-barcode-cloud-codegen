@@ -73,6 +73,7 @@ IGNORE_DOMAINS = Subdomains(
         ".nuget.org",
         ".openapi-generator.tech",
         ".opensource.org",
+        ".oracle.com",
         ".packagist.org",
         ".php.net",
         ".phpunit.de",
