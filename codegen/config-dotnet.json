@@ -10,6 +10,6 @@
         }
     },
     "packageName": "Aspose.BarCode.Cloud.Sdk",
-    "packageVersion": "26.9.0",
+    "packageVersion": "26.10.0",
     "targetFramework": "netstandard2.0"
 }
