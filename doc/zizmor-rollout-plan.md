@@ -485,7 +485,8 @@ Progress (2026-11-04): all five `ln -F` PRs are merged and `main` was
 merged into the five `chore/zizmor` branches (merge commits, no rebase);
 dotnet#134 is fully green, node#158 keeps only the pre-existing "Try
 publish (dry run)" failure, php#112 stays red on the PHPStan lint step
-like `main`. Side effect in this repository: "Check all submodules
+like `main` until php#114 (`"phpstan/phpstan": "^2.2"` plus a `vendor/`
+cache key that includes `composer.json`) is merged. Side effect in this repository: "Check all submodules
 up-to-date" is red on `main` and on PR #159 until the dotnet, node, java,
 php and python submodule pointers are bumped to the new `main` heads
 (`git submodule update --remote`, its own PR: #160). Decision 5 was revised
