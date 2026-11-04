@@ -195,9 +195,9 @@ it to the job.
 `zizmor --fix=all` does this mechanically (tested on the .NET repo: six
 checkouts patched, nothing else touched). The only checkout that needs the
 credential is `check-submodules` in this repository's `check-codegen.yml`,
-which already says `persist-credentials: true` explicitly and is therefore not
-flagged. Try `false` there as well: the submodules are public and
-`git submodule update --remote` does not need a token.
+which used to say `persist-credentials: true` explicitly. It now says `false`:
+the submodules are public and `git submodule update --remote` does not need a
+token (confirmed green in PR #159).
 
 ### 4. No cache reads in release workflows (2 findings)
 
@@ -381,6 +381,12 @@ will live anyway.
    format `scripts/check-badges.bash` requires).
 
 Exit criterion: green zizmor job on `main`.
+
+Status (2026-11-04): done in PR #159. zizmor, submodule check (with
+`persist-credentials: false`) and URL check are green on the PR head. The
+unrelated "Check swagger specification up-to-date" job is red because the
+live API spec gained `BatchGenerate*`/`JapanPost` after Release 26.10; that
+is release work (`make update`), not part of the rollout.
 
 ### Phase 1: templates and sync script in codegen
 
