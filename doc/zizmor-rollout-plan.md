@@ -530,6 +530,19 @@ After all ten repositories are green:
 3. Update `doc/cloud-sdk-requirements.md` (new row "CI security") and
    `ReleaseWorkflow.md` (`make zizmor` before cutting release branches).
 
+Status (2026-11-04): item 3 is done on this branch: `doc/ci-security.md`
+(requirement and how this repository meets it), the "CI security" row in
+`cloud-sdk-requirements.md`, and the `make zizmor` pre-flight in
+`ReleaseWorkflow.md`. Items 1 and 2 change organization settings and need an
+organization owner: `scripts/enforce-zizmor-check.bash` applies both with
+`gh` (one ruleset named `zizmor` per repository on `~DEFAULT_BRANCH`
+requiring the "Run zizmor" check, with an "always" bypass for repository
+admins so the direct release pushes keep working; organization default
+`GITHUB_TOKEN` read-only). Run it once the ten zizmor PRs are merged, so the
+check exists on every default branch; `--dry-run` prints the calls. The
+script could not be exercised against the API from the sandbox that wrote
+it (no GitHub CLI login there).
+
 ### Phase 4: maintain
 
 * Dependabot is deferred: bump the SHA pins and their version comments by

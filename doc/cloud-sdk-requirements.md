@@ -19,6 +19,7 @@ the OAuth 1 `AppSID`/`AppKey` credentials are now OAuth 2
 | Implementation — client configuration & identification | [configuration.md](configuration.md) |
 | Versioning | [versioning.md](versioning.md) |
 | Release process | [ReleaseWorkflow.md](ReleaseWorkflow.md) |
+| CI security — GitHub Actions hardening (zizmor) | [ci-security.md](ci-security.md) |
 
 Each document has the same shape: the **requirement** as originally stated, then
 **how this repository satisfies it**, grounded in the actual generate scripts,
