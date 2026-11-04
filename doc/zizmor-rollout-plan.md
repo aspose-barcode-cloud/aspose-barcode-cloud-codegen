@@ -400,7 +400,7 @@ Mirrors how `scripts/check-badges.bash` already reaches every SDK (decision 4).
    next to the `check-badges.bash` copy. `make sdk` then keeps all ten
    repositories identical; drift shows up as an unstaged change in the
    submodule, exactly like a template mismatch does today.
-3. Document the rule in `Agents.md`: workflow security checks must pass
+3. Document the rule in `AGENTS.md`: workflow security checks must pass
    zizmor; new third-party `uses:` must be SHA-pinned with a version comment.
 
 ### Phase 2: remediate each SDK repository
