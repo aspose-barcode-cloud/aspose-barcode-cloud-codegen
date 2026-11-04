@@ -2,6 +2,7 @@
 
 [![Check pull request](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/check-codegen.yml/badge.svg)](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/check-codegen.yml)
 [![Check URLs](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/check-urls.yml/badge.svg)](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/check-urls.yml)
+[![zizmor](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/zizmor.yml/badge.svg?branch=main)](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-codegen/actions/workflows/zizmor.yml)
 
 [Aspose.BarCode for Cloud](https://products.aspose.cloud/barcode/) is a REST API for Linear, 2D and postal barcode generation and recognition in the cloud. API recognizes and generates barcode images in a variety of formats. Barcode REST API allows to specify barcode image attributes like image width, height, border style and output image format in order to customize the generation process. Developers can also specify the barcode type and text attributes such as text location and font styles in order to suit the application requirements.
 
