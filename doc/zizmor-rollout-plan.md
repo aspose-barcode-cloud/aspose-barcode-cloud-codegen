@@ -476,11 +476,14 @@ merge those first, then bring `main` into the zizmor branches. The PHPStan
 bump (`"phpstan/phpstan": "^2.2"`) is still open; until it lands, php#113
 cannot show its snippets job green (the matrix depends on the lint step).
 
-Progress (2026-11-04): dotnet#135 and node#159 are merged and `main` was
-merged into the dotnet and node `chore/zizmor` branches (merge commits, no
-rebase); dotnet#134 is fully green, node#158 keeps only the pre-existing
-"Try publish (dry run)" failure. java#121 and python#118 are green and wait
-for merge; php#113 is red on the PHPStan lint step like `main`.
+Progress (2026-11-04): dotnet#135, node#159, java#121 and python#118 are
+merged and `main` was merged into those four `chore/zizmor` branches
+(merge commits, no rebase); dotnet#134 is fully green, node#158 keeps only
+the pre-existing "Try publish (dry run)" failure. php#113 is red on the
+PHPStan lint step like `main`. Side effect in this repository: "Check all
+submodules up-to-date" is red on `main` and on PR #159 until the dotnet,
+node, java and python submodule pointers are bumped to the new `main`
+heads (`git submodule update --remote`, its own PR).
 
 Watch-outs:
 
