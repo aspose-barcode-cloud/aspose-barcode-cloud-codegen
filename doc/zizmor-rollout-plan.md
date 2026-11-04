@@ -476,8 +476,11 @@ merge those first, then bring `main` into the zizmor branches. The PHPStan
 bump (`"phpstan/phpstan": "^2.2"`) is still open; until it lands, php#113
 cannot show its snippets job green (the matrix depends on the lint step).
 
-Progress: dotnet#135 merged 2026-11-04 11:06 UTC and `main` was merged
-into dotnet's `chore/zizmor` (merge commit, no rebase).
+Progress (2026-11-04): dotnet#135 and node#159 are merged and `main` was
+merged into the dotnet and node `chore/zizmor` branches (merge commits, no
+rebase); dotnet#134 is fully green, node#158 keeps only the pre-existing
+"Try publish (dry run)" failure. java#121 and python#118 are green and wait
+for merge; php#113 is red on the PHPStan lint step like `main`.
 
 Watch-outs:
 
