@@ -491,7 +491,11 @@ job green (PHPStan 2 at level 3 reports nothing new) and `main` was merged
 into php's `chore/zizmor`. Side effect in this repository: "Check all submodules
 up-to-date" is red on `main` and on PR #159 until the dotnet, node, java,
 php and python submodule pointers are bumped to the new `main` heads
-(`git submodule update --remote`, its own PR: #160). Decision 5 was revised
+(`git submodule update --remote`, its own PR: #160, merged 12:31 UTC and
+merged into this branch, so the submodule check is green again). php#112
+went fully green after its `main` merge; three matrix entries had hit a
+transient `408 Request Timeout` from api.aspose.cloud and passed on a
+single re-run. Decision 5 was revised
 the same day: `.github/dependabot.yml` was removed from the templates, from
 this repository and from all nine SDK PRs in follow-up commits.
 
