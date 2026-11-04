@@ -135,10 +135,10 @@ configuration.
 
 ### 1. SHA-pin the ten third-party `uses:` (10 findings)
 
-GitHub's own `actions/*` stay on their major tag (`@v6`); Dependabot moves
-the tag forward. Everything else is pinned as
-`owner/action@<40-hex-sha> # vN.N.N`. The version comment is what Dependabot
-uses to keep the pin current, so it is not optional.
+GitHub's own `actions/*` stay on their major tag (`@v6`). Everything else is
+pinned as `owner/action@<40-hex-sha> # vN.N.N`. The version comment is what a
+reader (and Dependabot, once enabled) uses to tell what is pinned, so it is
+not optional.
 
 ```yaml
 - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
@@ -277,8 +277,8 @@ jobs:
 Notes:
 
 * `version` is left at the action default (`latest`, meaning the newest
-  zizmor the pinned action release knows). Dependabot bumps the action SHA,
-  which bumps zizmor; no second version to maintain.
+  zizmor the pinned action release knows). Bumping the action SHA bumps
+  zizmor; no second version to maintain.
 * `persona` stays `regular`. Switching to `pedantic` later is a one-line
   change once the optional hardening is done.
 * Online audits are on (action default) and use the job's `GITHUB_TOKEN`;
@@ -313,7 +313,11 @@ Verified: without this file `actions/checkout@v6` is flagged, with it the
 template workflow is clean. Any future `ignore:` entries go here with a
 reason; never `disable` a rule.
 
-### `.github/dependabot.yml`
+### `.github/dependabot.yml` (deferred)
+
+Not rolled out: decision 5 was revised on 2026-11-04 to do zizmor without
+Dependabot for now, so this file is not among the templates and was removed
+from every PR. The proposal is kept here for when it is picked up again:
 
 ```yaml
 version: 2
@@ -329,10 +333,12 @@ updates:
         patterns: ["*"]    # one PR per week instead of one per action
 ```
 
-Keeps the `actions/*` tags and the third-party SHA pins current. Only the
-`github-actions` ecosystem is enabled (decision 5); package dependencies of
-the SDKs are out of scope. zizmor's `dependabot-cooldown` rule audits this
-file and is satisfied by the 7-day cooldown.
+It would keep the `actions/*` tags and the third-party SHA pins current,
+with only the `github-actions` ecosystem enabled; package dependencies of
+the SDKs would stay out of scope. zizmor's `dependabot-cooldown` rule audits
+this file and is satisfied by the 7-day cooldown. Until then the pins are
+bumped by hand (new SHA and version comment together); the zizmor job
+re-audits every such change.
 
 ### Local use
 
@@ -373,10 +379,9 @@ will live anyway.
 1. Rewrite `check-codegen.yml` and `check-urls.yml` per items 2 and 3 above
    (`permissions: contents: read`, `persist-credentials: false`). No
    third-party actions here, nothing to pin.
-2. Add `.github/workflows/zizmor.yml`, `.github/zizmor.yml`,
-   `.github/dependabot.yml` from the templates above.
-3. Open a PR; confirm the zizmor job is green and Dependabot opens its first
-   grouped PR within a week.
+2. Add `.github/workflows/zizmor.yml` and `.github/zizmor.yml` from the
+   templates above.
+3. Open a PR; confirm the zizmor job is green.
 4. Add the badge to `README.md` (`zizmor.yml/badge.svg?branch=main`, the
    format `scripts/check-badges.bash` requires).
 
@@ -393,8 +398,8 @@ is release work (`make update`), not part of the rollout.
 Mirrors how `scripts/check-badges.bash` already reaches every SDK (decision 4).
 
 1. Store the canonical files under `codegen/github/`:
-   `zizmor.yml` (workflow), `zizmor-config.yml` (becomes
-   `.github/zizmor.yml`), `dependabot.yml`.
+   `zizmor.yml` (workflow) and `zizmor-config.yml` (becomes
+   `.github/zizmor.yml`).
 2. Add `scripts/sync-github-templates.bash <sdk-dir>` that copies them into
    `<sdk-dir>/.github/…`, and call it from every `codegen/generate-*.bash`
    next to the `check-badges.bash` copy. `make sdk` then keeps all ten
@@ -427,8 +432,8 @@ one):
    to the job and disable cache reads (item 4).
 4. Fix the `run:` template expansion where present (item 5).
 5. Optional hardening (job names, concurrency) while the files are open.
-6. Run `make sdk`-equivalent sync (or copy the three template files) so the
-   zizmor workflow, config and Dependabot file land in the same PR.
+6. Run `make sdk`-equivalent sync (or copy the two template files) so the
+   zizmor workflow and config land in the same PR.
 7. `zizmor .` locally must report "No findings". Push; the new zizmor job and
    all existing CI jobs must be green before merge. Existing jobs are the
    regression test for the permission and credential changes.
@@ -483,7 +488,9 @@ publish (dry run)" failure, php#112 stays red on the PHPStan lint step
 like `main`. Side effect in this repository: "Check all submodules
 up-to-date" is red on `main` and on PR #159 until the dotnet, node, java,
 php and python submodule pointers are bumped to the new `main` heads
-(`git submodule update --remote`, its own PR).
+(`git submodule update --remote`, its own PR: #160). Decision 5 was revised
+the same day: `.github/dependabot.yml` was removed from the templates, from
+this repository and from all nine SDK PRs in follow-up commits.
 
 Watch-outs:
 
@@ -493,8 +500,8 @@ Watch-outs:
   `dart-lang/setup-dart/.github/workflows/publish.yml@<sha> # v1.8.1` and add
   `permissions: {}` at the workflow level.
 * python `publish-pypi.yml` uses `pypa/gh-action-pypi-publish@release/v1`, a
-  branch. Pin to the `v1.14.2` commit; Dependabot will track releases from
-  there.
+  branch. Pin to the `v1.14.2` commit; later releases are picked up by
+  re-resolving the pin by hand.
 * `darenm/Setup-VSTest@v1.3` is a small third-party action whose last release
   is from 2023. Pin it now; consider replacing it with `vswhere`-located
   `vstest.console.exe` later.
@@ -518,8 +525,10 @@ After all ten repositories are green:
 
 ### Phase 4: maintain
 
-* Merge the weekly grouped Dependabot PR in each repository; the zizmor job
-  re-audits every pin change.
+* Dependabot is deferred: bump the SHA pins and their version comments by
+  hand when an action releases; the zizmor job re-audits every pin change.
+  Revisit enabling Dependabot (`github-actions` ecosystem only) once the
+  rollout PRs are merged.
 * zizmor releases roughly monthly; new rules can turn an existing workflow
   red. Treat it like any other linter upgrade: fix or add an `ignore:` with a
   reason in `codegen/github/zizmor-config.yml` and re-sync, never `disable`.
@@ -528,7 +537,7 @@ After all ten repositories are green:
 
 Rough effort: Phase 0 half a day, Phase 1 half a day, Phase 2 about one and
 a half days spread over the nine PRs, Phase 3 half a day. Calendar time two
-to three weeks, mostly waiting on reviews and the first Dependabot cycle.
+to three weeks, mostly waiting on reviews.
 
 Decisions taken
 ---------------
@@ -541,14 +550,14 @@ Settled on 2026-11-04.
 | 2 | How PRs are blocked | **Plain-mode run, no SARIF** | single step with `advanced-security: false`; job fails on any finding; no Security-tab history, no `security-events: write`, no fork-PR special case |
 | 3 | `TEST_CONFIGURATION_ACCESS_TOKEN` | **Allowlist in config** | secret stays at org level, release process unchanged; auditor runs are clean |
 | 4 | Keeping ten repos in sync | **Canonical files in codegen, copied by `generate-*.bash`** | `codegen/github/` plus `scripts/sync-github-templates.bash`; `make sdk` exposes drift |
-| 5 | Dependabot scope | **`github-actions` ecosystem only** | one grouped weekly PR per repository; SDK package manifests untouched |
+| 5 | Dependabot scope | **Deferred** (first settled as `github-actions` ecosystem only, revised the same day: no `dependabot.yml` for now) | no `.github/dependabot.yml` in any repository; pins are bumped by hand; the proposed file stays in this document |
 
 Appendix A: SHA pins
 --------------------
 
 Resolved on 2026-10-07 with `git ls-remote --tags` against the canonical
 repositories (newest release within the major currently used). Re-resolve
-before use; Dependabot keeps them current afterwards.
+before use and whenever a pin is bumped by hand (Dependabot is deferred).
 
 Third-party actions, **pin now** (decision 1):
 

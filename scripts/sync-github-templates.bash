@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Copy the shared GitHub configuration (zizmor workflow, zizmor config and
-# Dependabot config) from codegen/github/ into a repository checkout.
+# Copy the shared GitHub configuration (zizmor workflow and zizmor config)
+# from codegen/github/ into a repository checkout.
 #
 # Usage: ./scripts/sync-github-templates.bash <repo-dir>
 #   <repo-dir> is an SDK submodule checkout (e.g. submodules/dart) or "." for
@@ -28,4 +28,3 @@ fi
 mkdir -p "${target}/.github/workflows"
 cp "${source_dir}/zizmor.yml"        "${target}/.github/workflows/zizmor.yml"
 cp "${source_dir}/zizmor-config.yml" "${target}/.github/zizmor.yml"
-cp "${source_dir}/dependabot.yml"    "${target}/.github/dependabot.yml"

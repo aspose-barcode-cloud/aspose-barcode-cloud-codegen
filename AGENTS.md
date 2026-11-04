@@ -93,13 +93,14 @@ repository/branch table and details.
 ## CI security checks (zizmor)
 
 Every repository (this one and all SDK submodules) runs [zizmor](https://docs.zizmor.sh/) on its GitHub
-Actions workflows; the job fails on any finding. The shared workflow, zizmor config and Dependabot config are
-the templates in `codegen/github/`, copied into each repository by `scripts/sync-github-templates.bash`
+Actions workflows; the job fails on any finding. The shared workflow and zizmor config are the
+templates in `codegen/github/`, copied into each repository by `scripts/sync-github-templates.bash`
 (called from every `codegen/generate-<lang>.bash`, so `make sdk` keeps them identical; `make sync-github`
 does it for all repositories at once). Edit the templates, never the copies.
 
 - Pin third-party actions to a commit SHA with a version comment: `uses: owner/action@<sha> # vX.Y.Z`.
-  GitHub's own `actions/*` may use a major tag.
+  GitHub's own `actions/*` may use a major tag. Dependabot is not enabled yet, so bump pins by hand
+  (new SHA and new version comment together).
 - Declare `permissions:` explicitly and set `persist-credentials: false` on `actions/checkout`.
 - Run `make zizmor` before pushing workflow changes. See [`doc/zizmor-rollout-plan.md`](doc/zizmor-rollout-plan.md).
 

@@ -17,8 +17,8 @@ mypy:
 update:
 	./scripts/update_swagger_spec.bash
 
-# Copy the shared GitHub configuration (codegen/github: zizmor workflow,
-# zizmor config, Dependabot config) into this repo and every SDK submodule.
+# Copy the shared GitHub configuration (codegen/github: zizmor workflow and
+# zizmor config) into this repo and every SDK submodule.
 # Each generate-<lang>.bash does the same for its own SDK.
 .PHONY: sync-github
 sync-github:

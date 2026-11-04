@@ -10,7 +10,6 @@ calls, and into this repository by `make sync-github`.
 |---------------------|----------------------------------|
 | `zizmor.yml`        | `.github/workflows/zizmor.yml`   |
 | `zizmor-config.yml` | `.github/zizmor.yml`             |
-| `dependabot.yml`    | `.github/dependabot.yml`         |
 
 Edit the templates here, never the copies. CI (`check-codegen.yml`) fails
 when this repository's `.github/` drifts from the templates. See
