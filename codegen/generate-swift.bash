@@ -31,6 +31,8 @@ mv "$tempDir/docs" "$targetDir/docs"
 mv "$tempDir/.swiftformat" "$targetDir/"
 
 cp ../LICENSE "$targetDir/"
+cp ../scripts/coverage.py "$targetDir/Scripts/"
+cp ../scripts/publish-coverage.bash "$targetDir/Scripts/"
 
 rm -rf "$tempDir"
 

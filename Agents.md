@@ -30,5 +30,7 @@ repository/branch table and details.
 
 Every generated SDK must satisfy two coverage bars — **API endpoint coverage ≥ 80%** and **line code
 coverage ≥ 80%** (the latter enforced by a per-SDK CI gate). `submodules/android` is exempt (it is a demo
-app, not an SDK). Regenerating or changing an SDK must not drop either metric below 80%. See
+app, not an SDK). Regenerating or changing an SDK must not drop either metric below 80%. Every SDK
+measures line coverage with `make cover`, which ends in the shared `scripts/coverage.py` gate and
+produces the README coverage badge. See
 [`doc/test-coverage-requirements.md`](doc/test-coverage-requirements.md) for the full requirements.

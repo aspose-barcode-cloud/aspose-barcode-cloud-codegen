@@ -1,5 +1,8 @@
 # Aspose.BarCode Cloud SDK for Swift
 
+[![Swift CI](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/aspose-barcode-cloud/test-coverage/main/swift/coverage-badge.json)](https://github.com/aspose-barcode-cloud/test-coverage)
+
 This repository contains the Swift SDK for Aspose.BarCode Cloud.
 
 ## Requirements
