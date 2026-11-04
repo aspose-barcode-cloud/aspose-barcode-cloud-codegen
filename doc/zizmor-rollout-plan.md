@@ -342,14 +342,14 @@ file and is satisfied by the 7-day cooldown.
   ```makefile
   .PHONY: zizmor
   zizmor:
-  	zizmor .github submodules/*/.github
+  	zizmor --config codegen/github/zizmor-config.yml .github submodules/*/.github
   ```
 
-  With `GH_TOKEN=$(gh auth token)` the online audits run too. All ten
-  repositories carry the identical config, so it does not matter which copy
-  zizmor discovers for a submodule input. `make zizmor` should become part of
-  the release checklist in `ReleaseWorkflow.md` (step 9, "check `codegen`
-  produces the same output").
+  With `GH_TOKEN=$(gh auth token)` the online audits run too. The explicit
+  `--config` applies the shared template to every input, so the result is the
+  same whether or not an SDK checkout already carries its copy. `make zizmor`
+  should become part of the release checklist in `ReleaseWorkflow.md`
+  (step 9, "check `codegen` produces the same output").
 * Optional per developer: pre-commit hook or the VS Code / Zed extension.
 
   ```yaml
@@ -402,6 +402,13 @@ Mirrors how `scripts/check-badges.bash` already reaches every SDK (decision 4).
    submodule, exactly like a template mismatch does today.
 3. Document the rule in `AGENTS.md`: workflow security checks must pass
    zizmor; new third-party `uses:` must be SHA-pinned with a version comment.
+
+Status (2026-11-04): done in PR #159. Templates live in `codegen/github/`
+(with a README), `scripts/sync-github-templates.bash` is called by all nine
+`generate-*.bash`, `make sync-github` syncs every checkout at once, and a new
+`check-github-templates` job in `check-codegen.yml` fails when this
+repository's `.github/` drifts from the templates. `make zizmor` audits the
+whole fleet with the shared config.
 
 ### Phase 2: remediate each SDK repository
 
@@ -532,8 +539,9 @@ uvx zizmor --version
 # from the codegen checkout with submodules initialised
 git submodule update --init --recursive
 
-# fleet view, offline, regular persona (95 findings on 2026-10-07 with the
-# agreed config; pass --config until Phase 1 has put the file in every repo)
+# fleet view, offline, regular persona: 95 findings on 2026-10-07 with the
+# agreed config, 89 after Phase 0 fixed this repository's 6 (same as
+# `make zizmor`, which also runs the online audits when GH_TOKEN is set)
 zizmor --offline --config codegen/github/zizmor-config.yml .github submodules/*/.github
 
 # one SDK, everything zizmor can say

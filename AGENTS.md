@@ -90,6 +90,19 @@ repository/branch table and details.
    4. If the generated code differs from your code, fix the templates and repeat.
 4. Once the generated code matches, the task is done.
 
+## CI security checks (zizmor)
+
+Every repository (this one and all SDK submodules) runs [zizmor](https://docs.zizmor.sh/) on its GitHub
+Actions workflows; the job fails on any finding. The shared workflow, zizmor config and Dependabot config are
+the templates in `codegen/github/`, copied into each repository by `scripts/sync-github-templates.bash`
+(called from every `codegen/generate-<lang>.bash`, so `make sdk` keeps them identical; `make sync-github`
+does it for all repositories at once). Edit the templates, never the copies.
+
+- Pin third-party actions to a commit SHA with a version comment: `uses: owner/action@<sha> # vX.Y.Z`.
+  GitHub's own `actions/*` may use a major tag.
+- Declare `permissions:` explicitly and set `persist-credentials: false` on `actions/checkout`.
+- Run `make zizmor` before pushing workflow changes. See [`doc/zizmor-rollout-plan.md`](doc/zizmor-rollout-plan.md).
+
 ## Scripting requirements
 
 - Never use Perl — neither standalone Perl scripts nor inline one-liners (e.g. `perl -pe` in shell scripts or
