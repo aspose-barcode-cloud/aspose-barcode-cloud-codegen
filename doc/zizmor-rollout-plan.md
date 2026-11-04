@@ -436,6 +436,23 @@ one):
 Suggested order: go, swift (no pins, 7 findings each), android, dart, then
 java, php, node, python, dotnet.
 
+Status (2026-11-04): all nine PRs are open, each from a `chore/zizmor`
+branch into the SDK's default branch, with zero findings under the regular
+persona (zizmor 1.30.1 and 1.32.0):
+[go#99](https://github.com/aspose-barcode-cloud/aspose-barcode-cloud-go/pull/99),
+[swift#10](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/pull/10),
+[android#70](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Android/pull/70),
+[dart#77](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Dart/pull/77),
+[java#120](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Java/pull/120),
+[php#112](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP/pull/112),
+[node#158](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Node.js/pull/158),
+[python#117](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python/pull/117),
+[dotnet#134](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-.NET/pull/134).
+The matching README badge lines are in the codegen README templates on
+this branch. Left for later on purpose: the pedantic-only `matrix.*`
+expansions in dotnet and swift and the missing concurrency group on the
+tag-triggered publish workflows.
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
