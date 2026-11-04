@@ -453,6 +453,14 @@ this branch. Left for later on purpose: the pedantic-only `matrix.*`
 expansions in dotnet and swift and the missing concurrency group on the
 tag-triggered publish workflows.
 
+First CI run on the nine PRs: `Run zizmor` and `Check badges` are green
+everywhere; every job that calls the live API fails with HTTP 401 "The token
+expired" because the organization secret `TEST_CONFIGURATION_ACCESS_TOKEN`
+was last refreshed for Release 26.10. Refresh it (`ReleaseWorkflow.md`,
+step 3) and re-run the failed jobs; nothing in the PRs needs to change.
+Node's `Try publish (dry run)` is red on `main` as well until the next
+version bump (26.10.0 is already on npm).
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
