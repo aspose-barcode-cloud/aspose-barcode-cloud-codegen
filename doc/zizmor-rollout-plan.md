@@ -461,6 +461,20 @@ step 3) and re-run the failed jobs; nothing in the PRs needs to change.
 Node's `Try publish (dry run)` is red on `main` as well until the next
 version bump (26.10.0 is already on npm).
 
+With a valid token, Go, Swift, Android, Dart and Python went fully green.
+Two unrelated breakages surfaced on the current `ubuntu-latest` image
+(Ubuntu 26.04, runner image 20261025.179.1): its Rust `ln` rejects `-F`,
+which the snippets scripts of dotnet, java, node, php and python use, and
+PHP's unlocked `composer install` now pairs PHPUnit 13 with PHPStan 1.12,
+which cannot parse it. The `ln -F` fix is a separate PR per repository
+([dotnet#135](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-.NET/pull/135),
+[java#121](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Java/pull/121),
+[node#159](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Node.js/pull/159),
+[php#113](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP/pull/113),
+[python#118](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python/pull/118));
+merge those first, then bring `main` into the zizmor branches. The PHPStan
+bump (`"phpstan/phpstan": "^2.2"`) is still open.
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
