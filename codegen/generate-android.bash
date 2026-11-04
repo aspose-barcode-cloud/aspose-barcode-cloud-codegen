@@ -30,5 +30,6 @@ mkdir -p "$exampleDir" || true
 mv "$tempDir/MainActivity.kt" "$exampleDir/MainActivity.kt"
 
 cp ../LICENSE "$targetDir/"
+../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf $tempDir

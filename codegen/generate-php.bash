@@ -45,6 +45,7 @@ sed -i 's|\\Aspose\\BarCode\\Model\\\\Aspose\\BarCode\\Model\\|\\Aspose\\BarCode
 
 mv "${tempDir}/README.md" "${targetDir}/README.template"
 cp ../LICENSE "${targetDir}/"
+../scripts/sync-github-templates.bash "$targetDir"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 

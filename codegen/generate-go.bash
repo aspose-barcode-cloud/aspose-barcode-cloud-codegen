@@ -30,6 +30,7 @@ rm -rf $targetDir/docs/*
 mv $tempDir/docs/* $targetDir/docs/
 mv "$tempDir/README.md" "$targetDir/README.template"
 cp ../LICENSE "$targetDir/"
+../scripts/sync-github-templates.bash "$targetDir"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
