@@ -478,15 +478,17 @@ which cannot parse it. The `ln -F` fix is a separate PR per repository
 [php#113](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP/pull/113),
 [python#118](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python/pull/118));
 merge those first, then bring `main` into the zizmor branches. The PHPStan
-bump (`"phpstan/phpstan": "^2.2"`) is still open; until it lands, php#113
-cannot show its snippets job green (the matrix depends on the lint step).
+bump went in separately as
+[php#114](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP/pull/114)
+(`"phpstan/phpstan": "^2.2"` plus a `vendor/` cache key that includes
+`composer.json`, since without a lock file the old key was a constant).
 
 Progress (2026-11-04): all five `ln -F` PRs are merged and `main` was
 merged into the five `chore/zizmor` branches (merge commits, no rebase);
 dotnet#134 is fully green, node#158 keeps only the pre-existing "Try
-publish (dry run)" failure, php#112 stays red on the PHPStan lint step
-like `main` until php#114 (`"phpstan/phpstan": "^2.2"` plus a `vendor/`
-cache key that includes `composer.json`) is merged. Side effect in this repository: "Check all submodules
+publish (dry run)" failure. php#114 merged at 12:24 UTC with the `build`
+job green (PHPStan 2 at level 3 reports nothing new) and `main` was merged
+into php's `chore/zizmor`. Side effect in this repository: "Check all submodules
 up-to-date" is red on `main` and on PR #159 until the dotnet, node, java,
 php and python submodule pointers are bumped to the new `main` heads
 (`git submodule update --remote`, its own PR: #160). Decision 5 was revised
