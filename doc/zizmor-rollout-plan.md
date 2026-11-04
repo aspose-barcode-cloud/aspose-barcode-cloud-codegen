@@ -473,7 +473,11 @@ which cannot parse it. The `ln -F` fix is a separate PR per repository
 [php#113](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-PHP/pull/113),
 [python#118](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python/pull/118));
 merge those first, then bring `main` into the zizmor branches. The PHPStan
-bump (`"phpstan/phpstan": "^2.2"`) is still open.
+bump (`"phpstan/phpstan": "^2.2"`) is still open; until it lands, php#113
+cannot show its snippets job green (the matrix depends on the lint step).
+
+Progress: dotnet#135 merged 2026-11-04 11:06 UTC and `main` was merged
+into dotnet's `chore/zizmor` (merge commit, no rebase).
 
 Watch-outs:
 
