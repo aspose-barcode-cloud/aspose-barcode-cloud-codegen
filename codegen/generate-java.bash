@@ -45,6 +45,8 @@ mv "$tempDir/README.md" "$targetDir/README.template"
 mv $tempDir/pom.xml $targetDir
 cp ../LICENSE $targetDir
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
+cp ../scripts/coverage.py "$targetDir/scripts/"
+cp ../scripts/publish-coverage.py "$targetDir/scripts/"
 
 mv "$tempDir/dependency.xml" "$targetDir/snippets/dependency.xml"
 

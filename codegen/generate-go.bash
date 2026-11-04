@@ -31,6 +31,8 @@ mv $tempDir/docs/* $targetDir/docs/
 mv "$tempDir/README.md" "$targetDir/README.template"
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
+cp ../scripts/coverage.py "$targetDir/scripts/"
+cp ../scripts/publish-coverage.py "$targetDir/scripts/"
 
 rm -rf $tempDir
 
