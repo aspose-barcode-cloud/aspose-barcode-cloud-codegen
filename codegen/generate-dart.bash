@@ -47,6 +47,8 @@ mv $tempDir/doc/*.md $targetDir/doc/models/
 
 cp ../LICENSE "$targetDir/"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
+cp ../scripts/coverage.py "$targetDir/scripts/"
+cp ../scripts/publish-coverage.bash "$targetDir/scripts/"
 
 # Cleanup
 rm -rf $tempDir

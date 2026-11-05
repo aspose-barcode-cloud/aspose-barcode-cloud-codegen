@@ -25,6 +25,8 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t
 cp ../LICENSE "$targetDir/"
 cp ../LICENSE "$targetDir/src/LICENSE.txt"
 cp ../scripts/check-badges.bash "$targetDir/scripts/"
+cp ../scripts/coverage.py "$targetDir/scripts/"
+cp ../scripts/publish-coverage.bash "$targetDir/scripts/"
 
 rm -rf "$targetDir/src/Model/"
 # AbstractOpenAPISchema: oneOf/anyOf base class this spec never uses (no polymorphic models).
