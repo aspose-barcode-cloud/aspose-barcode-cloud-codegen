@@ -33,4 +33,5 @@ coverage ≥ 80%** (the latter enforced by a per-SDK CI gate). `submodules/andro
 app, not an SDK). Regenerating or changing an SDK must not drop either metric below 80%. Every SDK
 measures line coverage with `make cover`, which ends in the shared `scripts/coverage.py` gate and
 produces the README coverage badge. See
-[`doc/test-coverage-requirements.md`](doc/test-coverage-requirements.md) for the full requirements.
+[`doc/test-coverage-requirements.md`](doc/test-coverage-requirements.md) for the full requirements and
+[`doc/coverage-badges.md`](doc/coverage-badges.md) for how the coverage badges work.

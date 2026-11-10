@@ -56,6 +56,9 @@ Coverage results of all SDKs are collected in one public repository,
 The SDK repositories themselves are never written by CI: their workflows run with
 `permissions: contents: read`.
 
+How the README badge is built from these files, when it changes, and what to do when it shows an error or an
+old value: [coverage badges](coverage-badges.md).
+
 Layout of `test-coverage`, one folder per SDK (`dart`, `dotnet`, `go`, `java`, `node`, `php`, `python`,
 `swift`):
 
