@@ -74,7 +74,7 @@ SDK.
    `coverage/coverage-summary.json` and the native report as a workflow artifact named `coverage`.
    This job has no write credentials at all.
 2. A separate `publish-coverage` job runs **only on push to the SDK's default branch** (`main`, `v4` for
-   go) and only when the `COVERAGE_APP_ID` variable is set, so it is skipped on pull requests and on
+   go) and only when the `COVERAGE_APP_CLIENT_ID` variable is set, so it is skipped on pull requests and on
    repositories where the app is not configured. It downloads the artifact, obtains a token for the
    `test-coverage` repository with `actions/create-github-app-token` (limited to that repository and to
    `contents: write`), and runs `python scripts/publish-coverage.py <sdk>`.
@@ -106,15 +106,16 @@ regenerating an SDK keeps it. `scripts/check-badges.bash` only validates workflo
    - uncheck **Webhook → Active**;
    - Repository permissions: **Contents: Read and write** only;
    - "Where can this GitHub App be installed?": **Only on this account**.
-3. On the app's page note the **App ID** and generate a **private key** (a `.pem` file is downloaded).
+3. On the app's page (General → About) note the **Client ID** (`Iv23li…`, not the numeric App ID) and
+   generate a **private key** (a `.pem` file is downloaded).
 4. Install the app on the organization, **Only select repositories → `test-coverage`**.
 5. In Organization settings → Secrets and variables → Actions, create
-   - the **variable** `COVERAGE_APP_ID` = the App ID,
+   - the **variable** `COVERAGE_APP_CLIENT_ID` = the Client ID,
    - the **secret** `COVERAGE_APP_PRIVATE_KEY` = the contents of the `.pem` file,
 
    both with repository access limited to the eight SDK repositories.
 
-The publish job is skipped until `COVERAGE_APP_ID` exists, so the SDK changes can be merged before this
+The publish job is skipped until `COVERAGE_APP_CLIENT_ID` exists, so the SDK changes can be merged before this
 setup is done; the badges simply stay empty until the next push to each default branch after it.
 
 To revoke CI's write access later, uninstall the app or delete the secret; nothing in the SDK
