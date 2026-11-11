@@ -134,8 +134,8 @@ re-run of a push run is still a push run, so the job is not skipped.
 ## Changing and maintaining the badges
 
 - **Label, text format or colour scale:** edit `write_badge()` or `badge_color()` in `scripts/coverage.py`
-  here, regenerate the SDKs (each `codegen/generate-<sdk>.bash` copies the script), and merge them. Each
-  badge changes with the next publish of its SDK.
+  here, regenerate the SDKs (`scripts/copy-common-files.bash` copies the script into each), and merge them.
+  Each badge changes with the next publish of its SDK.
 - **Badge style:** append a shields.io query parameter such as `&style=flat-square` to the image URL in the
   README templates. The style is decided by shields.io, not by the JSON.
 - **Where the Markdown lives:** `codegen/Templates/<lang>/README.mustache` (`README.template.mustache` for

@@ -26,6 +26,13 @@ repository/branch table and details.
 
 - Never use Perl — neither standalone Perl scripts nor inline one-liners (e.g. `perl -pe` in shell scripts or Makefiles). Use Python instead.
 
+## Files shared by all SDKs
+
+`LICENSE`, `scripts/check-badges.bash`, `scripts/coverage.py` and `scripts/publish-coverage.py` are copied
+into every SDK by [`scripts/copy-common-files.bash`](scripts/copy-common-files.bash) `<sdk-dir>`, which each
+`codegen/generate-<sdk>.bash` calls. Edit them here, never the copies in the submodules. To share another
+file with all SDKs, add it to that script.
+
 ## Test coverage requirements
 
 Every generated SDK must satisfy two coverage bars — **API endpoint coverage ≥ 80%** and **line code

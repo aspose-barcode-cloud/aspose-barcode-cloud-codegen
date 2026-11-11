@@ -25,10 +25,7 @@ mv "$tempDir/package.json" "$targetDir/"
 mv "$tempDir/docs/index.md" "$targetDir/docs/index.md"
 mv "$tempDir/docs/models.md" "$targetDir/docs/models.md"
 mv "$tempDir/README.template" "$targetDir/README.template"
-cp ../LICENSE "$targetDir/"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
-cp ../scripts/coverage.py "$targetDir/scripts/"
-cp ../scripts/publish-coverage.py "$targetDir/scripts/"
+../scripts/copy-common-files.bash "$targetDir"
 
 rm -rf $tempDir
 

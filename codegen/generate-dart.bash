@@ -45,10 +45,7 @@ mv $tempDir/doc/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
 mv $tempDir/doc/*.md $targetDir/doc/models/
 
-cp ../LICENSE "$targetDir/"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
-cp ../scripts/coverage.py "$targetDir/scripts/"
-cp ../scripts/publish-coverage.py "$targetDir/scripts/"
+../scripts/copy-common-files.bash "$targetDir"
 
 # Cleanup
 rm -rf $tempDir

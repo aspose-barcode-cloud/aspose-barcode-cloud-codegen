@@ -27,9 +27,10 @@ Every SDK has a `make cover` target that:
    - exits with code 1 when coverage is below the threshold;
 3. reads the threshold from `COVERAGE_THRESHOLD` (default `80`), e.g. `COVERAGE_THRESHOLD=90 make cover`.
 
-`scripts/coverage.py` and `scripts/publish-coverage.py` live in this repository and are copied into
-every SDK by `codegen/generate-<sdk>.bash` (into `Scripts/` for swift), like `scripts/check-badges.bash`.
-Change them here and regenerate; do not edit the SDK copies.
+`scripts/coverage.py` and `scripts/publish-coverage.py` live in this repository. Together with `LICENSE`
+and `scripts/check-badges.bash` they are copied into every SDK by `scripts/copy-common-files.bash <sdk-dir>`
+(into `Scripts/` for swift), which each `codegen/generate-<sdk>.bash` calls. Change them here and
+regenerate; do not edit the SDK copies.
 
 | SDK | Measured code | Native tool → report | `scripts/coverage.py` format | CI job running `make cover` |
 |-----|---------------|----------------------|------------------------------|-----------------------------|
@@ -129,8 +130,8 @@ repositories changes.
 1. Give the SDK a `make cover` target that leaves one of the report formats above under `coverage/` and
    ends with `$(PYTHON) scripts/coverage.py <format> coverage/<report>`, where
    `PYTHON ?= $(shell command -v python 2>/dev/null || echo python3)`.
-2. Copy `scripts/coverage.py` and `scripts/publish-coverage.py` into it from its
-   `codegen/generate-<sdk>.bash`.
+2. Call `../scripts/copy-common-files.bash "$targetDir"` from its `codegen/generate-<sdk>.bash`; it
+   copies `scripts/coverage.py`, `scripts/publish-coverage.py`, `scripts/check-badges.bash` and `LICENSE`.
 3. In its workflow: `permissions: contents: read` at the top, an `actions/upload-artifact` step after
    `make cover` (artifact `coverage`, the three files), and a `publish-coverage` job as in the other SDKs,
    with the SDK name as the script argument.
