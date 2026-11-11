@@ -1,9 +1,19 @@
 # Aspose.BarCode Cloud SDK for Swift
 
+[![License](https://img.shields.io/github/license/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift)](LICENSE)
 [![Swift CI](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/aspose-barcode-cloud/test-coverage/main/swift/coverage-badge.json)](https://github.com/aspose-barcode-cloud/test-coverage)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift?label=SwiftPM&sort=semver)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/releases/latest)
 
 This repository contains the Swift SDK for Aspose.BarCode Cloud.
+
+## Demo applications
+
+[Scan QR](https://products.aspose.app/barcode/scanqr) | [Generate Barcode](https://products.aspose.app/barcode/generate) | [Recognize Barcode](https://products.aspose.app/barcode/recognize)
+:---: | :---: | :---:
+[![ScanQR](https://products.aspose.app/barcode/scanqr/img/aspose_scanqr-app-48.png)](https://products.aspose.app/barcode/scanqr) | [![Generate](https://products.aspose.app/barcode/generate/img/aspose_generate-app-48.png)](https://products.aspose.app/barcode/generate) | [![Recognize](https://products.aspose.app/barcode/recognize/img/aspose_recognize-app-48.png)](https://products.aspose.app/barcode/recognize)
+[**Generate Wi-Fi QR**](https://products.aspose.app/barcode/wifi-qr) | [**Embed Barcode**](https://products.aspose.app/barcode/embed) | [**Scan Barcode**](https://products.aspose.app/barcode/scan)
+[![Wi-FiQR](https://products.aspose.app/barcode/embed/img/aspose_wifi-qr-app-48.png)](https://products.aspose.app/barcode/wifi-qr) | [![Embed](https://products.aspose.app/barcode/embed/img/aspose_embed-app-48.png)](https://products.aspose.app/barcode/embed) | [![Scan](https://products.aspose.app/barcode/embed/img/aspose_scan-app-48.png)](https://products.aspose.app/barcode/scan)
 
 ## Requirements
 
