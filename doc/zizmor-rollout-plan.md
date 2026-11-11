@@ -525,6 +525,15 @@ on the node and python publish workflows (no `concurrency` on publish
 workflows, on purpose) and `template-injection` on `matrix.*` expansions in
 swift and dotnet (see [optional hardening](#optional-hardening-pedantic-and-auditor-personas)).
 
+Later the same day the default branches moved again and were merged into
+the dart (#81 `ApiClient.close()`, a URL fix), php (#118 snippets with bash
+on Windows) and swift branches. Swift #16 gave the Swift README its badges
+and added `check-badges.yml`, which Swift did not have during Phase 2. So
+the Swift branch now also gets the zizmor badge (after the Coverage badge,
+as in the other SDKs; the line is in `codegen/Templates/swift/README.mustache`
+on this branch too), and its `check-badges.yml` gets a job name and a
+concurrency group like the other SDKs' copies.
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
