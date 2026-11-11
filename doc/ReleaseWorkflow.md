@@ -31,6 +31,8 @@ Steps:
 6. Phase 2: create the release tag using the SDK-specific version convention
    and create a GitHub prerelease for that tag. Pay special attention to Go,
    Dart, and other SDKs whose tags do not use the standard `vYY.MM.P` form.
+   Only repository admins can create `v*` tags (see
+   [github-settings.md](github-settings.md)).
 
 7. Publish the packages to their appropriate registries (NuGet, the Aspose
    Java repository, npm, PyPI, Packagist, pub.dev, Go modules). SwiftPM consumes
