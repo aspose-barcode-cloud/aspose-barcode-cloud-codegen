@@ -30,8 +30,9 @@ repository/branch table and details.
 
 `LICENSE`, `scripts/check-badges.bash`, `scripts/coverage.py` and `scripts/publish-coverage.py` are copied
 into every SDK by [`scripts/copy-common-files.bash`](scripts/copy-common-files.bash) `<sdk-dir>`, which each
-`codegen/generate-<sdk>.bash` calls. Edit them here, never the copies in the submodules. To share another
-file with all SDKs, add it to that script.
+`codegen/generate-<sdk>.bash` calls; `--no-coverage` leaves out the two coverage scripts for android, which
+is exempt from the coverage requirements. Edit them here, never the copies in the submodules. To share
+another file with all SDKs, add it to that script.
 
 ## Test coverage requirements
 
