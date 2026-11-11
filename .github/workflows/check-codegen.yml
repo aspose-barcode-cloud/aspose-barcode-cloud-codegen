@@ -8,15 +8,25 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-submodules:
+    name: Check all submodules up-to-date
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v6
         with:
           submodules: recursive
-          persist-credentials: true
+          # All submodules are public, so `git submodule update --remote`
+          # below does not need the job token.
+          persist-credentials: false
 
       - name: Check all submodules up-to-date
         run: |
@@ -24,9 +34,12 @@ jobs:
           git diff --exit-code
 
   check-swagger:
+    name: Check swagger specification up-to-date
     runs-on: ubuntu-latest
     needs: [check-submodules]
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Check existing swagger specification is up-to-date
         run: curl https://api.aspose.cloud/v4.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -

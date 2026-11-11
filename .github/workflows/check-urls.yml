@@ -12,13 +12,22 @@ on:
   schedule:
     - cron: "0 3 * * *"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-urls:
+    name: Check all URLs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Check all URLs
         run: ./scripts/check_all_urls.sh

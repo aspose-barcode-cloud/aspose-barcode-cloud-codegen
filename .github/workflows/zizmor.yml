@@ -1,0 +1,43 @@
+name: GitHub Actions Security Analysis (zizmor)
+
+# Audits the workflows of this repository and of every SDK submodule. The SDK
+# repositories have no zizmor workflow of their own: their workflows reach this
+# repository through the submodule pointers, which "Check all submodules
+# up-to-date" keeps at the SDK default-branch heads.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 4 * * 1"   # weekly: online audits pick up new advisories
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  zizmor:
+    name: Run zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # checkout
+    steps:
+      - name: Checkout repository with the SDK submodules
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          # All submodules are public, so no token is kept for them.
+          persist-credentials: false
+
+      # Plain output in the job log; zizmor exits 11-14 on findings and the
+      # job turns red. No SARIF upload (team decision 2).
+      - name: Run zizmor
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          advanced-security: false
+          # The action passes `inputs` to zizmor unquoted, so the shell expands
+          # the glob in the workspace: one input per SDK submodule.
+          inputs: .github submodules/*/.github
+          config: .github/zizmor.yml

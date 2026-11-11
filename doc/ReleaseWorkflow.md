@@ -9,6 +9,10 @@ WSL: Debian (or Ubuntu) Bullseye
 Debian packages: list in file `./doc/deb_packages.list`. To install run `./scripts/install-all-packages.bash` in your Debian on WSL
 Swift SDK: Swift 6.0 or newer and `swiftformat`
 
+Before cutting release branches, run `make zizmor` (set `GH_TOKEN` for the
+online audits) and fix every finding; the same audit gates every pull request
+(see [ci-security.md](ci-security.md)).
+
 Steps:
 1. Call `./scripts/start-release.bash`
     It will refresh the API spec (`spec/aspose-barcode-cloud.json`),
