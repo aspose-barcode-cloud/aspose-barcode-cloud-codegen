@@ -29,7 +29,8 @@ Every SDK has a `make cover` target that:
 
 `scripts/coverage.py` and `scripts/publish-coverage.py` live in this repository. Together with `LICENSE`
 and `scripts/check-badges.bash` they are copied into every SDK by `scripts/copy-common-files.bash <sdk-dir>`
-(into `Scripts/` for swift), which each `codegen/generate-<sdk>.bash` calls. Change them here and
+(into `Scripts/` for swift), which each `codegen/generate-<sdk>.bash` calls. `generate-android.bash`
+passes `--no-coverage`, so android gets only `LICENSE` and `check-badges.bash`. Change them here and
 regenerate; do not edit the SDK copies.
 
 | SDK | Measured code | Native tool → report | `scripts/coverage.py` format | CI job running `make cover` |
