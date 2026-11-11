@@ -30,7 +30,7 @@ mv "$tempDir/docs" "$targetDir/docs"
 
 mv "$tempDir/.swiftformat" "$targetDir/"
 
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 ../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf "$tempDir"

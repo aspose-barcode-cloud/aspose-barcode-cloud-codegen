@@ -25,9 +25,8 @@ mv "$tempDir/package.json" "$targetDir/"
 mv "$tempDir/docs/index.md" "$targetDir/docs/index.md"
 mv "$tempDir/docs/models.md" "$targetDir/docs/models.md"
 mv "$tempDir/README.template" "$targetDir/README.template"
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 ../scripts/sync-github-templates.bash "$targetDir"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
 

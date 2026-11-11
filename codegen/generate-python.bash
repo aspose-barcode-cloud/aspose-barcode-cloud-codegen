@@ -43,9 +43,8 @@ cp "$tempDir/test-requirements.txt" "$targetDir/test-requirements.txt"
 cp "$tempDir/tox.ini" "$targetDir/tox.ini"
 cp "$tempDir/README.md" "$targetDir/README.template"
 
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 ../scripts/sync-github-templates.bash "$targetDir"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf $tempDir
 

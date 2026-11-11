@@ -109,12 +109,23 @@ does it for all repositories at once). Edit the templates, never the copies.
 - Never use Perl — neither standalone Perl scripts nor inline one-liners (e.g. `perl -pe` in shell scripts or
   Makefiles). Use Python instead.
 
+## Files shared by all SDKs
+
+`LICENSE`, `scripts/check-badges.bash`, `scripts/coverage.py` and `scripts/publish-coverage.py` are copied
+into every SDK by [`scripts/copy-common-files.bash`](scripts/copy-common-files.bash) `<sdk-dir>`, which each
+`codegen/generate-<sdk>.bash` calls; `--no-coverage` leaves out the two coverage scripts for android, which
+is exempt from the coverage requirements. Edit them here, never the copies in the submodules. To share
+another file with all SDKs, add it to that script.
+
 ## Test coverage requirements
 
 Every generated SDK must satisfy two coverage bars — **API endpoint coverage ≥ 80%** and **line code
 coverage ≥ 80%** (the latter enforced by a per-SDK CI gate). `submodules/android` is exempt (it is a demo
-app, not an SDK). Regenerating or changing an SDK must not drop either metric below 80%. See
-[`doc/test-coverage-requirements.md`](doc/test-coverage-requirements.md) for the full requirements.
+app, not an SDK). Regenerating or changing an SDK must not drop either metric below 80%. Every SDK
+measures line coverage with `make cover`, which ends in the shared `scripts/coverage.py` gate and
+produces the README coverage badge. See
+[`doc/test-coverage-requirements.md`](doc/test-coverage-requirements.md) for the full requirements and
+[`doc/coverage-badges.md`](doc/coverage-badges.md) for how the coverage badges work.
 
 ## Releases and versioning
 

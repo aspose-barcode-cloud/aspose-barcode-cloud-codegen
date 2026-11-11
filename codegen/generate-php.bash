@@ -44,9 +44,8 @@ mv "${tempDir}/docs/"* "${targetDir}/docs"
 sed -i 's|\\Aspose\\BarCode\\Model\\\\Aspose\\BarCode\\Model\\|\\Aspose\\BarCode\\Model\\|g' "${targetDir}/docs/Api/"*.md
 
 mv "${tempDir}/README.md" "${targetDir}/README.template"
-cp ../LICENSE "${targetDir}/"
+../scripts/copy-common-files.bash "${targetDir}"
 ../scripts/sync-github-templates.bash "$targetDir"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 
 rm -rf "${tempDir}"

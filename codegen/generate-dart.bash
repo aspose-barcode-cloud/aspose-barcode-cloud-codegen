@@ -45,9 +45,8 @@ mv $tempDir/doc/*Api.md $targetDir/doc/api/
 mkdir -p "$targetDir/doc/models/"
 mv $tempDir/doc/*.md $targetDir/doc/models/
 
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 ../scripts/sync-github-templates.bash "$targetDir"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 # Cleanup
 rm -rf $tempDir
