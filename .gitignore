@@ -11,3 +11,6 @@ codegen/.generated/
 codegen/debug*.json
 obj/
 .mypy_cache/
+
+# Snapshots written by scripts/github-settings.py
+github-settings-backup/

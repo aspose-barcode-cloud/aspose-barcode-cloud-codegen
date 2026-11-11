@@ -22,6 +22,15 @@ repository/branch table and details.
     4.4 Fix templates if generated code are not the same as you new code.
 5. After templates fixed, you can end your task.
 
+## GitHub settings
+
+Merge rules, the default branch and release tag rulesets, required checks and the security and Actions
+settings of all SDK repositories, this repository and `test-coverage` are declared in
+[`scripts/github-settings.py`](scripts/github-settings.py) and applied by an organization owner. Change them
+there, never in the GitHub UI. When you rename a CI job or change a matrix, the required checks follow on the
+next `apply`; if a renamed job no longer matches its pattern, update the pattern in the same pull request. See
+[`doc/github-settings.md`](doc/github-settings.md).
+
 ## Scripting requirements
 
 - Never use Perl — neither standalone Perl scripts nor inline one-liners (e.g. `perl -pe` in shell scripts or Makefiles). Use Python instead.
