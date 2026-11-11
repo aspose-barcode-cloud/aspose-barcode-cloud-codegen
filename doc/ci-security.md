@@ -16,8 +16,9 @@ audited with [zizmor](https://docs.zizmor.sh/) and must report no findings:
 * no `${{ … }}` expansion of untrusted values inside `run:` steps (pass them
   through `env:`);
 * release workflows never read the Actions cache;
-* secrets passed through `env:`, never inline (`TEST_CONFIGURATION_ACCESS_TOKEN`
-  is the one allowed exception).
+* secrets passed through `env:`, never inline; a secret used outside a
+  deployment environment must be on the allowlist in the shared config
+  (today `TEST_CONFIGURATION_ACCESS_TOKEN` and `COVERAGE_APP_PRIVATE_KEY`).
 
 The audit runs on every push and pull request and weekly, and "Run zizmor" is
 a required status check on each default branch.

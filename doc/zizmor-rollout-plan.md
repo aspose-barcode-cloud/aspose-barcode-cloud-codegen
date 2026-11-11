@@ -307,6 +307,10 @@ rules:
         # Short-lived JWT for integration tests, refreshed before each release;
         # exposed to all CI jobs on purpose (no deployment environment).
         - TEST_CONFIGURATION_ACCESS_TOKEN
+        # Private key of the GitHub App that publishes coverage. The app can
+        # only write to the test-coverage repository, and the publish job runs
+        # only on pushes to the default branch (no deployment environment).
+        - COVERAGE_APP_PRIVATE_KEY
 ```
 
 Verified: without this file `actions/checkout@v6` is flagged, with it the
@@ -511,10 +515,15 @@ both kept, Coverage first). All nine merged branches report no findings
 under the regular persona. Under the auditor persona one new finding
 appears wherever coverage is published: `secrets.COVERAGE_APP_PRIVATE_KEY`
 is referenced without a dedicated environment (`secrets-outside-env`).
-Open decision: either move the publish job to a GitHub environment that
-holds that key, or add it to the `secrets-outside-env` allowlist in
-`codegen/github/zizmor-config.yml` as was done for
-`TEST_CONFIGURATION_ACCESS_TOKEN`.
+Decided the same day (decision 6): `COVERAGE_APP_PRIVATE_KEY` is added to
+the `secrets-outside-env` allowlist in `codegen/github/zizmor-config.yml`,
+as was done for `TEST_CONFIGURATION_ACCESS_TOKEN`, and the config is copied
+into all ten repositories. After that every repository has no
+`secrets-outside-env` finding under the auditor persona. The remaining
+auditor-only findings are the known help-level ones: `concurrency-limits`
+on the node and python publish workflows (no `concurrency` on publish
+workflows, on purpose) and `template-injection` on `matrix.*` expansions in
+swift and dotnet (see [optional hardening](#optional-hardening-pedantic-and-auditor-personas)).
 
 Watch-outs:
 
@@ -588,6 +597,7 @@ Settled on 2026-11-04.
 | 3 | `TEST_CONFIGURATION_ACCESS_TOKEN` | **Allowlist in config** | secret stays at org level, release process unchanged; auditor runs are clean |
 | 4 | Keeping ten repos in sync | **Canonical files in codegen, copied by `generate-*.bash`** | `codegen/github/` plus `scripts/sync-github-templates.bash`; `make sdk` exposes drift |
 | 5 | Dependabot scope | **Deferred** (first settled as `github-actions` ecosystem only, revised the same day: no `dependabot.yml` for now) | no `.github/dependabot.yml` in any repository; pins are bumped by hand; the proposed file stays in this document |
+| 6 | `COVERAGE_APP_PRIVATE_KEY` (settled 2026-11-11) | **Allowlist in config** | the coverage publish job keeps using the organization secret without a deployment environment; the GitHub App is limited to the `test-coverage` repository and the job runs only on pushes to the default branch; auditor runs report no `secrets-outside-env` |
 
 Appendix A: SHA pins
 --------------------
