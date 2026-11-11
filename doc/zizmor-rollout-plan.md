@@ -499,6 +499,23 @@ single re-run. Decision 5 was revised
 the same day: `.github/dependabot.yml` was removed from the templates, from
 this repository and from all nine SDK PRs in follow-up commits.
 
+Re-sync (2026-11-11): every SDK default branch gained the coverage work
+(unified coverage gate, coverage publish job using the `test-coverage`
+GitHub App, CODEOWNERS) and Swift also #12/#13 (linux-test on
+`ubuntu-24.04`, iOS-only Apple build). The default branch was merged into
+all nine `chore/zizmor` branches with merge commits. The only conflicts
+were the same in every CI workflow (the coverage PRs added the same
+`permissions: contents: read`, ours adds the `concurrency` block next to
+it; both kept) and in the README badge line (Coverage and zizmor badges
+both kept, Coverage first). All nine merged branches report no findings
+under the regular persona. Under the auditor persona one new finding
+appears wherever coverage is published: `secrets.COVERAGE_APP_PRIVATE_KEY`
+is referenced without a dedicated environment (`secrets-outside-env`).
+Open decision: either move the publish job to a GitHub environment that
+holds that key, or add it to the `secrets-outside-env` allowlist in
+`codegen/github/zizmor-config.yml` as was done for
+`TEST_CONFIGURATION_ACCESS_TOKEN`.
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
