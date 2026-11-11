@@ -30,7 +30,6 @@ rm -rf $targetDir/docs/*
 mv $tempDir/docs/* $targetDir/docs/
 mv "$tempDir/README.md" "$targetDir/README.template"
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf $tempDir
 

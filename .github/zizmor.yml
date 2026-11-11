@@ -1,4 +1,5 @@
-# zizmor configuration shared by all aspose-barcode-cloud repositories.
+# zizmor configuration for the workflows of this repository and of every SDK
+# submodule, used by .github/workflows/zizmor.yml and `make zizmor`.
 # Docs: https://docs.zizmor.sh/configuration/
 rules:
   unpinned-uses:

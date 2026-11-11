@@ -30,6 +30,5 @@ mkdir -p "$exampleDir" || true
 mv "$tempDir/MainActivity.kt" "$exampleDir/MainActivity.kt"
 
 ../scripts/copy-common-files.bash "$targetDir" --no-coverage
-../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf $tempDir

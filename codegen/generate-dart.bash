@@ -46,7 +46,6 @@ mkdir -p "$targetDir/doc/models/"
 mv $tempDir/doc/*.md $targetDir/doc/models/
 
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 
 # Cleanup
 rm -rf $tempDir

@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/github/license/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift)](LICENSE)
 [![Swift CI](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/swift.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/aspose-barcode-cloud/test-coverage/main/swift/coverage-badge.json)](https://github.com/aspose-barcode-cloud/test-coverage)
-[![zizmor](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/zizmor.yml/badge.svg?branch=main)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/actions/workflows/zizmor.yml)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift?label=SwiftPM&sort=semver)](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift/releases/latest)
 
 This repository contains the Swift SDK for Aspose.BarCode Cloud.

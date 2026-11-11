@@ -44,7 +44,6 @@ mv $tempDir/docs/* $targetDir/docs
 mv "$tempDir/README.md" "$targetDir/README.template"
 mv $tempDir/pom.xml $targetDir
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 
 mv "$tempDir/dependency.xml" "$targetDir/snippets/dependency.xml"
 

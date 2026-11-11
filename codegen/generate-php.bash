@@ -45,7 +45,6 @@ sed -i 's|\\Aspose\\BarCode\\Model\\\\Aspose\\BarCode\\Model\\|\\Aspose\\BarCode
 
 mv "${tempDir}/README.md" "${targetDir}/README.template"
 ../scripts/copy-common-files.bash "${targetDir}"
-../scripts/sync-github-templates.bash "$targetDir"
 
 
 rm -rf "${tempDir}"

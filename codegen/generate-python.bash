@@ -44,7 +44,6 @@ cp "$tempDir/tox.ini" "$targetDir/tox.ini"
 cp "$tempDir/README.md" "$targetDir/README.template"
 
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf $tempDir
 

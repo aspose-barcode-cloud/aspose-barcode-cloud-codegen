@@ -33,18 +33,6 @@ jobs:
           git submodule update --recursive --remote
           git diff --exit-code
 
-  check-github-templates:
-    name: Check shared GitHub config in sync
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - name: Check .github matches codegen/github templates
-        run: |
-          ./scripts/sync-github-templates.bash .
-          git diff --exit-code -- .github
-
   check-swagger:
     name: Check swagger specification up-to-date
     runs-on: ubuntu-latest

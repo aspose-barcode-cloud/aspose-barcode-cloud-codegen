@@ -26,7 +26,6 @@ mv "$tempDir/docs/index.md" "$targetDir/docs/index.md"
 mv "$tempDir/docs/models.md" "$targetDir/docs/models.md"
 mv "$tempDir/README.template" "$targetDir/README.template"
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 
 rm -rf $tempDir
 

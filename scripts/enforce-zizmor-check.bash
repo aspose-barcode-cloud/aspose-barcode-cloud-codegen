@@ -1,14 +1,15 @@
 #!/bin/bash
 #
 # Phase 3 of doc/zizmor-rollout-plan.md: make the "Run zizmor" check required
-# on the default branch of every repository and set the organization's
-# default GITHUB_TOKEN permissions to read-only.
+# on the default branch of this repository and set the organization's default
+# GITHUB_TOKEN permissions to read-only.
+#
+# zizmor runs only here: .github/workflows/zizmor.yml audits this repository
+# and every SDK submodule (decision 7), so only this repository gets the rule.
 #
 # Needs the GitHub CLI (`gh`) logged in as an organization owner. Run it after
-# the zizmor pull requests are merged, so the check exists on every default
-# branch. Idempotent: an existing ruleset named "zizmor" is updated in place.
-# If the organization plan allows organization rulesets, one ruleset there
-# (same rule, target "all repositories") can replace the per-repository ones.
+# the zizmor pull request is merged, so the check exists on the default branch.
+# Idempotent: an existing ruleset named "zizmor" is updated in place.
 #
 # Usage:
 #   ./scripts/enforce-zizmor-check.bash            # apply
@@ -16,20 +17,9 @@
 set -euo pipefail
 
 org="aspose-barcode-cloud"
-repos=(
-    aspose-barcode-cloud-codegen
-    aspose-barcode-cloud-go
-    Aspose.BarCode-Cloud-SDK-for-Android
-    Aspose.BarCode-Cloud-SDK-for-Dart
-    Aspose.BarCode-Cloud-SDK-for-.NET
-    Aspose.BarCode-Cloud-SDK-for-Java
-    Aspose.BarCode-Cloud-SDK-for-Node.js
-    Aspose.BarCode-Cloud-SDK-for-PHP
-    Aspose.BarCode-Cloud-SDK-for-Python
-    Aspose.BarCode-Cloud-SDK-for-Swift
-)
+repo="aspose-barcode-cloud-codegen"
 ruleset_name="zizmor"
-check_name="Run zizmor"      # job name in codegen/github/zizmor.yml
+check_name="Run zizmor"      # job name in .github/workflows/zizmor.yml
 github_actions_app_id=15368  # only checks reported by GitHub Actions count
 
 dry_run=0
@@ -40,12 +30,11 @@ elif [ $# -ne 0 ]; then
     exit 1
 fi
 
-# One ruleset per repository on its default branch ("~DEFAULT_BRANCH" is
-# `main` everywhere except go, where it is `v4`): a pull request or push must
-# carry a passing "Run zizmor" check. Repository admins keep an "always"
-# bypass so the direct release pushes to the default branch (ReleaseWorkflow.md)
-# are not blocked; the zizmor workflow still runs on every push and the README
-# badge shows the result.
+# A pull request or push to the default branch must carry a passing
+# "Run zizmor" check. Repository admins keep an "always" bypass so the direct
+# release pushes to the default branch (ReleaseWorkflow.md) are not blocked;
+# the zizmor workflow still runs on every push and the README badge shows the
+# result.
 ruleset_json=$(cat <<EOF
 {
   "name": "${ruleset_name}",
@@ -81,17 +70,15 @@ run() {
     fi
 }
 
-for repo in "${repos[@]}"; do
-    existing=$(gh api "repos/${org}/${repo}/rulesets" \
-        --jq ".[] | select(.name == \"${ruleset_name}\") | .id" 2>/dev/null || true)
-    if [ -n "${existing}" ]; then
-        echo "${repo}: updating ruleset ${existing}"
-        echo "${ruleset_json}" | run api --method PUT "repos/${org}/${repo}/rulesets/${existing}" --input -
-    else
-        echo "${repo}: creating ruleset"
-        echo "${ruleset_json}" | run api --method POST "repos/${org}/${repo}/rulesets" --input -
-    fi
-done
+existing=$(gh api "repos/${org}/${repo}/rulesets" \
+    --jq ".[] | select(.name == \"${ruleset_name}\") | .id" 2>/dev/null || true)
+if [ -n "${existing}" ]; then
+    echo "${repo}: updating ruleset ${existing}"
+    echo "${ruleset_json}" | run api --method PUT "repos/${org}/${repo}/rulesets/${existing}" --input -
+else
+    echo "${repo}: creating ruleset"
+    echo "${ruleset_json}" | run api --method POST "repos/${org}/${repo}/rulesets" --input -
+fi
 
 # Organization default for GITHUB_TOKEN: read-only. Every workflow in these
 # repositories declares its permissions explicitly, so this only guards

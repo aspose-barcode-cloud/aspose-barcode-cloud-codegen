@@ -10,6 +10,14 @@ decisions were settled on 2026-11-04 (see [Decisions taken](#decisions-taken));
 the numbers and templates below already reflect them. Re-run the baseline
 before starting work (see [Reproducing the baseline](#reproducing-the-baseline)).
 
+**Revised on 2026-11-11 (decision 7): zizmor runs only in this repository.**
+`.github/workflows/zizmor.yml` here checks out the SDK submodules and audits
+`.github` and `submodules/*/.github` with `.github/zizmor.yml`. The SDK
+repositories keep the workflow hardening from Phase 2 but no zizmor workflow,
+config or README badge; the shared templates in `codegen/github/`, the sync
+script and its check were removed. Sections below that describe per-SDK
+copies record how the rollout got here.
+
 Contents
 --------
 
@@ -534,6 +542,26 @@ as in the other SDKs; the line is in `codegen/Templates/swift/README.mustache`
 on this branch too), and its `check-badges.yml` gets a job name and a
 concurrency group like the other SDKs' copies.
 
+Then codegen `main` (#161 unified coverage, #162) was merged into this
+branch and the submodule pointers were set to the SDK default-branch heads;
+the SDK default branches had gained "Drop the redundant chmod +x
+scripts/*", which was merged into seven `chore/zizmor` branches.
+
+Decision 7 (same day): zizmor runs only in this repository, because the SDK
+workflows reach it through the submodules anyway. Every `chore/zizmor`
+branch got "Drop the zizmor workflow and config" (removes
+`.github/workflows/zizmor.yml`, `.github/zizmor.yml` and the README badge;
+the workflow hardening stays). Here, `.github/workflows/zizmor.yml` checks
+out the submodules and audits `.github submodules/*/.github` with
+`.github/zizmor.yml`; `codegen/github/`, `scripts/sync-github-templates.bash`,
+`make sync-github`, the "Check shared GitHub config in sync" job, the sync
+calls in `codegen/generate-*.bash` and the zizmor badges in the SDK README
+templates were removed. Measured with the shared config: the SDK default
+branches report 67 findings (regular persona), the nine `chore/zizmor`
+branches none. So the order is: merge the nine SDK pull requests, then bump
+the submodules here; until then "Run zizmor" on this pull request reports
+the SDK default branches' findings.
+
 Watch-outs:
 
 * `.NET Framework Windows` job runs PowerShell; env-var syntax is
@@ -576,7 +604,8 @@ admins so the direct release pushes keep working; organization default
 `GITHUB_TOKEN` read-only). Run it once the ten zizmor PRs are merged, so the
 check exists on every default branch; `--dry-run` prints the calls. The
 script could not be exercised against the API from the sandbox that wrote
-it (no GitHub CLI login there).
+it (no GitHub CLI login there). Since decision 7 the script sets the ruleset
+on this repository only, the one place "Run zizmor" runs.
 
 ### Phase 4: maintain
 
@@ -586,7 +615,7 @@ it (no GitHub CLI login there).
   rollout PRs are merged.
 * zizmor releases roughly monthly; new rules can turn an existing workflow
   red. Treat it like any other linter upgrade: fix or add an `ignore:` with a
-  reason in `codegen/github/zizmor-config.yml` and re-sync, never `disable`.
+  reason in `.github/zizmor.yml`, never `disable`.
 * Revisit `persona: pedantic` after the optional hardening is done fleet-wide.
 * Before each release, refresh `TEST_CONFIGURATION_ACCESS_TOKEN` as today.
 
@@ -607,6 +636,7 @@ Settled on 2026-11-04.
 | 4 | Keeping ten repos in sync | **Canonical files in codegen, copied by `generate-*.bash`** | `codegen/github/` plus `scripts/sync-github-templates.bash`; `make sdk` exposes drift |
 | 5 | Dependabot scope | **Deferred** (first settled as `github-actions` ecosystem only, revised the same day: no `dependabot.yml` for now) | no `.github/dependabot.yml` in any repository; pins are bumped by hand; the proposed file stays in this document |
 | 6 | `COVERAGE_APP_PRIVATE_KEY` (settled 2026-11-11) | **Allowlist in config** | the coverage publish job keeps using the organization secret without a deployment environment; the GitHub App is limited to the `test-coverage` repository and the job runs only on pushes to the default branch; auditor runs report no `secrets-outside-env` |
+| 7 | Where zizmor runs (settled 2026-11-11) | **Only in codegen** (revises decision 4) | `.github/workflows/zizmor.yml` audits this repository and `submodules/*/.github`; the SDKs keep the hardened workflows but have no zizmor workflow, config or badge; no templates or sync script; one required check instead of ten |
 
 Appendix A: SHA pins
 --------------------

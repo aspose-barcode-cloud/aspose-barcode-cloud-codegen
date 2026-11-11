@@ -23,7 +23,6 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/StorageApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 
 ../scripts/copy-common-files.bash "$targetDir"
-../scripts/sync-github-templates.bash "$targetDir"
 cp ../LICENSE "$targetDir/src/LICENSE.txt"
 
 rm -rf "$targetDir/src/Model/"
