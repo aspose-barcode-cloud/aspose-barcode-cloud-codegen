@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copy the files that every SDK shares with this repository into an SDK checkout.
 #
-# Usage: scripts/copy-common-files.bash [--no-coverage] <sdk-dir>
+# Usage: scripts/copy-common-files.bash <sdk-dir> [--no-coverage]
 #
 # Called by every codegen/generate-<sdk>.bash. The copies in the SDKs are
 # overwritten on each generation, so edit the files here, never in an SDK.
@@ -15,10 +15,9 @@
 # is exempt from the coverage requirements (android, a demo application).
 set -euo pipefail
 
-# The SDK directory is the last argument; --no-coverage may come before it.
-targetDir=${!#}
-if [ $# -gt 2 ] || { [ $# -eq 2 ] && [ "$1" != "--no-coverage" ]; } || [ ! -d "${targetDir}" ]; then
-    >&2 echo "Usage: $0 [--no-coverage] <sdk-dir>"
+targetDir=${1:-}
+if [ ! -d "${targetDir}" ] || [ $# -gt 2 ] || { [ $# -eq 2 ] && [ "$2" != "--no-coverage" ]; }; then
+    >&2 echo "Usage: $0 <sdk-dir> [--no-coverage]"
     exit 2
 fi
 repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
@@ -31,6 +30,6 @@ mkdir -p "${scriptsDir}"
 
 cp "${repoDir}/LICENSE" "${targetDir}/"
 cp "${repoDir}/scripts/check-badges.bash" "${scriptsDir}/"
-if [ "$1" != "--no-coverage" ]; then
+if [ "${2:-}" != "--no-coverage" ]; then
     cp "${repoDir}/scripts/coverage.py" "${repoDir}/scripts/publish-coverage.py" "${scriptsDir}/"
 fi

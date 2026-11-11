@@ -29,6 +29,6 @@ rm -rf ${exampleDir:?}/*
 mkdir -p "$exampleDir" || true
 mv "$tempDir/MainActivity.kt" "$exampleDir/MainActivity.kt"
 
-../scripts/copy-common-files.bash --no-coverage "$targetDir"
+../scripts/copy-common-files.bash "$targetDir" --no-coverage
 
 rm -rf $tempDir
