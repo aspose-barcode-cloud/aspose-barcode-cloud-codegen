@@ -16,7 +16,7 @@
 set -euo pipefail
 
 targetDir=${1:-}
-if [ ! -d "${targetDir}" ] || [ $# -gt 2 ] || { [ $# -eq 2 ] && [ "$2" != "--no-coverage" ]; }; then
+if [ ! -d "${targetDir}" ]; then
     >&2 echo "Usage: $0 <sdk-dir> [--no-coverage]"
     exit 2
 fi
