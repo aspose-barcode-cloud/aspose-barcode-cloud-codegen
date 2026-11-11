@@ -18,6 +18,21 @@ default (mainline) branch. The default branch is `main` for every SDK **except `
 | python | [`Aspose.BarCode-Cloud-SDK-for-Python`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Python) | `main` |
 | swift | [`Aspose.BarCode-Cloud-SDK-for-Swift`](https://github.com/aspose-barcode-cloud/Aspose.BarCode-Cloud-SDK-for-Swift) | `main` |
 
+Merging pull requests
+---------------------
+
+The same in every SDK repository, this repository and `test-coverage`, enforced by
+[`scripts/github-settings.py`](../scripts/github-settings.py) (see [github-settings.md](github-settings.md)):
+
+* squash merge only, with a linear history; the squash commit takes the pull request title;
+* one approval, dismissed by new commits, and the repository's required checks;
+* the head branch is deleted after the merge;
+* repository admins and organization owners may bypass these rules;
+* only they may create, move or delete `v*` tags, which publish the releases.
+
+Release branches
+----------------
+
 Release work lands on a `release-<major>.<minor>` branch (e.g.
 `release-26.7`) cut from the default branch. If the release has a non-zero
 patch component, include it in the branch name (e.g. `release-26.7.1`).
