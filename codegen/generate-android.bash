@@ -29,6 +29,6 @@ rm -rf ${exampleDir:?}/*
 mkdir -p "$exampleDir" || true
 mv "$tempDir/MainActivity.kt" "$exampleDir/MainActivity.kt"
 
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 
 rm -rf $tempDir

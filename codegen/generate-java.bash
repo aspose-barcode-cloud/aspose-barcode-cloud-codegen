@@ -43,8 +43,7 @@ mv $tempDir/docs/* $targetDir/docs
 
 mv "$tempDir/README.md" "$targetDir/README.template"
 mv $tempDir/pom.xml $targetDir
-cp ../LICENSE $targetDir
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
+../scripts/copy-common-files.bash "$targetDir"
 
 mv "$tempDir/dependency.xml" "$targetDir/snippets/dependency.xml"
 

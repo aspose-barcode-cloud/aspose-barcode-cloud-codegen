@@ -22,9 +22,8 @@ java -jar Tools/openapi-generator-cli.jar generate -i "$specSource" -g csharp -t
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/RecognizeApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 # python Tools/split-cs-file.py $tempDir/src/Aspose.BarCode.Cloud.Sdk/Api/StorageApi.cs $tempDir/src/Aspose.BarCode.Cloud.Sdk/Model/Requests/
 
-cp ../LICENSE "$targetDir/"
+../scripts/copy-common-files.bash "$targetDir"
 cp ../LICENSE "$targetDir/src/LICENSE.txt"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
 
 rm -rf "$targetDir/src/Model/"
 # AbstractOpenAPISchema: oneOf/anyOf base class this spec never uses (no polymorphic models).

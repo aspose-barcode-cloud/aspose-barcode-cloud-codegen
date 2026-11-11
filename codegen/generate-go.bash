@@ -29,8 +29,7 @@ mv $tempDir/*.go $targetDir/barcode/
 rm -rf $targetDir/docs/*
 mv $tempDir/docs/* $targetDir/docs/
 mv "$tempDir/README.md" "$targetDir/README.template"
-cp ../LICENSE "$targetDir/"
-cp ../scripts/check-badges.bash "$targetDir/scripts/"
+../scripts/copy-common-files.bash "$targetDir"
 
 rm -rf $tempDir
 
