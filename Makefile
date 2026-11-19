@@ -17,6 +17,13 @@ mypy:
 update:
 	./scripts/update_swagger_spec.bash
 
+# Audit the GitHub Actions workflows of this repo and all SDK submodules with
+# zizmor, as .github/workflows/zizmor.yml does in CI.
+# Set GH_TOKEN to enable the online audits (e.g. GH_TOKEN=$$(gh auth token)).
+.PHONY: zizmor
+zizmor:
+	zizmor --config .github/zizmor.yml .github submodules/*/.github
+
 .PHONY: start-release
 start-release:
 	./scripts/start-release.bash
