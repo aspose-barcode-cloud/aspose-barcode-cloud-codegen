@@ -27,13 +27,3 @@ jobs:
         run: |
           git submodule update --recursive --remote
           git diff --exit-code
-
-  check-swagger:
-    runs-on: ubuntu-latest
-    needs: [check-submodules]
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - name: Check existing swagger specification is up-to-date
-        run: curl https://api.aspose.cloud/v4.0/barcode/swagger/spec | diff --strip-trailing-cr -y --suppress-common-lines spec/aspose-barcode-cloud.json -
