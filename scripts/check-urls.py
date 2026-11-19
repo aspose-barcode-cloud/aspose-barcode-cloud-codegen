@@ -43,6 +43,9 @@ URLS_TO_IGNORE = frozenset(
         "https://api.aspose.cloud",
         "https://api.aspose.cloud/{version}",
         "https://api.aspose.cloud/v5.0",
+        # API root used by publish-coverage.py; unauthenticated requests from
+        # CI runners get rate-limited with 403.
+        "https://api.github.com",
         "https://www.aspose.cloud/404",
         "https://www.aspose.cloud/404/",
     ]
