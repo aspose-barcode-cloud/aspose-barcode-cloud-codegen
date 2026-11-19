@@ -11,13 +11,8 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 jobs:
   check-submodules:
-    name: Check all submodules up-to-date
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +29,6 @@ jobs:
           git diff --exit-code
 
   check-swagger:
-    name: Check swagger specification up-to-date
     runs-on: ubuntu-latest
     needs: [check-submodules]
     steps:

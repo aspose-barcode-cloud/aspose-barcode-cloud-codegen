@@ -5,7 +5,7 @@ rules:
   unpinned-uses:
     config:
       policies:
-        # GitHub's own actions may stay on tags (team decision 1);
+        # GitHub's own actions may stay on tags;
         # everything else must be pinned to a commit SHA.
         actions/*: ref-pin
         "*": hash-pin
