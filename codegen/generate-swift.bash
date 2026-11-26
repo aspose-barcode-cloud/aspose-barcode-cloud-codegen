@@ -28,6 +28,8 @@ mv "$tempDir/README.md" "$targetDir/README.template"
 rm -rf "$targetDir/docs"
 mv "$tempDir/docs" "$targetDir/docs"
 
+python3 ../scripts/fix-swift-docs.py "$specSource" "$targetDir/Sources/AsposeBarcodeCloud/Models" "$targetDir/docs"
+
 mv "$tempDir/.swiftformat" "$targetDir/"
 
 ../scripts/copy-common-files.bash "$targetDir"
