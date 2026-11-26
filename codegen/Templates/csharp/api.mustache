@@ -151,12 +151,14 @@ namespace {{packageName}}.Api
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = await _apiInvoker.InvokeApiAsync(
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}},
+                cancellationToken: cancellationToken);{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}{{#returnType}} string response = await _apiInvoker.InvokeApiAsync(
                 resourcePath,
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 null,
-                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}},
+                cancellationToken: cancellationToken);
 
              return response != null ? ({{returnType}}) SerializationHelper.Deserialize(response, typeof({{returnType}})) : null;
 
@@ -167,7 +169,8 @@ namespace {{packageName}}.Api
                 "{{httpMethod}}",
                 {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}},
                 {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}},
-                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
+                {{#hasFormParams}}multipartContent{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}},
+                cancellationToken: cancellationToken);{{/returnType}}{{/x-binary-result}}{{/vendorExtensions}}
         }
         {{/operation}}
     }
