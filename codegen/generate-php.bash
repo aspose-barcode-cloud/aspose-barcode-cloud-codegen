@@ -15,6 +15,9 @@ fi
 # java -DdebugOperations -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g php -t Templates/php -o "${tempDir}" -c config-php.json > debugOperations.php.json; exit
 java -jar Tools/openapi-generator-cli.jar generate -i "${specSource}" -g php -t Templates/php -o "${tempDir}" -c config-php.json
 
+# Restore namespaces flattened by generator 7.22.0 for single-reference allOf properties.
+sed -i 's|\\AsposeBarCodeModel|\\Aspose\\BarCode\\Model\\|g' "${tempDir}/lib/Model/"*.php
+
 python Tools/split-php-file.py "${tempDir}/lib/Api/GenerateApi.php" "${tempDir}/lib/Requests/"
 python Tools/split-php-file.py "${tempDir}/lib/Api/ScanApi.php" "${tempDir}/lib/Requests/"
 python Tools/split-php-file.py "${tempDir}/lib/Api/RecognizeApi.php" "${tempDir}/lib/Requests/"

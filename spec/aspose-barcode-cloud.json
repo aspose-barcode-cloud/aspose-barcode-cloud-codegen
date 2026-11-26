@@ -1159,6 +1159,130 @@
         "x-binary-result": true
       }
     },
+    "/barcode/generate-batch": {
+      "post": {
+        "tags": [
+          "Generate"
+        ],
+        "summary": "Generate multiple barcodes and return them in a ZIP, TAR, or TAR.GZ archive.",
+        "operationId": "GenerateBatch",
+        "requestBody": {
+          "description": "Batch generation request in JSON or XML format.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "Batch barcode generation request.",
+                "$ref": "#/components/schemas/BatchGenerateRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "description": "Batch barcode generation request.",
+                "$ref": "#/components/schemas/BatchGenerateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/x-tar": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/gzip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "description": "ApiError Response",
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "x-binary-result": true
+      }
+    },
     "/barcode/recognize": {
       "get": {
         "tags": [
@@ -2090,6 +2214,86 @@
           "name": "BarcodeResponseList"
         }
       },
+      "BatchArchiveFormat": {
+        "enum": [
+          "Zip",
+          "Tar",
+          "TarGzip"
+        ],
+        "type": "string",
+        "description": "Archive format for batch barcode generation.",
+        "xml": {
+          "name": "ArchiveFormat"
+        }
+      },
+      "BatchGenerateItem": {
+        "required": [
+          "generation"
+        ],
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional file name inside the archive. When omitted or blank, a sequential name is generated.\nSupplied safe names are preserved; the image format is independent of the file extension.",
+            "xml": {
+              "name": "FileName"
+            }
+          },
+          "generation": {
+            "allOf": [
+              {
+                "description": "Barcode generation parameters.",
+                "$ref": "#/components/schemas/GenerateParams"
+              }
+            ],
+            "xml": {
+              "name": "Generation"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "One barcode to generate in a batch.",
+        "xml": {
+          "name": "BatchGenerateItem"
+        }
+      },
+      "BatchGenerateRequest": {
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "archiveFormat": {
+            "description": "Format of the returned archive. Default value: Zip.",
+            "default": "Zip",
+            "$ref": "#/components/schemas/BatchArchiveFormat"
+          },
+          "items": {
+            "maxItems": 3,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "description": "One barcode to generate in a batch.",
+              "$ref": "#/components/schemas/BatchGenerateItem"
+            },
+            "description": "Barcodes to generate. A batch must contain between one and three items.",
+            "xml": {
+              "name": "Items",
+              "wrapped": true
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Batch barcode generation request.",
+        "xml": {
+          "name": "BatchGenerateRequest"
+        }
+      },
       "Code128EncodeMode": {
         "enum": [
           "Auto",
@@ -2216,7 +2420,8 @@
           "SwissPostParcel",
           "UPCA",
           "UPCE",
-          "VIN"
+          "VIN",
+          "JapanPost"
         ],
         "type": "string",
         "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.barcoderecognition/decodetype/",
@@ -2341,7 +2546,8 @@
           "UPCE",
           "UpcaGs1Code128Coupon",
           "UpcaGs1DatabarCoupon",
-          "VIN"
+          "VIN",
+          "JapanPost"
         ],
         "type": "string",
         "description": "See https://reference.aspose.com/barcode/net/aspose.barcode.generation/encodetypes/",

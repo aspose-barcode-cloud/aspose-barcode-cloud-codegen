@@ -26,7 +26,7 @@
     "hideGenerationTimestamp": true,
     "library": "urlsession",
     "mapFileBinaryToData": true,
-    "packageVersion": "26.10.0",
+    "packageVersion": "26.11.0",
     "projectName": "AsposeBarcodeCloud",
     "responseAs": "AsyncAwait,ObjcBlock",
     "swiftPackagePath": "Sources/AsposeBarcodeCloud",
