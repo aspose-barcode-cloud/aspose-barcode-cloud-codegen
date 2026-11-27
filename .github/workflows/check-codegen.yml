@@ -12,6 +12,17 @@ permissions:
   contents: read
 
 jobs:
+  check-codegen-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Test documentation generation helpers
+        run: |
+          python3 -m unittest discover -s scripts/tests -v
+          bash -n codegen/generate-swift.bash
+
   check-submodules:
     runs-on: ubuntu-latest
 

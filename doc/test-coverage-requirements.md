@@ -4,8 +4,8 @@ Every generated SDK must satisfy two coverage bars. `submodules/android` is exem
 demo application that consumes the published Java SDK, so it has no API surface of its own to cover.
 
 1. **API endpoint coverage — at least 80%.** At least 80% of the API operations defined in
-   `spec/aspose-barcode-cloud.json` must be exercised by a test (no fewer than 8 of the 9 at the current
-   surface). Every SDK currently covers all 9 operations (100%).
+   `spec/aspose-barcode-cloud.json` must be exercised by a test (no fewer than 8 of the 10 at the current
+   surface). Every SDK currently covers all 10 operations (100%).
 2. **Line code coverage — at least 80%, enforced by a per-SDK CI gate.** Each SDK's own CI fails the build
    when line coverage of the SDK library code drops below 80%. The bar is reached with deterministic
    **offline** tests over the generated model / enum / serialization / core code (mirroring java's
