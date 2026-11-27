@@ -7,7 +7,9 @@ Requirements
 Windows: Bash, WSL, Python3, Java runtime
 WSL: Debian (or Ubuntu) Bullseye
 Debian packages: list in file `./doc/deb_packages.list`. To install run `./scripts/install-all-packages.bash` in your Debian on WSL
-Swift SDK: Swift 6.0 or newer and `swiftformat`
+Swift SDK: Swift 6.0 or newer and SwiftFormat 0.64.0 for reproducible formatting.
+Older SwiftFormat versions do not recognize every rule in the generated `.swiftformat`.
+Install the pinned formatter with `mint install nicklockwood/SwiftFormat@0.64.0`.
 
 Steps:
 1. Call `./scripts/start-release.bash`

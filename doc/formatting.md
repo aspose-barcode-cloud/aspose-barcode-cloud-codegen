@@ -24,7 +24,7 @@ pushd "$targetDir" && make after-gen && popd >/dev/null
 | SDK    | `make format` runs |
 |--------|--------------------|
 | Dart   | `dart format .` |
-| Swift  | `swiftformat .` |
+| Swift  | `swiftformat .` (SwiftFormat 0.64.0) |
 | Python | `black --line-length=120 … tests/ scripts/ snippets/ …` |
 | .NET   | `dotnet format` |
 | Go     | `scripts/format.sh` (`gofmt`) |
